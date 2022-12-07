@@ -1,0 +1,222 @@
+doctype html
+html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='generator', content='EDPB website auditing tool')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=yes')
+    style(type='text/css').
+      .notrunc {
+        white-space: nowrap;
+      }
+        
+      .trunc {
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow: hidden;
+        max-width:200px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 100%;
+        border-bottom: 1px solid #d0d0d0;
+        table-layout: fixed;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      thead {
+          border: 10;
+          background: #004494;
+          color: #fff;
+      }
+      tbody tr {
+            height: 27px;
+            position: relative;
+      }
+      tbody tr {
+            height: 27px;
+            position: relative;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #ecedee;
+      }
+      tbody tr:nth-child(odd) {
+        background-color: #f7f7f7;
+      }
+      .evaluation {
+        cursor: pointer;
+        margin: 10px 0;
+        border: 1px solid #A7A7A7;
+        padding: 12px 8px;
+        background-color: #F5F5F5;
+      }
+
+  body
+      if tag
+        h1=tag.name
+        i Data collection started at #{new Date(tag.created_at).toLocaleString()}
+        br
+        i Data collection finished at #{new Date(tag.updated_at).toLocaleString()}
+
+      if cookies
+        h3  #{cookies.length} cookies have been stored in the browser :
+        table(style="width: 100%;")
+                thead
+                  tr
+                    th.notrunc Domain
+                    th.notrunc Path
+                    th.notrunc Name
+                    th.trunc Value
+                    th.notrunc httpOnly
+                    th.notrunc secure
+                    th.notrunc sameSite
+                    th.notrunc Expiry in days
+                tbody
+                  each cookie,index in cookies
+                    tr
+                      td.notrunc: a(href=`http://${cookie.domain}`)= cookie.domain
+                      td.notrunc: a(href=`http://${cookie.domain}${cookie.path}`)= cookie.path
+                      td.notrunc= cookie.name
+                      td.trunc= cookie.value
+                      td.notrunc= cookie.httpOnly
+                      td.notrunc= cookie.secure
+                      td.notrunc= cookie.sameSite
+                      td.notrunc
+                        if cookie.session
+                          em session
+                        else
+                          = cookie.expiresDays
+
+      if localstorage
+        h3  #{localstorage.length} keys have been stored in the localstorage :
+        table(style="width: 100%;")
+                thead
+                  tr
+                    th.notrunc host
+                    th.notrunc key
+                    th.trunc value
+                tbody
+                  each entry,index in localstorage
+                    tr
+                      td.trunc: a(href=entry.host target="_blank" title=entry.host)= entry.host.replace(/(^\w+:|^)\/\//, '')
+                      td.trunc= entry.key
+                      td.trunc.code: pre: code= JSON.stringify(entry.value, null, 2)
+
+      if beacons
+        h3  #{beacons.length} web bacons match the entries of the lists #[a(href='https://easylist.to/#easyprivacy' target="_blank") EasyPrivacy]  and #[a(href='https://easylist.to/#fanboy-s-annoyance-list' target="_blank") Fanboy's Annoyance] :
+        table(style="width: 100%;")
+                thead
+                  tr
+                    th.notrunc url
+                    th.notrunc frequence
+                tbody
+                  each entry,index in beacons
+                    tr
+                      td.trunc: a(href=entry.url target="_blank" title=entry.url)= entry.url.replace(/(^\w+:|^)\/\//, '')
+                      td.trunc= entry.occurrances
+
+      if unsafeForms
+        if unsafeForms.length > 0
+          h3  #{unsafeForms.length} forms has been found:
+          table(style="width: 100%;")
+                  thead
+                    tr
+                      th.notrunc Web Form ID
+                      th.notrunc Recipient URL
+                      th.notrunc HTTP Method
+                  tbody
+                    each entry,index in unsafeForms
+                      tr
+                        td= entry.id
+                        td= entry.action
+                        td= entry.method
+        else
+          h3 No unsafe forms has been found
+
+      if traffic
+        h3  #{traffic.length} hosts has been requested:
+         table(style="width: 100%;")
+                thead
+                  tr
+                    th.notrunc domain
+                tbody
+                  each entry,index in traffic
+                    tr
+                      td.trunc: a(href=entry.requested target="_blank" title=entry.requested)= entry.requested.replace(/(^\w+:|^)\/\//, '')
+
+
+      if secure_connection
+        h3  Use of HTTPS/SSL:
+         table(style="width: 100%;")
+                tbody
+                    tr
+                      td.notrunc allows connection with HTTPS
+                      td.notrunc=secure_connection.https_support
+                    tr 
+                      td.notrunc HTTP redirect to HTTPS
+                      td.notrunc=secure_connection.https_redirect
+                    tr 
+                      td.notrunc HTTP redirect location
+                      td.notrunc=secure_connection.redirects
+      
+      if testSSL
+        h3 TestSSL Scan
+          h4 Protocols
+            table(style="width: 100%;")
+              thead
+                  tr
+                    th Protocol
+                    th Finding
+                    th Severity
+              tbody
+                each protocol in testSSL.protocols
+                  tr
+                    td.notrunc= protocol.id
+                    td= protocol.finding
+                    td.notrunc= protocol.severity
+          
+          h4 HTTPS/SSL Vulnerabilities
+            table(style="width: 100%;")
+              thead
+                  tr
+                    th Vulnerability
+                    th Finding
+                    th CVE
+                    th Severity
+              tbody
+                each vulnerability in testSSL.vulnerabilities
+                  tr
+                    td.notrunc= vulnerability.id
+                    td.trunc(title=vulnerability.finding)= vulnerability.finding
+                    td.trunc(title=vulnerability.cve).trunc                  
+                      if vulnerability.cve
+                        each cve in vulnerability.cve.split(' ')
+                          a(target="_blank" href=`https://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}`)= cve
+                          |
+                    td.notrunc= vulnerability.severity
+
+      if screenshot
+        figure
+          h3=screenshot.name
+          img(src=screenshot.src alt=screenshot.name style="width:100.0%")
+
+      if screenshots 
+        h3 All screenshots
+          each screenshot in screenshots
+            figure
+              img(src=screenshot.src alt=screenshot.name style="width:100.0%")
+              figcaption=screenshot.name
+
+      if evaluation
+        if evaluation.status == "not_compliant"
+          h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+        else if evaluation.status == "compliant"
+          h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+        else if evaluation.status == "TBD"
+          h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+        if evaluation.evaluation_comment
+          div.evaluation|!{evaluation.evaluation_comment}
+        i Evaluation on #{new Date(evaluation.created_at).toLocaleString()}

@@ -1,0 +1,47 @@
+<mat-tab-group dynamicHeight animationDuration="0ms">
+  <mat-tab *ngIf="detailsService.detailsData">
+    <ng-template mat-tab-label>
+      Details
+      <ng-container *ngIf="settingService.help">
+        <mat-icon
+        matTooltip="Detailed information related to the selected line."
+        [matTooltipPosition]="'after'"
+        >help_outline</mat-icon>
+      </ng-container>
+    </ng-template>
+    <app-details
+    [detailsData]= "detailsService.detailsData"
+    ></app-details>
+  </mat-tab>
+  <mat-tab *ngIf="detailsService.detailsData?.log?.stacks?.length">
+    <ng-template mat-tab-label>
+      Logs
+      <ng-container *ngIf="settingService.help">
+        <mat-icon
+        matTooltip="Script or request that stored the selected information."
+        [matTooltipPosition]="'after'"
+        >help_outline</mat-icon>
+      </ng-container>
+
+    </ng-template>
+
+    <app-callstack-details [log]="detailsService.detailsData?.log">
+    </app-callstack-details>
+  </mat-tab>
+  <mat-tab 
+  *ngIf="knowledgeBaseService.knowledgeBaseData != null">
+  <ng-template mat-tab-label>
+    Knowledge
+    <ng-container *ngIf="settingService.help">
+      <mat-icon
+      matTooltip="Information from the knownledge base that could be linked to the selected line."
+      [matTooltipPosition]="'after'"
+      >help_outline</mat-icon>
+    </ng-container>
+  </ng-template>
+
+  <app-knowledge-base
+  [context]="'browser'"
+  ></app-knowledge-base>
+  </mat-tab>
+</mat-tab-group>

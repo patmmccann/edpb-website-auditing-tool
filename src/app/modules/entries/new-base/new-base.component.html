@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>New knowledge base</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Base name</mat-label>
+
+        <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+
+
+        <mat-label>Author</mat-label>
+        <input matInput [(ngModel)]="data.author">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select [(ngModel)]="data.category">
+            <mat-option value="cookie">Cookie</mat-option>
+            <mat-option value="localstorage">Local Storage</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Create</button>
+</div>

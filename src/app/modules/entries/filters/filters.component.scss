@@ -1,0 +1,28 @@
+mat-card{
+    background: #f7f7f7;
+}
+
+.sticky-card{
+    position: sticky;
+    top: 120px;
+}
+
+.example-section {
+    margin: 12px 0;
+  }
+  
+  .example-margin {
+    margin: 0 12px;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+  
+  mat-checkbox{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: normal;
+  }

@@ -1,0 +1,27 @@
+.example-container {
+    position: absolute;
+    top: 106px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.browse_content {
+    width: 100%;
+    height: 100%;
+}
+
+
+mat-nav-list {
+    width: 500px;
+}
+
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-headers-align .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}

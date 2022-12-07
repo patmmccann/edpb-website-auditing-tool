@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/stylesheets/animations";
+
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome.scss";
+
+// Foundation styles
+@import "~foundation-sites/scss/foundation.scss";
+@include foundation-global-styles;
+@include foundation-flex-grid;
+@include foundation-flex-classes;
+
+@import "./assets/edpb/resources/css/css_rp6qcLCr3oWTYoJXBCCjs9vK3zAEHyj_Acl9KBmBhAA";
+
+@import "./assets/eusurvey/resources/css/runner";
+@import "./assets/eusurvey/resources/css/bootstrap";
+
+@import "./assets/stylesheets/btn";
+@import "./assets/stylesheets/tooltip";
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url(./assets/fonts/d824df7eb2e268626a2dd9a6a741ac4e.woff2) format("woff2"),url(./assets/fonts/d745348d289b149026921f197929a893.woff) format("woff"),url(./assets/fonts/b9625119ce4300f0ef890a8f3234c773.ttf) format("truetype")
+}
+
+.mat-button.mat-blue {
+  color: $base-light-blue;
+}
+
+.mat-raised-button.mat-blue, .mat-flat-button.mat-blue{
+  background-color: $base-light-blue;
+  color: white;
+  margin: 16px 16px 16px 0;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Mostly used for displayers
+.close,
+.hide {
+  display: none;
+}
+.open {
+  display: block !important;
+}
+
+// Main blur (used on modals)
+.blur {
+  filter: blur(3px);
+}
+
+.browser-details-position {
+  margin-left:auto; 
+  margin-top:auto;
+  margin-right:0;
+  margin-bottom: 0;
+  //min-height: 100vh;
+  max-width: 500px !important;
+  //margin-top: 80px;
+}
+
+/* #docregion toolbar-position-content-style */
+.header-spacer {
+  flex: 1 1 auto;
+}
+
+/* #enddocregion toolbar-position-content-style */
+
+
+.navigation-header{
+  background-color: $base-blue-dark;
+  color:#fff;
+  font-size: 14px;
+  font-weight: 400;
+  
+  a{
+    color:#fff
+  }
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,33 @@
+// Default animations
+@keyframes append-animate {
+	from {
+		transform: scaleY(0);
+		opacity: 0;
+	}
+	to {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+}
+
+.bounceIn {
+	transform-origin: 50% 0;
+	animation: append-animate .3s linear;
+}
+
+// Default animations
+@keyframes remove-animate {
+	from {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+	to {
+		transform: scaleY(0);
+		opacity: 0;
+	}
+}
+
+.bounceOut {
+	transform-origin: 50% 0;
+	animation: remove-animate .3s linear;
+}

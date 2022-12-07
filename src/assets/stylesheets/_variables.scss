@@ -1,0 +1,49 @@
+// General colors
+$base-green: #5cb85c;
+$base-teal:#20c997;
+$base-red: #ff3333;
+$base-orange: #e8500b;
+$base-blue: #004F98;
+$base-white: #F5F5F5;
+$base-gray: #A7A7A7;
+
+$base-green-light:#D9F1E7;
+$base-light-black: #393939;
+$base-dark-black: #121921;
+$base-light-blue: #3ca8d3;
+
+$base-gray-light:#f7f7f7;
+
+$base-green-dark: #127137;
+$base-red-dark: #C40288;
+$base-gray-dark: #ecedee;
+$base-blue-dark: #004494;
+$base-blue-dark2:#1d5da2;
+
+// Settings Foundation
+$global-flexbox: true;
+$global-font-size: 100%;
+$global-width: 1180px;
+$global-lineheight: 1.5;
+
+$breakpoints: (
+    small: 0,
+    medium: 640px,
+    large: 1024px,
+    xlarge: 1200px,
+    xxlarge: 1440px,
+);
+$print-breakpoint: large;
+$breakpoint-classes: (small medium large);
+
+$grid-row-width: $global-width;
+$grid-column-count: 12;
+$grid-column-gutter: (
+    small: 50px,
+    medium: 20px,
+);
+$grid-column-align-edge: true;
+$block-grid-max: 8;
+
+
+$small: 576px;

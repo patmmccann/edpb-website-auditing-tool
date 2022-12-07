@@ -1,0 +1,17 @@
+<mat-accordion multi="true">
+<header [attr.data-id]="0">
+    <app-global-card 
+    [analysis]="analysis"
+    [card]="global_card"
+    [tag]="tag"
+    [evaluation]="evaluation"
+    (deleted)="refreshCards()"
+    >
+    </app-global-card>
+</header>
+
+<article>
+    <app-cards [context]="'evaluate'" [analysis]="analysis" [tag]="tag" *ngFor="let card of cards" [card]="card">
+    </app-cards>
+</article>
+</mat-accordion>

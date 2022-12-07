@@ -1,0 +1,133 @@
+<div class="header">
+    <div class="header-buttons">
+        <div class="header-button" style="margin-left: 6px;">
+            <button 
+            matTooltip="Go back in browsing history"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            matTooltipClass="browser-tooptil"
+            [disabled]="!canGoBackward"  (click)="backward()" size="20" class="header-button-content">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div class="header-button">
+            <button 
+            matTooltip="Go forward in browsing history"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            [disabled]="!canGoForward" (click)="forward()" size="20" class="header-button-content">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+        <div class="header-button">
+            <button 
+            matTooltip="Reload this url"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            (click)="refresh()" size="20" class="header-button-content">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="header-search">
+        <div class="header-search-loop">
+            
+            <button 
+            matTooltip="Resume evidence collection."
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            *ngIf="pause_state == true else play_button" 
+            (click)="pause_state=false;play.emit()"
+            size="16" opacity="0.87" class="header-search-loop-content">
+                <mat-icon>pause</mat-icon>
+        </button>
+        <ng-template #play_button>
+            <button 
+            matTooltip="Suspend temporarily evidence collection."
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="pause_state=true;pause.emit()"
+            size="16" opacity="0.87" class="header-search-loop-content">
+                <mat-icon>play_arrow</mat-icon>
+                </button>
+        </ng-template>
+        
+        </div>
+        <div class="header-search-input">
+            <input #search [(ngModel)]="addressbarValue" spellcheck="false" placeholder="Search or type in a URL"
+                class="header-search-input-content" (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)">
+            <div class="header-search-input-hidden"></div>
+        </div>
+        <div *ngIf="analysis && tag" class="analysis-name">
+            <button 
+            [matTooltip]="'This sessions is associated to the analysis ' +analysis.name+' and the scenario ' + tag.name"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">
+                {{analysis.name}} > {{tag.name}}
+            </button>
+        </div>
+        <div class="analysis-plus">
+            <button
+            matTooltip="Create a new scenario"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            [routerLink]="analysis?['/entries','new',analysis.id]:['/entries','new']"
+            >
+                +
+            </button>
+        </div>
+        
+        <div *ngIf="this.analysis && this.tag" class="header-search-right">
+            <button 
+            matTooltip="Take a screenshot of this page"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="screenshot.emit()" size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>camera_alt</mat-icon>
+            </button>
+        </div>
+
+        <div class="header-search-right">
+            <button 
+            matTooltip="Clear all information stored in the browser"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            (click)="erase.emit()"  size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>delete_sweep</mat-icon>
+            </button>
+        </div>
+
+
+        <div *ngIf="analysis && tag" class="header-search-right">
+            <button 
+            matTooltip="Stop and save the analysis"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="save.emit()" size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>stop</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="header-option">
+        <div class="header-option-div">
+            <button 
+            matTooltip="Show/hide the evidence bar"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="logVisibile = !logVisibile;toggleLog.emit(logVisibile)"
+            size="18" opacity="0.87" class="header-option-button">
+                <mat-icon 
+                *ngIf="logVisibile" style="margin-left: 50px">chevron_left</mat-icon>
+                <mat-icon *ngIf="!logVisibile" style="margin-left: 50px">chevron_right</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

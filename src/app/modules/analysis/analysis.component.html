@@ -1,0 +1,139 @@
+<mat-toolbar>
+    <mat-toolbar-row class="navigation-header">
+        <li class="breadcrumb-item">
+            <a>
+                <a [routerLink]="['/entries']">
+                    <strong>
+                        Analyses
+                    </strong>
+                </a>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <strong>
+                Edit
+            </strong>
+        </li>
+        <li class="breadcrumb-item">
+            <a *ngIf="activeTag else mainAnalysis" [routerLink]="['/analysis', analysis.id]">
+                {{ analysis.name }}
+            </a>
+            <ng-template #mainAnalysis>
+                {{ analysis.name }}
+            </ng-template>
+        </li>
+        <li *ngIf="activeTag" class="breadcrumb-item">
+            {{ activeTag.name }}
+        </li>
+        <!--
+        <span class="header-spacer"></span>
+        <strong>
+            EN
+        </strong>
+        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<mat-toolbar class="page-header" role="heading">
+    <mat-toolbar-row>
+        <h1>
+            <a [routerLink]="['/analysis', analysis.id]">
+                {{analysis.name}}
+            </a>
+        </h1>
+        <mat-chip-list *ngIf="evaluation" [ngSwitch]="evaluation.status">
+            <ng-container *ngSwitchCase="'compliant'">
+                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;">Compliant</a></mat-chip>
+            </ng-container>
+            <ng-container *ngSwitchCase="'not_compliant'">
+                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">Not compliant</a></mat-chip>
+            </ng-container>
+            <ng-container *ngSwitchCase="'TBD'">
+                <mat-chip>
+                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">To be
+                        defined</a>
+                </mat-chip>
+            </ng-container>
+        </mat-chip-list>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="header-desc">
+        <a
+        target="_blank"
+        href="{{analysis.url}}"
+        >
+        <mat-icon>link</mat-icon>
+        {{analysis.url}}    
+    </a>
+        
+    </mat-toolbar-row>
+    <mat-toolbar-row class="header-desc">
+        <mat-icon>date_range</mat-icon>
+        {{analysis.created_at | date}}
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="charts-wrapper">
+    <div class="left_panel">
+        <mat-card class="sticky-card">
+            <mat-card-title>
+                <h2>Scenario</h2>
+            </mat-card-title>
+            <mat-card-content *ngFor="let tag of tags">
+                <app-tags [analysis]="analysis" [tag]="tag">
+                </app-tags>
+            </mat-card-content>
+            <mat-card-content>
+                <button class="add-button" [routerLink]="['/entries', 'new', analysis.id]">
+                    +
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="content">
+
+        <app-content [evaluation]="evaluation" [analysis]="analysis" [tag]="activeTag">
+        </app-content>
+
+    </div>
+    
+    <div  
+    class="rigth_panel"
+    *ngIf="knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind != null || detailsService.detailsData"
+    >
+        <mat-card class="sticky-card">
+            <mat-card-title>
+                <h2>More details</h2>
+            </mat-card-title>
+            <mat-card-content style="background-color:#fff ;">
+                <mat-tab-group dynamicHeight animationDuration="0ms">
+                    <mat-tab *ngIf="detailsService.detailsData" label="Details">
+                        <app-details 
+                        [detailsData]="detailsService.detailsData">
+                        </app-details>
+                        <span style="margin-left: 10px;"
+                        *ngIf="detailsService.detailsData?.log != null">
+                            <h2 >Callstack details</h2>
+                            <app-callstack-details [log]="detailsService.detailsData.log">
+                            </app-callstack-details>
+                        </span>
+                    </mat-tab>
+
+                    <mat-tab 
+                    *ngIf="knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind != null"
+                    label="Knowledge">
+                        <app-knowledge-base
+                        [context]="'analysis'"
+                        [analysis]="analysis"
+                        [tag]="activeTag"
+                        >
+                        </app-knowledge-base>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<app-modal *ngIf="showModal" (clickOnClose)="showModal = false">
