@@ -1,0 +1,4 @@
+owner: gorinje
+repo: website-audit3
+provider: github
+updaterCacheDirName: website-audit-updater
