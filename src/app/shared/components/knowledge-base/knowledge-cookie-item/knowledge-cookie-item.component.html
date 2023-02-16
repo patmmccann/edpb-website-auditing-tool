@@ -1,0 +1,150 @@
+<mat-expansion-panel *ngIf="knowledgeBaseData.name_and_domain.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        Exact match ({{knowledgeBaseData.name_and_domain.length}})
+        <ng-container *ngIf="settingService.help">
+          <mat-icon
+          matTooltip="The name and the domain of this cookies match entries in the knowledge base."
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+<div class="knowledge-content">
+  <ng-container *ngFor="let item of knowledgeBaseData.name_and_domain">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        Purpose : {{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          Domain : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          Name : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          Source : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          Data controller : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          Privacy policy : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          Referenced in : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          Comments : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel *ngIf="knowledgeBaseData.name.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        Match name ({{knowledgeBaseData.name.length}})
+        <ng-container *ngIf="settingService.help">
+          <mat-icon
+          matTooltip="The name associated to no domains (*) matches entries in the knowledge base."
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="knowledge-content">
+  
+  <ng-container *ngFor="let item of knowledgeBaseData.name">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        Purpose : {{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          Domain : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          Name : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          Source : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          Data controller : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          Privacy policy : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          Referenced in : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          Comments : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel *ngIf="knowledgeBaseData.domain.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        Match domain ({{knowledgeBaseData.domain.length}})
+        <ng-container *ngIf="settingService.help">
+          <mat-icon
+          matTooltip="The domain of this cookies is associated to other entries in the knowledge base."
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="knowledge-content">
+  <ng-container *ngFor="let item of knowledgeBaseData.domain">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        Purpose :{{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          Domain : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          Name : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          Source : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          Data controller : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          Privacy policy : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          Referenced in : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          Comments : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  </div>
+</mat-expansion-panel>

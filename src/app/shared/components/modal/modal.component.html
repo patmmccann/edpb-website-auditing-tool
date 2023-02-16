@@ -1,0 +1,10 @@
+<div class="view-row-content">
+    <div  class="h-100 p-4 collapse show bounceIn" 
+    [ngClass]="specialClass"
+    >
+        <button tabindex="1" type="button" class="pia-modalBlock-close btn" title="close" (click)="clickOnClose.emit()">
+            <span class="fas fa-times-circle"></span>      
+        </button>
+        <ng-content></ng-content>
+    </div>
+</div>

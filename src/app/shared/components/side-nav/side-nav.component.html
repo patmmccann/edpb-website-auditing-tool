@@ -1,0 +1,87 @@
+<mat-drawer-container class="example-container mat-typography" hasBackdrop=false autosize>
+    <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+        <mat-nav-list [ngClass]="{'pinned':pinned, 
+                                'unpinned':!pinned}">
+            <ul class="clearfix nav navbar-nav">
+                <mat-list-item class="clearfix nav navbar-nav" (click)="changePinned()">
+                    <h3 *ngIf="pinned else unpinned" mat-subheader>Analysis
+                        <mat-icon style="margin-left: 50px">chevron_left</mat-icon>
+                    </h3>
+                    <ng-template #unpinned>
+                        <mat-icon mat-list-icon>chevron_right</mat-icon>
+                    </ng-template>
+                </mat-list-item>
+
+                <mat-divider></mat-divider>
+                <mat-list-item [routerLink]="['/browse']">
+                    <mat-icon mat-list-icon>web</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Browse</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/entries', 'new']">
+                    <mat-icon mat-list-icon>assessment</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">New</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item class="clearfix nav navbar-nav" [routerLink]="['/entries']">
+                    <mat-icon mat-list-icon>format_list_bulleted</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">List</span>
+                    </li>
+                </mat-list-item>
+                <h3 mat-subheader>Sessions</h3>
+                <mat-divider></mat-divider>
+                <ng-container *ngFor="let session of sessions">
+                    <mat-list-item [routerLink]="session.link">
+                        <mat-icon mat-list-icon>cached</mat-icon>
+                        <li class="nav-item px-xl-3">
+                            <span [routerLink]="session.link"
+                                class="nav-link text-uppercase is-active"> {{session.analysis.name}} > {{session.tag.name}}
+                            </span>
+                        </li>
+                    </mat-list-item>
+                </ng-container>
+                <h3 mat-subheader>Editor</h3>
+                <mat-divider></mat-divider>
+                <mat-list-item [routerLink]="['/entries', 'knowledge_bases']">
+                    <mat-icon mat-list-icon>menu_book</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Knowledge Base</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['/entries', 'template']">
+                    <mat-icon mat-list-icon>description</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span [routerLink]="['/entries', 'template']"
+                            class="nav-link text-uppercase is-active">Template</span>
+                    </li>
+                </mat-list-item>
+                
+                <h3 mat-subheader>Other</h3>
+                <mat-divider></mat-divider>
+                <mat-list-item [routerLink]="['/settings']">
+                    <mat-icon mat-list-icon>settings</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Settings</span>
+                    </li>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['/']">
+                    <mat-icon mat-list-icon>help</mat-icon>
+                    <li class="nav-item px-xl-3">
+                        <span class="nav-link text-uppercase is-active">Help</span>
+                    </li>
+                </mat-list-item>
+            </ul>
+
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="{'pinned':pinned, 
+    'unpinned':!pinned}">
+        <div class="example-sidenav-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+
+</mat-drawer-container>

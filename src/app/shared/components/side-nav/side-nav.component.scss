@@ -1,0 +1,43 @@
+@import "./src/assets/stylesheets/variables";
+
+
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+mat-sidenav-content {
+    margin-left: 0 !important;
+    flex: 1 1 auto;
+}
+
+mat-nav-list {
+    &.pinned {
+        width: 215px;
+
+        li {
+            opacity: 1;
+            margin: auto 10px;
+            transition: all 0.1s ease-in 0.2s;
+        }
+
+        h3 {
+            opacity: 1;
+        }
+    }
+
+    &.unpinned {
+        width: 60px;
+        overflow: hidden; 
+        li {
+            opacity: 0;
+        }
+
+        h3 {
+            opacity: 0;
+        }
+    }
+}

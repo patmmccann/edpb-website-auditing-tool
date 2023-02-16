@@ -1,0 +1,37 @@
+<div class="base-knowledgeBaseBlock-item" [attr.data-slug]="itemKb.slug">
+    <div>
+      <div class="base-knowledgeBaseBlock-item-accordion">
+        <button
+          class="btn"
+          type="button"
+          (click)="displayItem()"
+          title="Test5"
+        >
+          <span class="base-icons base-icon-accordion-down"></span>
+        </button>
+      </div>
+      <div class="base-knowledgeBaseBlock-item-definition">
+        <p (click)="displayItem()">Test4</p>
+        <button
+          class="btn"
+          type="button"
+          title="Test3"
+        >
+          <span class="base-icons base-icon-add"></span>
+          <span>Test1</span>
+        </button>
+        <div style="display:none;">
+          <span class="base-icons base-icon-hand"></span>
+          <p>Test2</p>
+        </div>
+      </div>
+    </div>
+    <div class="base-knowledgeBaseBlock-item-title">
+      <p (click)="displayItem()">{{ itemKb.name }}</p>
+    </div>
+    <div
+      class="base-knowledgeBaseBlock-item-content hide"
+      [innerHTML]="itemKb.description "
+    ></div>
+  </div>
+  

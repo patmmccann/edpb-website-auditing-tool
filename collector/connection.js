@@ -1,4 +1,8 @@
-// jshint esversion: 8
+/**
+ * @author Robert Riemann <robert.riemann@edps.europa.eu>
+ * @copyright European Data Protection Supervisor (2019)
+ * @license EUPL-1.2
+ */
 
 const url = require("url");
 const got = require("got");
@@ -14,7 +18,8 @@ function testSSL(uri, args, logger, output) {
     let uri_ins_https = new url.URL(uri);
     uri_ins_https.protocol = "https:";
 
-    let testsslExecutable = args.testsslExecutable || "testssl.sh"; // set default location
+    //let testsslExecutable = args.testsslExecutable || "testssl.sh"; // set default location
+    let testsslExecutable = `docker run -v ${os.tmpdir()}:/res --rm -t drwetter/testssl.sh:3.0`;
     let testsslArgs = [
       "--ip one", // speed up testssl: just test the first DNS returns (useful for multiple IPs)
       "--quiet", // no banner
@@ -39,10 +44,10 @@ function testSSL(uri, args, logger, output) {
       testsslArgs.push(`--logfile ${output_testssl}/testssl.log`);
     } else {
       // case with --no-ouput and --testssl
-      json_file = path.join(os.tmpdir(), `testssl.${Date.now()}.json`);
+      json_file = `testssl.${Date.now()}.json`;
     }
 
-    testsslArgs.push(`--jsonfile-pretty ${json_file}`);
+    testsslArgs.push(`--jsonfile-pretty /res/${json_file}`);
     testsslArgs.push(uri_ins_https.toString());
 
     const { exec } = require("child_process");
@@ -62,16 +67,16 @@ function testSSL(uri, args, logger, output) {
         output.testSSLErrorCode = null;
         output.testSSLErrorOutput = null;
       }
-
-      if (fs.existsSync(json_file)) {
-        output.testSSL = JSON.parse(fs.readFileSync(json_file, "utf8"));
+      const res_file = path.join(os.tmpdir(), json_file);
+      if (fs.existsSync(res_file)) {
+        output.testSSL = JSON.parse(fs.readFileSync(res_file, "utf8"));
       }else{
         output.testSSLError = "No result found for testssl";
         output.testSSLErrorOutput = "Verify your testssl.sh location";
       }
 
       if (!args.output) {
-        fs.removeSync(json_file);
+        fs.removeSync(res_file);
       }
     });
 

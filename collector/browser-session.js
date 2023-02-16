@@ -1,3 +1,11 @@
+/**
+ * @author Robert Riemann <robert.riemann@edps.europa.eu>
+ * @copyright European Data Protection Supervisor (2019)
+ * @license EUPL-1.2
+ */
+
+// jshint esversion: 8
+
 const { BrowserView, ipcMain } = require('electron');
 const path = require("path");
 const url = require("url");

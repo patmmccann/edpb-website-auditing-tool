@@ -1,0 +1,15 @@
+<ng-container *ngIf="line">
+<table class="use-of-httpsssl">
+    <colgroup>
+      <col style="width: 50%">
+      <col style="width: 50%">
+    </colgroup>
+    <tbody>
+      <tr  *ngFor="let item of line.query| keyvalue">
+        <td>{{item.key}}</td>
+        <td>{{item.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</ng-container>

@@ -8,7 +8,6 @@ import { LocalStorageLine } from '../models/cards/local-storage-card.model';
 import { LocalstorageKnowledgesService } from './knowledges/localstorage-knowledges.service';
 import { kindKnowledge, Knowledge } from '../models/knowledge.model';
 import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,22 +25,9 @@ export class KnowledgeBaseService extends ApplicationDb {
   placeholder: string | null = null;
   constructor(
     private cookieKnowledgesService: CookieKnowledgesService,
-    private localstorageKnowledgeService : LocalstorageKnowledgesService,
-    private httpClient: HttpClient
+    private localstorageKnowledgeService : LocalstorageKnowledgesService
   ) {
     super(1, 'knowledgeBase');
-
-    // Load default database
-    super.find(1)
-    .then( value =>{
-      if(!value){
-        // Default template
-        this.httpClient.get('assets/example/Base_cookie.json', { responseType: 'json' })
-          .subscribe(data => {
-            this.parseKnowledgeBase(data);
-          });
-      }
-    })
   }
 
   public getAll(): Promise<any> {

@@ -25,18 +25,4 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  checkSSLLocation(event:any) :void{
-    if (event.target.files[0].path){
-      this.settingService.setTestSSLLocation(event.target.files[0].path)
-    }
-  }
-
-  getSSLLocation(event?: any):void{
-    if (event) {
-      
-    } else {
-      this.el.nativeElement.querySelector('#ssl_location').click();
-    }
-  }
 }

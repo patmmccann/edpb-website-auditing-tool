@@ -1,0 +1,22 @@
+<table *ngIf="card.https_support != null" class="use-of-httpsssl">
+    <colgroup>
+      <col style="width: 50%">
+      <col style="width: 50%">
+    </colgroup>
+    <tbody>
+      <tr>
+        <td class="truncate"> allows connection with HTTPS</td>
+        <td>{{card.https_support}}</td>
+      </tr>
+      <tr>
+        <td class="truncate">HTTP redirect to HTTPS</td>
+        <td>{{card.https_redirect}}</td>
+      </tr>
+      <tr>
+        <td class="truncate">HTTP redirect location</td>
+        <td class="truncate">
+            {{card.redirects}}
+        </td>
+      </tr>
+    </tbody>
+  </table>

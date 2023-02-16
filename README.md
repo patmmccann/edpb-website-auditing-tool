@@ -30,6 +30,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Package the application for Mac, Windows or GNU/Linux
+Run `yarn electron:mac` or `yarn electron:win` or `yarn electron:linux` to package the application in electron, depending on the targeted OS. 
+
+## Package the signed application for Mac, Windows or GNU/Linux
 
 ### Mac:
 
@@ -50,3 +53,5 @@ CSC_LINK=../path_to_your/file.pfx CSC_KEY_PASSWORD="Your PFX file password" yarn
 ```
 yarn electron:linux
 ```
+
+You can refer to [Code Signing](https://www.electron.build/code-signing) to get detailed information on the procedure.

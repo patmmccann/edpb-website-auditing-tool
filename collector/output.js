@@ -1,3 +1,9 @@
+/**
+ * @author Robert Riemann <robert.riemann@edps.europa.eu>
+ * @copyright European Data Protection Supervisor (2019)
+ * @license EUPL-1.2
+ */
+
 const pickBy = require("lodash/pickBy");
 const escapeRegExp = require("lodash/escapeRegExp");
 

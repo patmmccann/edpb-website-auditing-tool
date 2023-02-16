@@ -1,0 +1,128 @@
+@import '~src/assets/stylesheets/variables';
+.card {
+  &-evaluationBlock {
+    position: relative;
+    margin: 10px 0;
+    &-title {
+      color: $base-blue;
+      margin-top: 8px;
+    }
+    &-edit {
+      z-index: 999;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      button {
+        color: $base-red;
+        font-size: 20px;
+      }
+    }
+    &-buttons {
+      margin: 10px 0;
+      text-align: center;
+      button {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 9px 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 154px;
+        font-size: 15px;
+        &:before {
+          font-family: FontAwesome;
+          margin-right: 5px;
+          font-size: 20px;
+          vertical-align: -2px;
+        }
+      }
+      
+      .btn-red {
+        &:before {
+          content: '\f00d';
+        }
+      }
+      .btn-blue {
+        &:before {
+          content: '\f044';
+        }
+      }
+      .btn-green {
+        &:before {
+          content: '\f00c';
+        }
+      }
+    }
+    &-date {
+      font-size: 1rem;
+      color: $base-gray;
+    }
+    &-contentText {
+      min-height: 200px;
+      cursor: pointer;
+      margin: 10px 0;
+      border: 1px solid #A7A7A7;
+      padding: 12px 8px;
+      position: relative;
+      background-color: #F5F5F5;
+    }
+
+    &-content {
+      background: rgba(62, 224, 149, 0.2);
+      padding: 14px 16px 14px 16px;
+      label {
+        font-weight: 500;
+        color: $base-blue;
+      }
+      label,
+      textarea {
+        display: block;
+      }
+      textarea {
+        width: 100%;
+        background-color: #fff;
+        border: none;
+        resize: none;
+        padding-top: 3px;
+        margin: 4px 0;
+        font-size: 1.35rem;
+        &::placeholder {
+          color: $base-gray;
+          font-style: italic;
+        }
+        &:disabled {
+          background-color: transparent;
+          padding: 0;
+        }
+      }
+    }
+    &-gauge {
+      font-weight: 500;
+      color: $base-blue;
+      margin-bottom: 2px;
+    }
+    &-shadowed {
+      background-color: white;
+      box-shadow: 1px 1px 15px 1px rgba(210, 210, 210, 1);
+    }
+    &-self-padding {
+      padding: 2px 30px 25px 30px;
+    }
+  }
+}
+
+mat-form-field{
+  width:100%;
+}
+
+textarea{
+  min-height: 200px;
+}
+
+.icon-spacer {
+  flex: 1 1 auto;
+}
+
+.commentsBlock-btn{
+  float:right;
+}

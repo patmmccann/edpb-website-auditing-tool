@@ -64,24 +64,7 @@
         <div class="sc-1k9gyyf dkLmOS" style="max-width: 800px; margin-top: 56px;">
             <div class="sc-xsbocb iOoRIX">Analysis</div>
             <mat-slide-toggle (change)="settingService.setItem('testssl', $event.checked)" [(ngModel)]="settingService.testssl"
-                color="primary">Enable Testssl (Restart required)</mat-slide-toggle><br><br>
-                
-                <ng-container *ngIf="settingService.testssl" >
-                    <br><br>
-                    <mat-form-field class="example-form-field" appearance="fill">
-                    <mat-label>TestSSL location</mat-label>
-                    <input disabled matInput type="text" [(ngModel)]="settingService.test_ssl_location">
-                </mat-form-field>
-                <button (click)="getSSLLocation()">
-                    <mat-icon>folder_open</mat-icon>
-                </button>
-                <div class="hide">
-                    <form enctype="multipart/form-data" [formGroup]="SSLLocation">
-                        <input type="file" formControlName="ssl_location" id="ssl_location"
-                            (change)="checkSSLLocation($event)" class="hide" />
-                    </form>
-                </div>
-            </ng-container>
+                color="primary">Enable Testssl (Docker must be installed and active)</mat-slide-toggle><br><br>
             <br><br>
                 <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)" [(ngModel)]="settingService.cookies"
                 color="primary">Enable Cookies analysis</mat-slide-toggle><br><br>

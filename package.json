@@ -1,6 +1,6 @@
 {
   "name": "website-audit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "jgorin <jgorin@protonmail.com>",
   "license": "GPLV3",
   "main": "electron/main.js",
@@ -73,7 +73,6 @@
   },
   "build": {
     "directories": {
-      "buildResources": "electron/icons",
       "output": "electron/releases"
     }
   },
