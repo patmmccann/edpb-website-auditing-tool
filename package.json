@@ -1,8 +1,11 @@
+# SPDX-FileCopyrightText: 2022 EDPB
+#
+# SPDX-License-Identifier: EUPL-1.0
 {
   "name": "website-audit",
   "version": "1.0.1",
-  "author": "jgorin <jgorin@protonmail.com>",
-  "license": "GPLV3",
+  "author": "EDPB",
+  "license": "EUPL-1.0",
   "main": "electron/main.js",
   "repository": "https://github.com/gorinje/website-audit3.git",
   "description": "Website auditing tool",
