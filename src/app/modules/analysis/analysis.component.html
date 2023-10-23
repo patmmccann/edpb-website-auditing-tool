@@ -42,7 +42,7 @@
                 {{analysis.name}}
             </a>
         </h1>
-        <mat-chip-list *ngIf="evaluation" [ngSwitch]="evaluation.status">
+        <mat-chip-listbox *ngIf="evaluation" [ngSwitch]="evaluation.status">
             <ng-container *ngSwitchCase="'compliant'">
                 <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;">Compliant</a></mat-chip>
             </ng-container>
@@ -55,7 +55,7 @@
                         defined</a>
                 </mat-chip>
             </ng-container>
-        </mat-chip-list>
+        </mat-chip-listbox>
     </mat-toolbar-row>
     <mat-toolbar-row class="header-desc">
         <a

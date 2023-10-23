@@ -5,7 +5,7 @@
                 {{analysis.name}}
             </a>
         </h2>
-        <mat-chip-list *ngIf="analysis_evaluation" [ngSwitch]="analysis_evaluation.status">
+        <mat-chip-listbox *ngIf="analysis_evaluation" [ngSwitch]="analysis_evaluation.status">
             <ng-container *ngSwitchCase="'compliant'">
                 <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;">Compliant</a></mat-chip>
             </ng-container>
@@ -18,7 +18,7 @@
                         defined</a>
                 </mat-chip>
             </ng-container>
-        </mat-chip-list>
+        </mat-chip-listbox>
         <span class="button-spacer"></span>
         <button mat-button [routerLink]="['/analysis', analysis.id]">
             <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>

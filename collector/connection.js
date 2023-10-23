@@ -5,7 +5,7 @@
  */
 
 const url = require("url");
-const got = require("got");
+//const got = require("got"); //FIXME
 const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");

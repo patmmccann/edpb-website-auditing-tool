@@ -294,7 +294,7 @@
                                         </label>
                                         <mat-form-field class="example-chip-list" appearance="fill">
                                             <mat-label>Add or remove URLS</mat-label>
-                                        <mat-chip-list #chipList aria-label="Fruit selection">
+                                        <mat-chip-grid #chipList aria-label="Fruit selection">
                                             <mat-chip *ngFor="let url of sweep_urls" (removed)="removeUrl(url)">
                                                 {{url}}
                                                 <button matChipRemove>
@@ -305,7 +305,7 @@
                                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                                 [matChipInputAddOnBlur]="addUrlOnBlur"
                                                 (matChipInputTokenEnd)="addUrl($event)">
-                                        </mat-chip-list>
+                                        </mat-chip-grid>
                                     </mat-form-field>
                                 </div>
                             </div>

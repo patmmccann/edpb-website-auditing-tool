@@ -16,12 +16,9 @@ mat-sidenav-content {
 
 mat-nav-list {
     &.pinned {
-        width: 215px;
 
-        li {
+        span {
             opacity: 1;
-            margin: auto 10px;
-            transition: all 0.1s ease-in 0.2s;
         }
 
         h3 {
@@ -32,7 +29,7 @@ mat-nav-list {
     &.unpinned {
         width: 60px;
         overflow: hidden; 
-        li {
+        span {
             opacity: 0;
         }
 

@@ -25,7 +25,6 @@ const routes: Routes = [
     AnalysisRoutingModule,
     ReportRoutingModule,
     RouterModule.forRoot(routes, {
-      relativeLinkResolution: 'legacy',
       useHash: true
     })],
   exports: [RouterModule]

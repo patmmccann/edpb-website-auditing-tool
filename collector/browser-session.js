@@ -10,7 +10,7 @@ const { BrowserView, ipcMain } = require('electron');
 const path = require("path");
 const url = require("url");
 const escapeRegExp = require("lodash/escapeRegExp");
-const got = require("got");
+//const got = require("got"); //FIXME
 const sampleSize = require("lodash/sampleSize");
 const defaultPath = require("tough-cookie").defaultPath;
 
