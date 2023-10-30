@@ -74,41 +74,52 @@
   "build": {
     "directories": {
       "output": "releases",
-      "buildResources":"resources"
+      "buildResources": "resources"
     },
-    "files": ["electron/**/*", "collector/**/*", "lib/**/*", "assets/**/*", "inspector/**/*", "dist/**/*"]
-  },
-  "win": {
-    "target": [
-      {
-        "target": "nsis",
+    "files": [
+      "electron/**/*",
+      "collector/**/*",
+      "lib/**/*",
+      "assets/**/*",
+      "inspector/**/*",
+      "dist/**/*"
+    ],
+    "linux": {
+      "category": "Utility",
+      "target": "deb"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "resources/icons/512x512.png",
+      "verifyUpdateCodeSignature": false,
+      "publisherName": "EDPB"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "icon": "resources/icons/512x512.png",
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "category": "public.app.category.productivity",
+      "target": {
+        "target": "default",
         "arch": [
-          "x64",
-          "ia32"
+          "universal"
         ]
       }
-    ],
-    "icon": "resources/icons/512x512.png",
-    "verifyUpdateCodeSignature": false,
-    "publisherName": "EDPB"
-  },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": true,
-    "allowToChangeInstallationDirectory": true
-  },
-  "mac": {
-    "hardenedRuntime": true,
-    "gatekeeperAssess": false,
-    "icon": "resources/icons/512x512.png",
-    "entitlements": "resources/entitlements.mac.plist",
-    "entitlementsInherit": "resources/entitlements.mac.plist",
-    "category": "public.app.category.productivity",
-    "target": {
-      "target": "default",
-      "arch": [
-        "universal"
-      ]
     }
   }
 }
