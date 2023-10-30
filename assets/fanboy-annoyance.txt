@@ -1,3 +1,8 @@
+!
+! SPDX-FileCopyrightText: The EasyList authors (https://easylist.to/)
+! 
+! SPDX-License-Identifier:CC-BY-3.0
+! 
 [Adblock Plus 2.0]
 ! Checksum: BPab6GUFdQ/lA5W18pBdvA
 ! Version: 202206301500

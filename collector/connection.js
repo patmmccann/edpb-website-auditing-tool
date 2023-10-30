@@ -1,7 +1,8 @@
 /**
+ * SPDX-FileCopyrightText: 2019 European Data Protection Supervisor
+ *
+ * SPDX-License-Identifier: EUPL-1.2
  * @author Robert Riemann <robert.riemann@edps.europa.eu>
- * @copyright European Data Protection Supervisor (2019)
- * @license EUPL-1.2
  */
 
 const url = require("url");
