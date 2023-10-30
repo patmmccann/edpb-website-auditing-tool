@@ -10,7 +10,7 @@ import { ModalComponent } from './components/modal/modal.component';
 
 import {
   FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge
-} from '../tools';
+} from '../pipes/tools';
 
 
 import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-base.component';
@@ -47,6 +47,7 @@ import { BeaconCardComponent } from './components/cards/beacon-card/beacon-card.
 import { BeaconDetailsComponent } from './components/details/beacon-details/beacon-details.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { HttpClientModule } from '@angular/common/http';
     CardsComponent,
     EvaluationsComponent,
     CommentsComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    TranslateModule
   ],
   providers: [
     KnowledgeBaseService,

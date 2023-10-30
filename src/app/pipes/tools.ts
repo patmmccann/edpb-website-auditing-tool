@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Analysis } from './models/analysis.model';
-import { EvaluationService } from './services/evaluation.service';
+import { Analysis } from '../models/analysis.model';
+import { EvaluationService } from '../services/evaluation.service';
 
 @Pipe({ name: 'safeHtml' })
 export class SafeHtmlPipe implements PipeTransform  {
@@ -99,10 +99,10 @@ export class FilterForEval implements PipeTransform {
 import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
-import { LocalstorageKnowledgesService } from './services/knowledges/localstorage-knowledges.service';
-import { KnowledgeBaseService } from './services/knowledge-base.service';
+import { LocalstorageKnowledgesService } from '../services/knowledges/localstorage-knowledges.service';
+import { KnowledgeBaseService } from '../services/knowledge-base.service';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
-import { KnowledgesService } from './services/knowledges.service';
+import { KnowledgesService } from '../services/knowledges.service';
 
 @Pipe({ name: 'findInKnowlegeBase' })
 export class FindPurpose implements PipeTransform {

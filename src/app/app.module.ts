@@ -9,6 +9,15 @@ import { BaseModule } from './modules/base/base.module';
 import { BrowseModule } from './modules/browse/browse.module';
 import { TemplateModule } from './modules/template/template.module';
 import { ReportModule } from './modules/report/report.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { WATTranslateLoader } from './translate/wattranslate-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 @NgModule({
@@ -24,7 +33,14 @@ import { ReportModule } from './modules/report/report.module';
     OthersModule,
     AnalysisModule,
     ReportModule,
-    TemplateModule
+    TemplateModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useClass: WATTranslateLoader,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { LanguagesService } from 'src/app/services/languages.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,9 @@ export class HomeComponent implements OnInit {
   showLanguage =false;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public translateService: TranslateService,
+    public languagesService: LanguagesService
   ) { }
 
   ngOnInit(): void {
