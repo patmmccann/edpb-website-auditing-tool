@@ -93,6 +93,16 @@
             </button>
         </div>
 
+        <div *ngIf="this.analysis && this.tag" class="header-search-right">
+            <button 
+            matTooltip="Take a screenshot of this page"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>videocam</mat-icon>
+            </button>
+        </div>
+
         <div class="header-search-right">
             <button 
             matTooltip="Clear all information stored in the browser"

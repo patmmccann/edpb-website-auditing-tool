@@ -26,14 +26,124 @@
             <div title="On startup" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
+                <button (click)="option='general'">General</button>
+            </div>
+            <div title="Browser" class="sc-19uuyq5 option-item">
+                <div class="option-text">
+                </div>
                 <button (click)="option='browser'">Browser</button>
             </div>
-            <div title="Appearance" class="sc-19uuyq5 option-item">
+            <div title="Analysis" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
                 <button (click)="option='analysis'">Analysis</button>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="option == 'general'" class="content">
+        <div class="sc-1k9gyyf dkLmOS" style="max-width: 800px; margin-top: 56px;">
+            <div class="sc-xsbocb iOoRIX">Language options</div>
+            <div class="content">
+                <div class="links dropdown">
+            <ul style="right: auto;left: 0" class="dropdown-menu dropdown-menu-right px-4 py-3 show">
+                <li class="dropdown-item">
+                    <a href="/edpb_bg" class="language-link" hreflang="bg"
+                        data-drupal-link-system-path="node/24">Bulgarian (bg)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_fi" class="language-link" hreflang="fi"
+                        data-drupal-link-system-path="node/24">Finnish (fi)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_fr" class="language-link" hreflang="fr"
+                        data-drupal-link-system-path="node/24">French (fr)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_ga" class="language-link" hreflang="ga"
+                        data-drupal-link-system-path="node/24">Irish (ga)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_hr" class="language-link" hreflang="hr"
+                        data-drupal-link-system-path="node/24">Croatian (hr)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_hu" class="language-link" hreflang="hu"
+                        data-drupal-link-system-path="node/24">Hungarian (hu)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_it" class="language-link" hreflang="it"
+                        data-drupal-link-system-path="node/24">Italian (it)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_es" class="language-link" hreflang="es"
+                        data-drupal-link-system-path="node/24">Spanish (es)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_cs" class="language-link" hreflang="cs"
+                        data-drupal-link-system-path="node/24">Czech (cs)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_lt" class="language-link" hreflang="lt"
+                        data-drupal-link-system-path="node/24">Lithuanian (lt)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_da" class="language-link" hreflang="da"
+                        data-drupal-link-system-path="node/24">Danish (da)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_lv" class="language-link" hreflang="lv"
+                        data-drupal-link-system-path="node/24">Latvian (lv)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_de" class="language-link" hreflang="de"
+                        data-drupal-link-system-path="node/24">German (de)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_mt" class="language-link" hreflang="mt"
+                        data-drupal-link-system-path="node/24">Maltese (mt)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_nl" class="language-link" hreflang="nl"
+                        data-drupal-link-system-path="node/24">Dutch (nl)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_et" class="language-link" hreflang="et"
+                        data-drupal-link-system-path="node/24">Estonian (et)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_el" class="language-link" hreflang="el"
+                        data-drupal-link-system-path="node/24">Greek (el)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_pl" class="language-link" hreflang="pl"
+                        data-drupal-link-system-path="node/24">Polish (pl)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_pt" class="language-link" hreflang="pt-pt"
+                        data-drupal-link-system-path="node/24">Portuguese (pt-pt)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_ro" class="language-link" hreflang="ro"
+                        data-drupal-link-system-path="node/24">Romanian (ro)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_sk" class="language-link" hreflang="sk"
+                        data-drupal-link-system-path="node/24">Slovak (sk)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_sl" class="language-link" hreflang="sl"
+                        data-drupal-link-system-path="node/24">Slovenian (sl)</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="/edpb_sv" class="language-link" hreflang="sv"
+                        data-drupal-link-system-path="node/24">Swedish (sv)</a>
+                </li>
+            </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div *ngIf="option == 'browser'" class="content">
@@ -54,10 +164,6 @@
                 <input (input)="settingService.setUsageAgent($event.target)" matInput type="text" [(ngModel)]="settingService.useragent">
             </mat-form-field>
         </div>
-
-
-     
-
     </div>
 
     <div *ngIf="option == 'analysis'" class="content">

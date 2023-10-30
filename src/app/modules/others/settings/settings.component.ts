@@ -8,7 +8,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class SettingsComponent implements OnInit {
   localStorage:any=null;
-  option:'browser'|'analysis'|'cookies'='browser';
+  option:'general'|'browser'|'analysis'|'cookies'='general';
 
   SSLLocation: FormGroup = new FormGroup({
     ssl_location: new FormControl('', [])

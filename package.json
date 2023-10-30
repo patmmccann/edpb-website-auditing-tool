@@ -1,6 +1,6 @@
 {
   "name": "website-audit",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "author": "jgorin <jgorin@protonmail.com>",
   "license": "GPLV3",
   "main": "electron/main.js",
@@ -73,8 +73,10 @@
   },
   "build": {
     "directories": {
-      "output": "electron/releases"
-    }
+      "output": "releases",
+      "buildResources":"resources"
+    },
+    "files": ["electron/**/*", "collector/**/*", "lib/**/*", "assets/**/*", "inspector/**/*", "dist/**/*"]
   },
   "win": {
     "target": [
@@ -86,7 +88,7 @@
         ]
       }
     ],
-    "icon": "electron/icons/512x512.png",
+    "icon": "resources/icons/512x512.png",
     "verifyUpdateCodeSignature": false,
     "publisherName": "EDPB"
   },
@@ -98,9 +100,9 @@
   "mac": {
     "hardenedRuntime": true,
     "gatekeeperAssess": false,
-    "icon": "electron/icons/512x512.png",
-    "entitlements": "electron/entitlements.mac.plist",
-    "entitlementsInherit": "electron/entitlements.mac.plist",
+    "icon": "resources/icons/512x512.png",
+    "entitlements": "resources/entitlements.mac.plist",
+    "entitlementsInherit": "resources/entitlements.mac.plist",
     "category": "public.app.category.productivity",
     "target": {
       "target": "default",

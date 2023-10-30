@@ -50,22 +50,41 @@
         </ng-container>
     </button>
 
+    <button mat-raised-button color="blue" title="Create a new entry">
+        <ng-container *ngIf="base.category == 'cookie'">
+            <i class="fas fa-search"></i>
+            Search cookie
+        </ng-container>
+        <ng-container *ngIf="base.category == 'localstorage'">
+            <i class="fas fa-search"></i>
+            Search localstorage
+        </ng-container>
+    </button>
+
+    <mat-form-field>
+        <mat-label>Change confidence</mat-label>
+        <mat-select>
+          <mat-option value="option1">Validated</mat-option>
+          <mat-option value="option2" disabled>Reliable</mat-option>
+          <mat-option value="option3">Informative</mat-option>
+        </mat-select>
+    </mat-form-field>
 
     <div class="row">
         <div class="small-9 medium-9 columns">
             <ng-container [ngSwitch]="base.category">
                 <ng-container *ngSwitchCase="'cookie'">
-                    <table class="base-list-table">
+                    <table matSort (matSortChange)="sortBy($event)"  class="base-list-table">
                         <thead>
                             <tr>
                                 <th style="width:75px;"></th>
-                                <th colspan="2">
+                                <th mat-sort-header="domain" colspan="2">
                                     <a><span>Domain</span></a>
                                 </th>
-                                <th style="width:75px;">
+                                <th mat-sort-header="name" style="width:75px;">
                                     <a><span>Name</span></a>
                                 </th>
-                                <th style="width:75px;text-align:center;">
+                                <th mat-sort-header="category"  style="width:75px;text-align:center;">
                                     <a><span> Category</span></a>
                                 </th>
                             </tr>

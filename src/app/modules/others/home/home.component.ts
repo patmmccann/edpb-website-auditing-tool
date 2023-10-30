@@ -9,6 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   help_content: 'home'| 'how_the_tool_works' | 'new_analysis' | 'knowledge_base' | 'create_reports' = 'home';
+  showLanguage =false;
 
   constructor(
     private route: ActivatedRoute
