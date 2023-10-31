@@ -36,8 +36,7 @@
 
 <mat-toolbar *ngIf="type_entries=='knowledgeBase'">
     <div style="margin-left: 30px;">
-        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> New
-            database</button>
+        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.database.new_database' | translate }}</button>
         <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Import </button>
         <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> Export all
         </button>
@@ -61,7 +60,7 @@
                     <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of analysis to be
                                 evaluated.</strong></span></div>
                 </div>
-                <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Import analysis</button>
+                <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i>  {{ "entries.list.import" | translate }}</button>
                 <br>
                 <app-analysis-line *ngFor="
                 let analysis of entries | filterForUser: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;

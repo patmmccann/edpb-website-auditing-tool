@@ -29,6 +29,7 @@ export class LanguagesService {
     // If a language has already been chosen
     if (language && language.length > 0) {
       this.translateService.use(language);
+      this.selectedLanguage = language;
     } else {
       // Set default language
       const browserLang = this.translateService.getBrowserLang();

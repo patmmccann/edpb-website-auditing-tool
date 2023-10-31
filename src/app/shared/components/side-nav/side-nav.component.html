@@ -13,11 +13,11 @@
                 <mat-divider></mat-divider>
                 <mat-list-item [routerLink]="['/browse']">
                     <mat-icon matListItemIcon>web</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>Browse</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.browse" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item [routerLink]="['/entries', 'new']">
                     <mat-icon matListItemIcon>assessment</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>New</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.new" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item [routerLink]="['/entries']">
                     <mat-icon matListItemIcon>format_list_bulleted</mat-icon>

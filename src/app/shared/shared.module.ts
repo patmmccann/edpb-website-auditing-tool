@@ -48,6 +48,7 @@ import { BeaconDetailsComponent } from './components/details/beacon-details/beac
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguagesService } from '../services/languages.service';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { TranslateModule } from '@ngx-translate/core';
     BrowserAnimationsModule,
     MaterialAllModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   exports: [
     SideNavComponent,
@@ -126,7 +128,7 @@ import { TranslateModule } from '@ngx-translate/core';
     EvaluationsComponent,
     CommentsComponent,
     LoadingOverlayComponent,
-    TranslateModule
+    TranslateModule,
   ],
   providers: [
     KnowledgeBaseService,

@@ -3,14 +3,14 @@
         <ng-container *ngIf="help_content == 'home' else help_content_header">
             <div class="py-1 px-4 px-xl-5 top-headers">
                 <div class="col-xl-2 px-0 site-name"><a href="/edpb_en" title="European Data Protection Board"
-                        rel="home" class="">European Data Protection Board</a></div>
+                        rel="home" class=""> {{ "header.edpb" | translate}}</a></div>
                 <div class="language-switcher-oe-multilingual-url-suffix-negotiation-method block block-language block-language-blocklanguage-interface text-right"
                     id="block-edpbweb-theme-language-switcher" role="navigation">
                     <div class="content">
                         <div class="links dropdown">
                             <button class="btn btn-link p-0 pr-4 text-uppercase" type="button" data-toggle="dropdown"
                                 aria-haspopup="true" (click)="showLanguage =!showLanguage;" aria-expanded="false">
-                                en
+                                {{ languagesService.selectedLanguage}}
                             </button>
                             <ul [ngClass]="{show : showLanguage}" class="dropdown-menu dropdown-menu-right px-4 py-3">
                                 <li class="dropdown-item">
@@ -129,33 +129,16 @@
                         <div class="col-lg-8">
                             <div class="row">
                                 <div class="col-12 px-4 px-xl-5 py-4 home-news-title home-view-all-news text-center">
-                                    Welcome to the EDPB website auditing tool
+                                    {{ "help.welcome" | translate}}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 px-4 px-xl-5 order-0">
                                     <div id="block-pagetitle" class="block block-core block-page-title-block">
                                         <div class="content">
-                                            <div class="view-header mb-4 w-100" style="margin-top: 30px;">
-                                                <p>The <strong>EDPB website auditing tool</strong> collects evidence,
-                                                    classifies data and
-                                                    generates reports regarding trackers that are being used by
-                                                    websites. It is intended to be used to facilitate website
-                                                    inspections.
-                                                </p>
-                                                <p>On this page you will find information on how to use the
-                                                    EDPB auditing tools.
-                                                    Click on <a href="#/helps/how_the_tool_works">How the tool works</a>
-                                                    to get a first
-                                                    introduction.</p>
-
-                                                <p>At any time, you can come back to this page by clicking on the
-                                                    <span>
-                                                        <mat-icon>help</mat-icon> <span
-                                                            class="text-uppercase is-active">Help</span>
-                                                    </span> button on the left sidebar.
-                                                </p>
-
+                                            <div 
+                                            class="view-header mb-4 w-100" style="margin-top: 30px;"
+                                            [innerHTML]="'help.introduction' | translate">
                                             </div>
                                         </div>
                                     </div>
