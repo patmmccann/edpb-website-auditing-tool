@@ -11,8 +11,11 @@ export class WATTranslateLoader implements TranslateLoader {
             case 'en':
               observer.next(en);
               break;
-            default:
+            case 'fr':
               observer.next(fr);
+              break;
+            default:
+              observer.next(en);
           }
           observer.complete();
         });
