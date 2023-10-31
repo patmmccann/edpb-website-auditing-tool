@@ -49,10 +49,12 @@ import { LoadingOverlayComponent } from './components/loading-overlay/loading-ov
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguagesService } from '../services/languages.service';
+import { LanguagesComponent } from './components/languages/languages.component';
 
 @NgModule({
   declarations: [
     SideNavComponent,
+    LanguagesComponent,
     FilterForUser,
     FilterForEval,
     ModalComponent,
@@ -84,7 +86,8 @@ import { LanguagesService } from '../services/languages.service';
     UnsafeFormCardComponent,
     BeaconCardComponent,
     BeaconDetailsComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    LanguagesComponent
     ],
   imports: [
     HttpClientModule,
@@ -98,6 +101,7 @@ import { LanguagesService } from '../services/languages.service';
   ],
   exports: [
     SideNavComponent,
+    LanguagesComponent,
     FilterForUser,
     FilterForEval,
     FormsModule,

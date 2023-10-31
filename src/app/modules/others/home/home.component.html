@@ -12,23 +12,9 @@
                                 aria-haspopup="true" (click)="showLanguage =!showLanguage;" aria-expanded="false">
                                 {{ languagesService.selectedLanguage}}
                             </button>
+                            
                             <ul [ngClass]="{show : showLanguage}" class="dropdown-menu dropdown-menu-right px-4 py-3">
-                                <li class="dropdown-item">
-                                    <a 
-                                    class="language-link" 
-                                    href="javascript:;"
-                                    (click)="languagesService.updateCurrentLanguage('en')">
-                                    {{ "header.languages.en" | translate}}
-                                </a>
-                                </li>
-                                <li class="dropdown-item">
-                                    <a 
-                                    class="language-link"
-                                    href="javascript:;"
-                                    (click)="languagesService.updateCurrentLanguage('fr')">
-                                    {{ "header.languages.fr" | translate }}
-                                </a>
-                                </li>
+                                <app-languages></app-languages>
                             </ul>
                         </div>
                     </div>
