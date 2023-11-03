@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TemplateTableComponent } from './template-table.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('TemplateTableComponent', () => {
   let component: TemplateTableComponent;
@@ -8,7 +9,8 @@ describe('TemplateTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateTableComponent ]
+      declarations: [ TemplateTableComponent ],
+      imports:      [ SharedModule]
     })
     .compileComponents();
 

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportComponent } from './report.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ReportRendererComponent } from './report-renderer/report-renderer.component';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
@@ -8,7 +12,8 @@ describe('ReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReportComponent ]
+      declarations: [ ReportComponent, ReportRendererComponent ],
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
     })
     .compileComponents();
 

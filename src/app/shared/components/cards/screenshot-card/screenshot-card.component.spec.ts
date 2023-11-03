@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScreenshotCardComponent } from './screenshot-card.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('ScreenshotCardComponent', () => {
   let component: ScreenshotCardComponent;
@@ -8,7 +9,8 @@ describe('ScreenshotCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScreenshotCardComponent ]
+      declarations: [ ScreenshotCardComponent ],
+      imports:      [ SharedModule]
     })
     .compileComponents();
 

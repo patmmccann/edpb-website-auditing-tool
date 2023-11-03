@@ -1,5 +1,5 @@
-import fr from '../../assets/i18n/fr.json';
-import en from '../../assets/i18n/en.json';
+import fr from '../../../assets/i18n/fr.json';
+import en from '../../../assets/i18n/en.json';
 
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';

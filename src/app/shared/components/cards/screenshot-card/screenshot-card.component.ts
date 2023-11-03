@@ -16,7 +16,9 @@ export class ScreenshotCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.screenshotCard = <ScreenshotCard>this.card;
+    if (this.card){
+      this.screenshotCard = <ScreenshotCard>this.card;
+    }
   }
 
 }

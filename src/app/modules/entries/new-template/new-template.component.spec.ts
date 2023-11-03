@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewTemplateComponent } from './new-template.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NewTemplateComponent', () => {
   let component: NewTemplateComponent;
@@ -8,7 +12,18 @@ describe('NewTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewTemplateComponent ]
+      declarations: [ NewTemplateComponent ],
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule, MatDialogModule],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {}
+        }
+     ],
     })
     .compileComponents();
 

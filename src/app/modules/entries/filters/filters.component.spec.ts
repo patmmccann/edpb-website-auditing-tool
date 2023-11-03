@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiltersComponent } from './filters.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -8,7 +10,8 @@ describe('FiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FiltersComponent ]
+      declarations: [ FiltersComponent ],
+      imports:      [ MaterialAllModule, SharedModule]
     })
     .compileComponents();
 

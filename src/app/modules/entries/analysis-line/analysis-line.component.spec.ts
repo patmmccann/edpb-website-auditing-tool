@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AnalysisLineComponent } from './analysis-line.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('AnalysisLineComponent', () => {
   let component: AnalysisLineComponent;
@@ -8,7 +11,8 @@ describe('AnalysisLineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AnalysisLineComponent ]
+      declarations: [ AnalysisLineComponent ],
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
     })
     .compileComponents();
 

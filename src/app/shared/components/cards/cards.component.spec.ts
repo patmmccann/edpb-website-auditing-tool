@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardsComponent } from './cards.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from '../../shared.module';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;
@@ -8,7 +10,8 @@ describe('CardsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CardsComponent ]
+      declarations: [ CardsComponent ],
+      imports:      [ MaterialAllModule, SharedModule]
     })
     .compileComponents();
 

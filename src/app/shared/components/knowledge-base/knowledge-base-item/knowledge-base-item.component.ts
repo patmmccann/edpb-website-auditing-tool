@@ -9,7 +9,7 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 export class KnowledgeBaseItemComponent implements OnInit {
 
   @Input() item: any;
-  @Input() itemKb: any;
+  @Input() itemKb: any = {name:"", description:"", slug:""};
   titleKb: string="";
 
   constructor(

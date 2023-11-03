@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewAnalysisComponent } from './new-analysis.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MaterialAllModule } from 'src/app/material.module';
 
 describe('NewAnalysisComponent', () => {
   let component: NewAnalysisComponent;
@@ -8,7 +11,8 @@ describe('NewAnalysisComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewAnalysisComponent ]
+      declarations: [ NewAnalysisComponent ],
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule]
     })
     .compileComponents();
 

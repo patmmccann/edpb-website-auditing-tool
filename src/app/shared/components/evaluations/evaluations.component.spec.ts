@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EvaluationsComponent } from './evaluations.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from '../../shared.module';
 
 describe('EvaluationsComponent', () => {
   let component: EvaluationsComponent;
@@ -8,7 +10,8 @@ describe('EvaluationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EvaluationsComponent ]
+      declarations: [ EvaluationsComponent ],
+      imports:      [ MaterialAllModule, SharedModule]
     })
     .compileComponents();
 
