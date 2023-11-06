@@ -85,7 +85,8 @@ export class ReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    tinymce.remove(this.reportEditor);
+    if (tinymce)
+      tinymce.remove(this.reportEditor);
   }
 
   toggleAllTagSelection() {
