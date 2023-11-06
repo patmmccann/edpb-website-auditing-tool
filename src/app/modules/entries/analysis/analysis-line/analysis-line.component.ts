@@ -1,7 +1,6 @@
 import { Component, OnInit,  Input, Output, EventEmitter } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Tag } from 'src/app/models/tag.model';
-import { ActivatedRoute } from '@angular/router';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { BrowserService } from 'src/app/services/browser.service';
@@ -53,7 +52,7 @@ export class AnalysisLineComponent implements OnInit {
 
 
     this.analysisService
-    .deleteAnalysis(this.analysis)
+    .delete(this.analysis.id)
     .then(()=>{
       this.deleted.emit();
     });

@@ -8,6 +8,7 @@ import { LocalStorageCard } from '../models/cards/local-storage-card.model';
 import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { TrafficCard } from '../models/cards/traffic-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
+import { ScreenshotCard } from '../models/cards/screenshot-card.model';
 import { Evaluation } from '../models/evaluation.model';
 import { EvaluationService } from './evaluation.service';
 import { SettingsService } from './settings.service';
@@ -49,15 +50,6 @@ export class CardService extends ApplicationDb {
       .then(card => {
         resolve(card);
       })
-    });
-  }
-
-
-  deleteCard(card: Card): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.clearEvaluation(card);
-      this.delete(card.id);
-      resolve();
     });
   }
 
@@ -146,6 +138,14 @@ export class CardService extends ApplicationDb {
         resolve(null);
       }
     });
+  }
+
+  override async delete(id: number) {
+    const card = await this.find(id);
+    if (card.evaluation){
+      await this.evaluationService.delete(card.evaluation);
+    }
+    super.delete(card.id);
   }
 
   clearEvaluation(card: Card): Promise<Card> {
@@ -237,10 +237,31 @@ export class CardService extends ApplicationDb {
       data.evaluation = evaluation;
     }
 
+    switch(card.kind){
+      case "image":
+        data.image = await ScreenshotCard.blobToBase64(data.image);
+
+    }
+
     return data;
   }
 
   override async find(id: number | string): Promise<Card> {
     return super.find(id);
+  }
+
+  async parse(data: any){
+    if (data.evaluation) {
+      const evaluation = await this.evaluationService.create(data.evaluation);
+      data.evaluation = evaluation.id;
+    }
+
+    switch(data.kind){
+      case "image":
+        data.image = await ScreenshotCard.base64toBlob(data.image);
+
+    }
+
+    return await this.create(data);
   }
 }

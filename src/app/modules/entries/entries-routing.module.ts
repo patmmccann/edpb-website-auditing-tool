@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EntriesComponent } from './entries.component';
-import { NewAnalysisComponent } from './new-analysis/new-analysis.component';
+import { NewAnalysisComponent } from './analysis/new-analysis/new-analysis.component';
 
 @NgModule({
   declarations: [],

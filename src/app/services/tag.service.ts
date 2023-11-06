@@ -43,7 +43,7 @@ export class TagService extends ApplicationDb {
   }
 
   /**
-   * Create a new tag
+   * Update a tag
    */
   updateTag(tag: Tag, cards: Card[]): Promise<Tag> {
     return new Promise((resolve, reject) => {
@@ -64,16 +64,15 @@ export class TagService extends ApplicationDb {
     });
   }
 
-  async deleteTag(tag: Tag): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      const cards = await this.getAllCards(tag);
-      for (let card of cards) {
-        await this.removeCard(tag, card);
-      }
-      await this.clearEvaluation(tag);
-      await this.delete(tag.id);
-      resolve();
-    });
+  override async delete(id: number) {
+    const tag = await this.find(id);
+
+    for (let id of tag.cards) {
+      await this.cardService.delete(id);
+    }
+
+    await this.clearEvaluation(tag);
+    await super.delete(tag.id);
   }
 
   override update(tag: Tag, date?: Date | null): Promise<any> {
@@ -122,7 +121,7 @@ export class TagService extends ApplicationDb {
               const match_ev = evaluations
                 .filter(ev => ev?.status == status)
                 .map(x => x?.id);
-              resolve(cards.filter(card => card.evaluation? match_ev.includes(card.evaluation):false));
+              resolve(cards.filter(card => card.evaluation ? match_ev.includes(card.evaluation) : false));
             });
         }
       });
@@ -167,7 +166,7 @@ export class TagService extends ApplicationDb {
   removeCard(tag: Tag, card: Card): Promise<Tag> {
     return new Promise((resolve, reject) => {
       this.cardService
-        .deleteCard(card)
+        .delete(card.id)
         .then(() => {
           const index = tag.cards.indexOf(card.id);
           if (index > -1) {
@@ -226,29 +225,24 @@ export class TagService extends ApplicationDb {
     });
   }
 
-  clearEvaluation(tag: Tag): Promise<Tag> {
-    return new Promise(async (resolve, reject) => {
-      if (tag.evaluation) {
-        this
-          .evaluationService
-          .delete(tag.evaluation)
-          .then(() => {
-            tag.evaluation = null;
-            this.update(tag).then(() => {
-              resolve(tag);
-            });
-          });
-      } else {
-        resolve(tag);
-      }
-    });
+  async clearEvaluation(tag: Tag) {
+    if (tag.evaluation) {
+      await this
+        .evaluationService
+        .delete(tag.evaluation);
+      tag.evaluation = null;
+      await this.update(tag);
+      return tag;
+    } else {
+      return tag;
+    }
   }
 
   async export(id: number): Promise<any> {
     const tag = await this.find(id);
     const data: any = { ...tag };
     delete data.id;
-    
+
     if (tag.evaluation) {
       const evaluation = await this.evaluationService.export(tag.evaluation);
       data.evaluation = evaluation;
@@ -266,5 +260,25 @@ export class TagService extends ApplicationDb {
 
   override async find(id: number | string): Promise<Tag> {
     return super.find(id);
+  }
+
+  async parse(data: any) {
+    if (data.evaluation) {
+      const evaluation = await this.evaluationService.create(data.evaluation);
+      data.evaluation = evaluation.id;
+    }
+
+    if (data.cards){
+      const cards = [];
+
+      for (const card of data.cards) {
+        const new_card = await this.cardService.parse(card);
+        cards.push(new_card.id);
+      }
+
+      data.cards = cards;
+    }
+
+    return await this.create(data);
   }
 }

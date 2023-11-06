@@ -25,12 +25,6 @@
                 </ng-container>
             </ng-container>
         </li>
-        <!--
-        <span class="header-spacer"></span>
-        <strong>
-            EN
-        </strong>
-        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -44,6 +38,12 @@
     </div>
 </mat-toolbar>
 
+<app-toolbar-analysis 
+*ngIf="type_entries=='edit'"
+(imported)="refreshContent()"
+>
+</app-toolbar-analysis>
+
 <mat-toolbar *ngIf="type_entries=='template'">
     <div style="margin-left: 30px;">
         <button (click)="openNewTemplateDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> New
@@ -55,13 +55,7 @@
 
     <div class="main_panel">
         <ng-container [ngSwitch]="type_entries" *ngIf="!loading; else loadingEntries">
-            <ng-container *ngSwitchCase="'edit'">
-                <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of analysis to be
-                                evaluated.</strong></span></div>
-                </div>
-                <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i>  {{ "entries.list.import" | translate }}</button>
-                <br>
+            <ng-container *ngSwitchCase="'edit'">             
                 <app-analysis-line *ngFor="
                 let analysis of entries | filterForUser: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
                 let i = index

@@ -246,33 +246,26 @@ export class AnalysisService extends ApplicationDb {
     });
   }
 
-  deleteAnalysis(analysis: Analysis): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      const tags = await this.getAllTags(analysis);
-      for (let tag of tags) {
-        await this.removeTag(analysis, tag);
-      }
-      await this.clearEvaluation(analysis);
-      await this.delete(analysis.id);
-      resolve();
-    });
+  override async delete(id: number) {
+    const analysis = await this.find(id);
+    const tags = await this.getAllTags(analysis);
+    for (let tag of tags) {
+      await this.tagService.delete(tag.id);
+    }
+    await this.clearEvaluation(analysis);
+    await super.delete(id);
   }
 
-  removeTag(analysis: Analysis, tag: Tag): Promise<Analysis> {
-    return new Promise(async (resolve, reject) => {
-      await this.tagService.deleteTag(tag);
+  async removeTag(analysis: Analysis, tag: Tag) {
+      await this.tagService.delete(tag.id);
 
       const index = analysis.tags.indexOf(tag.id);
       if (index > -1) {
         analysis.tags.splice(index, 1);
       }
-      this
-        .update(analysis)
-        .then((result: Analysis) => {
-          this.deleteTagEvent.emit(analysis.id);
-          resolve(analysis);
-        })
-    });
+      const result = await this.update(analysis);
+      this.deleteTagEvent.emit(analysis.id);
+      return result;
   }
 
   setEvaluation(analysis: Analysis, evaluation: Evaluation): Promise<Evaluation> {
@@ -333,6 +326,48 @@ export class AnalysisService extends ApplicationDb {
           });
       } else {
         resolve(analysis);
+      }
+    });
+  }
+
+  async parse(data: any): Promise<Analysis> {
+    if (data.evaluation) {
+      const evaluation = await this.evaluationService.create(data.evaluation);
+      data.evaluation = evaluation.id;
+    }
+
+    if (data.tags) {
+      const tags = [];
+
+      for (const tag of data.tags) {
+        const new_tag = await this.tagService.parse(tag);
+        tags.push(new_tag.id);
+      }
+
+      data.tags = tags;
+    }
+    return await this.create(data);
+  }
+
+  import(file: File | null): Promise<Analysis | null> {
+    return new Promise((resolve, reject) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = async (event2: any) => {
+          let data = null;
+          try {
+            data = JSON.parse(event2.target.result);
+          } catch (e) {
+            console.log("Defected input file");
+            reject(null);
+          }
+          const analysis = await this.parse(data);
+          resolve(analysis);
+        };
+      } else {
+        console.log("No file selected");
+        reject(null);
       }
     });
   }
