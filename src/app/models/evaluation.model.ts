@@ -1,4 +1,5 @@
 export type Status ='pending' | 'TBD' | 'not_compliant' | 'compliant';
+export const allStatus : Status[] = ['pending' , 'TBD' , 'not_compliant' , 'compliant'];
 
 export class Evaluation {
     public id: number=0;

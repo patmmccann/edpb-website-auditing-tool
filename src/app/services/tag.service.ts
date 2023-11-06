@@ -272,7 +272,7 @@ export class TagService extends ApplicationDb {
       const cards = [];
 
       for (const card of data.cards) {
-        const new_card = await this.cardService.parse(card);
+        const new_card = await this.cardService.parse({...card});
         cards.push(new_card.id);
       }
 

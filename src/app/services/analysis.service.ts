@@ -340,7 +340,7 @@ export class AnalysisService extends ApplicationDb {
       const tags = [];
 
       for (const tag of data.tags) {
-        const new_tag = await this.tagService.parse(tag);
+        const new_tag = await this.tagService.parse({...tag});
         tags.push(new_tag.id);
       }
 

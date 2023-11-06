@@ -61,6 +61,7 @@
     "@angular-devkit/build-angular": "^16.2.6",
     "@angular/cli": "~16.0.0",
     "@angular/compiler-cli": "^16.0.0",
+    "@faker-js/faker": "^8.2.0",
     "@types/jasmine": "~5.1.0",
     "@types/js-yaml": "^4.0.5",
     "electron": "^27.0.0",
