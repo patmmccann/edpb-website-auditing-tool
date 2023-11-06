@@ -226,4 +226,21 @@ export class CardService extends ApplicationDb {
   castToBeaconCard(card:Card):BeaconCard{
     return (card as BeaconCard);
   }
+
+  async export(id: number): Promise<any> {
+    const card = await this.find(id);
+    const data: any = { ...card };
+    delete data.id;
+    
+    if (card.evaluation) {
+      const evaluation = await this.evaluationService.export(card.evaluation);
+      data.evaluation = evaluation;
+    }
+
+    return data;
+  }
+
+  override async find(id: number | string): Promise<Card> {
+    return super.find(id);
+  }
 }

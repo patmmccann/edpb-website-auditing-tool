@@ -23,7 +23,7 @@
         <button mat-button [routerLink]="['/analysis', analysis.id]">
             <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>
         </button>
-        <button mat-button [routerLink]="['/report', analysis.id]">
+        <button mat-button (click)="export(analysis.id)">
             <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">download</mat-icon>
         </button>
         <button mat-button (click)="delete()">

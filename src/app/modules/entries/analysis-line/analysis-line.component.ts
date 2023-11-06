@@ -58,4 +58,32 @@ export class AnalysisLineComponent implements OnInit {
       this.deleted.emit();
     });
   }
+
+  export(id:number):void{
+    this.analysisService.find(id)
+    .then((analysis)=>{
+      const a = document.getElementById('base-exportBlock');
+      const date = new Date().getTime();
+  
+      if (a) {
+        this.analysisService.export(id)
+        .then((data)=>{
+          const url =
+            'data:text/json;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(data));
+          a.setAttribute('href', url);
+          a.setAttribute(
+            'download',
+            analysis.name + '_' + date + '.json'
+          );
+          const event = new MouseEvent('click', {
+            view: window
+          });
+          a.dispatchEvent(event);
+        });
+      }else {
+        throw new Error("No link to download analysis export.")
+      }
+    });
+  }
 }
