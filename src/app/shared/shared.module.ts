@@ -47,7 +47,6 @@ import { BeaconCardComponent } from './components/cards/beacon-card/beacon-card.
 import { BeaconDetailsComponent } from './components/details/beacon-details/beacon-details.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LanguagesService } from '../services/languages.service';
 import { LanguagesComponent } from './components/languages/languages.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
