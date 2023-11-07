@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+export type TestSLLType ='script' | 'docker';
+export const allTestSLLType : TestSLLType[] = ['script' , 'docker'];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +13,8 @@ export class SettingsService {
 
   dnt :boolean =false;
   testssl :boolean =false;
+  testssl_type :TestSLLType ='docker';
+  test_ssl_location :string | null =null;
   cookies :boolean =false;
   localstorage :boolean =false;
   https :boolean =false;
@@ -24,6 +29,8 @@ export class SettingsService {
     this.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
     this.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
     this.testssl = localStorage.getItem('testssl') == 'true'? true : false ;
+    this.testssl_type = localStorage.getItem('testssl_type') == 'script'? 'script' : 'docker' ;
+    this.test_ssl_location = localStorage.getItem('test_ssl_location');
     this.cookies = localStorage.getItem('cookies') == 'false'? false : true ;
     this.localstorage = localStorage.getItem('localstorage') == 'false'?false : true ;
     this.https = localStorage.getItem('https') == 'false'? false : true ;
@@ -42,11 +49,20 @@ export class SettingsService {
     }
   }
 
+  setTestSSLLocation(location:string){
+    this.test_ssl_location = location;
+    localStorage.setItem('test_ssl_location', location);
+  }
+
   toArgs():any{
     let args:any = {};
     args.dnt = this.dnt ;
     args.testssl = this.testssl ;
+    args.testssl_type = this.testssl_type ;
     args.useragent = this.useragent
+    if (args.testssl && args.testssl_type == "script"){
+      args.testsslExecutable = this.test_ssl_location;
+    }
     return args;
   }
 }

@@ -43,8 +43,8 @@
 
 <mat-toolbar class="page-header" role="heading">
     <div style="margin-left: 30px;">
-        <button *ngIf="!editing"  (click)="start_edition()" mat-raised-button color="blue"> <i class="fas fa-pen"></i> Edit</button>
-        <button *ngIf="editing" (click)="close_edition()" mat-raised-button color="blue"> <i class="fas fa-close"></i> Close edition</button>        
+        <button *ngIf="!editing"  (click)="start_edition()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon> Edit</button>
+        <button *ngIf="editing" (click)="close_edition()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> Close edition</button>        
         <button [disabled]="editing" (click)="export('json')" mat-raised-button color="blue"> <i class="fas fa-file-import"></i> Save as
             JSON</button>
         <button [disabled]="editing" (click)="export('xlsx')" mat-raised-button color="blue"> <i class="fas fa-file-import"></i> Save as

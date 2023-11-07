@@ -1,0 +1,52 @@
+<div class="content" style="max-width: 800px; margin-top: 56px;">
+    <div class="header">Analysis</div>
+    <mat-slide-toggle (change)="settingService.setItem('testssl', $event.checked)" [(ngModel)]="settingService.testssl"
+        color="primary">Enable Testssl </mat-slide-toggle> 
+
+    <ng-container *ngIf="settingService.testssl">
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-select [(ngModel)]="settingService.testssl_type" (selectionChange)="settingService.setItem('testssl_type', $event.value)">
+                <mat-option value="script">Script</mat-option>
+                <mat-option value="docker">Docker</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="settingService.testssl_type == 'script'">
+            <br><br>
+            <mat-form-field class="form-ssl-field" appearance="fill">
+                <mat-label>TestSSL location</mat-label>
+                <input disabled matInput type="text" [(ngModel)]="settingService.test_ssl_location">
+            </mat-form-field>
+            <button (click)="getSSLLocation()">
+                <mat-icon>folder_open</mat-icon>
+            </button>
+            <div class="hide">
+                <form enctype="multipart/form-data" [formGroup]="SSLLocation">
+                    <input type="file" formControlName="ssl_location" id="ssl_location" (change)="checkSSLLocation($event)"
+                        class="hide" />
+                </form>
+            </div>
+        </ng-container>
+    
+        <ng-container *ngIf="settingService.testssl_type == 'docker'">
+        </ng-container>
+    </ng-container>
+    <br><br>
+    <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)" [(ngModel)]="settingService.cookies"
+        color="primary">Enable Cookies analysis</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('localstorage', $event.checked)"
+        [(ngModel)]="settingService.localstorage" color="primary">Enable Local Storage
+        analysis</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('https', $event.checked)" [(ngModel)]="settingService.https"
+        color="primary">Enable HTTPS analysis</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('traffic', $event.checked)" [(ngModel)]="settingService.traffic"
+        color="primary">Enable traffic analysis</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('webform', $event.checked)" [(ngModel)]="settingService.webform"
+        color="primary">Enable unsafe Webform
+        analysis</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('beacons', $event.checked)" [(ngModel)]="settingService.beacons"
+        color="primary">Enable Web Beacon
+        analysis</mat-slide-toggle><br><br>
+
+</div>

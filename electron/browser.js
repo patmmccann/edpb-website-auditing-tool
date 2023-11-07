@@ -188,7 +188,7 @@ function initBrowserHandlers(win) {
         return collect.output;
     });
 
-    ipcMain.handle('get', async (event, analysis_id, tag_id, kinds, waitForComplete) => {
+    ipcMain.handle('get', async (event, analysis_id, tag_id, kinds, waitForComplete, args) => {
 
         let res = null;
 
@@ -196,6 +196,10 @@ function initBrowserHandlers(win) {
 
         if (waitForComplete) {
             await logger.waitForComplete(collect.logger);
+        }
+
+        if (args){
+            collect.args = args;
         }
 
         const inspect = await inspector(
@@ -219,12 +223,24 @@ function initBrowserHandlers(win) {
                 case 'testSSL':
                     //if (!collect.output.uri_ins) return testssl_example;
                     if (collect.output.uri_ins) {
-                        collector_connection.testSSL(
-                            collect.output.uri_ins,
-                            collect.args,
-                            collect.logger,
-                            collect.output
-                        );
+                        if (collect.args.testssl_type == 'script'){
+                            collector_connection.testSSLScript(
+                                collect.output.uri_ins,
+                                collect.args,
+                                collect.logger,
+                                collect.output
+                            );
+                        }else if (collect.args.testssl_type == 'docker'){
+                            collector_connection.testSSLDocker(
+                                collect.output.uri_ins,
+                                collect.args,
+                                collect.logger,
+                                collect.output
+                            );
+                        }else{
+                            collect.output.testSSLError = "Unknow method for testssl, go to settings first.";
+                        }
+                        
                     } else {
                         collect.output.testSSLError = "No url given to test_ssl.sh";
                     }

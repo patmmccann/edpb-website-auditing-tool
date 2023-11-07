@@ -11,7 +11,7 @@ const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
 
-function testSSL(uri, args, logger, output) {
+function testSSLDocker(uri, args, logger, output) {
   output.testSSLErrorCode =null;
   output.testSSLError =null;
   output.testSSLErrorOutput = null;
@@ -25,7 +25,7 @@ function testSSL(uri, args, logger, output) {
       "--ip one", // speed up testssl: just test the first DNS returns (useful for multiple IPs)
       "--quiet", // no banner
       "--hints", // additional hints to findings
-      "--fast", // omits some checks: using openssl for all ciphers (-e), show only first preferred cipher.
+      //"--fast", // omits some checks: using openssl for all ciphers (-e), show only first preferred cipher.
       "--vulnerable", // tests vulnerabilities (if applicable)
       "--headers", // tests HSTS, HPKP, server/app banner, security headers, cookie, reverse proxy, IPv4 address
       "--protocols", // checks TLS/SSL protocols (including SPDY/HTTP2)
@@ -86,6 +86,81 @@ function testSSL(uri, args, logger, output) {
   }
 }
 
+function testSSLScript(uri, args, logger, output) {
+  output.testSSLErrorCode =null;
+  output.testSSLError =null;
+  output.testSSLErrorOutput = null;
+  if (args.testssl) {
+    let uri_ins_https = new url.URL(uri);
+    uri_ins_https.protocol = "https:";
+
+    let testsslExecutable = args.testsslExecutable || "testssl.sh"; // set default location
+    let testsslArgs = [
+      "--ip one", // speed up testssl: just test the first DNS returns (useful for multiple IPs)
+      "--quiet", // no banner
+      "--hints", // additional hints to findings
+      //"--fast", // omits some checks: using openssl for all ciphers (-e), show only first preferred cipher.
+      "--vulnerable", // tests vulnerabilities (if applicable)
+      "--headers", // tests HSTS, HPKP, server/app banner, security headers, cookie, reverse proxy, IPv4 address
+      "--protocols", // checks TLS/SSL protocols (including SPDY/HTTP2)
+      "--standard", // tests certain lists of cipher suites by strength
+      "--server-defaults", // displays the server's default picks and certificate info
+      "--server-preference", // displays the server's picks: protocol+cipher
+    ];
+
+    let json_file;
+
+    if (args.output) {
+      let output_testssl = path.join(args.output, "testssl");
+      fs.mkdirSync(output_testssl);
+
+      json_file = `${output_testssl}/testssl.json`;
+      testsslArgs.push(`--htmlfile ${output_testssl}/testssl.html`);
+      testsslArgs.push(`--logfile ${output_testssl}/testssl.log`);
+    } else {
+      // case with --no-ouput and --testssl
+      json_file = path.join(os.tmpdir(), `testssl.${Date.now()}.json`);
+    }
+
+    testsslArgs.push(`--jsonfile-pretty ${json_file}`);
+    testsslArgs.push(uri_ins_https.toString());
+
+    const { exec } = require("child_process");
+
+    let cmd = `${testsslExecutable} ${testsslArgs.join(" ")}`;
+    logger.log("info", `launching testSSL: ${cmd}`, { type: "testSSL" });
+    exec(cmd, (e, stdout, stderr) => {
+      if (e) {
+        output.testSSLErrorCode = e.status;
+          // https://github.com/drwetter/testssl.sh/blob/3.1dev/doc/testssl.1.md#exit-status
+          logger.log("warn", e.message.toString(), { type: "testSSL" });
+          output.testSSLError = e.message.toString();
+          if (stderr){
+            output.testSSLErrorOutput = stderr.toString();
+          }
+      }else{
+        output.testSSLErrorCode = null;
+        output.testSSLErrorOutput = null;
+      }
+
+      if (fs.existsSync(json_file)) {
+        output.testSSL = JSON.parse(fs.readFileSync(json_file, "utf8"));
+      }else{
+        output.testSSLError = "No result found for testssl";
+        output.testSSLErrorOutput = "Verify your testssl.sh location";
+      }
+
+      if (!args.output) {
+        fs.removeSync(json_file);
+      }
+    });
+
+  } else if (args.testsslFile) {
+    output.testSSL = JSON.parse(fs.readFileSync(args.testsslFile), "utf8");
+  }
+}
+
+
 async function testHttps(uri, output) {
   // test if server responds to https
   let uri_ins_https;
@@ -137,4 +212,4 @@ async function testHttps(uri, output) {
   }
 }
 
-module.exports = { testHttps, testSSL };
+module.exports = { testHttps, testSSLDocker, testSSLScript };

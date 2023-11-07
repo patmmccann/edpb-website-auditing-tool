@@ -50,10 +50,10 @@
                     </td>
                     <td>
                       <a href="javascript:void(0)" (click)="scroll(card.card)">
-                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
                     <a [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
-                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">download</mat-icon>
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteCard(card.card)">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
@@ -99,10 +99,10 @@
                     </td>
                     <td>
                       <a [routerLink]="['/analysis', analysis.id, 'tag', tag.tag.id]">
-                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
                     <a [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
-                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">download</mat-icon>
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteTag(tag.tag)">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="delete icon">delete</mat-icon>

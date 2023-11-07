@@ -15,7 +15,7 @@ contextBridge.exposeInMainWorld(
     getURL: (analysis_id, tag_id) => ipcRenderer.invoke('getURL', analysis_id, tag_id),
 
     save: (analysis_id, tag_id) => ipcRenderer.invoke('save', analysis_id, tag_id),
-    get: (analysis_id, tag_id, kind, waitForComplete) => ipcRenderer.invoke('get', analysis_id, tag_id,kind, waitForComplete),
+    get: (analysis_id, tag_id, kind, waitForComplete,args) => ipcRenderer.invoke('get', analysis_id, tag_id,kind, waitForComplete,args),
     screenshot: (analysis_id, tag_id) => ipcRenderer.invoke('screenshot', analysis_id, tag_id),
     stop: (analysis_id, tag_id) => ipcRenderer.invoke('stop', analysis_id, tag_id),
     refresh: (analysis_id, tag_id) => ipcRenderer.invoke('refresh', analysis_id, tag_id),

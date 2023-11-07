@@ -7,18 +7,10 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  localStorage:any=null;
   option:'general'|'browser'|'analysis'|'cookies'='general';
 
-  SSLLocation: FormGroup = new FormGroup({
-    ssl_location: new FormControl('', [])
-  });
-
   constructor(
-    private el: ElementRef,
-    public settingService : SettingsService
   ) { 
-    this.localStorage =localStorage;
 
   }
 
