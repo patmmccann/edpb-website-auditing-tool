@@ -49,6 +49,11 @@ function createWindow() {
     winState.manage(mainWindow);
 
     if (isDev) {
+        const debug = require('electron-debug');
+        debug();
+    
+        require('electron-reloader')(module);
+        
         mainWindow.loadURL("http://localhost:4200/");
 
         // Open the DevTools.

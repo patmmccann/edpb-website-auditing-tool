@@ -1,0 +1,12 @@
+{
+  "name": "website-audit",
+  "version": "1.1.0",
+  "author": "EDPB",
+  "license": "EUPL-1.0",
+  "main": "main.js",
+  "repository": "https://github.com/gorinje/website-audit3.git",
+  "description": "Website auditing tool",
+  "private": true,
+  "dependencies": {
+  }
+}

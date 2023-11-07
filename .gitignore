@@ -5,3 +5,8 @@ dist/
 releases/
 package-lock.json
 .vscode/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/e2e/tracing/
