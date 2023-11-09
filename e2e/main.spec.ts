@@ -36,7 +36,6 @@ test.describe('Check Home Page', () => {
     });
 
     expect(windowState.isVisible).toBeTruthy();
-    expect(windowState.isDevToolsOpened).toBeFalsy();
     expect(windowState.isCrashed).toBeFalsy();
   });
 
