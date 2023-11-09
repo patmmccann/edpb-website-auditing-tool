@@ -106,17 +106,6 @@ export class BrowserService {
     });
   }
 
-  getSessions(window: any): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      window.electron.getSessions()
-        .then((sessions: any[]) => {
-          resolve(sessions);
-        })
-    });
-  };
-
-
-
   eraseSession(window: any, analysis: Analysis | null, tag: Tag | null) {
     let args = this.settingService.toArgs();
     return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null, args);

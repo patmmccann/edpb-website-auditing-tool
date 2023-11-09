@@ -6,7 +6,7 @@ import * as url from 'url';
 
 const gotTheLock = app.requestSingleInstanceLock();
 
-import {initBrowserHandlers, deleteBrowserHandlers} from "./browser";
+import {initBrowserHandlers, deleteBrowserHandlers, BrowsersHandlher} from "./browser";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -63,10 +63,12 @@ function createWindow() {
             })
         );
     }
+    const browserHandlers = new BrowsersHandlher(mainWindow);
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
         deleteBrowserHandlers();
+        browserHandlers.unregisterHandlers();
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.

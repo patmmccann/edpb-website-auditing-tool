@@ -1,4 +1,5 @@
 import {BrowserWindow} from 'electron';
+
 const HTMLDocx = require("html-docx-js");
 const fs = require("fs-extra");
 const tmp = require("tmp");
