@@ -1,21 +1,16 @@
-const electron = require("electron");
+import {app, BrowserWindow, globalShortcut, ipcMain} from 'electron';
+import * as windowStateKeeper from 'electron-window-state';
+import * as isDev from 'electron-is-dev';
+import * as path from 'path';
+import * as url from 'url';
 
-// Module to control application life.
-const { app, BrowserWindow, globalShortcut, ipcMain } = electron;
-const isDev = require("electron-is-dev");
-
-// Keep window state
-const windowStateKeeper = require("electron-window-state");
-
-const path = require("path");
-const url = require("url");
 const gotTheLock = app.requestSingleInstanceLock();
 
-const {initBrowserHandlers, deleteBrowserHandlers} = require("./browser");
+import {initBrowserHandlers, deleteBrowserHandlers} from "./browser";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow :BrowserWindow | null = null;
 
 function createWindow() {
     let winState = windowStateKeeper({
@@ -78,10 +73,11 @@ function createWindow() {
         mainWindow = null;
     });
 
-    mainWindow.webContents.on("new-window", function (e, url) {
+    //FIX ME
+    /*mainWindow.webContents.on('new-window', function (e, url) {
         e.preventDefault();
         require("electron").shell.openExternal(url);
-    });
+    });*/
 
     initBrowserHandlers(mainWindow);
 }

@@ -14,6 +14,7 @@
     "build:prod": "npm run build -- -c production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "electron:serve-tsc": "tsc --watch --project ./app",
     "electron:start": "ng build --base-href ./ && electron .",
     "electron:mac": "ng build --base-href ./ && electron-builder -m --publish=never",
     "electron:win": "ng build --base-href ./ && electron-builder -w --publish=never",

@@ -6,7 +6,6 @@
  */
 
 const url = require("url");
-//const got = require("got"); //FIXME
 const fs = require("fs-extra");
 const os = require("os");
 const path = require("path");
@@ -165,12 +164,13 @@ async function testHttps(uri, output) {
   // test if server responds to https
   let uri_ins_https;
   output.secure_connection = {};
-  
+  const got = await import("got");
+
   try {
     uri_ins_https = new url.URL(uri);
     uri_ins_https.protocol = "https:";
 
-    await got(uri_ins_https, {
+    await got.got(uri_ins_https, {
       followRedirect: false,
     });
 
@@ -185,7 +185,7 @@ async function testHttps(uri, output) {
     let uri_ins_http = new url.URL(uri);
     uri_ins_http.protocol = "http:";
 
-    let res = await got(uri_ins_http, {
+    let res = await got.got(uri_ins_http, {
       followRedirect: true,
       // ignore missing/wrongly configured SSL certificates when redirecting to
       // HTTPS to avoid reporting SSL errors in the output field http_error
@@ -194,7 +194,7 @@ async function testHttps(uri, output) {
       },
     });
 
-    output.secure_connection.redirects = res.redirectUrls;
+    output.secure_connection.redirects = res.redirectUrls.map(x=> x.toString());
 
     if (output.secure_connection.redirects.length > 0) {
       let last_redirect_url = new url.URL(

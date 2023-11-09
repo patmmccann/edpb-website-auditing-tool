@@ -15,6 +15,7 @@ import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { SettingsService } from './settings.service';
 
+
 export interface BrowserSession {
   event: 'new' | 'delete',
   analysis: Analysis,

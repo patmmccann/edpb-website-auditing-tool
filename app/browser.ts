@@ -9,16 +9,15 @@ const path = require("path");
 const groupBy = require("lodash/groupBy");
 const fs = require("fs-extra");
 const collector_connection = require("../collector/connection");
-const { print_to_pdf, print_to_docx } = require("./export_report");
+import { print_to_pdf, print_to_docx } from "./export_report";
 
-
-function initBrowserHandlers(win) {
+export function initBrowserHandlers(win:any) {
     let mainWindow = win;
-    let browserWindow = null;
-    let default_collector = null;
-    let collectors = {};
+    let browserWindow :any= null;
+    let default_collector :any= null;
+    let collectors :any = {};
 
-    function getCollector(analysis_id, tag_id) {
+    function getCollector(analysis_id : number, tag_id:number) {
         if (!analysis_id && !tag_id) {
             return default_collector;
         }
@@ -27,7 +26,6 @@ function initBrowserHandlers(win) {
         if (!analysis) return null;
         return collectors[analysis_id][tag_id];
     }
-
 
     ipcMain.handle('createCollector', async (event, analysis_id, tag_id, url, args) => {
 
@@ -45,7 +43,7 @@ function initBrowserHandlers(win) {
 
             collectors[analysis_id][tag_id] = collect;
         } else if (default_collector == null) {
-            collector(args, logger.create({}, args)).then(collect => {
+            collector(args, logger.create({}, args)).then((collect:any) => {
                 default_collector = collect;
                 collect.createSession(mainWindow, 'main');
             });
@@ -80,12 +78,13 @@ function initBrowserHandlers(win) {
     });
 
     ipcMain.handle('getSessions', async (event) => {
-        const sessions = [];
-        for (const [analysis, sessions] of Object.entries(collectors)) {
+        const sessions : any [ ]= [];
+        // FIXME
+        /*for (const [analysis, sessions] of Object.entries(collectors)) {
             for (const [tag, session] of Object.entries(sessions)) {
                 sessions.push({ analysis: analysis, tag: tag })
             }
-        }
+        }*/
 
         return sessions;
     });
@@ -160,7 +159,7 @@ function initBrowserHandlers(win) {
         await collect.collectWebsocketLog();
 
         // browse sample history and log to localstorage
-        let browse_user_set = args.browseLink || [];
+        let browse_user_set :any[] = /*args.browseLink ||*/ []; //FIXME
         await collect.browseSamples(collect.output.localStorage, browse_user_set);
 
         // END OF BROWSING - discard the browser and page
@@ -174,7 +173,7 @@ function initBrowserHandlers(win) {
         // ########################################################
 
         const inspect = await inspector(
-            args,
+            null, //args, FIXME
             collect.logger,
             collect.pageSession,
             collect.output
@@ -320,7 +319,7 @@ function initBrowserHandlers(win) {
     });
 }
 
-function deleteBrowserHandlers() {
+export function deleteBrowserHandlers() {
     ipcMain.removeHandler('createCollector');
     ipcMain.removeHandler('deleteCollector');
     ipcMain.removeHandler('eraseSession');
@@ -343,5 +342,3 @@ function deleteBrowserHandlers() {
     ipcMain.removeHandler('parseHar');
     ipcMain.removeHandler('export');
 };
-
-module.exports = {initBrowserHandlers, deleteBrowserHandlers};
