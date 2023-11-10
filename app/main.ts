@@ -6,7 +6,9 @@ import * as url from 'url';
 
 const gotTheLock = app.requestSingleInstanceLock();
 
-import {initBrowserHandlers, deleteBrowserHandlers, BrowsersHandlher} from "./browser";
+import {BrowsersHandlher} from "./browser";
+import { ReportsHandlher } from './report';
+import { ParserHandlher } from './parser';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -64,11 +66,15 @@ function createWindow() {
         );
     }
     const browserHandlers = new BrowsersHandlher(mainWindow);
+    const reportsHandlher = new ReportsHandlher();
+    const parserHandlher = new ParserHandlher();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
-        deleteBrowserHandlers();
         browserHandlers.unregisterHandlers();
+        reportsHandlher.unregisterHandlers();
+        parserHandlher.unregisterHandlers();
+        
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
@@ -80,8 +86,6 @@ function createWindow() {
         e.preventDefault();
         require("electron").shell.openExternal(url);
     });*/
-
-    initBrowserHandlers(mainWindow);
 }
 
 if (!gotTheLock) {

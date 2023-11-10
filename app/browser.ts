@@ -4,152 +4,174 @@ const collector = require("../collector/index");
 const inspector = require("../inspector/index");
 
 const logger = require("../lib/logger");
-const pug = require("pug");
-const path = require("path");
-const groupBy = require("lodash/groupBy");
-const fs = require("fs-extra");
+
 const collector_connection = require("../collector/connection");
-import { print_to_pdf, print_to_docx } from "./export_report";
-
-let mainWindow = null;
-let default_collector :any= null;
-let collectors :any = {};
-let browserWindow :any= null;
-
-function getCollector(analysis_id : number, tag_id:number) {
-    if (!analysis_id && !tag_id) {
-        return default_collector;
-    }
-
-    const analysis = collectors[analysis_id];
-    if (!analysis) return null;
-    return collectors[analysis_id][tag_id];
-}
 
 export class BrowsersHandlher {
     mainWindow : BrowserWindow;
+    default_collector :any= null;
+    collectors :any = {};
+    browserWindow :any= null;
 
     constructor(mainWindow : BrowserWindow){
         this.mainWindow = mainWindow;
-        ipcMain.handle('resizeSession',this.resizeSession);
-        ipcMain.handle('hideSession', this.hideSession);
-        ipcMain.handle('showSession', this.showSession);
-        ipcMain.handle('getURL',this.getUrl);
-        ipcMain.handle('loadURL', this.loadURL);
-        ipcMain.handle('refresh', this.refresh);
-        ipcMain.handle('stop',this.stop);
-        ipcMain.handle('backward',this.backward);
-        ipcMain.handle('forward',this.forward);
-        ipcMain.handle('canGoBackward',this.canGoBackward);
-        ipcMain.handle('canGoForward',this.canGoForward);
-        ipcMain.handle('createCollector', this.createBrowserSession);
-        ipcMain.handle('deleteCollector', this.deleteBrowserSession);
-        ipcMain.handle('eraseSession', this.clearSession);
-        ipcMain.handle('save', this.saveSession);
-        ipcMain.handle('get', this.collectFromSession);
+        this.registerHandlers();
+    }
+
+    registerHandlers(){
+        ipcMain.handle('resizeSession',this.resizeSession.bind(this));
+        ipcMain.handle('hideSession', this.hideSession.bind(this));
+        ipcMain.handle('showSession', this.showSession.bind(this));
+        ipcMain.handle('getURL',this.getUrl.bind(this));
+        ipcMain.handle('loadURL', this.loadURL.bind(this));
+        ipcMain.handle('refresh', this.refresh.bind(this));
+        ipcMain.handle('stop',this.stop.bind(this));
+        ipcMain.handle('backward',this.backward.bind(this));
+        ipcMain.handle('forward',this.forward.bind(this));
+        ipcMain.handle('canGoBackward',this.canGoBackward.bind(this));
+        ipcMain.handle('canGoForward',this.canGoForward.bind(this));
+        ipcMain.handle('createCollector', this.createBrowserSession.bind(this));
+        ipcMain.handle('deleteCollector', this.deleteBrowserSession.bind(this));
+        ipcMain.handle('eraseSession', this.clearSession.bind(this));
+        ipcMain.handle('save', this.saveSession.bind(this));
+        ipcMain.handle('get', this.collectFromSession.bind(this));
+        ipcMain.handle('screenshot', this.screenshot.bind(this));
+    }
+
+    unregisterHandlers(){
+        ipcMain.removeHandler('showSession');
+        ipcMain.removeHandler('hideSession');
+        ipcMain.removeHandler('resizeSession');
+        ipcMain.removeHandler('getURL');
+        ipcMain.removeHandler('refresh');
+        ipcMain.removeHandler('stop');
+        ipcMain.removeHandler('backward');
+        ipcMain.removeHandler('forward');
+        ipcMain.removeHandler('canGoBackward');
+        ipcMain.removeHandler('canGoForward');
+        ipcMain.removeHandler('createCollector');
+        ipcMain.removeHandler('deleteCollector');
+        ipcMain.removeHandler('eraseSession');
+        ipcMain.removeHandler('save');
+        ipcMain.removeHandler('get');
+        ipcMain.removeHandler('screenshot');
+    }
+
+    getCollector(analysis_id : number, tag_id:number) {
+        if (!analysis_id && !tag_id) {
+            return this.default_collector;
+        }
+    
+        const analysis = this.collectors[analysis_id];
+        if (!analysis) return null;
+        return this.collectors[analysis_id][tag_id];
     }
 
     hideSession(){
-        mainWindow.setBrowserView(null);
+        this.mainWindow.setBrowserView(null);
     }
 
     showSession(event, analysis_id, tag_id){
-        browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
-        mainWindow.setBrowserView(browserWindow);
-        return browserWindow.webContents.getURL();
+        this.browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
+        this.mainWindow.setBrowserView(this.browserWindow);
+        return this.browserWindow.webContents.getURL();
     }
 
     resizeSession(event, rect){
         if (rect) {
-            browserWindow.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
+            this.browserWindow.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
         }
     }
 
     getUrl(event, analysis_id, tag_id){
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.getURL();
     }
 
     async loadURL(event, analysis_id, tag_id, url){
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         await browserWindow.webContents.loadURL(url);
         return browserWindow.webContents.getURL();
     }
 
     refresh(event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.reload();
     }
 
     stop (event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.stop();
     }
 
     backward (event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.goBack();
     }
 
     forward (event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.goForward();
     }
 
     canGoBackward (event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.canGoBack();
     }
 
     canGoForward (event, analysis_id, tag_id) {
-        const browserWindow = getCollector(analysis_id, tag_id).browserSession.browser;
+        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
         return browserWindow.webContents.canGoForward();
     }
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
             const collect = await collector(args, logger.create({}, args));
-            await collect.createSession(mainWindow, 'session' + analysis_id + tag_id);
+            await collect.createSession(this.mainWindow, 'session' + analysis_id + tag_id);
 
             if (url) {
                 await collect.getPage(url);
             }
 
-            if (!(analysis_id in collectors)) {
-                collectors[analysis_id] = {};
+            if (!(analysis_id in this.collectors)) {
+                this.collectors[analysis_id] = {};
             }
 
-            collectors[analysis_id][tag_id] = collect;
-        } else if (default_collector == null) {
+            this.collectors[analysis_id][tag_id] = collect;
+        } else if (this.default_collector == null) {
             collector(args, logger.create({}, args)).then((collect:any) => {
-                default_collector = collect;
-                collect.createSession(mainWindow, 'main');
+                this.default_collector = collect;
+                collect.createSession(this.mainWindow, 'main');
             });
         }
     }
 
     async deleteBrowserSession(event, analysis_id, tag_id){
-        const collector = getCollector(analysis_id, tag_id);
+        const collector = this.getCollector(analysis_id, tag_id);
         if (!collector) return;
 
-        const current_view = mainWindow.getBrowserView();
+        const current_view = this.mainWindow.getBrowserView();
 
         if (collector.browserSession.browser == current_view) {
-            mainWindow.setBrowserView(null);
+            this.mainWindow.setBrowserView(null);
         }
 
         await collector.endSession();
-        collectors[analysis_id][tag_id] = null;
+        this.collectors[analysis_id][tag_id] = null;
     }
 
     clearSession(event, analysis_id, tag_id, args){
-        getCollector(analysis_id, tag_id).eraseSession(args, logger.create({}, args));
+        this.getCollector(analysis_id, tag_id).eraseSession(args, logger.create({}, args));
+    }
+
+    async screenshot(event, analysis_id, tag_id){
+        return await this.getCollector(analysis_id, tag_id).pageSession.screenshot();
     }
 
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
         let res = null;
 
-        const collect = getCollector(analysis_id, tag_id);
+        const collect = this.getCollector(analysis_id, tag_id);
 
         if (waitForComplete) {
             await logger.waitForComplete(collect.logger);
@@ -226,7 +248,7 @@ export class BrowsersHandlher {
     }
 
     async saveSession(event, analysis_id, tag_id){
-        const collect = getCollector(analysis_id, tag_id);
+        const collect = this.getCollector(analysis_id, tag_id);
 
         //test the ssl and https connection
         await collect.testConnection();
@@ -268,85 +290,4 @@ export class BrowsersHandlher {
 
         return collect.output;
     }
-
-    unregisterHandlers(){
-        ipcMain.removeHandler('showSession');
-        ipcMain.removeHandler('hideSession');
-        ipcMain.removeHandler('resizeSession');
-        ipcMain.removeHandler('getURL');
-        ipcMain.removeHandler('refresh');
-        ipcMain.removeHandler('stop');
-        ipcMain.removeHandler('backward');
-        ipcMain.removeHandler('forward');
-        ipcMain.removeHandler('canGoBackward');
-        ipcMain.removeHandler('canGoForward');
-        ipcMain.removeHandler('createCollector');
-        ipcMain.removeHandler('deleteCollector');
-        ipcMain.removeHandler('eraseSession');
-        ipcMain.removeHandler('save');
-        ipcMain.removeHandler('get');
-    }
 }
-
-
-export function initBrowserHandlers(win:any) {
-    mainWindow = win;
-
-    ipcMain.handle('screenshot', async (event, analysis_id, tag_id) => {
-        return await getCollector(analysis_id, tag_id).pageSession.screenshot();
-    });
-
-    ipcMain.handle('renderPug', async (event, template, data) => {
-        return pug.render(template,
-            Object.assign({}, data, {
-                pretty: true,
-                basedir: path.join(__dirname, "../assets"),
-                jsondir: ".", // images in the folder of the inspection.json
-                groupBy: groupBy,
-                inlineCSS: fs.readFileSync(
-                    require.resolve("github-markdown-css/github-markdown.css")
-                ),
-            })
-        );
-    });
-
-    ipcMain.handle('parseHar', async (event, har, args) => {
-        const collect = await collector(args, logger.create({}, args));
-        await collect.createSessionFromHar(har);
-        await collect.collectCookies();
-
-        await logger.waitForComplete(collect.logger);
-
-        const inspect = await inspector(
-            args,
-            collect.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        await inspect.inspectCookies();
-        await inspect.inspectBeacons();
-        await inspect.inspectHosts();
-
-
-        return collect.output;
-    });
-
-    ipcMain.handle('export', async (event, format, html) => {
-        switch (format) {
-            case 'pdf':
-                return await print_to_pdf(html);
-            case 'docx':
-                return await print_to_docx(html);
-            default:
-                return "";
-        }
-    });
-}
-
-export function deleteBrowserHandlers() {
-    ipcMain.removeHandler('screenshot');
-    ipcMain.removeHandler('renderPug');
-    ipcMain.removeHandler('parseHar');
-    ipcMain.removeHandler('export');
-};
