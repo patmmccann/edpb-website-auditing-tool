@@ -7,6 +7,7 @@ import { MaterialAllModule } from 'src/app/material.module';
 import { ReportRendererComponent } from './report-renderer/report-renderer.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DocxComponent } from './toolbar/docx/docx.component';
+import { PdfComponent } from './toolbar/pdf/pdf.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DocxComponent } from './toolbar/docx/docx.component';
     ReportComponent,
     ReportRendererComponent,
     ToolbarComponent,
-    DocxComponent
+    DocxComponent,
+    PdfComponent
   ],
   imports: [
     CommonModule,

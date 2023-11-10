@@ -69,7 +69,6 @@ export class BrowserService {
       subscriveToBrowserEvent: (callback: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       renderPug: (template: string, data: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       parseHar: (har: any, args: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      export: (format : any, html: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
     }
   }
@@ -297,16 +296,6 @@ export class BrowserService {
     });
   }
 
-  export(window : any, format : string, html :any) : Promise<string>{
-    return new Promise((resolve, reject) => {
-      window.electron
-        .export(format, html)
-        .then((result: string) => {
-          resolve(result);
-        })
-    });
-  }
-
   parseHar(window: any, har: any): Promise<Card[]> {
     return new Promise((resolve, reject) => {
       window.electron.parseHar(har, this.settingService.toArgs())
@@ -315,9 +304,5 @@ export class BrowserService {
           resolve(cards);
         });
     });
-  }
-
-  print_to_docx(htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string){
-    return (window as any).electron.print_to_docx(htmlString, headerHTMLString, documentOptions, footerHTMLString);
   }
 }

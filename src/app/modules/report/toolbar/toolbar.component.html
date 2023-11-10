@@ -3,3 +3,8 @@
 [editing]="editing"
 [pug]="pug"
 ></app-docx>
+<app-pdf
+*ngIf="saveOption == 'pdf'"
+[editing]="editing"
+[pug]="pug"
+></app-pdf>

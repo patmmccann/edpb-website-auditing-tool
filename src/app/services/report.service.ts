@@ -33,7 +33,18 @@ export class ReportService {
     private cardService: CardService,
     private tagService: TagService,
     private browserService: BrowserService
-  ) { }
+  ) { 
+    if (!(window as any).electron) this.createFakeElectron(window);
+  }
+
+  createFakeElectron(window: any): void {
+    window.electron = {
+      print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      print_to_pdf: (htmlString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
+    }
+  }
+
+  
 
   getAllCardsWithEvaluations(tag: Tag,
     cards_type?: string[],
@@ -379,4 +390,11 @@ export class ReportService {
     });
   }
 
+  print_to_docx(htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string){
+    return (window as any).electron.print_to_docx(htmlString, headerHTMLString, documentOptions, footerHTMLString);
+  }
+
+  print_to_pdf(htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string){
+    return (window as any).electron.print_to_pdf(htmlString, headerHTMLString, documentOptions, footerHTMLString);
+  }
 }

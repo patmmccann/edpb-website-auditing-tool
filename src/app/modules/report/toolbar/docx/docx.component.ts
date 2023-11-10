@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BrowserService } from 'src/app/services/browser.service';
 import { LanguagesService } from 'src/app/services/languages.service';
+import { ReportService } from 'src/app/services/report.service';
 
 @Component({
   selector: 'app-docx',
@@ -20,9 +21,12 @@ export class DocxComponent {
 
   constructor(
     private languagesService: LanguagesService,
-    private browserService : BrowserService
+    private reportService : ReportService
   ){
+
   }
+
+
 
   get pageSize(){
     switch(this._pageSize){
@@ -39,7 +43,7 @@ export class DocxComponent {
 
   async save(){
     function export_result(url: any, name: string) {
-      const a = document.getElementById('base-exportBlock');
+      const a = document.getElementById('exportDocx');
 
       if (a) {
         a.setAttribute('href', url);
@@ -55,7 +59,7 @@ export class DocxComponent {
     }
     
     const date = new Date().getTime();
-    const docx = await this.browserService.print_to_docx(this.pug, "", {
+    const docx = await this.reportService.print_to_docx(this.pug, "", {
       orientation:this.orientation,
       pageSize:this.pageSize,
       pageNumber:this.pageNumber == "yes",
@@ -64,6 +68,6 @@ export class DocxComponent {
       creator: this.creator
     }, "");
     const blobUrl = URL.createObjectURL(new Blob([docx]));
-    export_result(blobUrl, date + '.docx');
+    export_result(blobUrl, date + '_export.docx');
   }
 }

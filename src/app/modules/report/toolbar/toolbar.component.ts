@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export type saveOptions = 'docx' | 'none';
+export type saveOptions = 'docx' | 'pdf' |'none';
 
 @Component({
   selector: 'app-toolbar',

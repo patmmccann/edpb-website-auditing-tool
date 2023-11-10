@@ -297,6 +297,8 @@ export class ReportComponent implements OnInit, OnDestroy {
     const date = new Date().getTime();
 
     const data = this.pug;
+    this.saveOption ='none';
+
     switch (format) {
       case 'json':
         const json =
@@ -331,18 +333,11 @@ export class ReportComponent implements OnInit, OnDestroy {
         export_result(url, date + '_export.html');
         break;
       case 'pdf':
-        this.browserService.export(window, format, data)
-          .then((pdf: any) => {
-            var blobUrl = URL.createObjectURL(new Blob([pdf]));
-            export_result(blobUrl, date + '_export.pdf');
-          })
+        this.saveOption ='pdf';
         break;
 
       case 'docx':
-        if(this.saveOption == 'docx') 
-          this.saveOption ='none';
-        else
-          this.saveOption ='docx';
+        this.saveOption ='docx';
         break;
     }
   }

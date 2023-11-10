@@ -13,24 +13,15 @@ export class ReportsHandlher {
   }
 
   registerHandlers() {
-    ipcMain.handle('export', this.export.bind(this));
     ipcMain.handle('print_to_docx', this.print_to_docx);
+    ipcMain.handle('print_to_pdf', this.print_to_pdf);
     ipcMain.handle('renderPug', this.renderPug);
   }
 
   unregisterHandlers() {
     ipcMain.removeHandler('renderPug');
-    ipcMain.removeHandler('export');
     ipcMain.removeHandler('print_to_docx');
-  }
-
-  async export(event, format, html) {
-    switch (format) {
-      case 'pdf':
-        return await this.print_to_pdf(html);
-      default:
-        return "";
-    }
+    ipcMain.removeHandler('print_to_pdf');
   }
 
   renderPug(event, template, data) {
@@ -47,16 +38,14 @@ export class ReportsHandlher {
     );
   }
 
-  print_to_pdf(html: string) {
+  print_to_pdf(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
     return new Promise((resolve, reject) => {
-      const filename = tmp.tmpNameSync({ postfix: "-pdf.html" });
-      fs.writeFileSync(filename, html);
-
       const window_to_PDF = new BrowserWindow({ show: false });//to just open the browser in background
-      window_to_PDF.loadFile(filename); //give the file link you want to display
+      const html_content = 'data:text/html;charset=UTF-8,' + encodeURIComponent(htmlString);
+      window_to_PDF.loadURL(html_content); //give the file link you want to display
 
       window_to_PDF.webContents.on("did-finish-load", () => {
-        window_to_PDF.webContents.printToPDF({}).then(data => {
+        window_to_PDF.webContents.printToPDF(documentOptions).then(data => {
           resolve(data);
           window_to_PDF.destroy();
         }).catch(error => {
@@ -65,17 +54,13 @@ export class ReportsHandlher {
       });
 
     });
+
+
   }
 
   async print_to_docx(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
-    
-    try {
-      const fileBuffer = await HTMLtoDOCX(htmlString, null, documentOptions, null);
-      return fileBuffer;
-    }
-    catch(e){
-      console.log(e)
-    }
+    const fileBuffer = await HTMLtoDOCX(htmlString, headerHTMLString, documentOptions, footerHTMLString);
+    return fileBuffer;
   }
 }
 
