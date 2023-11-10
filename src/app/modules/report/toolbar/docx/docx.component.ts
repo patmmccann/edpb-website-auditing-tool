@@ -22,7 +22,6 @@ export class DocxComponent {
     private languagesService: LanguagesService,
     private browserService : BrowserService
   ){
-    this.languagesService.getOrSetCurrentLanguage();
   }
 
   get pageSize(){
