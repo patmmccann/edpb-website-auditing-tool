@@ -88,17 +88,7 @@ function createWindow() {
     });*/
 }
 
-if (!gotTheLock) {
-    app.quit();
-} else {
-    app.on("second-instance", (event, commandLine, workingDirectory) => {
-        // Someone tried to run a second instance, we should focus our window.
-        if (mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore();
-            mainWindow.focus();
-        }
-    });
-
+try{
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
@@ -123,4 +113,6 @@ if (!gotTheLock) {
 
     // In this file you can include the rest of your app's specific main process
     // code. You can also put them in separate files and require them here.
+} catch (e) {
+    console.log(e);
 }

@@ -68,7 +68,7 @@ export class ReportsHandlher {
   }
 
   async print_to_docx(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
-
+    
     try {
       const fileBuffer = await HTMLtoDOCX(htmlString, null, documentOptions, null);
       return fileBuffer;
