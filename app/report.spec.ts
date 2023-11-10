@@ -32,10 +32,10 @@ test.describe('Report', () => {
   });
 
   test('PDF report', async () => {
-    const result = await ipcMainInvokeHandler(app, 'print_to_pdf',  html_in, null, documentOptions, "")
+    const result = await ipcMainInvokeHandler(app, 'print_to_pdf', html_in, null, documentOptions, null)
     expect(result).toBeInstanceOf(Object);
   });
-  
+
   test.afterAll(async () => {
     await app.close();
   });
