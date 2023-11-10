@@ -26,6 +26,7 @@ contextBridge.exposeInMainWorld(
     renderPug: (template, data) => ipcRenderer.invoke('renderPug', template, data),
     parseHar: (har, args : any) => ipcRenderer.invoke('parseHar', har, args),
     export: (format, html) => ipcRenderer.invoke('export', format, html),
+    print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_docx', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     subscriveToBrowserEvent: (callback) => {
       ipcRenderer.on('browser-event', (event, ...args) => {
         callback([...args]);

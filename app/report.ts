@@ -1,11 +1,10 @@
 import { BrowserWindow, ipcMain } from 'electron';
-
-const HTMLDocx = require("html-docx-js");
 const fs = require("fs-extra");
 const tmp = require("tmp");
 const path = require("path");
 const groupBy = require("lodash/groupBy");
 const pug = require("pug");
+const HTMLtoDOCX = require('html-to-docx');
 
 export class ReportsHandlher {
   constructor() {
@@ -14,21 +13,21 @@ export class ReportsHandlher {
   }
 
   registerHandlers() {
-    ipcMain.handle('export', this.export);
+    ipcMain.handle('export', this.export.bind(this));
+    ipcMain.handle('print_to_docx', this.print_to_docx);
     ipcMain.handle('renderPug', this.renderPug);
   }
 
   unregisterHandlers() {
     ipcMain.removeHandler('renderPug');
     ipcMain.removeHandler('export');
+    ipcMain.removeHandler('print_to_docx');
   }
 
   async export(event, format, html) {
     switch (format) {
       case 'pdf':
         return await this.print_to_pdf(html);
-      case 'docx':
-        return await this.print_to_docx(html);
       default:
         return "";
     }
@@ -68,9 +67,15 @@ export class ReportsHandlher {
     });
   }
 
-  async print_to_docx(html: string) {
-    const docx = await HTMLDocx.asBlob(html);
-    return docx;
+  async print_to_docx(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
+
+    try {
+      const fileBuffer = await HTMLtoDOCX(htmlString, null, documentOptions, null);
+      return fileBuffer;
+    }
+    catch(e){
+      console.log(e)
+    }
   }
 }
 

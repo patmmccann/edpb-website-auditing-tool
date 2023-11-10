@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReportRendererComponent } from './report-renderer/report-renderer.component';
 import 'tinymce';
+import { ReportModule } from './report.module';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
@@ -14,7 +15,7 @@ describe('ReportComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ReportComponent, ReportRendererComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule, ReportModule ]
     })
     .compileComponents();
 

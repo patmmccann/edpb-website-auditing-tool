@@ -5,12 +5,16 @@ import { ReportComponent } from './report.component';
 import { ReportRoutingModule } from './report-routing.module';
 import { MaterialAllModule } from 'src/app/material.module';
 import { ReportRendererComponent } from './report-renderer/report-renderer.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DocxComponent } from './toolbar/docx/docx.component';
 
 
 @NgModule({
   declarations: [
     ReportComponent,
-    ReportRendererComponent
+    ReportRendererComponent,
+    ToolbarComponent,
+    DocxComponent
   ],
   imports: [
     CommonModule,

@@ -5,14 +5,14 @@ import { AnalysisService } from 'src/app/services/analysis.service';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
 import { CardService } from 'src/app/services/card.service';
-import { Card, kindCard } from 'src/app/models/card.model';
+import { Card } from 'src/app/models/card.model';
 import { ReportService } from 'src/app/services/report.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { BrowserService } from 'src/app/services/browser.service';
 import { FormControl } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
+import { saveOptions } from './toolbar/toolbar.component';
 
 @Component({
   selector: 'app-report',
@@ -36,6 +36,7 @@ export class ReportComponent implements OnInit, OnDestroy {
   cards_to_display: FormControl<string[] | null> = new FormControl([]);
   tags_to_display: FormControl<string[] | null> = new FormControl([]);
   evaluations_to_display: FormControl<string[] | null> = new FormControl([]);
+  saveOption:saveOptions = 'none';
 
   @ViewChild('allSelectedEvaluation') private allSelectedEvaluation: MatOption | null = null;
   @ViewChild('allSelectedTag') private allSelectedTag: MatOption | null = null;
@@ -338,11 +339,10 @@ export class ReportComponent implements OnInit, OnDestroy {
         break;
 
       case 'docx':
-        this.browserService.export(window, format, data)
-          .then((docx: any) => {
-            var blobUrl = URL.createObjectURL(new Blob([docx]));
-            export_result(blobUrl, date + '.docx');
-          })
+        if(this.saveOption == 'docx') 
+          this.saveOption ='none';
+        else
+          this.saveOption ='docx';
         break;
     }
   }

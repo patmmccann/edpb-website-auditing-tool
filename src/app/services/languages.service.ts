@@ -36,7 +36,7 @@ export class LanguagesService {
       if (!browserLang) return;
 
       language = browserLang.match(
-        /bg|cz|de|dk|el|en|es|et|fi|fr|hr|hu|it|lt|lv|nl|no|pl|pt|ro|sl|sv/
+        /en|fr/
       )
         ? browserLang
         : 'en';
@@ -55,5 +55,9 @@ export class LanguagesService {
     localStorage.setItem('userLanguage', selectedLanguage);
     this.translateService.use(selectedLanguage);
     this.selectedLanguage = selectedLanguage;
+  }
+
+  browserCultureLang() : string | undefined {
+    return this.translateService.getBrowserCultureLang();
   }
 }
