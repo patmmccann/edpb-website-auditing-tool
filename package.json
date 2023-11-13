@@ -8,7 +8,7 @@
   "description": "Website auditing tool",
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all -p electron:serve-tsc ng:serve",
+    "start": "npm-run-all -p electron:serve-tsc ng:serve electron:serve",
     "ng:serve": "ng serve",
     "ng:test": "ng test",
     "build": "tsc -p app/tsconfig.prod.json && ng build --base-href ./",
@@ -17,6 +17,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "npm-run-all -p build && npm run e2e",
     "electron:serve-tsc": "tsc --watch --project ./app",
+    "electron:serve": "wait-on tcp:4200 && electron . --serve",
     "electron:start": "ng build --base-href ./ && electron .",
     "electron:mac": "npm run build && electron-builder -m --publish=never",
     "electron:win": "npm run build && electron-builder -w --publish=never",
@@ -85,7 +86,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "playwright": "^1.39.0",
-    "typescript": "~5.1.0"
+    "typescript": "~5.1.0",
+    "wait-on": "^7.1.0"
   },
   "build": {
     "directories": {
