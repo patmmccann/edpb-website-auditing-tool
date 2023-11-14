@@ -41,7 +41,7 @@ async function createBrowserSession(mainWindow, partition, collector) {
   //browser.webContents.openDevTools();
   browser.webContents.send('init', partition);
 
-  if (collector.args.useragent) {
+  if (collector.args && collector.args.useragent) {
     browser.webContents.setUserAgent(collector.args.useragent);
   }
 
@@ -87,11 +87,11 @@ async function createBrowserSession(mainWindow, partition, collector) {
     //page = await browser_context.newPage();
 
     // TODO : DNT
-    if (collector.args.dntJs) {
+    if (collector.args && collector.args.dntJs) {
       collector.args.dnt = true; // imply Do-Not-Track HTTP Header
     }
 
-    if (collector.args.dnt) {
+    if (collector.args && collector.args.dnt) {
       browser.webContents.session.webRequest.onBeforeSendHeaders(
         (details, callback) => {
           details.requestHeaders['DNT'] = '1';

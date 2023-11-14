@@ -12,7 +12,7 @@ package-lock.json
 /e2e/tracing/
 /electron/*.js
 /electron/*.map
-/electron/handlers
+/electron/handlers/**/*
 /test-results/
 /playwright-report/
 /blob-report/

@@ -18,7 +18,7 @@ async function createOutput(args) {
   let uri_ins_host = null;
   let uri_refs = [];
 
-  if (args.url) {
+  if (args && args.url) {
     // configuring url and hosts
     uri_ins = args.url;
     uri_ins_host = url.parse(uri_ins).hostname; // hostname does not include port unlike host
@@ -31,8 +31,8 @@ async function createOutput(args) {
 
   // prepare hash to store data for output output.js
   const output = {
-    title: args.title || `Website Evidence Collection`,
-    task_description: safeJSONParse(args.taskDescription),
+    title: args? args.title : "",
+    task_description: args? safeJSONParse(args.taskDescription) : null,
     uri_ins: uri_ins,
     uri_refs: uri_refs,
     uri_dest: null,

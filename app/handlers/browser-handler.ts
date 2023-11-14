@@ -1,5 +1,5 @@
 import { ipcMain, BrowserWindow } from 'electron';
-
+import {BrowserSession} from './sessions/browser-session'
 const collector = require("../../collector/index");
 const inspector = require("../../inspector/index");
 
@@ -9,7 +9,10 @@ const collector_connection = require("../../collector/connection");
 
 export class BrowsersHandlher {
     mainWindow : BrowserWindow;
-    default_collector :any= null;
+    new_default_collector :BrowserSession | null= null;
+    new_collectors :BrowserSession[][] = [];
+
+    default_collector :any = null;
     collectors :any = {};
     browserWindow :any= null;
 
@@ -67,6 +70,16 @@ export class BrowsersHandlher {
         return this.collectors[analysis_id][tag_id];
     }
 
+    getNewCollector(analysis_id : number, tag_id:number) {
+        if (!analysis_id && !tag_id) {
+            return this.new_default_collector;
+        }
+    
+        const analysis = this.new_collectors[analysis_id];
+        if (!analysis) return null;
+        return this.new_collectors[analysis_id][tag_id];
+    }
+
     hideSession(){
         this.mainWindow.setBrowserView(null);
     }
@@ -84,65 +97,76 @@ export class BrowsersHandlher {
     }
 
     getUrl(event, analysis_id, tag_id){
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.getURL();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        return session.url();
     }
 
     async loadURL(event, analysis_id, tag_id, url){
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        await browserWindow.webContents.loadURL(url);
-        return browserWindow.webContents.getURL();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        await session.gotoPage(url);
+        return session.url();
     }
 
     refresh(event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.reload();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        session.reload();
     }
 
     stop (event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.stop();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        session.stop();
     }
 
     backward (event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.goBack();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        session.goBack();
     }
 
     forward (event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.goForward();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        session.goForward();
     }
 
     canGoBackward (event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.canGoBack();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        return session.canGoBack();
     }
 
     canGoForward (event, analysis_id, tag_id) {
-        const browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        return browserWindow.webContents.canGoForward();
+        const session = this.getNewCollector(analysis_id, tag_id);
+        return session.canGoForward();
     }
+
+    async screenshot(event, analysis_id, tag_id){
+        const session = this.getNewCollector(analysis_id, tag_id);
+        return await session.screenshot();
+    }
+
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
             const collect = await collector(args, logger.create({}, args));
             await collect.createSession(this.mainWindow, 'session' + analysis_id + tag_id);
-
+            
+            const browserSession = new BrowserSession(collect.browserSession.browser, collect.browserSession.browser.webContents);
             if (url) {
                 await collect.getPage(url);
             }
 
             if (!(analysis_id in this.collectors)) {
                 this.collectors[analysis_id] = {};
+                this.new_collectors[analysis_id] = [];
             }
 
             this.collectors[analysis_id][tag_id] = collect;
+            this.new_collectors[analysis_id][tag_id] = browserSession;
         } else if (this.default_collector == null) {
-            collector(args, logger.create({}, args)).then((collect:any) => {
-                this.default_collector = collect;
-                collect.createSession(this.mainWindow, 'main');
-            });
+            const collect = await collector(args, logger.create({}, args));
+            await collect.createSession(this.mainWindow, 'main');
+            this.default_collector = collect;
+            
+            const browserSession = new BrowserSession(collect.browserSession.browser, collect.browserSession.browser.webContents);
+            this.new_default_collector = browserSession;
         }
     }
 
@@ -158,15 +182,14 @@ export class BrowsersHandlher {
 
         await collector.endSession();
         this.collectors[analysis_id][tag_id] = null;
+        this.new_collectors[analysis_id][tag_id] = null;
     }
 
     clearSession(event, analysis_id, tag_id, args){
         this.getCollector(analysis_id, tag_id).eraseSession(args, logger.create({}, args));
     }
 
-    async screenshot(event, analysis_id, tag_id){
-        return await this.getCollector(analysis_id, tag_id).pageSession.screenshot();
-    }
+    
 
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
         let res = null;

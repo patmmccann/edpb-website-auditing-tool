@@ -21,7 +21,7 @@ test.describe('Report', () => {
   const documentOptions = {};
 
   test.beforeAll(async () => {
-    app = await electron.launch({ args: [PATH.join(__dirname, '../electron/main.js')] });
+    app = await electron.launch({ args: [PATH.join(__dirname, '../../electron/main.js')] });
     firstWindow = await app.firstWindow();
     await firstWindow.waitForLoadState('domcontentloaded');
   });
