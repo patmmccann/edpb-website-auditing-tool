@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Tag } from '../models/tag.model';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { TagService } from 'src/app/services/tag.service';
 import { Card } from '../models/card.model';
 import { Evaluation, Status } from '../models/evaluation.model';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { Template } from '../models/template.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -130,6 +130,13 @@ export class TemplateService extends ApplicationDb {
   override async update(template: Template): Promise<any> {
     return new Promise((resolve, reject) => {
       this.find(template.id).then((entry: any) => {
+        
+        if (!entry){
+          // This should be the default template
+          resolve(null); 
+          return;
+        }
+
         entry.name = template.name;
         entry.author = template.author;
         entry.updated_at = new Date();

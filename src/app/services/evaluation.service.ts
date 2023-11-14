@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { Evaluation } from '../models/evaluation.model';
 
 @Injectable({

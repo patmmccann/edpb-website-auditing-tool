@@ -1,4 +1,4 @@
-import { ApplicationDb, Indexes } from 'src/app/application.db';
+import { ApplicationDb, Indexes } from 'src/app/classes/application.db';
 import { Knowledge } from 'src/app/models/knowledge.model';
 
 

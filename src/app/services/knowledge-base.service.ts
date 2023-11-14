@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { KnowledgeBase } from '../models/knowledgeBase.model';
 import { CookieKnowledgesService, CookieSearch } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';

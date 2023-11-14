@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output  } from '@angular/core';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { Card } from '../models/card.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { CookieCard } from '../models/cards/cookie-card.model';

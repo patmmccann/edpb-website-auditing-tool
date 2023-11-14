@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-import { ApplicationDb } from '../application.db'
+import { ApplicationDb } from '../classes/application.db'
 import { Card } from '../models/card.model';
 import { Tag } from '../models/tag.model';
 import { CardService } from './card.service';
