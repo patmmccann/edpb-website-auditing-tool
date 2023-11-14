@@ -35,6 +35,13 @@ button {
         opacity: 0.25;
     }
     filter: none;
+    &:hover{
+        background-color: whitesmoke;
+    }
+
+    &:active {
+        background-color: gainsboro;
+    }
 }
 
 .analysis-name{
