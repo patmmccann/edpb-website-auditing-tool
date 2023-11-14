@@ -1,20 +1,11 @@
-import { ipcMain, BrowserWindow } from 'electron';
+import { ipcMain, BrowserWindow,BrowserView } from 'electron';
 import {BrowserSession} from './sessions/browser-session'
-const collector = require("../../collector/index");
-const inspector = require("../../inspector/index");
-
-const logger = require("../../lib/logger");
-
-const collector_connection = require("../../collector/connection");
 
 export class BrowsersHandlher {
     mainWindow : BrowserWindow;
     new_default_collector :BrowserSession | null= null;
     new_collectors :BrowserSession[][] = [];
-
-    default_collector :any = null;
-    collectors :any = {};
-    browserWindow :any= null;
+    currentView :BrowserView= null;
 
     constructor(mainWindow : BrowserWindow){
         this.mainWindow = mainWindow;
@@ -60,17 +51,7 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('screenshot');
     }
 
-    getCollector(analysis_id : number, tag_id:number) {
-        if (!analysis_id && !tag_id) {
-            return this.default_collector;
-        }
-    
-        const analysis = this.collectors[analysis_id];
-        if (!analysis) return null;
-        return this.collectors[analysis_id][tag_id];
-    }
-
-    getNewCollector(analysis_id : number, tag_id:number) {
+    get(analysis_id : number, tag_id:number) {
         if (!analysis_id && !tag_id) {
             return this.new_default_collector;
         }
@@ -85,232 +66,114 @@ export class BrowsersHandlher {
     }
 
     showSession(event, analysis_id, tag_id){
-        this.browserWindow = this.getCollector(analysis_id, tag_id).browserSession.browser;
-        this.mainWindow.setBrowserView(this.browserWindow);
-        return this.browserWindow.webContents.getURL();
+        const browserSession = this.get(analysis_id, tag_id);
+        this.currentView = browserSession.view;
+        this.mainWindow.setBrowserView(browserSession.view);
+        return browserSession.url;
     }
 
     resizeSession(event, rect){
         if (rect) {
-            this.browserWindow.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
+            this.currentView.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
         }
     }
 
     getUrl(event, analysis_id, tag_id){
-        const session = this.getNewCollector(analysis_id, tag_id);
-        return session.url();
+        const session = this.get(analysis_id, tag_id);
+        return session.url;
     }
 
     async loadURL(event, analysis_id, tag_id, url){
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         await session.gotoPage(url);
-        return session.url();
+        return session.url;
     }
 
     refresh(event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         session.reload();
     }
 
     stop (event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         session.stop();
     }
 
     backward (event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         session.goBack();
     }
 
     forward (event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         session.goForward();
     }
 
     canGoBackward (event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         return session.canGoBack();
     }
 
     canGoForward (event, analysis_id, tag_id) {
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         return session.canGoForward();
     }
 
     async screenshot(event, analysis_id, tag_id){
-        const session = this.getNewCollector(analysis_id, tag_id);
+        const session = this.get(analysis_id, tag_id);
         return await session.screenshot();
     }
 
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
-            const collect = await collector(args, logger.create({}, args));
-            await collect.createSession(this.mainWindow, 'session' + analysis_id + tag_id);
-            
-            const browserSession = new BrowserSession(collect.browserSession.browser, collect.browserSession.browser.webContents);
+            const browserSession = new BrowserSession();
+            const collect = await browserSession.create(this.mainWindow, 'session' + analysis_id + tag_id, args);
+
             if (url) {
                 await collect.getPage(url);
             }
 
-            if (!(analysis_id in this.collectors)) {
-                this.collectors[analysis_id] = {};
+            if (!(analysis_id in this.new_collectors)) {
                 this.new_collectors[analysis_id] = [];
             }
 
-            this.collectors[analysis_id][tag_id] = collect;
             this.new_collectors[analysis_id][tag_id] = browserSession;
-        } else if (this.default_collector == null) {
-            const collect = await collector(args, logger.create({}, args));
-            await collect.createSession(this.mainWindow, 'main');
-            this.default_collector = collect;
-            
-            const browserSession = new BrowserSession(collect.browserSession.browser, collect.browserSession.browser.webContents);
+        } else if (this.new_default_collector == null) {
+            const browserSession = new BrowserSession();
+            const collect = await browserSession.create(this.mainWindow, 'main', args);
             this.new_default_collector = browserSession;
         }
     }
 
     async deleteBrowserSession(event, analysis_id, tag_id){
-        const collector = this.getCollector(analysis_id, tag_id);
-        if (!collector) return;
+        const new_collector = this.get(analysis_id, tag_id);
+        if (!new_collector) return;
 
         const current_view = this.mainWindow.getBrowserView();
 
-        if (collector.browserSession.browser == current_view) {
+        if (new_collector.view == current_view) {
             this.mainWindow.setBrowserView(null);
         }
 
-        await collector.endSession();
-        this.collectors[analysis_id][tag_id] = null;
+        await new_collector.delete();
         this.new_collectors[analysis_id][tag_id] = null;
     }
 
-    clearSession(event, analysis_id, tag_id, args){
-        this.getCollector(analysis_id, tag_id).eraseSession(args, logger.create({}, args));
+    async clearSession(event, analysis_id, tag_id, args){
+        const session = this.get(analysis_id, tag_id);
+        await session.clear(args);
     }
 
     
 
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
-        let res = null;
-
-        const collect = this.getCollector(analysis_id, tag_id);
-
-        if (waitForComplete) {
-            await logger.waitForComplete(collect.logger);
-        }
-
-        if (args){
-            collect.args = args;
-        }
-
-        const inspect = await inspector(
-            collect.args,
-            collect.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        for (let kind of kinds) {
-            switch (kind) {
-                case 'cookie':
-                    await collect.collectCookies();
-                    await inspect.inspectCookies();
-                    break;
-                case 'https':
-                    if (collect.output.uri_ins) {
-                        await collector_connection.testHttps(collect.output.uri_ins, collect.output);
-                    }
-                    break;
-                case 'testSSL':
-                    //if (!collect.output.uri_ins) return testssl_example;
-                    if (collect.output.uri_ins) {
-                        if (collect.args.testssl_type == 'script'){
-                            collector_connection.testSSLScript(
-                                collect.output.uri_ins,
-                                collect.args,
-                                collect.logger,
-                                collect.output
-                            );
-                        }else if (collect.args.testssl_type == 'docker'){
-                            collector_connection.testSSLDocker(
-                                collect.output.uri_ins,
-                                collect.args,
-                                collect.logger,
-                                collect.output
-                            );
-                        }else{
-                            collect.output.testSSLError = "Unknow method for testssl, go to settings first.";
-                        }
-                        
-                    } else {
-                        collect.output.testSSLError = "No url given to test_ssl.sh";
-                    }
-                    break;
-                case 'localstorage':
-                    await collect.collectLocalStorage();
-                    await inspect.inspectLocalStorage();
-                    break;
-
-                case 'traffic':
-                    await inspect.inspectHosts();
-                    break;
-
-                case 'forms':
-                    await collect.collectForms();
-                    break;
-
-                case 'beacons':
-                    await inspect.inspectBeacons();
-                    break;
-            }
-        }
-
-
-        return collect.output;
+        const session = this.get(analysis_id, tag_id);
+        return await session.collect(kinds, waitForComplete, args);
     }
 
     async saveSession(event, analysis_id, tag_id){
-        const collect = this.getCollector(analysis_id, tag_id);
-
-        //test the ssl and https connection
-        await collect.testConnection();
-
-        // ########################################################
-        // Collect Links, Forms and Cookies to populate the output
-        // ########################################################
-        await collect.collectLinks();
-        await collect.collectForms();
-        await collect.collectCookies();
-        await collect.collectLocalStorage();
-        await collect.collectWebsocketLog();
-
-        // browse sample history and log to localstorage
-        let browse_user_set :any[] = /*args.browseLink ||*/ []; //FIXME
-        await collect.browseSamples(collect.output.localStorage, browse_user_set);
-
-        // END OF BROWSING - discard the browser and page
-        //mainWindow.setBrowserView(null);
-        //await collect.endSession();
-
-        await logger.waitForComplete(collect.logger);
-
-        // ########################################################
-        //  inspecting - this will process the collected data and place it in a structured format in the output object
-        // ########################################################
-
-        const inspect = await inspector(
-            null, //args, FIXME
-            collect.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        await inspect.inspectCookies();
-        await inspect.inspectLocalStorage();
-        await inspect.inspectBeacons();
-        await inspect.inspectHosts();
-
-        return collect.output;
+        const session = this.get(analysis_id, tag_id);
+        return await session.save();
     }
 }
