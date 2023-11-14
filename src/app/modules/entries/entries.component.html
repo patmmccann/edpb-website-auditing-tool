@@ -56,6 +56,9 @@
     <div class="main_panel">
         <ng-container [ngSwitch]="type_entries" *ngIf="!loading; else loadingEntries">
             <ng-container *ngSwitchCase="'edit'">             
+                <div class="surveytitle">
+                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of analysis to be evaluated.</strong></span></div>
+                </div><br>
                 <app-analysis-line *ngFor="
                 let analysis of entries | filterForUser: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
                 let i = index
