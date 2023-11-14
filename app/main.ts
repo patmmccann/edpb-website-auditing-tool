@@ -6,9 +6,9 @@ import * as url from 'url';
 
 const gotTheLock = app.requestSingleInstanceLock();
 
-import {BrowsersHandlher} from "./browser";
-import { ReportsHandlher } from './report';
-import { ParserHandlher } from './parser';
+import {BrowsersHandlher} from "./handlers/browser";
+import { ReportsHandlher } from './handlers/report';
+import { ParserHandlher } from './handlers/parser';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

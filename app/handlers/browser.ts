@@ -1,11 +1,11 @@
 import { ipcMain, BrowserWindow } from 'electron';
 
-const collector = require("../collector/index");
-const inspector = require("../inspector/index");
+const collector = require("../../collector/index");
+const inspector = require("../../inspector/index");
 
-const logger = require("../lib/logger");
+const logger = require("../../lib/logger");
 
-const collector_connection = require("../collector/connection");
+const collector_connection = require("../../collector/connection");
 
 export class BrowsersHandlher {
     mainWindow : BrowserWindow;

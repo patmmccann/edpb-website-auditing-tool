@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
-const collector = require("../collector/index");
-const logger = require("../lib/logger");
-const inspector = require("../inspector/index");
+const collector = require("../../collector/index");
+const logger = require("../../lib/logger");
+const inspector = require("../../inspector/index");
 
 export class ParserHandlher {
     constructor(){
