@@ -23,6 +23,7 @@ contextBridge.exposeInMainWorld(
     forward: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('forward', analysis_id, tag_id),
     canGoBackward: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('canGoBackward', analysis_id, tag_id),
     canGoForward: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('canGoForward', analysis_id, tag_id),
+    toogleDevTool: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('toogleDevTool', analysis_id, tag_id),
     renderPug: (template, data) => ipcRenderer.invoke('renderPug', template, data),
     parseHar: (har, args : any) => ipcRenderer.invoke('parseHar', har, args),
     print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_docx', htmlString, headerHTMLString, documentOptions, footerHTMLString),

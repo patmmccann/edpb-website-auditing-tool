@@ -12,6 +12,7 @@ export class SettingsService {
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36";
 
   dnt :boolean =false;
+  devTool :boolean =false;
   testssl :boolean =false;
   testssl_type :TestSLLType ='docker';
   test_ssl_location :string | null =null;
@@ -38,6 +39,7 @@ export class SettingsService {
     this.webform = localStorage.getItem('webform') == 'false'? false : true ;
     this.beacons = localStorage.getItem('beacons') == 'false'? false : true ;
     this.help = localStorage.getItem('help') == 'false'? false : true ;
+    this.devTool = localStorage.getItem('devTool') == 'true'? true : false ;
   }
   setItem(key :string, value:any):void{
     localStorage.setItem(key, value);

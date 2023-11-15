@@ -1,4 +1,4 @@
-import { BrowserView, WebContents} from 'electron';
+import { app, BrowserView, WebContents} from 'electron';
 import {CollectorSession} from './collector-session';
 
 const collector = require("../../../collector/index");
@@ -69,6 +69,10 @@ export class BrowserSession {
     async screenshot(){
         const capture = await this._contents.capturePage();
         return await capture.toPNG();
+    }
+
+    toogleDevTool(){
+        this._contents.toggleDevTools();
     }
 
     async collect(kinds, waitForComplete, args){
@@ -206,5 +210,13 @@ export class BrowserSession {
 
     get tmp_collector(){
         return this._tmp_collector;
+    }
+
+    get user_agent(){
+        return this._contents.getUserAgent();
+    }
+
+    get version(){
+        return app.getVersion();
     }
 }

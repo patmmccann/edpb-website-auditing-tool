@@ -111,6 +111,10 @@ export class BrowserService {
     return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null, args);
   }
 
+  toogleDevTool(window: any, analysis: Analysis | null, tag: Tag | null) {
+    return window.electron.toogleDevTool(analysis ? analysis.id : null, tag ? tag.id : null);
+  }
+
   getURL(window: any, analysis: Analysis | null, tag: Tag | null) {
     return window.electron.getURL(analysis ? analysis.id : null, tag ? tag.id : null);
   }

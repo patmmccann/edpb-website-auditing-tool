@@ -30,6 +30,7 @@ export class BrowsersHandlher {
         ipcMain.handle('save', this.saveSession.bind(this));
         ipcMain.handle('get', this.collectFromSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
+        ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
     }
 
     unregisterHandlers(){
@@ -49,6 +50,7 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('save');
         ipcMain.removeHandler('get');
         ipcMain.removeHandler('screenshot');
+        ipcMain.removeHandler('toogleDevTool');
     }
 
     get(analysis_id : number, tag_id:number) {
@@ -124,6 +126,10 @@ export class BrowsersHandlher {
         return await session.screenshot();
     }
 
+    toogleDevTool(event, analysis_id, tag_id){
+        const session = this.get(analysis_id, tag_id);
+        session.toogleDevTool();
+    }
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
@@ -157,7 +163,9 @@ export class BrowsersHandlher {
         }
 
         await new_collector.delete();
-        this.new_collectors[analysis_id][tag_id] = null;
+        if (this.new_default_collector != new_collector ){
+            this.new_collectors[analysis_id][tag_id] = null;
+        }
     }
 
     async clearSession(event, analysis_id, tag_id, args){

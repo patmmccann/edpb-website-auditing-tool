@@ -12,9 +12,11 @@ test.describe('Report', () => {
     app = await electron.launch({ args: [PATH.join(__dirname, '../../electron/main.js')] });
     firstWindow = await app.firstWindow();
     await firstWindow.waitForLoadState('domcontentloaded');
+    await ipcMainInvokeHandler(app, 'createCollector');
+    await ipcMainInvokeHandler(app, 'showSession');
   });
 
-  test('Testing navigation', async () => {
+  test('Navigation', async () => {
 
     // function wait_for_page(){
     //   return new Promise<void>(async (resolve) => {
@@ -24,9 +26,6 @@ test.describe('Report', () => {
     //   });
     // }
 
-
-    await ipcMainInvokeHandler(app, 'createCollector');
-    await ipcMainInvokeHandler(app, 'showSession');
     await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
     let url = await ipcMainInvokeHandler(app, 'getURL');
     let canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
@@ -58,7 +57,13 @@ test.describe('Report', () => {
     // expect(canGoForward).toBeFalsy();
   });
 
+  test('Screenshot', async () => {
+    const screenshot = await ipcMainInvokeHandler(app, 'screenshot');
+    expect(screenshot).toBeInstanceOf(Object);
+  });
+
   test.afterAll(async () => {
+    await ipcMainInvokeHandler(app, 'deleteCollector');
     await app.close();
   });
 });

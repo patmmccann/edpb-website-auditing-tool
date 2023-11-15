@@ -26,10 +26,16 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <app-toolbar  #navToolbar
-[analysis]="analysis" [tag]="tag"
-(play)="play()" (pause)="pause()"
-    (screenshot)="screenshot()" (erase)="erase()" (save)="save()" (toggleLog)="toggleLog($event)"
-    ></app-toolbar>
+[analysis]="analysis" 
+[tag]="tag"
+(play)="play()" 
+(pause)="pause()"
+(screenshot)="screenshot()" 
+(erase)="erase()" 
+(save)="save()" 
+(toggleLog)="toggleLog($event)"
+(devTool)="devTool()"
+></app-toolbar>
 <div class="example-container">
 	<as-split [useTransition]="false" (dragEnd)="dragEnd()" [gutterSize]="10">
 		<as-split-area #content [size]="40" [order]="1"  [visible]="true">

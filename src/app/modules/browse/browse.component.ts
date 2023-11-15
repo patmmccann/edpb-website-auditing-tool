@@ -176,6 +176,12 @@ export class BrowseComponent implements OnInit, OnDestroy {
     this.startUpdate();
   }
 
+  devTool(){
+    this.browserService
+    .toogleDevTool(window, this.analysis, this.tag);
+
+  }
+
   screenshot(): void {
     this.browserService.takeScreenshot(window, this.analysis, this.tag)
       .then(async (screenShotCard) => {

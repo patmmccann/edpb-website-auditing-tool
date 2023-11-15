@@ -11,7 +11,6 @@ const { BrowserView, ipcMain } = require('electron');
 const path = require("path");
 const url = require("url");
 const escapeRegExp = require("lodash/escapeRegExp");
-//const got = require("got"); //FIXME
 const sampleSize = require("lodash/sampleSize");
 const defaultPath = require("tough-cookie").defaultPath;
 
@@ -38,7 +37,7 @@ async function createBrowserSession(mainWindow, partition, collector) {
       partition: partition
     }
   });
-  //browser.webContents.openDevTools();
+  
   browser.webContents.send('init', partition);
 
   if (collector.args && collector.args.useragent) {
@@ -236,11 +235,6 @@ async function createBrowserSession(mainWindow, partition, collector) {
       return browsing_history;
     }
 
-    async function screenshot() {
-      const image = await (await browser.webContents.capturePage()).toPNG();
-      return image;
-    }
-
     return {
       browser,
       //session,
@@ -249,7 +243,6 @@ async function createBrowserSession(mainWindow, partition, collector) {
       hosts,
       webSocketLog,
       gotoPage,
-      screenshot,
       browseSamples,
     };
   }

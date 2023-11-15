@@ -7,7 +7,11 @@
 
     <mat-slide-toggle (change)="settingService.setItem('DNT', $event.checked)" [(ngModel)]="settingService.dnt"
         color="primary">
-        Enable Do Not Track</mat-slide-toggle>
+        Enable Do Not Track</mat-slide-toggle> <br> <br>
+
+    <mat-slide-toggle (change)="settingService.setItem('devTool', $event.checked)" [(ngModel)]="settingService.devTool"
+        color="primary">
+        Show Developer Tools button</mat-slide-toggle>
 </div>
 
 <div class="content" style="max-width: 800px; margin-top: 56px;">

@@ -93,15 +93,15 @@
             </button>
         </div>
 
-        <div *ngIf="this.analysis && this.tag" class="header-search-right">
+      <!--  <div *ngIf="this.analysis && this.tag" class="header-search-right">
             <button 
-            matTooltip="Take a screenshot of this page"
+            matTooltip="Take a video of the capture"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             size="16" opacity="0.87" class="header-search-right-button">
                 <mat-icon>videocam</mat-icon>
             </button>
-        </div>
+        </div>-->
 
         <div class="header-search-right">
             <button 
@@ -110,6 +110,16 @@
             matTooltipShowDelay="3000"
             (click)="erase.emit()"  size="16" opacity="0.87" class="header-search-right-button">
                 <mat-icon>delete_sweep</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="settingsService.devTool" class="header-search-right">
+            <button 
+            matTooltip="Show developper tool for the current page"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            (click)="devTool.emit()"  size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>bug_report</mat-icon>
             </button>
         </div>
 
