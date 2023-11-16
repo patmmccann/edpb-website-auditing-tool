@@ -24,7 +24,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   @ViewChild('navToolbar') navToolbarElement: ElementRef = new ElementRef({});
 
   cards: Card[] = [];
-
+  navigating = false;
   analysis: Analysis | null = null;
   tag: Tag | null = null;
   browserId: number = 0;
@@ -99,6 +99,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
       (this.navToolbarElement as any).update();
       const cards_to_update = this.cards.filter(card => card.kind == 'https' || card.kind == 'forms');
       this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
+      this.navigating = true;
     });
 
   }

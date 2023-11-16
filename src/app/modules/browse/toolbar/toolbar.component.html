@@ -118,6 +118,7 @@
             matTooltip="Show developper tool for the current page"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
+            [disabled]="!navigating"
             (click)="devTool.emit()"  size="16" opacity="0.87" class="header-search-right-button">
                 <mat-icon>bug_report</mat-icon>
             </button>

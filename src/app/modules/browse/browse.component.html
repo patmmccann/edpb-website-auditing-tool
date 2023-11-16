@@ -26,6 +26,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <app-toolbar  #navToolbar
+[navigating]="navigating"
 [analysis]="analysis" 
 [tag]="tag"
 (play)="play()" 
