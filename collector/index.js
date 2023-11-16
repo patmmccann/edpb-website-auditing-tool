@@ -171,8 +171,8 @@ async function collector(args, logger) {
       },
     };
 
-    c.browserSession.browser.webContents.session.clearCache();
-    c.browserSession.browser.webContents.session.clearStorageData();
+    await c.browserSession.browser.webContents.session.clearCache();
+    await c.browserSession.browser.webContents.session.clearStorageData();
   };
 
   c.createSessionFromHar = async function (har) {
