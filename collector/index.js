@@ -133,7 +133,7 @@ async function collector(args, logger) {
 
   c.endSession = async function () {
     if(c.browserSession){
-      await c.browserSession.end();
+      //await c.browserSession.end();
       c.browserSession = null;
     }
   

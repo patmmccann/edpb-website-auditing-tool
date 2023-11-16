@@ -18,7 +18,7 @@
     ]
   },
   "files": [
-    "main.ts","preload.ts"
+    "main.ts","preload.ts", "./handlers/sessions/preload.ts"
   ],
   "exclude": [
     "node_modules",

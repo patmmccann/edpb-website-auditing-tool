@@ -1,4 +1,4 @@
-import {app, BrowserWindow, globalShortcut, ipcMain} from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import * as windowStateKeeper from 'electron-window-state';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
@@ -6,13 +6,13 @@ import * as url from 'url';
 
 const gotTheLock = app.requestSingleInstanceLock();
 
-import {BrowsersHandlher} from "./handlers/browser-handler";
+import { BrowsersHandlher } from "./handlers/browser-handler";
 import { ReportsHandlher } from './handlers/report-handler';
 import { ParserHandlher } from './handlers/parser-hanlder';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow :BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
     let winState = windowStateKeeper({
@@ -48,9 +48,9 @@ function createWindow() {
     if (isDev) {
         const debug = require('electron-debug');
         debug();
-    
+
         require('electron-reloader')(module);
-        
+
         mainWindow.loadURL("http://localhost:4200/");
 
         // Open the DevTools.
@@ -74,7 +74,7 @@ function createWindow() {
         browserHandlers.unregisterHandlers();
         reportsHandlher.unregisterHandlers();
         parserHandlher.unregisterHandlers();
-        
+
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
@@ -88,7 +88,17 @@ function createWindow() {
     });*/
 }
 
-try{
+if (!gotTheLock) {
+    app.quit();
+} else {
+    app.on("second-instance", (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore();
+            mainWindow.focus();
+        }
+    });
+
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
@@ -110,9 +120,6 @@ try{
             createWindow();
         }
     });
-
-    // In this file you can include the rest of your app's specific main process
-    // code. You can also put them in separate files and require them here.
-} catch (e) {
-    console.log(e);
 }
+
+

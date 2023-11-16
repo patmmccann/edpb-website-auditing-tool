@@ -73,6 +73,7 @@
     "@playwright/test": "^1.39.0",
     "@types/jasmine": "~5.1.0",
     "@types/js-yaml": "^4.0.5",
+    "@types/lodash": "^4.14.201",
     "@types/node": "^20.8.10",
     "electron": "^27.0.0",
     "electron-builder": "^24.6.4",
