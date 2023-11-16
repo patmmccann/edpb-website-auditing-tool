@@ -26,8 +26,16 @@ const {
   getLocalStorage,
   safeJSONParse,
 } = require("../lib/tools");
+const fs = require('fs');
+
 
 async function createBrowserSession(mainWindow, partition, collector) {
+
+  const stackTraceHelper = fs.readFileSync(
+    require.resolve("stacktrace-js/dist/stacktrace.js"),
+    "utf8"
+  );
+
   let page, hosts, har, webSocketLog, browser_context;
 
   let browser = new BrowserView({
@@ -37,7 +45,7 @@ async function createBrowserSession(mainWindow, partition, collector) {
       partition: partition
     }
   });
-  
+  browser.webContents.executeJavaScript(stackTraceHelper);
   browser.webContents.send('init', partition);
 
   if (collector.args && collector.args.useragent) {
@@ -50,7 +58,8 @@ async function createBrowserSession(mainWindow, partition, collector) {
     mainWindow.webContents.send('browser-event', 'did-start-loading', partition);
   });
 
-  browser.webContents.on('dom-ready', () => {
+  browser.webContents.on('dom-ready', async () => {
+    await browser.webContents.executeJavaScript(stackTraceHelper);
     browser.webContents.send('init', partition);
   });
 
