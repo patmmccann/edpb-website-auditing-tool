@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { ipcMainInvokeHandler, ipcRendererInvoke, ipcRendererCallFirstListener, ipcMainCallFirstListener, findLatestBuild, parseElectronApp } from 'electron-playwright-helpers';
 import * as PATH from 'path';
 
-test.describe('Report', () => {
+test.describe('Toolbar', () => {
   let app: ElectronApplication;
   let firstWindow: Page;
   let context: BrowserContext;
@@ -62,8 +62,40 @@ test.describe('Report', () => {
     expect(screenshot).toBeInstanceOf(Object);
   });
 
+
+
   test.afterAll(async () => {
     await ipcMainInvokeHandler(app, 'deleteCollector');
+    await app.close();
+  });
+});
+
+test.describe('HTTPSCard', () => {
+  let app: ElectronApplication;
+  let firstWindow: Page;
+  let context: BrowserContext;
+
+  test.beforeAll(async () => {
+    app = await electron.launch({ args: [PATH.join(__dirname, '../../electron/main.js')] });
+    firstWindow = await app.firstWindow();
+    await firstWindow.waitForLoadState('domcontentloaded');
+  });
+
+  test('Test HTTPS support on example.com', async () => {
+    const secure_connection :any = await ipcMainInvokeHandler(app, 'http_card_update', "https://www.example.com");
+    expect(secure_connection.https_support).toBeTruthy();
+    expect(secure_connection.https_redirect).toBeFalsy();
+    expect(secure_connection.redirects).toHaveLength(0);
+  });
+
+  test('Test HTTPS support on edpb.europa.eu', async () => {
+    const secure_connection :any = await ipcMainInvokeHandler(app, 'http_card_update', "https://edpb.europa.eu");
+    expect(secure_connection.https_support).toBeTruthy();
+    expect(secure_connection.https_redirect).toBeTruthy();
+    expect(secure_connection.redirects).not.toHaveLength(0);
+  });
+
+  test.afterAll(async () => {
     await app.close();
   });
 });

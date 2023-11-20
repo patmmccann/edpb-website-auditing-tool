@@ -1,11 +1,12 @@
 import { ipcMain, BrowserWindow,BrowserView } from 'electron';
 import {BrowserSession} from './sessions/browser-session'
+const collector_connection = require("./../../collector/connection");
 
 export class BrowsersHandlher {
     mainWindow : BrowserWindow;
     new_default_collector :BrowserSession | null= null;
     new_collectors :BrowserSession[][] = [];
-    currentView :BrowserView= null;
+    currentView :BrowserView | null = null;
 
     constructor(mainWindow : BrowserWindow){
         this.mainWindow = mainWindow;
@@ -31,6 +32,7 @@ export class BrowsersHandlher {
         ipcMain.handle('get', this.collectFromSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
+        ipcMain.handle('http_card_update', this.testHttps.bind(this));
     }
 
     unregisterHandlers(){
@@ -51,6 +53,7 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('get');
         ipcMain.removeHandler('screenshot');
         ipcMain.removeHandler('toogleDevTool');
+        ipcMain.removeHandler('http_card_update');
     }
 
     get(analysis_id : number, tag_id:number) {
@@ -126,6 +129,14 @@ export class BrowsersHandlher {
         return await session.screenshot();
     }
 
+    async testHttps(event, url){
+        //const httpCard = new HttpCard(url);
+        //return await httpCard.update();
+        const out :any = {};
+        await collector_connection.testHttps(url, out);
+        return out.secure_connection;
+    }
+
     toogleDevTool(event, analysis_id, tag_id){
         const session = this.get(analysis_id, tag_id);
         session.toogleDevTool();
@@ -133,8 +144,8 @@ export class BrowsersHandlher {
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
-            const browserSession = new BrowserSession();
-            const collect = await browserSession.create(this.mainWindow, 'session' + analysis_id + tag_id, args);
+            const browserSession = new BrowserSession(this.mainWindow);
+            const collect = await browserSession.create('session' + analysis_id + tag_id, args);
 
             if (url) {
                 await collect.getPage(url);
@@ -146,8 +157,8 @@ export class BrowsersHandlher {
 
             this.new_collectors[analysis_id][tag_id] = browserSession;
         } else if (this.new_default_collector == null) {
-            const browserSession = new BrowserSession();
-            const collect = await browserSession.create(this.mainWindow, 'main', args);
+            const browserSession = new BrowserSession(this.mainWindow);
+            const collect = await browserSession.create('main', args);
             this.new_default_collector = browserSession;
         }
     }

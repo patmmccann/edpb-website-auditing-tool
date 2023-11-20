@@ -4,7 +4,7 @@
   "author": "EDPB",
   "license": "EUPL-1.0",
   "main": "electron/main.js",
-  "repository": "https://github.com/gorinje/website-audit3.git",
+  "repository": "https://code.europa.eu/spe/website-audit.git",
   "description": "Website auditing tool",
   "scripts": {
     "ng": "ng",

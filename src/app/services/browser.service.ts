@@ -249,6 +249,7 @@ export class BrowserService {
                 {
                   const trafficCard = (card as TrafficCard);
                   const new_card = this.inspectionService.inspectTraffic(output.hosts);
+                  if (!new_card || !new_card.requests) break;
                   if (new_card.requests['thirdParty']?.length != trafficCard.requests['thirdParty']?.length) {
                     trafficCard.requests['thirdParty'] = new_card.requests['thirdParty'];
                   }

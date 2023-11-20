@@ -47,7 +47,7 @@ async function inspector(args, logger, pageSession, output) {
     return !!event.type;
   });
 
-  c.inspectCookies = async function () {
+  c.inspectCookies = async function (tmp_collector, new_collector) {
     // we get all cookies from the log, which can be both JS and http cookies
     let cookies_from_events = flatten(
       c.eventData
@@ -106,16 +106,16 @@ async function inspector(args, logger, pageSession, output) {
       // if a domain is empty, its a JS cookie setup as first party
       if (
         isFirstParty(
-          c.pageSession.browser.refs_regexp,
+          tmp_collector.refs_regexp,
           `cookie://${cookie.domain}${cookie.path}`
         ) ||
         cookie.domain === ""
       ) {
         cookie.firstPartyStorage = true;
-        c.pageSession.hosts.cookies.firstParty.add(cookie.domain);
+        new_collector.hosts.cookies.firstParty.add(cookie.domain);
       } else {
         cookie.firstPartyStorage = false;
-        c.pageSession.hosts.cookies.thirdParty.add(cookie.domain);
+        new_collector.hosts.cookies.thirdParty.add(cookie.domain);
       }
     });
 
@@ -125,23 +125,23 @@ async function inspector(args, logger, pageSession, output) {
     });
   };
 
-  c.inspectLocalStorage = async function () {
+  c.inspectLocalStorage = async function (local_storage, tmp_collector, new_collector) {
     let storage_from_events = c.eventData.filter((event) => {
       return event.type.startsWith("Storage");
     });
 
-    Object.keys(c.output.localStorage).forEach((origin) => {
+    Object.keys(local_storage).forEach((origin) => {
       let hostname = new url.URL(origin).hostname;
-      let isFirstPartyStorage = isFirstParty(c.pageSession.browser.refs_regexp, origin);
+      let isFirstPartyStorage = isFirstParty(tmp_collector.refs_regexp, origin);
 
       if (isFirstPartyStorage) {
-        c.pageSession.hosts.localStorage.firstParty.add(hostname);
+        new_collector.hosts.localStorage.firstParty.add(hostname);
       } else {
-        c.pageSession.hosts.localStorage.thirdParty.add(hostname);
+        new_collector.hosts.localStorage.thirdParty.add(hostname);
       }
 
       //
-      let originStorage = c.output.localStorage[origin];
+      let originStorage = local_storage[origin];
       Object.keys(originStorage).forEach((key) => {
         // add if entry is linked to first-party host
         originStorage[key].firstPartyStorage = isFirstPartyStorage;
@@ -164,7 +164,7 @@ async function inspector(args, logger, pageSession, output) {
     });
   };
 
-  c.inspectBeacons = async function () {
+  c.inspectBeacons = async function (collector, tmp_collector) {
     let beacons_from_events = flatten(
       c.eventData
         .filter((event) => {
@@ -185,10 +185,10 @@ async function inspector(args, logger, pageSession, output) {
       const l = url.parse(beacon.url);
 
       if (beacon.listName == "easyprivacy.txt") {
-        if (isFirstParty(c.pageSession.browser.refs_regexp, l)) {
-          c.pageSession.hosts.beacons.firstParty.add(l.hostname);
+        if (isFirstParty(tmp_collector.refs_regexp, l)) {
+          collector.hosts.beacons.firstParty.add(l.hostname);
         } else {
-          c.pageSession.hosts.beacons.thirdParty.add(l.hostname);
+          collector.hosts.beacons.thirdParty.add(l.hostname);
         }
       }
     }
@@ -217,7 +217,7 @@ async function inspector(args, logger, pageSession, output) {
     c.output.beacons = beacons_summary;
   };
 
-  c.inspectHosts = async function () {
+  c.inspectHosts = async function (new_collector) {
     // Hosts Inspection
     let arrayFromParties = function (array) {
       return {
@@ -227,11 +227,11 @@ async function inspector(args, logger, pageSession, output) {
     };
 
     c.output.hosts = {
-      requests: arrayFromParties(c.pageSession.hosts.requests),
-      beacons: arrayFromParties(c.pageSession.hosts.beacons),
-      cookies: arrayFromParties(c.pageSession.hosts.cookies),
-      localStorage: arrayFromParties(c.pageSession.hosts.localStorage),
-      links: arrayFromParties(c.pageSession.hosts.links),
+      requests: arrayFromParties(new_collector.hosts.requests),
+      beacons: arrayFromParties(new_collector.hosts.beacons),
+      cookies: arrayFromParties(new_collector.hosts.cookies),
+      localStorage: arrayFromParties(new_collector.hosts.localStorage),
+      links: arrayFromParties(new_collector.hosts.links),
     };
   };
 

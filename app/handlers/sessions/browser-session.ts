@@ -1,9 +1,10 @@
-import { app, BrowserView, WebContents, ipcMain } from 'electron';
+import { app, BrowserView, WebContents, ipcMain, BrowserWindow } from 'electron';
 import { CollectorSession } from './collector-session';
 
 const collector = require("../../../collector/index");
 const logger = require("../../../lib/logger");
 const inspector = require("../../../inspector/index");
+
 const collector_connection = require("../../../collector/connection");
 const { setup_cookie_recording, report_event_logger } = require("../../../lib/setup-cookie-recording");
 const { setup_beacon_recording } = require("../../../lib/setup-beacon-recording");
@@ -29,48 +30,51 @@ export class BrowserSession {
     _collector: CollectorSession;
     _tmp_collector: any;
     _session_name :string;
+    _mainWindow : BrowserWindow;
 
-    constructor() {
+    constructor(mainWindow : BrowserWindow) {
         this._collector = new CollectorSession();
+        this._mainWindow = mainWindow;
     }
 
-    createBrowserSession(mainWindow, partition, collector, args) {
+    createBrowserSession(args) {
 
-        let browser = new BrowserView({
+        this._view = new BrowserView({
             webPreferences: {
-                preload: path.join(__dirname, 'preload.js'),
+                preload: path.join(__dirname, '../../../collector/preload.js'),
                 contextIsolation: false,
-                partition: partition
+                partition: this._session_name
             }
         });
 
-        //browser.webContents.executeJavaScript(stackTraceHelper);
-        browser.webContents.send('init', partition);
+        this._contents =  this._view.webContents;
+
+        this._view.webContents.send('init', this._session_name);
 
         if (args.useragent) {
-            browser.webContents.setUserAgent(args.useragent);
+            this._view.webContents.setUserAgent(args.useragent);
         }
 
-        collector.refs_regexp = null;
+        this._tmp_collector.refs_regexp = null;
 
-        browser.webContents.on('did-start-loading', () => {
-            mainWindow.webContents.send('browser-event', 'did-start-loading', partition);
+        this._view.webContents.on('did-start-loading', () => {
+            this._mainWindow.webContents.send('browser-event', 'did-start-loading', this._session_name);
         });
 
-        browser.webContents.on('dom-ready', async () => {
+        this._view.webContents.on('dom-ready', async () => {
             //await browser.webContents.executeJavaScript(stackTraceHelper);
-            browser.webContents.send('init', partition);
+            this._view.webContents.send('init', this._session_name);
         });
 
 
-        browser.webContents.on('did-finish-load', () => {
+        this._view.webContents.on('did-finish-load', () => {
             // configuring url and hosts
-            collector.output.uri_ins = browser.webContents.getURL();
-            collector.output.uri_ins_host = url.parse(collector.output.uri_ins).hostname; // hostname does not include port unlike host
-            collector.output.uri_refs.push(collector.output.uri_ins);
+            this._tmp_collector.output.uri_ins = this._view.webContents.getURL();
+            this._tmp_collector.output.uri_ins_host = url.parse(this._tmp_collector.output.uri_ins).hostname; // hostname does not include port unlike host
+            this._tmp_collector.output.uri_refs.push(this._tmp_collector.output.uri_ins);
 
             // create url map and regex - urls.js ?
-            let uri_refs_stripped = collector.output.uri_refs.map((uri_ref) => {
+            let uri_refs_stripped = this._tmp_collector.output.uri_refs.map((uri_ref) => {
                 let uri_ref_parsed = url.parse(uri_ref);
                 return lodash.escapeRegExp(
                     `${uri_ref_parsed.hostname}${uri_ref_parsed.pathname.replace(
@@ -80,91 +84,68 @@ export class BrowserSession {
                 );
             });
 
-            collector.refs_regexp = new RegExp(`^(${uri_refs_stripped.join("|")})\\b`, "i");
-            mainWindow.webContents.send('browser-event', 'did-finish-load', partition);
-        });
-
-        // go to page, start har etc
-        async function start() {
-
-            if (args.dnt) {
-                browser.webContents.session.webRequest.onBeforeSendHeaders(
-                    (details, callback) => {
-                        details.requestHeaders['DNT'] = '1';
-                        callback({ requestHeaders: details.requestHeaders });
-                    });               
-            }
-
-            if (args.dntJs) {
-                browser.webContents.send('dntJs');
-            }
-
-            ipcMain.handle('reportEvent' + partition, async (reportEvent, type, stack, data, location) => {
-                report_event_logger(collector.logger, type, stack, data, JSON.parse(location));
-            });
-
-
-
-            // forward logs from the browser console
-            browser.webContents.on("console-message", (event, level, msg, line, sourceId) =>
-                collector.logger.log("debug", msg, { type: "Browser.Console" })
-            );
-
-            /*hosts = {
-                requests: {
-                    firstParty: new Set(),
-                    thirdParty: new Set(),
-                },
-                beacons: {
-                    firstParty: new Set(),
-                    thirdParty: new Set(),
-                },
-                cookies: {
-                    firstParty: new Set(),
-                    thirdParty: new Set(),
-                },
-                localStorage: {
-                    firstParty: new Set(),
-                    thirdParty: new Set(),
-                },
-                links: {
-                    firstParty: new Set(),
-                    thirdParty: new Set(),
-                },*/
-            };
-
-            // forward logs from each requests browser console
-            browser.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
-                // record all requested hosts
-                const l = url.parse(details.url);
-                // note that hosts may appear as first and third party depending on the path
-                if (isFirstParty(collector.refs_regexp, l)) {
-                    collector.pageSession.hosts.requests.firstParty.add(l.hostname);
-                } else {
-                    if (l.protocol != "data:") {
-                        collector.pageSession.hosts.requests.thirdParty.add(l.hostname);
-                    }
-                }
-
-                await setup_beacon_recording(details, collector.logger);
-                callback({});
-            });
-
-            // setup tracking
-            browser.webContents.session.webRequest.onHeadersReceived(async (details, callback) => {
-                await setup_cookie_recording(details, browser.webContents.mainFrame.url, collector.logger);
-                callback({});
-            });
+            this._tmp_collector.refs_regexp = new RegExp(`^(${uri_refs_stripped.join("|")})\\b`, "i");
+            this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
+        });          
     }
 
+    // go to page, start har etc
+    async start(args) {
 
-    async create(mainWindow, session_name, args) {
+        if (args.dnt) {
+            this._view.webContents.session.webRequest.onBeforeSendHeaders(
+                (details, callback) => {
+                    details.requestHeaders['DNT'] = '1';
+                    callback({ requestHeaders: details.requestHeaders });
+                });               
+        }
+
+        if (args.dntJs) {
+            this._view.webContents.send('dntJs');
+        }
+
+        ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
+            report_event_logger(this._tmp_collector.logger, type, stack, data, JSON.parse(location));
+        });
+
+
+
+        // forward logs from the browser console
+        this._view.webContents.on("console-message", (event, level, msg, line, sourceId) =>
+        this._tmp_collector.logger.log("debug", msg, { type: "Browser.Console" })
+        );
+
+        // forward logs from each requests browser console
+        this._view.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
+            // record all requested hosts
+            const l = url.parse(details.url);
+            // note that hosts may appear as first and third party depending on the path
+            if (isFirstParty(this._tmp_collector.refs_regexp, l)) {
+                this._collector.hosts.requests.firstParty.add(l.hostname);
+            } else {
+                if (l.protocol != "data:") {
+                    this._collector.hosts.requests.thirdParty.add(l.hostname);
+                }
+            }
+
+            await setup_beacon_recording(details, this._tmp_collector.logger);
+            callback({});
+        });
+
+        // setup tracking
+        this._view.webContents.session.webRequest.onHeadersReceived(async (details, callback) => {
+            await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this._tmp_collector.logger);
+            callback({});
+        });
+    }
+
+    async create(session_name, args) {
         const collect = await collector(args, logger.create({}, args));
-        await collect.createSession(mainWindow, session_name);
-        this._view = collect.browserSession.browser;
-        this._contents = collect.browserSession.browser.webContents;
         this._tmp_collector = collect;
         this._session_name= session_name;
+        //await collect.createSession(mainWindow, session_name);
+        this.createBrowserSession(args);
+        await this.start(args);
         return collect;
     }
 
@@ -178,6 +159,9 @@ export class BrowserSession {
 
     async clear(args) {
         await this._tmp_collector.eraseSession(args, logger.create({}, args));
+        await this._contents.session.clearCache();
+        await this._contents.session.clearStorageData();
+        this._tmp_collector.uri_ins = this._contents.getURL();
     }
 
     async gotoPage(url) {
@@ -247,9 +231,10 @@ export class BrowserSession {
 
         for (let kind of kinds) {
             switch (kind) {
-                case 'cookie':
-                    await collect.collectCookies();
-                    await inspect.inspectCookies();
+               case 'cookie':
+                    const cookies = await this._contents.session.cookies.get({});
+                    await collect.collectCookies(cookies);
+                    await inspect.inspectCookies(this._tmp_collector, this._collector);
                     break;
                 case 'https':
                     if (collect.output.uri_ins) {
@@ -282,20 +267,21 @@ export class BrowserSession {
                     }
                     break;
                 case 'localstorage':
-                    await collect.collectLocalStorage();
-                    await inspect.inspectLocalStorage();
+                    const localStorage = await getLocalStorage(this._contents, this._tmp_collector.logger);
+                    await inspect.inspectLocalStorage(localStorage, this._tmp_collector, this._collector);
+                    collect.output.localStorage = localStorage;
                     break;
 
                 case 'traffic':
-                    await inspect.inspectHosts();
+                    await inspect.inspectHosts(this._collector);
                     break;
 
                 case 'forms':
-                    await collect.collectForms();
+                    await collect.collectForms(this._contents);
                     break;
 
                 case 'beacons':
-                    await inspect.inspectBeacons();
+                    await inspect.inspectBeacons(this._collector, this._tmp_collector);
                     break;
             }
         }

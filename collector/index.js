@@ -98,18 +98,18 @@ async function collector(args, logger) {
     c.output.links.keywords = await collector_inspect.filterKeywords(links);
   };
 
-  c.collectCookies = async function () {
-    const cookies = c.pageSession.browser.webContents ? await c.pageSession.browser.webContents.session.cookies.get({}) : c.pageSession.browser.cookies;
+  c.collectCookies = async function (cookies) {
+    //const cookies = c.pageSession.browser.webContents ? await c.pageSession.browser.webContents.session.cookies.get({}) : c.pageSession.browser.cookies;
     c.output.cookies = await collector_inspect.collectCookies(
       cookies,
       c.output.start_time
     );
   };
 
-  c.collectForms = async function () {
+  c.collectForms = async function (webContents) {
     // unsafe webforms
     c.output.unsafeForms = await collector_inspect.unsafeWebforms(
-      c.pageSession.browser.webContents
+      webContents
     );
   };
 
@@ -146,9 +146,9 @@ async function collector(args, logger) {
 
   c.eraseSession = async function (args, logger) {
     c.output = await output_lib.createOutput(args);
-    c.output.uri_ins = c.browserSession.browser.webContents.getURL();
+    //c.output.uri_ins = c.browserSession.browser.webContents.getURL();
     c.logger = logger;
-    c.pageSession.hosts = {
+    /*c.pageSession.hosts = {
       requests: {
         firstParty: new Set(),
         thirdParty: new Set(),
@@ -169,10 +169,7 @@ async function collector(args, logger) {
         firstParty: new Set(),
         thirdParty: new Set(),
       },
-    };
-
-    await c.browserSession.browser.webContents.session.clearCache();
-    await c.browserSession.browser.webContents.session.clearStorageData();
+    };*/
   };
 
   c.createSessionFromHar = async function (har) {
