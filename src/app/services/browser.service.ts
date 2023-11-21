@@ -55,7 +55,6 @@ export class BrowserService {
       getSessions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
       hideSession: (): Promise<void> => new Promise((resolve, reject) => resolve()),
       resizeSession: (rect: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      save: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       loadURL: (analysis_id: number, tag_id: number, url: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       getURL: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       get: (analysis_id: number, tag_id: number, url: string, waitForComplete: boolean): Promise<any> => new Promise((resolve, reject) => resolve([])),
@@ -161,18 +160,6 @@ export class BrowserService {
 
   refresh(window: any, analysis: Analysis | null, tag: Tag | null) {
     return window.electron.refresh(analysis ? analysis.id : null, tag ? tag.id : null);
-  }
-
-  getCards(window: any, analysis: Analysis | null, tag: Tag | null): Promise<Card[]> {
-    return new Promise((resolve, reject) => {
-      if (analysis && tag) {
-        window.electron.save(analysis ? analysis.id : null, tag ? tag.id : null)
-          .then((result: any) => {
-            const cards: Card[] = this.inspectionService.inspectionParser(result);
-            resolve(cards);
-          })
-      }
-    });
   }
 
   updateCards(window: any, cards: Card[], analysis: Analysis | null, tag: Tag | null, waitForComplete?: boolean): Promise<void> {

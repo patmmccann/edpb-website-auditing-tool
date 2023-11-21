@@ -13,8 +13,6 @@ contextBridge.exposeInMainWorld(
     resizeSession: (rect : any) => ipcRenderer.invoke('resizeSession', rect),
     loadURL: (analysis_id : number, tag_id : number, url : string) => ipcRenderer.invoke('loadURL', analysis_id, tag_id, url),
     getURL: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('getURL', analysis_id, tag_id),
-
-    save: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('save', analysis_id, tag_id),
     get: (analysis_id : number, tag_id : number, kind, waitForComplete, args : any) => ipcRenderer.invoke('get', analysis_id, tag_id, kind, waitForComplete, args),
     screenshot: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('screenshot', analysis_id, tag_id),
     stop: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('stop', analysis_id, tag_id),

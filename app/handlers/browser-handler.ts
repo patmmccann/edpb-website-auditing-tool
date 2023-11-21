@@ -28,7 +28,6 @@ export class BrowsersHandlher {
         ipcMain.handle('createCollector', this.createBrowserSession.bind(this));
         ipcMain.handle('deleteCollector', this.deleteBrowserSession.bind(this));
         ipcMain.handle('eraseSession', this.clearSession.bind(this));
-        ipcMain.handle('save', this.saveSession.bind(this));
         ipcMain.handle('get', this.collectFromSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
@@ -49,7 +48,6 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('createCollector');
         ipcMain.removeHandler('deleteCollector');
         ipcMain.removeHandler('eraseSession');
-        ipcMain.removeHandler('save');
         ipcMain.removeHandler('get');
         ipcMain.removeHandler('screenshot');
         ipcMain.removeHandler('toogleDevTool');
@@ -189,10 +187,5 @@ export class BrowsersHandlher {
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
         const session = this.get(analysis_id, tag_id);
         return await session.collect(kinds, waitForComplete, args);
-    }
-
-    async saveSession(event, analysis_id, tag_id){
-        const session = this.get(analysis_id, tag_id);
-        return await session.save();
     }
 }

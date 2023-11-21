@@ -290,50 +290,6 @@ export class BrowserSession {
         return collect.output;
     }
 
-    async save() {
-        const collect = this._tmp_collector;
-
-        //test the ssl and https connection
-        await collect.testConnection();
-
-        // ########################################################
-        // Collect Links, Forms and Cookies to populate the output
-        // ########################################################
-        await collect.collectLinks();
-        await collect.collectForms();
-        await collect.collectCookies();
-        await collect.collectLocalStorage();
-        await collect.collectWebsocketLog();
-
-        // browse sample history and log to localstorage
-        let browse_user_set: any[] = /*args.browseLink ||*/[]; //FIXME
-        await collect.browseSamples(collect.output.localStorage, browse_user_set);
-
-        // END OF BROWSING - discard the browser and page
-        //mainWindow.setBrowserView(null);
-        //await collect.endSession();
-
-        await logger.waitForComplete(this.logger);
-
-        // ########################################################
-        //  inspecting - this will process the collected data and place it in a structured format in the output object
-        // ########################################################
-
-        const inspect = await inspector(
-            null, //args, FIXME
-            this.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        await inspect.inspectCookies();
-        await inspect.inspectLocalStorage();
-        await inspect.inspectBeacons();
-        await inspect.inspectHosts();
-
-        return collect.output;
-    }
-
     get view() {
         return this._view;
     }
