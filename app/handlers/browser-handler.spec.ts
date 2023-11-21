@@ -18,13 +18,9 @@ test.describe('Toolbar', () => {
 
   test('Navigation', async () => {
 
-    // function wait_for_page(){
-    //   return new Promise<void>(async (resolve) => {
-    //     ipcRenderer.on('browser-event', () => {
-    //       resolve();
-    //     })
-    //   });
-    // }
+    function timeout(ms:number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
     let url = await ipcMainInvokeHandler(app, 'getURL');
@@ -41,20 +37,21 @@ test.describe('Toolbar', () => {
     expect(canGoBackward).toBeTruthy();
     expect(canGoForward).toBeFalsy();
     await ipcMainInvokeHandler(app, 'backward');
-    // await wait_for_page();
-    // url = await ipcMainInvokeHandler(app, 'getURL');
-    // canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
-    // canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');
-    // expect(canGoBackward).toBeFalsy();
-    // expect(canGoForward).toBeTruthy();
-    // expect(url).toBe("https://www.example.com/");
-    // await ipcMainInvokeHandler(app, 'forward');
-    // url = await ipcMainInvokeHandler(app, 'getURL');
-    // canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
-    // canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');
-    // expect(url).toBe("https://www.example.net/");
-    // expect(canGoBackward).toBeTruthy();
-    // expect(canGoForward).toBeFalsy();
+    await timeout(500);
+    url = await ipcMainInvokeHandler(app, 'getURL');
+    canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
+    canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');
+    expect(canGoBackward).toBeFalsy();
+    expect(canGoForward).toBeTruthy();
+    expect(url).toBe("https://www.example.com/");
+    await ipcMainInvokeHandler(app, 'forward');
+    await timeout(500);
+    url = await ipcMainInvokeHandler(app, 'getURL');
+    canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
+    canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');
+    expect(url).toBe("https://www.example.net/");
+    expect(canGoBackward).toBeTruthy();
+    expect(canGoForward).toBeFalsy();
   });
 
   test('Screenshot', async () => {
