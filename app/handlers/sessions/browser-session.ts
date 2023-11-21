@@ -94,7 +94,7 @@ export class BrowserSession {
     async start(args) {
 
         if (args.dnt) {
-            this._view.webContents.session.webRequest.onBeforeSendHeaders(
+            this._contents.session.webRequest.onBeforeSendHeaders(
                 (details, callback) => {
                     details.requestHeaders['DNT'] = '1';
                     callback({ requestHeaders: details.requestHeaders });
@@ -112,12 +112,12 @@ export class BrowserSession {
 
 
         // forward logs from the browser console
-        this._view.webContents.on("console-message", (event, level, msg, line, sourceId) =>
+        this._contents.on("console-message", (event, level, msg, line, sourceId) =>
         this.logger.log("debug", msg, { type: "Browser.Console" })
         );
 
         // forward logs from each requests browser console
-        this._view.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
+        this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
             // record all requested hosts
             const l = url.parse(details.url);
             // note that hosts may appear as first and third party depending on the path
@@ -134,7 +134,7 @@ export class BrowserSession {
         });
 
         // setup tracking
-        this._view.webContents.session.webRequest.onHeadersReceived(async (details, callback) => {
+        this._contents.session.webRequest.onHeadersReceived(async (details, callback) => {
             await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this.logger);
             callback({});
         });
@@ -149,12 +149,11 @@ export class BrowserSession {
         return collect;
     }
 
-    async delete() {
+    delete() {
         this._contents.session.webRequest.onBeforeRequest(null, null);
         this._contents.session.webRequest.onHeadersReceived(null, null);
-        (this._contents as any).destroy();
         ipcMain.removeHandler('reportEvent' + this._session_name);
-        await this._tmp_collector.endSession();
+        (this._contents as any).destroy();
     }
 
     async clear(args) {
@@ -316,5 +315,9 @@ export class BrowserSession {
     
     get logger(){
         return this.collector.logger;
+    }
+
+    get name(){
+        return this._session_name;
     }
 }

@@ -3,13 +3,12 @@ import {BrowserSession} from './sessions/browser-session'
 const collector_connection = require("./../../collector/connection");
 
 export class BrowsersHandlher {
-    mainWindow : BrowserWindow;
-    new_default_collector :BrowserSession | null= null;
-    new_collectors :BrowserSession[][] = [];
+    _mainWindow : BrowserWindow;
+    _sessions :BrowserSession[] = [];
     currentView :BrowserView | null = null;
 
     constructor(mainWindow : BrowserWindow){
-        this.mainWindow = mainWindow;
+        this._mainWindow = mainWindow;
         this.registerHandlers();
     }
 
@@ -38,6 +37,7 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('showSession');
         ipcMain.removeHandler('hideSession');
         ipcMain.removeHandler('resizeSession');
+        ipcMain.removeHandler('loadURL');
         ipcMain.removeHandler('getURL');
         ipcMain.removeHandler('refresh');
         ipcMain.removeHandler('stop');
@@ -52,16 +52,20 @@ export class BrowsersHandlher {
         ipcMain.removeHandler('screenshot');
         ipcMain.removeHandler('toogleDevTool');
         ipcMain.removeHandler('http_card_update');
+
+        for (const [name, session] of Object.entries(this.sessions)) {
+            session.delete();
+        }
+
+        this._sessions = [];
     }
 
     get(analysis_id : number, tag_id:number) {
         if (!analysis_id && !tag_id) {
-            return this.new_default_collector;
+            return this.sessions['main'];
         }
     
-        const analysis = this.new_collectors[analysis_id];
-        if (!analysis) return null;
-        return this.new_collectors[analysis_id][tag_id];
+        return this.sessions['session' + analysis_id + tag_id];
     }
 
     hideSession(){
@@ -141,39 +145,29 @@ export class BrowsersHandlher {
     }
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
-        if (analysis_id && tag_id) {
-            const browserSession = new BrowserSession(this.mainWindow, 'session' + analysis_id + tag_id);
-            const collect = await browserSession.create(args);
+        const session_name = analysis_id && tag_id? 'session' + analysis_id + tag_id: 'main';
+        const browserSession = new BrowserSession(this.mainWindow, session_name);
+        this._sessions[browserSession.name] = browserSession;
+        await browserSession.create(args);
 
-            if (url) {
-                await browserSession.gotoPage(url);
-            }
-
-            if (!(analysis_id in this.new_collectors)) {
-                this.new_collectors[analysis_id] = [];
-            }
-
-            this.new_collectors[analysis_id][tag_id] = browserSession;
-        } else if (this.new_default_collector == null) {
-            const browserSession = new BrowserSession(this.mainWindow, 'main');
-            const collect = await browserSession.create(args);
-            this.new_default_collector = browserSession;
-        }
+        if (url) {
+            await browserSession.gotoPage(url);
+        }            
     }
 
     async deleteBrowserSession(event, analysis_id, tag_id){
-        const new_collector = this.get(analysis_id, tag_id);
-        if (!new_collector) return;
+        const session = this.get(analysis_id, tag_id);
+        if (!session) return;
 
         const current_view = this.mainWindow.getBrowserView();
 
-        if (new_collector.view == current_view) {
+        if (session.view == current_view) {
             this.mainWindow.setBrowserView(null);
         }
 
-        await new_collector.delete();
-        if (this.new_default_collector != new_collector ){
-            this.new_collectors[analysis_id][tag_id] = null;
+        await session.delete();
+        if (session.name != 'main' ){
+            this.sessions[session.name] = null;
         }
     }
 
@@ -187,5 +181,13 @@ export class BrowsersHandlher {
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
         const session = this.get(analysis_id, tag_id);
         return await session.collect(kinds, waitForComplete, args);
+    }
+
+    get mainWindow(){
+        return this._mainWindow;
+    }
+
+    get sessions(){
+        return this._sessions;
     }
 }
