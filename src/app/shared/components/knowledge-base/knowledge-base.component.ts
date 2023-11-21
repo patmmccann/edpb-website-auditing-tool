@@ -7,6 +7,7 @@ import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
 import { Tag } from 'src/app/models/tag.model';
+import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
@@ -47,6 +48,7 @@ export class KnowledgeBaseComponent implements OnInit, OnChanges, OnDestroy {
     public knowledgeBaseService: KnowledgeBaseService,
     private cookieKnowledgesService: CookieKnowledgesService,
     private localStorageKnowledgeService:LocalstorageKnowledgesService,
+    private detailsService: DetailsService,
     private el: ElementRef,
     private router: Router
   ) { }
@@ -72,6 +74,10 @@ export class KnowledgeBaseComponent implements OnInit, OnChanges, OnDestroy {
         this.selectedKnowledBase = "0";
         
       }
+
+      this.detailsService.eventDetails.subscribe(()=>{
+        this.loadSelectedValues();
+      })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
