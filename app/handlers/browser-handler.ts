@@ -142,8 +142,8 @@ export class BrowsersHandlher {
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         if (analysis_id && tag_id) {
-            const browserSession = new BrowserSession(this.mainWindow);
-            const collect = await browserSession.create('session' + analysis_id + tag_id, args);
+            const browserSession = new BrowserSession(this.mainWindow, 'session' + analysis_id + tag_id);
+            const collect = await browserSession.create(args);
 
             if (url) {
                 await browserSession.gotoPage(url);
@@ -155,8 +155,8 @@ export class BrowsersHandlher {
 
             this.new_collectors[analysis_id][tag_id] = browserSession;
         } else if (this.new_default_collector == null) {
-            const browserSession = new BrowserSession(this.mainWindow);
-            const collect = await browserSession.create('main', args);
+            const browserSession = new BrowserSession(this.mainWindow, 'main');
+            const collect = await browserSession.create(args);
             this.new_default_collector = browserSession;
         }
     }

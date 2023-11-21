@@ -32,9 +32,10 @@ export class BrowserSession {
     _session_name :string;
     _mainWindow : BrowserWindow;
 
-    constructor(mainWindow : BrowserWindow) {
+    constructor(mainWindow : BrowserWindow, session_name:string) {
         this._collector = new CollectorSession();
         this._mainWindow = mainWindow;
+        this._session_name= session_name;
     }
 
     createBrowserSession(args) {
@@ -49,7 +50,7 @@ export class BrowserSession {
 
         this._contents =  this._view.webContents;
 
-        this._view.webContents.send('init', this._session_name);
+        this._contents.send('init', this._session_name);
 
         if (args.useragent) {
             this._view.webContents.setUserAgent(args.useragent);
@@ -139,10 +140,9 @@ export class BrowserSession {
         });
     }
 
-    async create(session_name, args) {
+    async create(args) {
         const collect = await collector(args, logger.create({}, args));
         this._tmp_collector = collect;
-        this._session_name= session_name;
         //await collect.createSession(mainWindow, session_name);
         this.createBrowserSession(args);
         await this.start(args);
