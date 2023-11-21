@@ -148,7 +148,7 @@ export class BrowsersHandlher {
             const collect = await browserSession.create('session' + analysis_id + tag_id, args);
 
             if (url) {
-                await collect.getPage(url);
+                await browserSession.gotoPage(url);
             }
 
             if (!(analysis_id in this.new_collectors)) {
