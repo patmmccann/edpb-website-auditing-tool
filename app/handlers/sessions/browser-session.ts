@@ -105,14 +105,14 @@ export class BrowserSession {
         }
 
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
-            report_event_logger(this._tmp_collector.logger, type, stack, data, JSON.parse(location));
+            report_event_logger(this.logger, type, stack, data, JSON.parse(location));
         });
 
 
 
         // forward logs from the browser console
         this._view.webContents.on("console-message", (event, level, msg, line, sourceId) =>
-        this._tmp_collector.logger.log("debug", msg, { type: "Browser.Console" })
+        this.logger.log("debug", msg, { type: "Browser.Console" })
         );
 
         // forward logs from each requests browser console
@@ -128,13 +128,13 @@ export class BrowserSession {
                 }
             }
 
-            await setup_beacon_recording(details, this._tmp_collector.logger);
+            await setup_beacon_recording(details, this.logger);
             callback({});
         });
 
         // setup tracking
         this._view.webContents.session.webRequest.onHeadersReceived(async (details, callback) => {
-            await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this._tmp_collector.logger);
+            await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this.logger);
             callback({});
         });
     }
@@ -165,12 +165,12 @@ export class BrowserSession {
     }
 
     async gotoPage(url) {
-        this._tmp_collector.logger.log("info", `browsing now to ${url}`, { type: "Browser" });
+        this.logger.log("info", `browsing now to ${url}`, { type: "Browser" });
 
         try {
             await this._contents.loadURL(url);
         } catch (error) {
-            this._tmp_collector.logger.log("error", error.message, { type: "Browser" });
+            this.logger.log("error", error.message, { type: "Browser" });
         }
     }
 
@@ -215,7 +215,7 @@ export class BrowserSession {
         const collect = this._tmp_collector;
 
         if (waitForComplete) {
-            await logger.waitForComplete(collect.logger);
+            await logger.waitForComplete(this.logger);
         }
 
         if (args) {
@@ -224,7 +224,7 @@ export class BrowserSession {
 
         const inspect = await inspector(
             collect.args,
-            collect.logger,
+            this.logger,
             collect.pageSession,
             collect.output
         );
@@ -248,14 +248,14 @@ export class BrowserSession {
                             collector_connection.testSSLScript(
                                 collect.output.uri_ins,
                                 collect.args,
-                                collect.logger,
+                                this.logger,
                                 collect.output
                             );
                         } else if (collect.args.testssl_type == 'docker') {
                             collector_connection.testSSLDocker(
                                 collect.output.uri_ins,
                                 collect.args,
-                                collect.logger,
+                                this.logger,
                                 collect.output
                             );
                         } else {
@@ -267,7 +267,7 @@ export class BrowserSession {
                     }
                     break;
                 case 'localstorage':
-                    const localStorage = await getLocalStorage(this._contents, this._tmp_collector.logger);
+                    const localStorage = await getLocalStorage(this._contents, this.logger);
                     await inspect.inspectLocalStorage(localStorage, this._tmp_collector, this._collector);
                     collect.output.localStorage = localStorage;
                     break;
@@ -313,7 +313,7 @@ export class BrowserSession {
         //mainWindow.setBrowserView(null);
         //await collect.endSession();
 
-        await logger.waitForComplete(collect.logger);
+        await logger.waitForComplete(this.logger);
 
         // ########################################################
         //  inspecting - this will process the collected data and place it in a structured format in the output object
@@ -321,7 +321,7 @@ export class BrowserSession {
 
         const inspect = await inspector(
             null, //args, FIXME
-            collect.logger,
+            this.logger,
             collect.pageSession,
             collect.output
         );
@@ -356,5 +356,9 @@ export class BrowserSession {
 
     get version() {
         return app.getVersion();
+    }
+    
+    get logger(){
+        return this.collector.logger;
     }
 }
