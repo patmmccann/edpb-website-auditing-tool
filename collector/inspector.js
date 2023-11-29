@@ -102,19 +102,27 @@ async function filterKeywords(links) {
 }
 
 async function unsafeWebforms(webContents) {
-  if (webContents && webContents.getURL() != ''){
-    return await webContents.executeJavaScript(`
-    [].map
-      .call(Array.from(document.querySelectorAll("form")), (form) => {
-        return {
-          id: form.id,
-          action: new URL(form.getAttribute("action"), form.baseURI).toString(),
-          method: form.method,
-        };
-      })
-      .filter((form) => {
-        return form.action.startsWith("http:");
-      });`);
+  if (webContents && webContents.getURL() != '') {
+    try {
+      return await webContents.executeJavaScript(`
+      [].map
+        .call(Array.from(document.querySelectorAll("form")), (form) => {
+          return {
+            id: form.id,
+            action: new URL(form.getAttribute("action"), form.baseURI).toString(),
+            method: form.method,
+          };
+        })
+        .filter((form) => {
+          return form.action.startsWith("http:");
+        });`);
+    } catch (error) {
+      // ignore error if no localStorage for given origin can be
+      // returned, see also: https://stackoverflow.com/q/62356783/1407622
+      logger.log("warn", error.message, { type: "Browser" });
+      return data;
+    }
+
   }
   return [];
 }
@@ -136,16 +144,16 @@ async function collectCookies(cookies, start_time) {
           100;
       }
 
-      if (cookie.domain){
+      if (cookie.domain) {
         cookie.domain = cookie.domain.replace(/^\./, ""); // normalise domain value
       }
-      
+
 
       return cookie;
     });
 }
 
-async function beacons() {}
+async function beacons() { }
 
 module.exports = {
   collectLinks,

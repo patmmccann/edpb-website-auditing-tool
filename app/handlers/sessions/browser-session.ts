@@ -29,13 +29,13 @@ export class BrowserSession {
     _contents: WebContents;
     _collector: CollectorSession;
     _tmp_collector: any;
-    _session_name :string;
-    _mainWindow : BrowserWindow;
+    _session_name: string;
+    _mainWindow: BrowserWindow;
 
-    constructor(mainWindow : BrowserWindow, session_name:string) {
+    constructor(mainWindow: BrowserWindow, session_name: string) {
         this._collector = new CollectorSession();
         this._mainWindow = mainWindow;
-        this._session_name= session_name;
+        this._session_name = session_name;
     }
 
     createBrowserSession(args) {
@@ -48,7 +48,7 @@ export class BrowserSession {
             }
         });
 
-        this._contents =  this._view.webContents;
+        this._contents = this._view.webContents;
 
         this._contents.send('init', this._session_name);
 
@@ -87,7 +87,7 @@ export class BrowserSession {
 
             this._tmp_collector.refs_regexp = new RegExp(`^(${uri_refs_stripped.join("|")})\\b`, "i");
             this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
-        });          
+        });
     }
 
     // go to page, start har etc
@@ -98,7 +98,7 @@ export class BrowserSession {
                 (details, callback) => {
                     details.requestHeaders['DNT'] = '1';
                     callback({ requestHeaders: details.requestHeaders });
-                });               
+                });
         }
 
         if (args.dntJs) {
@@ -113,7 +113,7 @@ export class BrowserSession {
 
         // forward logs from the browser console
         this._contents.on("console-message", (event, level, msg, line, sourceId) =>
-        this.logger.log("debug", msg, { type: "Browser.Console" })
+            this.logger.log("debug", msg, { type: "Browser.Console" })
         );
 
         // forward logs from each requests browser console
@@ -167,7 +167,7 @@ export class BrowserSession {
         this.logger.log("info", `browsing now to ${url}`, { type: "Browser" });
 
         try {
-            await this._contents.loadURL(url);
+            this._contents.loadURL(url);
         } catch (error) {
             this.logger.log("error", error.message, { type: "Browser" });
         }
@@ -230,7 +230,7 @@ export class BrowserSession {
 
         for (let kind of kinds) {
             switch (kind) {
-               case 'cookie':
+                case 'cookie':
                     const cookies = await this._contents.session.cookies.get({});
                     await collect.collectCookies(cookies);
                     await inspect.inspectCookies(this._tmp_collector, this._collector);
@@ -312,12 +312,12 @@ export class BrowserSession {
     get version() {
         return app.getVersion();
     }
-    
-    get logger(){
+
+    get logger() {
         return this.collector.logger;
     }
 
-    get name(){
+    get name() {
         return this._session_name;
     }
 }
