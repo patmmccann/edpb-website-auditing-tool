@@ -2,7 +2,6 @@ import { app, BrowserView, WebContents, ipcMain, BrowserWindow } from 'electron'
 import { CollectorSession } from './collector-session';
 
 const collector = require("../../../collector/index");
-const logger = require("../../../lib/logger");
 const inspector = require("../../../inspector/index");
 
 const collector_connection = require("../../../collector/connection");
@@ -18,7 +17,6 @@ const {
     setup_websocket_recording,
 } = require("../../../lib/setup-websocket-recording");
 
-import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
 import * as lodash from 'lodash';
@@ -141,7 +139,7 @@ export class BrowserSession {
     }
 
     async create(args) {
-        const collect = await collector(args, logger.create({}, args));
+        const collect = await collector(args);
         this._tmp_collector = collect;
         //await collect.createSession(mainWindow, session_name);
         this.createBrowserSession(args);
@@ -153,11 +151,12 @@ export class BrowserSession {
         this._contents.session.webRequest.onBeforeRequest(null, null);
         this._contents.session.webRequest.onHeadersReceived(null, null);
         ipcMain.removeHandler('reportEvent' + this._session_name);
+        this.collector.end();
         (this._contents as any).destroy();
     }
 
     async clear(args) {
-        await this._tmp_collector.eraseSession(args, logger.create({}, args));
+        await this._tmp_collector.eraseSession(args);
         await this._contents.session.clearCache();
         await this._contents.session.clearStorageData();
         this._tmp_collector.uri_ins = this._contents.getURL();
@@ -212,10 +211,6 @@ export class BrowserSession {
 
     async collect(kinds, waitForComplete, args) {
         const collect = this._tmp_collector;
-
-        if (waitForComplete) {
-            await logger.waitForComplete(this.logger);
-        }
 
         if (args) {
             collect.args = args;

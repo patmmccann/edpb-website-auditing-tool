@@ -13,7 +13,7 @@ export class ParserHandlher {
     }
 
     async parseHar (event, har, args){
-        const collect = await collector(args, logger.create({}, args));
+        const collect = await collector(args);
         await collect.createSessionFromHar(har);
         await collect.collectCookies();
 

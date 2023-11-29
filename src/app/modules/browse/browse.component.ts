@@ -163,8 +163,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
   async save(): Promise<void> {
     if (this.analysis && this.tag) {
       this.clearUpdate();
-      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, true);
-      await this.cardService.updateAll(this.cards);
+      //await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, true);
+      //await this.cardService.updateAll(this.cards);
       await this.browserService.deleteSession(window, this.analysis, this.tag);
       this.router.navigate(['analysis', this.analysis.id, 'tag', this.tag.id]);
     }

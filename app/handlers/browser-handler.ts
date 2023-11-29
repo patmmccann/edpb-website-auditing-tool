@@ -60,7 +60,7 @@ export class BrowsersHandlher {
         this._sessions = [];
     }
 
-    get(analysis_id : number, tag_id:number) {
+    get(analysis_id : number, tag_id:number) : BrowserSession {
         if (!analysis_id && !tag_id) {
             return this.sessions['main'];
         }
