@@ -146,7 +146,7 @@ export class BrowsersHandlher {
 
     async createBrowserSession(event, analysis_id, tag_id, url, args){
         const session_name = analysis_id && tag_id? 'session' + analysis_id + tag_id: 'main';
-        const browserSession = new BrowserSession(this.mainWindow, session_name);
+        const browserSession = new BrowserSession(this.mainWindow, session_name, args);
         this._sessions[browserSession.name] = browserSession;
         await browserSession.create(args);
 
@@ -180,7 +180,7 @@ export class BrowsersHandlher {
 
     async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
         const session = this.get(analysis_id, tag_id);
-        return await session.collect(kinds, waitForComplete, args);
+        return await session.collect(kinds, args);
     }
 
     get mainWindow(){

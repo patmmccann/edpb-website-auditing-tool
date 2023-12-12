@@ -1,25 +1,7 @@
-import { app, BrowserView, WebContents, ipcMain, BrowserWindow } from 'electron';
+import { app, BrowserView, WebContents, BrowserWindow } from 'electron';
 import { CollectorSession } from './collector-session';
 
-const collector = require("../../../collector/index");
-const inspector = require("../../../inspector/index");
-
-const collector_connection = require("../../../collector/connection");
-const { setup_cookie_recording, report_event_logger } = require("../../../lib/setup-cookie-recording");
-const { setup_beacon_recording } = require("../../../lib/setup-beacon-recording");
-const {
-    isFirstParty,
-    getLocalStorage,
-    safeJSONParse,
-} = require("../../../lib/tools");
-
-const {
-    setup_websocket_recording,
-} = require("../../../lib/setup-websocket-recording");
-
 import * as path from 'path';
-import * as url from 'url';
-import * as lodash from 'lodash';
 
 export class BrowserSession {
     _url = "";
@@ -30,8 +12,8 @@ export class BrowserSession {
     _session_name: string;
     _mainWindow: BrowserWindow;
 
-    constructor(mainWindow: BrowserWindow, session_name: string) {
-        this._collector = new CollectorSession();
+    constructor(mainWindow: BrowserWindow, session_name: string, args) {
+        this._collector = new CollectorSession(session_name, args);
         this._mainWindow = mainWindow;
         this._session_name = session_name;
     }
@@ -54,8 +36,6 @@ export class BrowserSession {
             this._view.webContents.setUserAgent(args.useragent);
         }
 
-        this._tmp_collector.refs_regexp = null;
-
         this._view.webContents.on('did-start-loading', () => {
             this._mainWindow.webContents.send('browser-event', 'did-start-loading', this._session_name);
         });
@@ -63,28 +43,6 @@ export class BrowserSession {
         this._view.webContents.on('dom-ready', async () => {
             //await browser.webContents.executeJavaScript(stackTraceHelper);
             this._view.webContents.send('init', this._session_name);
-        });
-
-
-        this._view.webContents.on('did-finish-load', () => {
-            // configuring url and hosts
-            this._tmp_collector.output.uri_ins = this._view.webContents.getURL();
-            this._tmp_collector.output.uri_ins_host = url.parse(this._tmp_collector.output.uri_ins).hostname; // hostname does not include port unlike host
-            this._tmp_collector.output.uri_refs.push(this._tmp_collector.output.uri_ins);
-
-            // create url map and regex - urls.js ?
-            let uri_refs_stripped = this._tmp_collector.output.uri_refs.map((uri_ref) => {
-                let uri_ref_parsed = url.parse(uri_ref);
-                return lodash.escapeRegExp(
-                    `${uri_ref_parsed.hostname}${uri_ref_parsed.pathname.replace(
-                        /\/$/,
-                        ""
-                    )}`
-                );
-            });
-
-            this._tmp_collector.refs_regexp = new RegExp(`^(${uri_refs_stripped.join("|")})\\b`, "i");
-            this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
         });
     }
 
@@ -102,55 +60,15 @@ export class BrowserSession {
         if (args.dntJs) {
             this._view.webContents.send('dntJs');
         }
-
-        ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
-            report_event_logger(this.logger, type, stack, data, JSON.parse(location));
-        });
-
-
-
-        // forward logs from the browser console
-        this._contents.on("console-message", (event, level, msg, line, sourceId) =>
-            this.logger.log("debug", msg, { type: "Browser.Console" })
-        );
-
-        // forward logs from each requests browser console
-        this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
-            // record all requested hosts
-            const l = url.parse(details.url);
-            // note that hosts may appear as first and third party depending on the path
-            if (isFirstParty(this._tmp_collector.refs_regexp, l)) {
-                this._collector.hosts.requests.firstParty.add(l.hostname);
-            } else {
-                if (l.protocol != "data:") {
-                    this._collector.hosts.requests.thirdParty.add(l.hostname);
-                }
-            }
-
-            await setup_beacon_recording(details, this.logger);
-            callback({});
-        });
-
-        // setup tracking
-        this._contents.session.webRequest.onHeadersReceived(async (details, callback) => {
-            await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this.logger);
-            callback({});
-        });
     }
 
     async create(args) {
-        const collect = await collector(args);
-        this._tmp_collector = collect;
-        //await collect.createSession(mainWindow, session_name);
         this.createBrowserSession(args);
+        await this.collector.createCollector(this._mainWindow,this._view, args);        
         await this.start(args);
-        return collect;
     }
 
     delete() {
-        this._contents.session.webRequest.onBeforeRequest(null, null);
-        this._contents.session.webRequest.onHeadersReceived(null, null);
-        ipcMain.removeHandler('reportEvent' + this._session_name);
         this.collector.end();
         (this._contents as any).destroy();
     }
@@ -209,79 +127,8 @@ export class BrowserSession {
         this._contents.toggleDevTools();
     }
 
-    async collect(kinds, waitForComplete, args) {
-        const collect = this._tmp_collector;
-
-        if (args) {
-            collect.args = args;
-        }
-
-        const inspect = await inspector(
-            collect.args,
-            this.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        for (let kind of kinds) {
-            switch (kind) {
-                case 'cookie':
-                    const cookies = await this._contents.session.cookies.get({});
-                    await collect.collectCookies(cookies);
-                    await inspect.inspectCookies(this._tmp_collector, this._collector);
-                    break;
-                case 'https':
-                    if (collect.output.uri_ins) {
-                        await collector_connection.testHttps(collect.output.uri_ins, collect.output);
-                    }
-                    break;
-                case 'testSSL':
-                    //if (!collect.output.uri_ins) return testssl_example;
-                    if (collect.output.uri_ins) {
-                        if (collect.args.testssl_type == 'script') {
-                            collector_connection.testSSLScript(
-                                collect.output.uri_ins,
-                                collect.args,
-                                this.logger,
-                                collect.output
-                            );
-                        } else if (collect.args.testssl_type == 'docker') {
-                            collector_connection.testSSLDocker(
-                                collect.output.uri_ins,
-                                collect.args,
-                                this.logger,
-                                collect.output
-                            );
-                        } else {
-                            collect.output.testSSLError = "Unknow method for testssl, go to settings first.";
-                        }
-
-                    } else {
-                        collect.output.testSSLError = "No url given to test_ssl.sh";
-                    }
-                    break;
-                case 'localstorage':
-                    const localStorage = await getLocalStorage(this._contents, this.logger);
-                    await inspect.inspectLocalStorage(localStorage, this._tmp_collector, this._collector);
-                    collect.output.localStorage = localStorage;
-                    break;
-
-                case 'traffic':
-                    await inspect.inspectHosts(this._collector);
-                    break;
-
-                case 'forms':
-                    await collect.collectForms(this._contents);
-                    break;
-
-                case 'beacons':
-                    await inspect.inspectBeacons(this._collector, this._tmp_collector);
-                    break;
-            }
-        }
-
-
-        return collect.output;
+    async collect(kinds, args) {
+        return await this.collector.collect(kinds, args);
     }
 
     get view() {

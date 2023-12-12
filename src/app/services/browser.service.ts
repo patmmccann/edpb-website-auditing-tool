@@ -169,7 +169,7 @@ export class BrowserService {
         .map(card => card.kind)
         .filter(kind => kind != 'testSSL');
 
-      window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, kindCards, waitForComplete, null)
+      window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, kindCards, waitForComplete, this.settingService.toArgs())
         .then((output: any) => {
           for (let card of cards) {
             let new_card = null;
