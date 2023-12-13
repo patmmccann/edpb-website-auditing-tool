@@ -1,14 +1,11 @@
-import { app, BrowserView, WebContents, BrowserWindow } from 'electron';
+import { app, BrowserView, BrowserWindow } from 'electron';
 import { CollectorSession } from './collector-session';
 
 import * as path from 'path';
 
 export class BrowserSession {
-    _url = "";
     _view: BrowserView;
-    _contents: WebContents;
     _collector: CollectorSession;
-    _tmp_collector: any;
     _session_name: string;
     _mainWindow: BrowserWindow;
 
@@ -16,9 +13,6 @@ export class BrowserSession {
         this._collector = new CollectorSession(session_name, args);
         this._mainWindow = mainWindow;
         this._session_name = session_name;
-    }
-
-    createBrowserSession(args) {
 
         this._view = new BrowserView({
             webPreferences: {
@@ -28,29 +22,27 @@ export class BrowserSession {
             }
         });
 
-        this._contents = this._view.webContents;
-
-        this._contents.send('init', this._session_name);
+        this.contents.send('init', this._session_name);
 
         if (args.useragent) {
-            this._view.webContents.setUserAgent(args.useragent);
+            this.view.webContents.setUserAgent(args.useragent);
         }
 
-        this._view.webContents.on('did-start-loading', () => {
+        this.view.webContents.on('did-start-loading', () => {
             this._mainWindow.webContents.send('browser-event', 'did-start-loading', this._session_name);
         });
 
-        this._view.webContents.on('dom-ready', async () => {
-            //await browser.webContents.executeJavaScript(stackTraceHelper);
-            this._view.webContents.send('init', this._session_name);
+        this.view.webContents.on('did-finish-load', () => {
+            this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
         });
-    }
 
-    // go to page, start har etc
-    async start(args) {
+        this.view.webContents.on('dom-ready', async () => {
+            //await browser.webContents.executeJavaScript(stackTraceHelper);
+            this.contents.send('init', this._session_name);
+        });
 
         if (args.dnt) {
-            this._contents.session.webRequest.onBeforeSendHeaders(
+            this.contents.session.webRequest.onBeforeSendHeaders(
                 (details, callback) => {
                     details.requestHeaders['DNT'] = '1';
                     callback({ requestHeaders: details.requestHeaders });
@@ -63,68 +55,65 @@ export class BrowserSession {
     }
 
     async create(args) {
-        this.createBrowserSession(args);
-        await this.collector.createCollector(this._mainWindow,this._view, args);        
-        await this.start(args);
+        await this.collector.createCollector(this._view, args);
     }
 
     delete() {
         this.collector.end();
-        (this._contents as any).destroy();
+        (this.contents as any).destroy();
     }
 
     async clear(args) {
-        await this._tmp_collector.eraseSession(args);
-        await this._contents.session.clearCache();
-        await this._contents.session.clearStorageData();
-        this._tmp_collector.uri_ins = this._contents.getURL();
+        await this.contents.session.clearCache();
+        await this.contents.session.clearStorageData();
+        await this.collector.clear(args);
     }
 
     async gotoPage(url) {
         this.logger.log("info", `browsing now to ${url}`, { type: "Browser" });
 
         try {
-            this._contents.loadURL(url);
+            this.contents.loadURL(url);
         } catch (error) {
             this.logger.log("error", error.message, { type: "Browser" });
         }
     }
 
     canGoForward() {
-        return this._contents.canGoForward();
+        return this.contents.canGoForward();
     }
 
     canGoBack() {
-        return this._contents.canGoBack();
+        return this.contents.canGoBack();
     }
 
     goBack() {
-        this._contents.goBack();
+        this.contents.goBack();
     }
 
     goForward() {
-        this._contents.goForward();
+        this.contents.goForward();
     }
 
     stop() {
-        this._contents.stop();
+        this.contents.stop();
     }
 
     reload() {
-        this._contents.reload();
+        this.contents.reload();
     }
 
     get url() {
-        return this._contents.getURL();
+        return this.contents.getURL();
     }
 
     async screenshot() {
-        const capture = await this._contents.capturePage();
+        const capture = await this.contents.capturePage();
         return await capture.toPNG();
     }
 
     toogleDevTool() {
-        this._contents.toggleDevTools();
+        this.contents.toggleDevTools();
     }
 
     async collect(kinds, args) {
@@ -135,20 +124,12 @@ export class BrowserSession {
         return this._view;
     }
 
-    get contents() {
-        return this._contents;
-    }
-
     get collector() {
         return this._collector;
     }
 
-    get tmp_collector() {
-        return this._tmp_collector;
-    }
-
     get user_agent() {
-        return this._contents.getUserAgent();
+        return this.contents.getUserAgent();
     }
 
     get version() {
@@ -161,5 +142,13 @@ export class BrowserSession {
 
     get name() {
         return this._session_name;
+    }
+
+    get contents(){
+        return this.view.webContents;
+    }
+
+    get mainWindow(){
+        return this._mainWindow;
     }
 }

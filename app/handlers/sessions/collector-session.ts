@@ -1,5 +1,9 @@
 
-import { BrowserView, BrowserWindow, WebContents, ipcMain } from 'electron';
+import { BrowserView, WebContents, ipcMain } from 'electron';
+import {TrafficCard} from "../cards/traffic-card";
+import {BeaconCard} from "../cards/beacon-card";
+
+
 const collector_connection = require("../../../collector/connection");
 
 import { Logger, createLogger, format, transports } from 'winston'
@@ -8,17 +12,13 @@ const collector = require("../../../collector/index");
 const inspector = require("../../../inspector/index");
 
 const { setup_cookie_recording, report_event_logger } = require("../../../lib/setup-cookie-recording");
-const { setup_beacon_recording } = require("../../../lib/setup-beacon-recording");
 
 const {
-    isFirstParty,
     getLocalStorage,
-    safeJSONParse,
 } = require("../../../lib/tools");
 
-import * as lodash from 'lodash';
-import * as url from 'url';
 import * as tmp from 'tmp';
+import * as isDev from 'electron-is-dev';
 
 tmp.setGracefulCleanup();
 
@@ -36,7 +36,8 @@ export class CollectorSession {
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
-    _mainWindow: BrowserWindow;
+    _traffic_card : TrafficCard;
+    _beacon_card : BeaconCard;
 
     constructor(session_name, args) {
         this._session_name = session_name;
@@ -64,62 +65,46 @@ export class CollectorSession {
         }
         
         this.createLogger();
+        this._traffic_card =  new TrafficCard(this);
+        this._beacon_card =  new BeaconCard(this);
     }
 
     createLogger() {
+        const transports_log = [];
+
+        if (isDev){
+            transports_log.push(new transports.Console({
+                level: "debug",
+                silent: false,
+                stderrLevels: ['error', 'debug', 'info', 'warn'],
+                format: process.stdout.isTTY ? format.combine(format.colorize(), format.simple()) : format.json(),
+            }));
+        }
+
+        transports_log.push(new transports.File({
+            filename: tmp.tmpNameSync({ postfix: "-log.ndjson" }),
+            level: "silly", // log everything to file
+            format: format.json(),
+        }));
+
         this._start_date = new Date();
         this._end_date = null;
-        const logger = createLogger({
+
+        this._logger = createLogger({
             // https://stackoverflow.com/a/48573091/1407622
             format: format.combine(format.timestamp()),
-            transports: [
-                new transports.Console({
-                    level: "debug",
-                    silent: false,
-                    stderrLevels: ['error', 'debug', 'info', 'warn'],
-                    format: process.stdout.isTTY ? format.combine(format.colorize(), format.simple()) : format.json(),
-                }),
-                new transports.File({
-                    filename: tmp.tmpNameSync({ postfix: "-log.ndjson" }),
-                    level: "silly", // log everything to file
-                    format: format.json(),
-                })
-            ],
+            transports: transports_log,
         });
-
-        this._logger = logger;
     }
 
-    async createCollector(mainWindow: BrowserWindow, view:BrowserView, args) {
+    async createCollector(view:BrowserView, args) {
         this._view = view;
         this._contents = view.webContents; 
-        this._mainWindow = mainWindow;
 
         const collect = await collector(args);
         this._tmp_collector = collect;
 
         this._tmp_collector.refs_regexp = null;
-
-        this._view.webContents.on('did-finish-load', () => {
-            // configuring url and hosts
-            this._tmp_collector.output.uri_ins = this._view.webContents.getURL();
-            this._tmp_collector.output.uri_ins_host = url.parse(this._tmp_collector.output.uri_ins).hostname; // hostname does not include port unlike host
-            this._tmp_collector.output.uri_refs.push(this._tmp_collector.output.uri_ins);
-
-            // create url map and regex - urls.js ?
-            let uri_refs_stripped = this._tmp_collector.output.uri_refs.map((uri_ref) => {
-                let uri_ref_parsed = url.parse(uri_ref);
-                return lodash.escapeRegExp(
-                    `${uri_ref_parsed.hostname}${uri_ref_parsed.pathname.replace(
-                        /\/$/,
-                        ""
-                    )}`
-                );
-            });
-
-            this._tmp_collector.refs_regexp = new RegExp(`^(${uri_refs_stripped.join("|")})\\b`, "i");
-            this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
-        });
 
 
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
@@ -135,18 +120,8 @@ export class CollectorSession {
 
         // forward logs from each requests browser console
         this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
-            // record all requested hosts
-            const l = url.parse(details.url);
-            // note that hosts may appear as first and third party depending on the path
-            if (isFirstParty(this._tmp_collector.refs_regexp, l)) {
-                this.hosts.requests.firstParty.add(l.hostname);
-            } else {
-                if (l.protocol != "data:") {
-                    this.hosts.requests.thirdParty.add(l.hostname);
-                }
-            }
-
-            await setup_beacon_recording(details, this.logger);
+            this._traffic_card.add(details);
+            this._beacon_card.add(details);
             callback({});
         });
 
@@ -170,7 +145,7 @@ export class CollectorSession {
         });
     }
 
-    clear() {
+    async clear(args) {
         this._hosts = {
             requests: {
                 firstParty: new Set(),
@@ -193,8 +168,9 @@ export class CollectorSession {
                 thirdParty: new Set(),
             },
         }
-
+        await this._tmp_collector.eraseSession(args);
         this.createLogger();
+        this._traffic_card.clear();
     }
 
     get hosts() {
@@ -222,6 +198,26 @@ export class CollectorSession {
     }
 
     async collect(kinds, args) {
+        const event_data_all :any = await new Promise((resolve, reject) => {
+            this.logger.query(
+              {
+                start: 0,
+                order: "desc",
+                limit: Infinity,
+                fields: undefined
+              },
+              (err, results) => {
+                if (err) return reject(err);
+                return resolve(results.file);
+              }
+            );
+          });
+        
+          // filter only events with type set
+          const eventData = event_data_all.filter((event) => {
+            return !!event.type;
+          });
+
         const collect = this._tmp_collector;
 
         if (args) {
@@ -279,7 +275,9 @@ export class CollectorSession {
                     break;
 
                 case 'traffic':
-                    await inspect.inspectHosts(this);
+                    collect.output.hosts = {};
+                    collect.output.hosts.requests = {};
+                    collect.output.hosts.requests.thirdParty = this._traffic_card.inspect();
                     break;
 
                 case 'forms':
@@ -287,7 +285,8 @@ export class CollectorSession {
                     break;
 
                 case 'beacons':
-                    await inspect.inspectBeacons(this, this._tmp_collector);
+
+                    collect.output.beacons = this._beacon_card.inspect(eventData);
                     break;
             }
         }

@@ -39,6 +39,7 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "@cliqz/adblocker": "^1.25.1",
+    "@cliqz/adblocker-puppeteer": "^1.26.12",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "angular-split": "^16.2.1",
