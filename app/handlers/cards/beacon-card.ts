@@ -59,7 +59,8 @@ export class BeaconCard extends Card {
         throw new Error("Method not implemented.");
     }
 
-    override inspect(eventData: any) {
+    override inspect() {
+        const eventData = this.collector.event_data;
         const beacons_from_events = lodash.flatten(
             eventData
                 .filter((event) => {
@@ -164,40 +165,44 @@ export class BeaconCard extends Card {
 
         // prepare easyprivacy list matching
         Object.entries(blockers).forEach(([listName, blocker]) => {
-            const {
-                match, // `true` if there is a match
-                filter, // instance of NetworkFilter which matched
-            } = blocker.match(fromElectronDetails(details));
-
-            if (match) {
-                let stack = [
-                    {
-                        fileName: details.frame?.url,
-                        source: `requested from ${details.frame?.url || "undefined source"
-                            } and matched with ${listName} filter ${filter}`,
-                    },
-                ];
-
-                const parsedUrl = url.parse(details.url);
-                let query = null;
-                if (parsedUrl.query) {
-                    query = decodeURLParams(parsedUrl.query);
-                    for (let param in query) {
-                        query[param] = safeJSONParse(query[param]);
+            try {
+                const {
+                    match, // `true` if there is a match
+                    filter, // instance of NetworkFilter which matched
+                } = blocker.match(fromElectronDetails(details));
+    
+                if (match) {
+                    let stack = [
+                        {
+                            fileName: details.frame?.url,
+                            source: `requested from ${details.frame?.url || "undefined source"
+                                } and matched with ${listName} filter ${filter}`,
+                        },
+                    ];
+    
+                    const parsedUrl = url.parse(details.url);
+                    let query = null;
+                    if (parsedUrl.query) {
+                        query = decodeURLParams(parsedUrl.query);
+                        for (let param in query) {
+                            query[param] = safeJSONParse(query[param]);
+                        }
                     }
+                    let message = `Potential Tracking Beacon captured via ${listName} with endpoint ${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}.`;
+                    if (this.logger.writable == false) return;
+                    this.logger.log("warn", message, {
+                        type: "Request.Tracking",
+                        stack: stack,
+                        data: {
+                            url: details.url,
+                            query: query,
+                            filter: filter.toString(),
+                            listName: listName,
+                        },
+                    });
                 }
-                let message = `Potential Tracking Beacon captured via ${listName} with endpoint ${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}.`;
-                if (this.logger.writable == false) return;
-                this.logger.log("warn", message, {
-                    type: "Request.Tracking",
-                    stack: stack,
-                    data: {
-                        url: details.url,
-                        query: query,
-                        filter: filter.toString(),
-                        listName: listName,
-                    },
-                });
+            }catch (error) {
+                this.logger.log("error", error.message, { type: "beacon-card" });
             }
         });
     }

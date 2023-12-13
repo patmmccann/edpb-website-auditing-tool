@@ -2,6 +2,7 @@
 import { BrowserView, WebContents, ipcMain } from 'electron';
 import {TrafficCard} from "../cards/traffic-card";
 import {BeaconCard} from "../cards/beacon-card";
+import {CookieCard} from "../cards/cookie-card";
 
 
 const collector_connection = require("../../../collector/connection");
@@ -11,7 +12,7 @@ import { Logger, createLogger, format, transports } from 'winston'
 const collector = require("../../../collector/index");
 const inspector = require("../../../inspector/index");
 
-const { setup_cookie_recording, report_event_logger } = require("../../../lib/setup-cookie-recording");
+const {report_event_logger } = require("../../../lib/setup-cookie-recording");
 
 const {
     getLocalStorage,
@@ -38,6 +39,8 @@ export class CollectorSession {
     _contents: WebContents;
     _traffic_card : TrafficCard;
     _beacon_card : BeaconCard;
+    _cookie_card : CookieCard;
+    _event_data : any[] = [];
 
     constructor(session_name, args) {
         this._session_name = session_name;
@@ -67,6 +70,7 @@ export class CollectorSession {
         this.createLogger();
         this._traffic_card =  new TrafficCard(this);
         this._beacon_card =  new BeaconCard(this);
+        this._cookie_card =  new CookieCard(this);
     }
 
     createLogger() {
@@ -127,7 +131,7 @@ export class CollectorSession {
 
         // setup tracking
         this._contents.session.webRequest.onHeadersReceived(async (details, callback) => {
-            await setup_cookie_recording(details, this._view.webContents.mainFrame.url, this.logger);
+            this._cookie_card.add(details);
             callback({});
         });
     }
@@ -197,7 +201,19 @@ export class CollectorSession {
         return this._uri_refs;
     }
 
-    async collect(kinds, args) {
+    get event_data() {
+        return this._event_data;
+    }
+
+    get view(){
+        return this._view;
+    }
+
+    get contents(){
+        return this._view.webContents;
+    }
+
+    async refresh(){
         const event_data_all :any = await new Promise((resolve, reject) => {
             this.logger.query(
               {
@@ -214,9 +230,13 @@ export class CollectorSession {
           });
         
           // filter only events with type set
-          const eventData = event_data_all.filter((event) => {
+          this._event_data = event_data_all.filter((event) => {
             return !!event.type;
           });
+    }
+
+    async collect(kinds, args) {
+        this.refresh();
 
         const collect = this._tmp_collector;
 
@@ -234,9 +254,7 @@ export class CollectorSession {
         for (let kind of kinds) {
             switch (kind) {
                 case 'cookie':
-                    const cookies = await this._contents.session.cookies.get({});
-                    await collect.collectCookies(cookies);
-                    await inspect.inspectCookies(this._tmp_collector, this);
+                    collect.output.cookies = await this._cookie_card.inspect();
                     break;
                 case 'https':
                     if (collect.output.uri_ins) {
@@ -286,7 +304,7 @@ export class CollectorSession {
 
                 case 'beacons':
 
-                    collect.output.beacons = this._beacon_card.inspect(eventData);
+                    collect.output.beacons = this._beacon_card.inspect();
                     break;
             }
         }

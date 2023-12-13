@@ -23,7 +23,7 @@ export class TrafficCard extends Card{
                 this._hosts.add(l.hostname);
             }
         }catch(error){
-            this.logger.log("error", error.message, { type: "Browser" });
+            this.logger.log("error", error.message, { type: "traffic-card" });
         }
     }
 
