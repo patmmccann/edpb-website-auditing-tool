@@ -3,20 +3,15 @@ import { BrowserView, WebContents, ipcMain } from 'electron';
 import {TrafficCard} from "../cards/traffic-card";
 import {BeaconCard} from "../cards/beacon-card";
 import {CookieCard} from "../cards/cookie-card";
-
+import {LocalStorageCard} from "../cards/local-storage-card";
+import {UnsafeFormCard} from "../cards/unsafe-form-card";
 
 const collector_connection = require("../../../collector/connection");
 
-import { Logger, createLogger, format, transports } from 'winston'
-
-const collector = require("../../../collector/index");
-const inspector = require("../../../inspector/index");
+import { Logger, createLogger, format, transports } from 'winston';
 
 const {report_event_logger } = require("../../../lib/setup-cookie-recording");
 
-const {
-    getLocalStorage,
-} = require("../../../lib/tools");
 
 import * as tmp from 'tmp';
 import * as isDev from 'electron-is-dev';
@@ -33,13 +28,14 @@ export class CollectorSession {
     _uri_refs: string[];
     _start_date : Date;
     _end_date : Date | null;
-    _tmp_collector: any;
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
     _traffic_card : TrafficCard;
     _beacon_card : BeaconCard;
     _cookie_card : CookieCard;
+    _local_storage_card : LocalStorageCard;
+    _unsafe_form_card : UnsafeFormCard;
     _event_data : any[] = [];
 
     constructor(session_name, args) {
@@ -71,6 +67,8 @@ export class CollectorSession {
         this._traffic_card =  new TrafficCard(this);
         this._beacon_card =  new BeaconCard(this);
         this._cookie_card =  new CookieCard(this);
+        this._local_storage_card =  new LocalStorageCard(this);
+        this._unsafe_form_card = new UnsafeFormCard(this);
     }
 
     createLogger() {
@@ -104,11 +102,6 @@ export class CollectorSession {
     async createCollector(view:BrowserView, args) {
         this._view = view;
         this._contents = view.webContents; 
-
-        const collect = await collector(args);
-        this._tmp_collector = collect;
-
-        this._tmp_collector.refs_regexp = null;
 
 
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
@@ -150,29 +143,6 @@ export class CollectorSession {
     }
 
     async clear(args) {
-        this._hosts = {
-            requests: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            beacons: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            cookies: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            localStorage: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            links: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-        }
-        await this._tmp_collector.eraseSession(args);
         this.createLogger();
         this._traffic_card.clear();
     }
@@ -238,78 +208,64 @@ export class CollectorSession {
     async collect(kinds, args) {
         this.refresh();
 
-        const collect = this._tmp_collector;
-
-        if (args) {
-            collect.args = args;
-        }
-
-        const inspect = await inspector(
-            collect.args,
-            this.logger,
-            collect.pageSession,
-            collect.output
-        );
+        const output: any = {};
 
         for (let kind of kinds) {
             switch (kind) {
                 case 'cookie':
-                    collect.output.cookies = await this._cookie_card.inspect();
+                    output.cookies = await this._cookie_card.inspect();
                     break;
                 case 'https':
-                    if (collect.output.uri_ins) {
-                        await collector_connection.testHttps(collect.output.uri_ins, collect.output);
+                    if (this.contents.getURL()) {
+                        await collector_connection.testHttps(this.contents.getURL(), output);
                     }
                     break;
                 case 'testSSL':
                     //if (!collect.output.uri_ins) return testssl_example;
-                    if (collect.output.uri_ins) {
-                        if (collect.args.testssl_type == 'script') {
+                    if (this.contents.getURL()) {
+                        if (args.testssl_type == 'script') {
                             collector_connection.testSSLScript(
-                                collect.output.uri_ins,
-                                collect.args,
+                                this.contents.getURL(),
+                                args,
                                 this.logger,
-                                collect.output
+                                output
                             );
-                        } else if (collect.args.testssl_type == 'docker') {
+                        } else if (args.testssl_type == 'docker') {
                             collector_connection.testSSLDocker(
-                                collect.output.uri_ins,
-                                collect.args,
+                                this.contents.getURL(),
+                                args,
                                 this.logger,
-                                collect.output
+                                output
                             );
                         } else {
-                            collect.output.testSSLError = "Unknow method for testssl, go to settings first.";
+                            output.testSSLError = "Unknow method for testssl, go to settings first.";
                         }
 
                     } else {
-                        collect.output.testSSLError = "No url given to test_ssl.sh";
+                        output.testSSLError = "No url given to test_ssl.sh";
                     }
                     break;
                 case 'localstorage':
-                    const localStorage = await getLocalStorage(this._contents, this.logger);
-                    await inspect.inspectLocalStorage(localStorage, this._tmp_collector, this);
-                    collect.output.localStorage = localStorage;
+                    output.localStorage = await this._local_storage_card.inspect();
                     break;
 
                 case 'traffic':
-                    collect.output.hosts = {};
-                    collect.output.hosts.requests = {};
-                    collect.output.hosts.requests.thirdParty = this._traffic_card.inspect();
+                    output.hosts = {};
+                    output.hosts.requests = {};
+                    output.hosts.requests.thirdParty = this._traffic_card.inspect();
                     break;
 
                 case 'forms':
-                    await collect.collectForms(this._contents);
+                    output.unsafeForms =  await this._unsafe_form_card.inspect();
                     break;
 
                 case 'beacons':
-
-                    collect.output.beacons = this._beacon_card.inspect();
+                    output.beacons = this._beacon_card.inspect();
                     break;
             }
         }
 
 
-        return collect.output;
+        return output;
     }
 }

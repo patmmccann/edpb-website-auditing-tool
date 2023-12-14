@@ -21,6 +21,10 @@ export abstract class Card {
         return this.collector.logger;
     }
 
+    get contents(){
+        return this.collector.contents;
+    }
+
     abstract enable();
     abstract disable();
     abstract inspect();
