@@ -23,6 +23,7 @@ export class LocalStorageCard extends Card {
     disable() {
         throw new Error("Method not implemented.");
     }
+    
     async inspect() {
         const localStorage = await this.getLocalStorage();
         await this.inspectLocalStorage(localStorage);
@@ -71,8 +72,6 @@ export class LocalStorageCard extends Card {
         
         for (const frame of allframes) {
           try {
-            // it is unclear when the following url values occur:
-            // potentially about:blank is the frame before the very first page is browsed
             if (!frame.url.startsWith("http")) {
               continue; // filters chrome-error://, about:blank and empty url
             }
