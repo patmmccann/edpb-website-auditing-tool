@@ -70,6 +70,7 @@ export class BrowserSession {
     }
 
     async gotoPage(url) {
+        if (this.logger.writable == false) return;
         this.logger.log("info", `browsing now to ${url}`, { type: "Browser" });
 
         try {

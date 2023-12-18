@@ -62,6 +62,7 @@ export class LocalStorageCard extends Card {
         try {
           allframes = this.contents.mainFrame.framesInSubtree;
         } catch (error :any) {
+            if (this.logger.writable == false) return;
             // ignore error if no localStorage for given origin can be
             // returned, see also: https://stackoverflow.com/q/62356783/1407622
             this.logger.log("warn", error.message, { type: "Browser" });
@@ -94,6 +95,7 @@ export class LocalStorageCard extends Card {
           } catch (error :any) {
             // ignore error if no localStorage for given origin can be
             // returned, see also: https://stackoverflow.com/q/62356783/1407622
+            if (this.logger.writable == false) return;
             this.logger.log("warn", error.message, { type: "Browser" });
           }
         }

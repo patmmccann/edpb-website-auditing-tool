@@ -117,9 +117,10 @@ export class CollectorSession {
 
 
         // forward logs from the browser console
-        this._contents.on("console-message", (event, level, msg, line, sourceId) =>
+        this._contents.on("console-message", (event, level, msg, line, sourceId) =>{
+            if (this.logger.writable == false) return;
             this.logger.log("debug", msg, { type: "Browser.Console" })
-        );
+        });
 
         // forward logs from each requests browser console
         this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {

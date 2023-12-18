@@ -174,6 +174,7 @@ export class CookieCard extends Card {
                         });
                     });
                 } catch (error) {
+                    if (this.logger.writable == false) return;
                     this.logger.log("error", error.message, { type: "cookie-card" });
                 }
             }
