@@ -1,4 +1,3 @@
-//const { setup_cookie_preload } = require("../lib/setup-cookie-recording");
 const { ipcRenderer, contextBridge } = require('electron');
 
 
