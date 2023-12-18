@@ -180,4 +180,31 @@ export class CookieCard extends Card {
         }
     }
 
+    event_logger(event, location){
+        const cookie = Cookie.parse(event.raw);
+
+        // what is the domain if not set explicitly?
+        // https://stackoverflow.com/a/5258477/1407622
+        cookie.domain = cookie.domain || location.hostname;
+  
+        // what if the path is not set explicitly?
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#attributes
+        // https://github.com/salesforce/tough-cookie#defaultpathpath
+        // TODO How can be sure that browsedLocation corresponds to the JS execution context when cookie is set?
+        cookie.path = cookie.path || defaultPath(url.parse(event.location).pathname);
+  
+        event.data = [cookie];
+  
+        const message = `${event.data[0].expires ? "Persistant" : "Session"
+          } Cookie (JS) set for host ${event.data[0].domain} with key ${event.data[0].key
+          }.`;
+
+          if (this.logger.writable == false) return;
+          this.logger.log("warn", message, event);
+    }
+
+    get register_event_logger(){
+        return {type:"Cookie.JS", logger : this.event_logger.bind(this)};
+    }
+
 }

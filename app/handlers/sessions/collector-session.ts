@@ -1,17 +1,14 @@
 
 import { BrowserView, WebContents, ipcMain } from 'electron';
-import {TrafficCard} from "../cards/traffic-card";
-import {BeaconCard} from "../cards/beacon-card";
-import {CookieCard} from "../cards/cookie-card";
-import {LocalStorageCard} from "../cards/local-storage-card";
-import {UnsafeFormCard} from "../cards/unsafe-form-card";
+import { TrafficCard } from "../cards/traffic-card";
+import { BeaconCard } from "../cards/beacon-card";
+import { CookieCard } from "../cards/cookie-card";
+import { LocalStorageCard } from "../cards/local-storage-card";
+import { UnsafeFormCard } from "../cards/unsafe-form-card";
 
 const collector_connection = require("../../../collector/connection");
 
 import { Logger, createLogger, format, transports } from 'winston';
-
-const {report_event_logger } = require("../../../lib/setup-cookie-recording");
-
 
 import * as tmp from 'tmp';
 import * as isDev from 'electron-is-dev';
@@ -25,33 +22,33 @@ export class CollectorSession {
     _uri_ins: string;
     _uri_ins_host: string;
     _uri_refs: string[];
-    _start_date : Date;
-    _end_date : Date | null;
+    _start_date: Date;
+    _end_date: Date | null;
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
-    _traffic_card : TrafficCard;
-    _beacon_card : BeaconCard;
-    _cookie_card : CookieCard;
-    _local_storage_card : LocalStorageCard;
-    _unsafe_form_card : UnsafeFormCard;
-    _event_data : any[] = [];
+    _traffic_card: TrafficCard;
+    _beacon_card: BeaconCard;
+    _cookie_card: CookieCard;
+    _local_storage_card: LocalStorageCard;
+    _unsafe_form_card: UnsafeFormCard;
+    _event_data: any[] = [];
 
     constructor(session_name, args) {
         this._session_name = session_name;
-        
+
         this.createLogger();
-        this._traffic_card =  new TrafficCard(this);
-        this._beacon_card =  new BeaconCard(this);
-        this._cookie_card =  new CookieCard(this);
-        this._local_storage_card =  new LocalStorageCard(this);
+        this._traffic_card = new TrafficCard(this);
+        this._beacon_card = new BeaconCard(this);
+        this._cookie_card = new CookieCard(this);
+        this._local_storage_card = new LocalStorageCard(this);
         this._unsafe_form_card = new UnsafeFormCard(this);
     }
 
     createLogger() {
         const transports_log = [];
 
-        if (isDev){
+        if (isDev) {
             transports_log.push(new transports.Console({
                 level: "debug",
                 silent: false,
@@ -76,13 +73,45 @@ export class CollectorSession {
         });
     }
 
-    async createCollector(view:BrowserView, args) {
+    async createCollector(view: BrowserView, args) {
         this._view = view;
-        this._contents = view.webContents; 
+        this._contents = view.webContents;
+        const event_logger = {};
 
+        const cookie_logger = this._cookie_card.register_event_logger;
+        const local_storage_logger = this._local_storage_card.register_event_logger;
+
+        event_logger[cookie_logger.type] = cookie_logger.logger;
+        event_logger[local_storage_logger.type] = local_storage_logger.logger;
 
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
-            report_event_logger(this.logger, type, stack, data, JSON.parse(location));
+            const json_location = JSON.parse(location);
+
+            // determine actual browsed page
+            let browsedLocation = json_location.href;
+            if (json_location.ancestorOrigins && json_location.ancestorOrigins[0]) {
+                // apparently, this is a chrome-specific API
+                browsedLocation = json_location.ancestorOrigins[0];
+            }
+
+            // construct the event object to log
+            // include the stack
+            let event = {
+                type: type,
+                stack: stack.slice(1,stack.length), // remove reference to Document.set (0)
+                origin: json_location.origin,
+                location: browsedLocation,
+                raw: data,
+                data:data
+            };
+
+            if (type in event_logger){
+                event_logger[type](event, json_location);
+
+            }else{
+                if (this.logger.writable == false) return;
+                this.logger.log("warn", "", event);
+            }
         });
 
 
@@ -106,15 +135,15 @@ export class CollectorSession {
         });
     }
 
-    end(){
+    end() {
         this._contents.session.webRequest.onBeforeRequest(null, null);
         this._contents.session.webRequest.onHeadersReceived(null, null);
         ipcMain.removeHandler('reportEvent' + this._session_name);
-        
+
         this._end_date = new Date();
         const logger = this.logger;
         return new Promise(async function (resolve, reject) {
-            logger.on('finish', (info)  => resolve(null));
+            logger.on('finish', (info) => resolve(null));
             logger.end();
         });
     }
@@ -148,34 +177,34 @@ export class CollectorSession {
         return this._event_data;
     }
 
-    get view(){
+    get view() {
         return this._view;
     }
 
-    get contents(){
+    get contents() {
         return this._view.webContents;
     }
 
-    async refresh(){
-        const event_data_all :any = await new Promise((resolve, reject) => {
+    async refresh() {
+        const event_data_all: any = await new Promise((resolve, reject) => {
             this.logger.query(
-              {
-                start: 0,
-                order: "desc",
-                limit: Infinity,
-                fields: undefined
-              },
-              (err, results) => {
-                if (err) return reject(err);
-                return resolve(results.file);
-              }
+                {
+                    start: 0,
+                    order: "desc",
+                    limit: Infinity,
+                    fields: undefined
+                },
+                (err, results) => {
+                    if (err) return reject(err);
+                    return resolve(results.file);
+                }
             );
-          });
-        
-          // filter only events with type set
-          this._event_data = event_data_all.filter((event) => {
+        });
+
+        // filter only events with type set
+        this._event_data = event_data_all.filter((event) => {
             return !!event.type;
-          });
+        });
     }
 
     async collect(kinds, args) {
@@ -229,7 +258,7 @@ export class CollectorSession {
                     break;
 
                 case 'forms':
-                    output.unsafeForms =  await this._unsafe_form_card.inspect();
+                    output.unsafeForms = await this._unsafe_form_card.inspect();
                     break;
 
                 case 'beacons':
