@@ -105,13 +105,13 @@ export class CollectorSession {
                 data:data
             };
 
+            let message = "";
             if (type in event_logger){
-                event_logger[type](event, json_location);
-
-            }else{
-                if (this.logger.writable == false) return;
-                this.logger.log("warn", "", event);
+                message = event_logger[type](event, json_location);
             }
+
+            if (this.logger.writable == false) return;
+            this.logger.log("warn", message, event);
         });
 
 

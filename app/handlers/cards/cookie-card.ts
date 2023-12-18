@@ -180,7 +180,7 @@ export class CookieCard extends Card {
         }
     }
 
-    event_logger(event, location){
+    event_logger_data(event, location){
         const cookie = Cookie.parse(event.raw);
 
         // what is the domain if not set explicitly?
@@ -195,16 +195,13 @@ export class CookieCard extends Card {
   
         event.data = [cookie];
   
-        const message = `${event.data[0].expires ? "Persistant" : "Session"
+        return `${event.data[0].expires ? "Persistant" : "Session"
           } Cookie (JS) set for host ${event.data[0].domain} with key ${event.data[0].key
           }.`;
-
-          if (this.logger.writable == false) return;
-          this.logger.log("warn", message, event);
     }
 
     get register_event_logger(){
-        return {type:"Cookie.JS", logger : this.event_logger.bind(this)};
+        return {type:"Cookie.JS", logger : this.event_logger_data};
     }
 
 }

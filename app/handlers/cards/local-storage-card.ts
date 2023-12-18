@@ -100,21 +100,18 @@ export class LocalStorageCard extends Card {
         return data;
       };
 
-      event_logger(event, location){
-        const message = `LocalStorage filled with key(s) ${Object.keys(
-          event.raw
-        )} for origin ${location.origin}.`;
-
+      event_logger_data(event, location){
         event.data = {};
         for (const key of Object.keys(event.raw)) {
           event.data[key] = safeJSONParse(event.raw[key]);
         }
 
-        if (this.logger.writable == false) return;
-        this.logger.log("warn", message, event);
+        return `LocalStorage filled with key(s) ${Object.keys(
+          event.raw
+        )} for origin ${location.origin}.`;
       }
 
       get register_event_logger(){
-          return {type:"Storage.LocalStorage", logger : this.event_logger.bind(this)};
+          return {type:"Storage.LocalStorage", logger : this.event_logger_data};
       }
 }
