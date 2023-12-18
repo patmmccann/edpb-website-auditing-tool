@@ -92,6 +92,10 @@ export class BrowseComponent implements OnInit, OnDestroy {
             panelClass: 'browser-details-position',
             hasBackdrop: false
           });
+
+          this.bottomSheetId.afterDismissed().subscribe(() => {
+            this.bottomSheetId = null;
+         }); 
       }
     });
 
@@ -146,18 +150,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearUpdate();
-    this.closeBottomSheet();
+    if (this.bottomSheetId){
+      this.bottomSheetId.dismiss();
+    }
 
     this.safeDetailsSubscriber?.unsubscribe();
     this.safeLoadEventSubscriber?.unsubscribe();
     this.browserService.hideSession(window);
-  }
-
-  closeBottomSheet(): void {
-    if (this.bottomSheetId) {
-      this.bottomSheetId.dismiss();
-    }
-    this.bottomSheetId = null;
   }
 
   async save(): Promise<void> {

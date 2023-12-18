@@ -45,12 +45,6 @@
             <div class="browse_content" #content></div>
 		</as-split-area>
 		<as-split-area #logNav [size]="30" [order]="3" [visible]="logVisible">
-            
-                <ng-container *ngIf="bottomSheetId">
-                    <button mat-raised-button color="primary" class="btn btn-block" (click)="closeBottomSheet()">Close details
-                    </button>
-                </ng-container>
-    
     
                 <mat-accordion class="example-headers-align">
                     <app-cards [context]="'view'" [analysis]="analysis" [tag]="tag" [card]="card" *ngFor="let card of cards">
