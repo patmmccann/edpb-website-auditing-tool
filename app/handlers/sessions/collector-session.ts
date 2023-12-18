@@ -20,7 +20,6 @@ tmp.setGracefulCleanup();
 
 export class CollectorSession {
     _output: any = null;
-    _hosts: any;
     _logger: Logger;
     _refs_regexp: RegExp;
     _uri_ins: string;
@@ -40,28 +39,6 @@ export class CollectorSession {
 
     constructor(session_name, args) {
         this._session_name = session_name;
-        this._hosts = {
-            requests: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            beacons: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            cookies: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            localStorage: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-            links: {
-                firstParty: new Set(),
-                thirdParty: new Set(),
-            },
-        }
         
         this.createLogger();
         this._traffic_card =  new TrafficCard(this);
@@ -145,10 +122,6 @@ export class CollectorSession {
     async clear(args) {
         this.createLogger();
         this._traffic_card.clear();
-    }
-
-    get hosts() {
-        return this._hosts;
     }
 
     get logger() {
