@@ -27,7 +27,7 @@ export class TrafficCard extends Card{
         }
     }
 
-    clear(){
+    override clear(){
         this._hosts = new Set();
     }
 

@@ -44,8 +44,7 @@ export class CookieCard extends Card {
             });
     }
 
-    inspectCookies = async function (log_cookies) {
-        const inspect_cookies = [];
+    inspectCookies (cookies) {
 
         // we get all cookies from the log, which can be both JS and http cookies
         let cookies_from_events = lodash.flatten(
@@ -68,7 +67,7 @@ export class CookieCard extends Card {
 
         cookies_from_events.forEach((event_cookie:any) => {
             // we compare the eventlog with what was collected
-            let matched_cookie = inspect_cookies.find((cookie) => {
+            let matched_cookie = cookies.find((cookie) => {
                 return (
                     cookie.name == event_cookie.key &&
                     cookie.domain == event_cookie.domain &&
@@ -98,12 +97,12 @@ export class CookieCard extends Card {
                     cookie.expiresDays = Math.round((new Date(event_cookie.expires).getTime() - new Date(event_cookie.creation).getTime()) / (10 * 60 * 60 * 24)) / 100;
                     cookie.session = false;
                 }
-                inspect_cookies.push(cookie);
+                cookies.push(cookie);
             }
         });
 
         // finally we sort the cookies based on expire data - because ?
-        return inspect_cookies.sort(function (a, b) {
+        return cookies.sort(function (a, b) {
             return b.expires - a.expires;
         });
     }
@@ -111,7 +110,8 @@ export class CookieCard extends Card {
     async inspect() {
         const cookies = await this.collector.contents.session.cookies.get({});
         const log_cookies = this.collectCookies(cookies, 0);
-        return this.inspectCookies(log_cookies);
+        const final = this.inspectCookies(log_cookies);
+        return final;
     }
 
     add(details: Electron.OnHeadersReceivedListenerDetails) {

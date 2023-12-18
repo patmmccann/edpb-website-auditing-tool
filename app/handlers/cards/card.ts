@@ -28,4 +28,6 @@ export abstract class Card {
     abstract enable();
     abstract disable();
     abstract inspect();
+
+    clear(){};
 }
