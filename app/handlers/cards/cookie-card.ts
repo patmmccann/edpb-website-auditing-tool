@@ -82,13 +82,22 @@ export class CookieCard extends Card {
             } else {
                 const cookie = {
                     name: event_cookie.key,
+                    value: event_cookie.value,
+                    expiresUTC: event_cookie.expires,
+                    maxAge: event_cookie.maxAge,
                     domain: event_cookie.domain,
                     path: event_cookie.path,
-                    value: event_cookie.value,
-                    expires: event_cookie.expires,
+                    secure: event_cookie.secure == null ? false :event_cookie.secure,
+                    httpOnly: event_cookie.httpOnly == null ? false :event_cookie.httpOnly,
+                    extensions: event_cookie.extensions,
+                    hostOnly: event_cookie.hostOnly,
+                    pathIsDefault: event_cookie.pathIsDefault,
+                    creation: event_cookie.creation,
+                    sameSite: event_cookie.sameSite == null ? "unspecified" :event_cookie.sameSite,
                     log: event_cookie.log,
                     session:false,
-                    expiresDays :0
+                    expiresDays :0,
+                    expires :event_cookie.expires
                 };
                 if (!event_cookie.expires) {
                     cookie.expires = -1;
@@ -163,8 +172,8 @@ export class CookieCard extends Card {
                         );
                     }
 
-                    if (this.logger.writable == false) return;
                     messages.forEach((message) => {
+                        if (this.logger.writable == false) return;
                         this.logger.log("warn", message, {
                             type: "Cookie.HTTP",
                             stack: stack,
