@@ -1,4 +1,4 @@
-import { CollectorSession } from "../sessions/collector-session";
+import { BrowserCollector } from "../collectors/browser-collector";
 import { Card } from "./card";
 
 import * as url from 'url';
@@ -13,7 +13,7 @@ function safeJSONParse(obj:any) {
 
 export class LocalStorageCard extends Card {
 
-    constructor(collector: CollectorSession) {
+    constructor(collector: BrowserCollector) {
         super("local-storage-card", collector);
     }
 

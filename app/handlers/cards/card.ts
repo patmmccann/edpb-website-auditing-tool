@@ -1,8 +1,8 @@
-import { CollectorSession } from "../sessions/collector-session";
+import { Collector } from "../collectors/collector";
 
 export abstract class Card {
     _name: string;
-    _collector: CollectorSession;
+    _collector: Collector;
 
     constructor(name: string, collector) {
         this._name = name;

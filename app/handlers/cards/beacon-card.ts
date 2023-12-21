@@ -1,4 +1,4 @@
-import { CollectorSession } from "../sessions/collector-session";
+import { BrowserCollector } from "../collectors/browser-collector";
 import { Card } from "./card";
 import { PuppeteerBlocker } from '@cliqz/adblocker-puppeteer';
 import { Request } from '@cliqz/adblocker';
@@ -48,7 +48,7 @@ let blockers = {
 
 export class BeaconCard extends Card {
 
-    constructor(collector: CollectorSession) {
+    constructor(collector: BrowserCollector) {
         super("beacon-card", collector);
     }
 

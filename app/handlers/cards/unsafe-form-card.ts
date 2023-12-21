@@ -1,4 +1,4 @@
-import { CollectorSession } from "../sessions/collector-session";
+import { BrowserCollector } from "../collectors/browser-collector";
 import { Card } from "./card";
 
 export class UnsafeFormCard extends Card {
@@ -54,7 +54,7 @@ export class UnsafeFormCard extends Card {
     return data;
   }
 
-  constructor(collector: CollectorSession) {
+  constructor(collector: BrowserCollector) {
     super("unsafe-form-card", collector);
   }
 }

@@ -1,4 +1,4 @@
-import { CollectorSession } from "../sessions/collector-session";
+import { BrowserCollector } from "../collectors/browser-collector";
 import { Card } from "./card";
 import { Cookie, defaultPath } from "tough-cookie";
 
@@ -7,7 +7,7 @@ import * as lodash from 'lodash';
 
 export class CookieCard extends Card {
 
-    constructor(collector: CollectorSession) {
+    constructor(collector: BrowserCollector) {
         super("cookie-card", collector);
     }
 

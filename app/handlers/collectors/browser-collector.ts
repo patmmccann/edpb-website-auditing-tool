@@ -5,25 +5,13 @@ import { BeaconCard } from "../cards/beacon-card";
 import { CookieCard } from "../cards/cookie-card";
 import { LocalStorageCard } from "../cards/local-storage-card";
 import { UnsafeFormCard } from "../cards/unsafe-form-card";
+import {Collector} from "./collector";
 
 const collector_connection = require("../../../collector/connection");
 
-import { Logger, createLogger, format, transports } from 'winston';
 
-import * as tmp from 'tmp';
-import * as isDev from 'electron-is-dev';
-
-tmp.setGracefulCleanup();
-
-export class CollectorSession {
+export class BrowserCollector extends Collector {
     _output: any = null;
-    _logger: Logger;
-    _refs_regexp: RegExp;
-    _uri_ins: string;
-    _uri_ins_host: string;
-    _uri_refs: string[];
-    _start_date: Date;
-    _end_date: Date | null;
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
@@ -32,45 +20,17 @@ export class CollectorSession {
     _cookie_card: CookieCard;
     _local_storage_card: LocalStorageCard;
     _unsafe_form_card: UnsafeFormCard;
-    _event_data: any[] = [];
 
     constructor(session_name, args) {
+        super();
         this._session_name = session_name;
 
-        this.createLogger();
         this._traffic_card = new TrafficCard(this);
         this._beacon_card = new BeaconCard(this);
         this._cookie_card = new CookieCard(this);
         this._local_storage_card = new LocalStorageCard(this);
         this._unsafe_form_card = new UnsafeFormCard(this);
-    }
-
-    createLogger() {
-        const transports_log = [];
-
-        if (isDev) {
-            transports_log.push(new transports.Console({
-                level: "debug",
-                silent: false,
-                stderrLevels: ['error', 'debug', 'info', 'warn'],
-                format: process.stdout.isTTY ? format.combine(format.colorize(), format.simple()) : format.json(),
-            }));
-        }
-
-        transports_log.push(new transports.File({
-            filename: tmp.tmpNameSync({ postfix: "-log.ndjson" }),
-            level: "silly", // log everything to file
-            format: format.json(),
-        }));
-
-        this._start_date = new Date();
-        this._end_date = null;
-
-        this._logger = createLogger({
-            // https://stackoverflow.com/a/48573091/1407622
-            format: format.combine(format.timestamp()),
-            transports: transports_log,
-        });
+        
     }
 
     async createCollector(view: BrowserView, args) {
@@ -154,35 +114,11 @@ export class CollectorSession {
         this._traffic_card.clear();
     }
 
-    get logger() {
-        return this._logger;
-    }
-
-    get refs_regexp() {
-        return this._refs_regexp;
-    }
-
-    get uri_ins() {
-        return this._uri_ins;
-    }
-
-    get uri_ins_host() {
-        return this._uri_ins_host;
-    }
-
-    get uri_refs() {
-        return this._uri_refs;
-    }
-
-    get event_data() {
-        return this._event_data;
-    }
-
-    get view() {
+    override get view() {
         return this._view;
     }
 
-    get contents() {
+    override get contents() {
         return this._view.webContents;
     }
 

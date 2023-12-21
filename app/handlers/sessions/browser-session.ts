@@ -1,16 +1,16 @@
 import { app, BrowserView, BrowserWindow } from 'electron';
-import { CollectorSession } from './collector-session';
+import { BrowserCollector } from '../collectors/browser-collector';
 
 import * as path from 'path';
 
 export class BrowserSession {
     _view: BrowserView;
-    _collector: CollectorSession;
+    _collector: BrowserCollector;
     _session_name: string;
     _mainWindow: BrowserWindow;
 
     constructor(mainWindow: BrowserWindow, session_name: string, args) {
-        this._collector = new CollectorSession(session_name, args);
+        this._collector = new BrowserCollector(session_name, args);
         this._mainWindow = mainWindow;
         this._session_name = session_name;
 
