@@ -14,8 +14,7 @@ export class LanguagesService {
    */
   initLanguages(): void {
     this.translateService.addLangs([
-      'en',
-      'fr'
+      'en'
     ]);
 
     this.translateService.setDefaultLang('en');
