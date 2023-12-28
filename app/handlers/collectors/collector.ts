@@ -43,6 +43,28 @@ export abstract class Collector {
         });
     }
 
+    async refresh() {
+        const event_data_all: any = await new Promise((resolve, reject) => {
+            this.logger.query(
+                {
+                    start: 0,
+                    order: "desc",
+                    limit: Infinity,
+                    fields: undefined
+                },
+                (err, results) => {
+                    if (err) return reject(err);
+                    return resolve(results.file);
+                }
+            );
+        });
+
+        // filter only events with type set
+        this._event_data = event_data_all.filter((event) => {
+            return !!event.type;
+        });
+    }
+
     get event_data() {
         return this._event_data;
     }
@@ -58,4 +80,28 @@ export abstract class Collector {
     get contents() {
         return null;
     }
+
+    get isElectron(){
+        return false;
+    }
+
+    get isHar(){
+        return false;
+    }
+
+    end(){
+        const logger = this.logger;
+        return new Promise(async function (resolve, reject) {
+            logger.on('finish', (info) => resolve(null));
+            logger.end();
+        });
+    }
+
+    abstract findInHeaders(details, header);
+
+    abstract getUrlFromResponse(response : any);
+    
+    abstract get mainUrl();
+
+    abstract cookies();
 }

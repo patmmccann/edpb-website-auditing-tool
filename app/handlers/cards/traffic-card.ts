@@ -1,6 +1,6 @@
 
 import * as url from 'url';
-import { BrowserCollector } from '../collectors/browser-collector';
+import { Collector } from "../collectors/collector";
 import {Card} from "./card";
 
 export class TrafficCard extends Card{
@@ -12,7 +12,7 @@ export class TrafficCard extends Card{
     }
     _hosts = new Set();
     
-    constructor(collector : BrowserCollector){
+    constructor(collector : Collector){
         super("traffic-card", collector);
     }  
 

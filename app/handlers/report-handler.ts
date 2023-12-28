@@ -6,7 +6,7 @@ const groupBy = require("lodash/groupBy");
 const pug = require("pug");
 const HTMLtoDOCX = require('html-to-docx');
 
-export class ReportsHandlher {
+export class ReportsHandler {
   constructor() {
     tmp.setGracefulCleanup();
     this.registerHandlers();

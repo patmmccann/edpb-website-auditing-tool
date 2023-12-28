@@ -102,11 +102,7 @@ export class BrowserCollector extends Collector {
         ipcMain.removeHandler('reportEvent' + this._session_name);
 
         this._end_date = new Date();
-        const logger = this.logger;
-        return new Promise(async function (resolve, reject) {
-            logger.on('finish', (info) => resolve(null));
-            logger.end();
-        });
+        return super.end();
     }
 
     async clear(args) {
@@ -122,30 +118,27 @@ export class BrowserCollector extends Collector {
         return this._view.webContents;
     }
 
-    async refresh() {
-        const event_data_all: any = await new Promise((resolve, reject) => {
-            this.logger.query(
-                {
-                    start: 0,
-                    order: "desc",
-                    limit: Infinity,
-                    fields: undefined
-                },
-                (err, results) => {
-                    if (err) return reject(err);
-                    return resolve(results.file);
+    getTopLevelUrl(details) {
+        let frame = details.frame;
+        let sourceUrl = '';
+        // TODO : Fixme
+        try {
+            while (frame !== null) {
+                sourceUrl = frame.url;
+                if (sourceUrl.length !== 0) {
+                    break;
                 }
-            );
-        });
+                frame = frame.parent;
+            }
+        } catch (e) {
 
-        // filter only events with type set
-        this._event_data = event_data_all.filter((event) => {
-            return !!event.type;
-        });
+        }
+
+        return sourceUrl;
     }
 
     async collect(kinds, args) {
-        this.refresh();
+        await this.refresh();
 
         const output: any = {};
 
@@ -206,5 +199,29 @@ export class BrowserCollector extends Collector {
 
 
         return output;
+    }
+
+    override get isElectron(){
+        return true;
+    }
+
+    findInHeaders(details, header){
+        const cookieHTTPHeader = Object.keys(details.responseHeaders).find(key => key.toLowerCase() === "set-cookie");
+
+        if (cookieHTTPHeader) {
+            return details.responseHeaders[cookieHTTPHeader];
+        }
+        return [];    
+    }
+    getUrlFromResponse(details : any){
+        return details.url;
+    }
+
+    override get mainUrl(){
+        return this.contents.mainFrame.url;
+    }
+
+    override  async cookies(){
+        return await this.contents.session.cookies.get({});
     }
 }

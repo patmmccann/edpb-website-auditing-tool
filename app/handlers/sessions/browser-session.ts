@@ -24,7 +24,7 @@ export class BrowserSession {
 
         this.contents.send('init', this._session_name);
 
-        if (args.useragent) {
+        if (args && args.useragent) {
             this.view.webContents.setUserAgent(args.useragent);
         }
 
@@ -41,7 +41,7 @@ export class BrowserSession {
             this.contents.send('init', this._session_name);
         });
 
-        if (args.dnt) {
+        if (args && args.dnt) {
             this.contents.session.webRequest.onBeforeSendHeaders(
                 (details, callback) => {
                     details.requestHeaders['DNT'] = '1';
@@ -49,7 +49,7 @@ export class BrowserSession {
                 });
         }
 
-        if (args.dntJs) {
+        if (args && args.dntJs) {
             this._view.webContents.send('dntJs');
         }
     }

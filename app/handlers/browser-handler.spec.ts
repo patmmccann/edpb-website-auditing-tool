@@ -23,6 +23,7 @@ test.describe('Toolbar', () => {
     }
 
     await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
+    await timeout(500);
     let url = await ipcMainInvokeHandler(app, 'getURL');
     let canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
     let canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');
@@ -30,6 +31,7 @@ test.describe('Toolbar', () => {
     expect(canGoBackward).toBeFalsy();
     expect(canGoForward).toBeFalsy();
     await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.net/");
+    await timeout(500);
     url = await ipcMainInvokeHandler(app, 'getURL');
     canGoBackward = await ipcMainInvokeHandler(app, 'canGoBackward');
     canGoForward = await ipcMainInvokeHandler(app, 'canGoForward');

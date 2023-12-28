@@ -1,4 +1,4 @@
-import { BrowserCollector } from "../collectors/browser-collector";
+import { Collector } from "../collectors/collector";
 import { Card } from "./card";
 import { PuppeteerBlocker } from '@cliqz/adblocker-puppeteer';
 import { Request } from '@cliqz/adblocker';
@@ -7,6 +7,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import * as lodash from 'lodash';
+import { HarCollector } from "../collectors/har-collector";
+import { BrowserCollector } from "../collectors/browser-collector";
 
 // The following options make sure that blocker will behave optimally for the
 // use-case of identifying blocked network requests as well as the rule which
@@ -48,7 +50,7 @@ let blockers = {
 
 export class BeaconCard extends Card {
 
-    constructor(collector: BrowserCollector) {
+    constructor(collector: Collector) {
         super("beacon-card", collector);
     }
 
@@ -100,6 +102,35 @@ export class BeaconCard extends Card {
         return beacons_summary;
     }
 
+    fromElectronDetails(details: Electron.OnBeforeRequestListenerDetails) {
+        const electronCollector = this.collector as BrowserCollector;
+        const sourceUrl = electronCollector.getTopLevelUrl(details);
+        const url = details.url;
+        const type = details.resourceType;
+        return Request.fromRawDetails({
+            _originalRequestDetails: details,
+            requestId: `${type}-${url}-${sourceUrl}`,
+            sourceUrl,
+            type,
+            url,
+        });
+    }
+
+    fromHarDetails(request: any) {
+        const harCollector = this.collector as HarCollector;
+        const details = harCollector.getDetailsFromRequest(request);
+        const sourceUrl = harCollector.getTopLevelUrl(details);
+        const url = details.request.url;
+        const type = details._resourceType;
+        return Request.fromRawDetails({
+            _originalRequestDetails: details,
+            requestId: `${type}-${url}-${sourceUrl}`,
+            sourceUrl,
+            type,
+            url,
+        });
+    }
+
     add(details: Electron.OnBeforeRequestListenerDetails) {
         function safeJSONParse(obj) {
             try {
@@ -132,36 +163,7 @@ export class BeaconCard extends Card {
             }, {});
         };
 
-        function getTopLevelUrl(frame) {
-            let sourceUrl = '';
-            // TODO : Fixme
-            try {
-                while (frame !== null) {
-                    sourceUrl = frame.url;
-                    if (sourceUrl.length !== 0) {
-                        break;
-                    }
-                    frame = frame.parent;
-                }
-            } catch (e) {
-
-            }
-
-            return sourceUrl;
-        }
-
-        function fromElectronDetails(details: Electron.OnBeforeRequestListenerDetails) {
-            const sourceUrl = getTopLevelUrl(details.frame);
-            const url = details.url;
-            const type = details.resourceType;
-            return Request.fromRawDetails({
-                _originalRequestDetails: details,
-                requestId: `${type}-${url}-${sourceUrl}`,
-                sourceUrl,
-                type,
-                url,
-            });
-        }
+        
 
         // prepare easyprivacy list matching
         Object.entries(blockers).forEach(([listName, blocker]) => {
@@ -169,12 +171,15 @@ export class BeaconCard extends Card {
                 const {
                     match, // `true` if there is a match
                     filter, // instance of NetworkFilter which matched
-                } = blocker.match(fromElectronDetails(details));
+                } = blocker.match(this.collector.isElectron ? this.fromElectronDetails(details):
+                                  this.collector.isHar ? this.fromHarDetails(details):
+                                  Request.fromRawDetails({})
+                );
     
                 if (match) {
                     let stack = [
                         {
-                            fileName: details.frame?.url,
+                            fileName: details.frame?.url, //TODO : Get source from HAR
                             source: `requested from ${details.frame?.url || "undefined source"
                                 } and matched with ${listName} filter ${filter}`,
                         },

@@ -27,16 +27,34 @@ export class CookieKnowledgesService extends KnowledgesService {
     return new Promise((resolve, reject) => {
       const searchPromises: Promise<Array<CookieKnowledge>>[] = [];
 
-      searchPromises.push(this.findAllByName(name));
-      searchPromises.push(this.findAllByDomain(domain));
+      if (name){
+        searchPromises.push(this.findAllByName(name));
+      }
+      if (domain){
+        searchPromises.push(this.findAllByDomain(domain));
+      }
 
       Promise.all(searchPromises).then((allresults) => {
         const searchName = allresults[0];
         const searchDomain = allresults[1];
 
-        const name_and_domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id == entryDomain.id));
-        const name = searchName.filter(entryName => entryName.domain == "*");
-        const domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id != entryDomain.id));
+        let name :any= [];
+        let name_and_domain :any= [];
+        let domain :any= [];
+        
+        if (searchName){
+          name = searchName.filter(entryName => entryName.domain == "*");
+        }
+        if (searchDomain){
+          domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id != entryDomain.id));
+        }
+
+        if (searchName && searchDomain){
+          name_and_domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id == entryDomain.id));
+        }
+        
+        
+       
 
         resolve({
           name_and_domain: name_and_domain,

@@ -2731,7 +2731,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/har-format@*":
+"@types/har-format@*", "@types/har-format@^1.2.15":
   version "1.2.15"
   resolved "https://registry.npmjs.org/@types/har-format/-/har-format-1.2.15.tgz"
   integrity sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==

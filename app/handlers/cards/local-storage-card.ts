@@ -1,4 +1,4 @@
-import { BrowserCollector } from "../collectors/browser-collector";
+import { Collector } from "../collectors/collector";
 import { Card } from "./card";
 
 import * as url from 'url';
@@ -13,7 +13,7 @@ function safeJSONParse(obj:any) {
 
 export class LocalStorageCard extends Card {
 
-    constructor(collector: BrowserCollector) {
+    constructor(collector: Collector) {
         super("local-storage-card", collector);
     }
 

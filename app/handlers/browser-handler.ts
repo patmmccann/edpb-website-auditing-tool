@@ -2,7 +2,7 @@ import { ipcMain, BrowserWindow,BrowserView } from 'electron';
 import {BrowserSession} from './sessions/browser-session'
 const collector_connection = require("./../../collector/connection");
 
-export class BrowsersHandlher {
+export class BrowsersHandler {
     _mainWindow : BrowserWindow;
     _sessions :BrowserSession[] = [];
     currentView :BrowserView | null = null;

@@ -1,11 +1,14 @@
 import { ipcMain } from 'electron';
+
+import {HarCollector} from './collectors/har-collector';
+
 const collector = require("../../collector/index");
 const logger = require("../../lib/logger");
 const inspector = require("../../inspector/index");
 
-export class ParserHandlher {
+export class ParserHandler {
     constructor(){
-
+        this.registerHandlers();
     }
 
     registerHandlers(){
@@ -13,25 +16,8 @@ export class ParserHandlher {
     }
 
     async parseHar (event, har, args){
-        const collect = await collector(args);
-        await collect.createSessionFromHar(har);
-        await collect.collectCookies();
-
-        await logger.waitForComplete(collect.logger);
-
-        const inspect = await inspector(
-            args,
-            collect.logger,
-            collect.pageSession,
-            collect.output
-        );
-
-        await inspect.inspectCookies();
-        await inspect.inspectBeacons();
-        await inspect.inspectHosts();
-
-
-        return collect.output;
+        const collector = new HarCollector(har);
+        return await collector.parseHar();
     }
 
     unregisterHandlers(){
