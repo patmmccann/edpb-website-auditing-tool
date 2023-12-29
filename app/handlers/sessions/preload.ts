@@ -1,5 +1,7 @@
 const { ipcRenderer, contextBridge } = require('electron');
 
+declare var StackTrace;
+
 function setup_cookie_preload(ipcRenderer :Electron.IpcRenderer, partition : string) {
     // original object
     const origDescriptor : any= Object.getOwnPropertyDescriptor(
