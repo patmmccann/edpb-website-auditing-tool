@@ -16,11 +16,15 @@ export class BrowserSession {
 
         this._view = new BrowserView({
             webPreferences: {
-                preload: path.join(__dirname, '../../../collector/preload.js'),
                 contextIsolation: false,
                 partition: this._session_name
             }
         });
+        
+        //Set preloads
+        const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
+        const ses = this._view.webContents.session;
+        ses.setPreloads([path.join(__dirname, 'preload.js'), path.join(stacktracePath, '/dist/stacktrace.min.js')]);
 
         this.contents.send('init', this._session_name);
 

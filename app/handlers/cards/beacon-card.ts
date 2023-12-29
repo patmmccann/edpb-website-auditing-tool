@@ -106,7 +106,7 @@ export class BeaconCard extends Card {
         const electronCollector = this.collector as BrowserCollector;
         const sourceUrl = electronCollector.getTopLevelUrl(details);
         const url = details.url;
-        const type = details.resourceType;
+        const type = details.resourceType as any;
         return Request.fromRawDetails({
             _originalRequestDetails: details,
             requestId: `${type}-${url}-${sourceUrl}`,
@@ -121,7 +121,7 @@ export class BeaconCard extends Card {
         const details = harCollector.getDetailsFromRequest(request);
         const sourceUrl = harCollector.getTopLevelUrl(details);
         const url = details.request.url;
-        const type = details._resourceType;
+        const type = details._resourceType as any;
         return Request.fromRawDetails({
             _originalRequestDetails: details,
             requestId: `${type}-${url}-${sourceUrl}`,

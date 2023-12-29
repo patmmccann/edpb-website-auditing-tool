@@ -49,7 +49,7 @@ function createWindow() {
         const debug = require('electron-debug');
         debug();
 
-        //require('electron-reloader')(module);
+        require('electron-reloader')(module);
 
         mainWindow.loadURL("http://localhost:4200/");
 
