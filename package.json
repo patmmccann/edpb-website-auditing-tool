@@ -1,10 +1,11 @@
 {
   "name": "website-audit",
   "version": "1.1.0",
-  "author": "EDPB",
+  "author": "EDPB <jgorin@protonmail.com>",
   "license": "EUPL-1.0",
   "main": "electron/main.js",
   "repository": "https://code.europa.eu/spe/website-audit.git",
+  "homepage": "https://code.europa.eu/spe/website-audit",
   "description": "Website auditing tool",
   "scripts": {
     "ng": "ng",
