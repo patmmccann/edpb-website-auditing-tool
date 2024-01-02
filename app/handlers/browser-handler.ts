@@ -1,29 +1,29 @@
-import { ipcMain, BrowserWindow,BrowserView } from 'electron';
-import {BrowserSession} from './sessions/browser-session'
+import { ipcMain, BrowserWindow, BrowserView } from 'electron';
+import { BrowserSession } from './sessions/browser-session'
 const collector_connection = require("./../../collector/connection");
 
 export class BrowsersHandler {
-    _mainWindow : BrowserWindow;
-    _sessions :BrowserSession[] = [];
-    currentView :BrowserView | null = null;
+    _mainWindow: BrowserWindow;
+    _sessions: BrowserSession[] = [];
+    currentView: BrowserView | null = null;
 
-    constructor(mainWindow : BrowserWindow){
+    constructor(mainWindow: BrowserWindow) {
         this._mainWindow = mainWindow;
         this.registerHandlers();
     }
 
-    registerHandlers(){
-        ipcMain.handle('resizeSession',this.resizeSession.bind(this));
+    registerHandlers() {
+        ipcMain.handle('resizeSession', this.resizeSession.bind(this));
         ipcMain.handle('hideSession', this.hideSession.bind(this));
         ipcMain.handle('showSession', this.showSession.bind(this));
-        ipcMain.handle('getURL',this.getUrl.bind(this));
+        ipcMain.handle('getURL', this.getUrl.bind(this));
         ipcMain.handle('loadURL', this.loadURL.bind(this));
         ipcMain.handle('refresh', this.refresh.bind(this));
-        ipcMain.handle('stop',this.stop.bind(this));
-        ipcMain.handle('backward',this.backward.bind(this));
-        ipcMain.handle('forward',this.forward.bind(this));
-        ipcMain.handle('canGoBackward',this.canGoBackward.bind(this));
-        ipcMain.handle('canGoForward',this.canGoForward.bind(this));
+        ipcMain.handle('stop', this.stop.bind(this));
+        ipcMain.handle('backward', this.backward.bind(this));
+        ipcMain.handle('forward', this.forward.bind(this));
+        ipcMain.handle('canGoBackward', this.canGoBackward.bind(this));
+        ipcMain.handle('canGoForward', this.canGoForward.bind(this));
         ipcMain.handle('createCollector', this.createBrowserSession.bind(this));
         ipcMain.handle('deleteCollector', this.deleteBrowserSession.bind(this));
         ipcMain.handle('eraseSession', this.clearSession.bind(this));
@@ -33,64 +33,70 @@ export class BrowsersHandler {
         ipcMain.handle('http_card_update', this.testHttps.bind(this));
     }
 
-    unregisterHandlers(){
-        ipcMain.removeHandler('showSession');
-        ipcMain.removeHandler('hideSession');
-        ipcMain.removeHandler('resizeSession');
-        ipcMain.removeHandler('loadURL');
-        ipcMain.removeHandler('getURL');
-        ipcMain.removeHandler('refresh');
-        ipcMain.removeHandler('stop');
-        ipcMain.removeHandler('backward');
-        ipcMain.removeHandler('forward');
-        ipcMain.removeHandler('canGoBackward');
-        ipcMain.removeHandler('canGoForward');
-        ipcMain.removeHandler('createCollector');
-        ipcMain.removeHandler('deleteCollector');
-        ipcMain.removeHandler('eraseSession');
-        ipcMain.removeHandler('get');
-        ipcMain.removeHandler('screenshot');
-        ipcMain.removeHandler('toogleDevTool');
-        ipcMain.removeHandler('http_card_update');
+    unregisterHandlers() {
+        try {
+            ipcMain.removeHandler('showSession');
+            ipcMain.removeHandler('hideSession');
+            ipcMain.removeHandler('resizeSession');
+            ipcMain.removeHandler('loadURL');
+            ipcMain.removeHandler('getURL');
+            ipcMain.removeHandler('refresh');
+            ipcMain.removeHandler('stop');
+            ipcMain.removeHandler('backward');
+            ipcMain.removeHandler('forward');
+            ipcMain.removeHandler('canGoBackward');
+            ipcMain.removeHandler('canGoForward');
+            ipcMain.removeHandler('createCollector');
+            ipcMain.removeHandler('deleteCollector');
+            ipcMain.removeHandler('eraseSession');
+            ipcMain.removeHandler('get');
+            ipcMain.removeHandler('screenshot');
+            ipcMain.removeHandler('toogleDevTool');
+            ipcMain.removeHandler('http_card_update');
 
-        for (const [name, session] of Object.entries(this.sessions)) {
-            session.delete();
+
+            for (const [name, session] of Object.entries(this.sessions)) {
+                session.delete();
+            }
+
+            this._sessions = [];
+        }catch{
+
         }
-
-        this._sessions = [];
+        
     }
 
-    get(analysis_id : number, tag_id:number) : BrowserSession {
+    get(analysis_id: number, tag_id: number): BrowserSession {
         if (!analysis_id && !tag_id) {
             return this.sessions['main'];
         }
-    
+
         return this.sessions['session' + analysis_id + tag_id];
     }
 
-    hideSession(){
+    hideSession() {
         this.mainWindow.setBrowserView(null);
     }
 
-    showSession(event, analysis_id, tag_id){
+    showSession(event, analysis_id, tag_id) {
         const browserSession = this.get(analysis_id, tag_id);
         this.currentView = browserSession.view;
         this.mainWindow.setBrowserView(browserSession.view);
         return browserSession.url;
     }
 
-    resizeSession(event, rect){
+    resizeSession(event, rect) {
         if (rect) {
             this.currentView.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
         }
     }
 
-    getUrl(event, analysis_id, tag_id){
+    getUrl(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         return session.url;
     }
 
-    async loadURL(event, analysis_id, tag_id, url){
+    async loadURL(event, analysis_id, tag_id, url) {
         const session = this.get(analysis_id, tag_id);
         await session.gotoPage(url);
         return session.url;
@@ -101,61 +107,61 @@ export class BrowsersHandler {
         session.reload();
     }
 
-    stop (event, analysis_id, tag_id) {
+    stop(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         session.stop();
     }
 
-    backward (event, analysis_id, tag_id) {
+    backward(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         session.goBack();
     }
 
-    forward (event, analysis_id, tag_id) {
+    forward(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         session.goForward();
     }
 
-    canGoBackward (event, analysis_id, tag_id) {
+    canGoBackward(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         return session.canGoBack();
     }
 
-    canGoForward (event, analysis_id, tag_id) {
+    canGoForward(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         return session.canGoForward();
     }
 
-    async screenshot(event, analysis_id, tag_id){
+    async screenshot(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         return await session.screenshot();
     }
 
-    async testHttps(event, url){
+    async testHttps(event, url) {
         //const httpCard = new HttpCard(url);
         //return await httpCard.update();
-        const out :any = {};
+        const out: any = {};
         await collector_connection.testHttps(url, out);
         return out.secure_connection;
     }
 
-    toogleDevTool(event, analysis_id, tag_id){
+    toogleDevTool(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         session.toogleDevTool();
     }
 
-    async createBrowserSession(event, analysis_id, tag_id, url, args){
-        const session_name = analysis_id && tag_id? 'session' + analysis_id + tag_id: 'main';
+    async createBrowserSession(event, analysis_id, tag_id, url, args) {
+        const session_name = analysis_id && tag_id ? 'session' + analysis_id + tag_id : 'main';
         const browserSession = new BrowserSession(this.mainWindow, session_name, args);
         this._sessions[browserSession.name] = browserSession;
         await browserSession.create(args);
 
         if (url) {
             await browserSession.gotoPage(url);
-        }            
+        }
     }
 
-    async deleteBrowserSession(event, analysis_id, tag_id){
+    async deleteBrowserSession(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         if (!session) return;
 
@@ -166,28 +172,28 @@ export class BrowsersHandler {
         }
 
         await session.delete();
-        if (session.name != 'main' ){
+        if (session.name != 'main') {
             this.sessions[session.name] = null;
         }
     }
 
-    async clearSession(event, analysis_id, tag_id, args){
+    async clearSession(event, analysis_id, tag_id, args) {
         const session = this.get(analysis_id, tag_id);
         await session.clear(args);
     }
 
-    
 
-    async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args){
+
+    async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args) {
         const session = this.get(analysis_id, tag_id);
         return await session.collect(kinds, args);
     }
 
-    get mainWindow(){
+    get mainWindow() {
         return this._mainWindow;
     }
 
-    get sessions(){
+    get sessions() {
         return this._sessions;
     }
 }
