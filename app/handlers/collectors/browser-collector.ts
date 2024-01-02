@@ -5,13 +5,14 @@ import { BeaconCard } from "../cards/beacon-card";
 import { CookieCard } from "../cards/cookie-card";
 import { LocalStorageCard } from "../cards/local-storage-card";
 import { UnsafeFormCard } from "../cards/unsafe-form-card";
+import { TestSSLCard } from "../cards/testssl-card";
 import {Collector} from "./collector";
 
 const collector_connection = require("../../../collector/connection");
 
 
 export class BrowserCollector extends Collector {
-    _output: any = null;
+    _output: any = {};
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
@@ -20,22 +21,24 @@ export class BrowserCollector extends Collector {
     _cookie_card: CookieCard;
     _local_storage_card: LocalStorageCard;
     _unsafe_form_card: UnsafeFormCard;
+    _test_ssl_card: TestSSLCard;
 
     constructor(session_name, args) {
         super();
         this._session_name = session_name;
-
+        this._args = args;
         this._traffic_card = new TrafficCard(this);
         this._beacon_card = new BeaconCard(this);
         this._cookie_card = new CookieCard(this);
         this._local_storage_card = new LocalStorageCard(this);
         this._unsafe_form_card = new UnsafeFormCard(this);
-        
+        this._test_ssl_card = new TestSSLCard(this);
     }
 
     async createCollector(view: BrowserView, args) {
         this._view = view;
         this._contents = view.webContents;
+        this._args = args;
         const event_logger = {};
 
         const cookie_logger = this._cookie_card.register_event_logger;
@@ -43,7 +46,7 @@ export class BrowserCollector extends Collector {
 
         event_logger[cookie_logger.type] = cookie_logger.logger;
         event_logger[local_storage_logger.type] = local_storage_logger.logger;
-
+        ipcMain.removeHandler('reportEvent' + this._session_name);
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
             const json_location = JSON.parse(location);
 
@@ -140,21 +143,24 @@ export class BrowserCollector extends Collector {
     async collect(kinds, args) {
         await this.refresh();
 
-        const output: any = {};
-
         for (let kind of kinds) {
             switch (kind) {
                 case 'cookie':
-                    output.cookies = await this._cookie_card.inspect();
+                    this._output.cookies = await this._cookie_card.inspect();
                     break;
                 case 'https':
                     if (this.contents.getURL()) {
-                        await collector_connection.testHttps(this.contents.getURL(), output);
+                        await collector_connection.testHttps(this.contents.getURL(), this._output);
                     }
                     break;
                 case 'testSSL':
+
+                    this._output.testSSL = await this._test_ssl_card.inspect();
+                    this._output.testSSLError = this._test_ssl_card.testSSLError;
+                    this._output.testSSLErrorOutput = this._test_ssl_card.testSSLErrorOutput;
+                    this._output.testSSLErrorCode = this._test_ssl_card.testSSLErrorCode;
                     //if (!collect.output.uri_ins) return testssl_example;
-                    if (this.contents.getURL()) {
+                    /*if (this.contents.getURL()) {
                         if (args.testssl_type == 'script') {
                             collector_connection.testSSLScript(
                                 this.contents.getURL(),
@@ -175,30 +181,30 @@ export class BrowserCollector extends Collector {
 
                     } else {
                         output.testSSLError = "No url given to test_ssl.sh";
-                    }
+                    }*/
                     break;
                 case 'localstorage':
-                    output.localStorage = await this._local_storage_card.inspect();
+                    this._output.localStorage = await this._local_storage_card.inspect();
                     break;
 
                 case 'traffic':
-                    output.hosts = {};
-                    output.hosts.requests = {};
-                    output.hosts.requests.thirdParty = this._traffic_card.inspect();
+                    this._output.hosts = {};
+                    this._output.hosts.requests = {};
+                    this._output.hosts.requests.thirdParty = this._traffic_card.inspect();
                     break;
 
                 case 'forms':
-                    output.unsafeForms = await this._unsafe_form_card.inspect();
+                    this._output.unsafeForms = await this._unsafe_form_card.inspect();
                     break;
 
                 case 'beacons':
-                    output.beacons = this._beacon_card.inspect();
+                    this._output.beacons = this._beacon_card.inspect();
                     break;
             }
         }
 
 
-        return output;
+        return this._output;
     }
 
     override get isElectron(){

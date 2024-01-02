@@ -10,6 +10,7 @@ export abstract class Collector {
     _event_data: any[] = [];
     _start_date: Date;
     _end_date: Date | null;
+    _args :any = null;
 
     constructor(){
         this.createLogger();
@@ -95,6 +96,10 @@ export abstract class Collector {
             logger.on('finish', (info) => resolve(null));
             logger.end();
         });
+    }
+
+    get args(){
+        return this._args;
     }
 
     abstract findInHeaders(details, header);

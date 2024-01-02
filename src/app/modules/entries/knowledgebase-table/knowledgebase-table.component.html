@@ -14,9 +14,9 @@
       <th mat-sort-header="knowledges">
         <span>Entry number</span>
       </th>
-      <th mat-sort-header="trust">
+      <!-- <th mat-sort-header="trust">
         <span>Level of trust</span>
-      </th>
+      </th> -->
     </tr>
   </thead>
   <tbody>
@@ -42,7 +42,7 @@
             <i class="fa fa-ban" aria-hidden="true"></i>
             <span title="dupplicate" class="base-tooltip-text">disable</span>
           </a>
-          <a *ngIf="base.id != 1" href="javascript:;" (click)="remove(base.id)" class="base-tooltip">
+          <a href="javascript:;" (click)="remove(base.id)" class="base-tooltip">
             <i class="fa fa-trash" aria-hidden="true"></i>
             <span title="Remove" class="base-tooltip-text">Remove</span>
           </a>
@@ -66,9 +66,9 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <td class="base-listsBlock-item" bgcolor="green">
+      <!-- <td class="base-listsBlock-item" bgcolor="green">
         <div>Trusted</div>
-      </td>
+      </td> -->
     </tr>
   </tbody>
 </table>

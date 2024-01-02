@@ -2,7 +2,6 @@ import { BrowserContext, ElectronApplication, Page, _electron as electron } from
 import { test, expect } from '@playwright/test';
 import { ipcMainInvokeHandler, ipcRendererInvoke, ipcRendererCallFirstListener, ipcMainCallFirstListener, findLatestBuild, parseElectronApp } from 'electron-playwright-helpers';
 import * as PATH from 'path';
-import { ParserHandler } from './parser-handler';
 
 
 test.describe('Har Parser', () => {
