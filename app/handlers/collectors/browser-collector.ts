@@ -142,6 +142,7 @@ export class BrowserCollector extends Collector {
     }
 
     async collect(kinds, args) {
+        this._args = args;
         await this.refresh();
 
         for (let kind of kinds) {

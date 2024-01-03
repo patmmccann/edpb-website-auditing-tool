@@ -13,6 +13,7 @@ test.describe('HTTP Card', () => {
     app = await electron.launch({ args: [PATH.join(__dirname, '../../../electron/main.js')] });
     firstWindow = await app.firstWindow();
     await firstWindow.waitForLoadState('domcontentloaded');
+
   });
   
   test('TestHTTPS on example.com', async () => {
@@ -23,7 +24,8 @@ test.describe('HTTP Card', () => {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'loadURL', null, null, "http://www.example.com/");
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "http://www.example.com/", args);
+    await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https'],false, args);
@@ -35,6 +37,7 @@ test.describe('HTTP Card', () => {
     expect(output.secure_connection.https_support).toBeTruthy();
     expect(output.secure_connection).toHaveProperty('https_support');
     expect(output.secure_connection.redirects).toHaveLength(0);
+    await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 
   test('TestHTTPS on edpb.europa.eu', async () => {
@@ -45,7 +48,8 @@ test.describe('HTTP Card', () => {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://edpb.europa.eu/");
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", args);
+    await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https'],false, args);
@@ -58,6 +62,7 @@ test.describe('HTTP Card', () => {
     expect(output.secure_connection).toHaveProperty('https_support');
     expect(output.secure_connection.redirects).toHaveLength(1);
     expect(output.secure_connection.redirects[0]).toBe("https://edpb.europa.eu/edpb_en");
+    await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 
   test.afterAll(async () => {

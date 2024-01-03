@@ -65,7 +65,7 @@
     "tough-cookie": "^4.1.2",
     "tslib": "^2.3.0",
     "winston": "^3.8.2",
-    "xlsx": "^0.18.5",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
@@ -100,10 +100,8 @@
     },
     "files": [
       "electron/**/*",
-      "collector/**/*",
-      "lib/**/*",
       "assets/**/*",
-      "inspector/**/*",
+      "tools/**/*",
       "dist/**/*"
     ],
     "linux": {

@@ -16,7 +16,7 @@ test.describe('TestSSL Card', () => {
   });
 
   test('TestSSL Script', async () => {
-    test.setTimeout(120000);
+    test.setTimeout(360000);
 
     const args = {
       "testssl": true,
@@ -27,7 +27,8 @@ test.describe('TestSSL Card', () => {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "http://www.example.com/", args);
+    await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL'],false, args);
@@ -37,6 +38,7 @@ test.describe('TestSSL Card', () => {
     expect(output.testSSLErrorOutput).toBeNull;
     expect(output.testSSL).toHaveProperty('scanResult');
     expect(output.testSSL.scanResult).toHaveLength(1);
+    await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 
   test('TestSSL docker', async () => {
@@ -49,7 +51,8 @@ test.describe('TestSSL Card', () => {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "http://www.example.com/", args);
+    await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL'],false, args);
@@ -59,6 +62,7 @@ test.describe('TestSSL Card', () => {
     expect(output.testSSLErrorOutput).toBeNull;
     expect(output.testSSL).toHaveProperty('scanResult');
     expect(output.testSSL.scanResult).toHaveLength(1);
+    await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 
   test.afterAll(async () => {

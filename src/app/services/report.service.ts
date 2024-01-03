@@ -128,9 +128,17 @@ export class ReportService {
       if (!card) continue;
 
       switch (name) {
+        case 'beacons':
+          const beacon_card = [...card].map((x :any) => {
+            delete x.query; //FIXME
+            return x;
+          });
+          const beacon_sheet = name;
+          sheetName.push(beacon_sheet);
+          sheets[beacon_sheet] = utils.json_to_sheet(beacon_card);
+        break;
         case 'cookies':
         case 'localstorage':
-        case 'beacons':
         case 'evaluations':
         case 'unsafeForms':
         case 'info':
