@@ -49,16 +49,20 @@ let blockers = {
 };
 
 export class BeaconCard extends Card {
+    _callback = null;
 
     constructor(collector: Collector) {
         super("beacon-card", collector);
     }
 
     override enable() {
-        throw new Error("Method not implemented.");
+        this._callback = this.add.bind(this);
+        this.collector.onBeforeRequestCallbacks.push(this._callback);
     }
     override disable() {
-        throw new Error("Method not implemented.");
+        const index = this.collector.onBeforeRequestCallbacks.indexOf(this._callback);
+        this.collector.onBeforeRequestCallbacks.splice(index, 1);
+        this._callback = null;
     }
 
     override inspect() {

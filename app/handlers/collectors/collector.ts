@@ -11,6 +11,8 @@ export abstract class Collector {
     _start_date: Date;
     _end_date: Date | null;
     _args :any = null;
+    _onBeforeRequestCallbacks : { (details: Electron.OnBeforeRequestListenerDetails): void; } [] = [];
+    _onHeadersReceivedCallbacks : { (details: Electron.OnHeadersReceivedListenerDetails): void; } [] = [];
 
     constructor(){
         this.createLogger();
@@ -101,6 +103,15 @@ export abstract class Collector {
     get args(){
         return this._args;
     }
+
+    get onBeforeRequestCallbacks(){
+        return this._onBeforeRequestCallbacks;
+    }
+
+    get onHeadersReceivedCallbacks(){
+        return this._onHeadersReceivedCallbacks;
+    }
+
 
     abstract findInHeaders(details, header);
 

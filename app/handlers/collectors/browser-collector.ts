@@ -86,16 +86,19 @@ export class BrowserCollector extends Collector {
             this.logger.log("debug", msg, { type: "Browser.Console" })
         });
 
+        this._traffic_card.enable();
+        this._beacon_card.enable();
+        this._cookie_card.enable();
+
         // forward logs from each requests browser console
         this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
-            this._traffic_card.add(details);
-            this._beacon_card.add(details);
+            this.onBeforeRequestCallbacks.forEach(fn => fn(details));
             callback({});
         });
 
         // setup tracking
         this._contents.session.webRequest.onHeadersReceived(async (details, callback) => {
-            this._cookie_card.add(details);
+            this.onHeadersReceivedCallbacks.forEach(fn => fn(details));
             callback({});
         });
     }

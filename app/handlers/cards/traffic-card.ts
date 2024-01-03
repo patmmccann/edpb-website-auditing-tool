@@ -4,11 +4,16 @@ import { Collector } from "../collectors/collector";
 import {Card} from "./card";
 
 export class TrafficCard extends Card{
+    _callback = null;
+
     enable() {
-        throw new Error('Method not implemented.');
+        this._callback = this.add.bind(this);
+        this.collector.onBeforeRequestCallbacks.push(this._callback);
     }
     disable() {
-        throw new Error('Method not implemented.');
+        const index = this.collector.onBeforeRequestCallbacks.indexOf(this._callback);
+        this.collector.onBeforeRequestCallbacks.splice(index, 1);
+        this._callback = null;
     }
     _hosts = new Set();
     

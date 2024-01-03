@@ -6,16 +6,20 @@ import * as url from 'url';
 import * as lodash from 'lodash';
 
 export class CookieCard extends Card {
+    _callback = null;
 
     constructor(collector: Collector) {
         super("cookie-card", collector);
     }
 
     enable() {
-        throw new Error("Method not implemented.");
+        this._callback = this.add.bind(this);
+        this.collector.onHeadersReceivedCallbacks.push(this._callback);
     }
     disable() {
-        throw new Error("Method not implemented.");
+        const index = this.collector.onBeforeRequestCallbacks.indexOf(this._callback);
+        this.collector.onBeforeRequestCallbacks.splice(index, 1);
+        this._callback = null;
     }
 
     collectCookies(cookies, start_time) {
