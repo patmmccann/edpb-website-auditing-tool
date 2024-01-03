@@ -114,17 +114,19 @@
     </mat-card-header>
     <mat-card-content>
 
-        <mat-form-field>
+        <mat-form-field
+        [ngClass]="{
+            hide:editing==false}"
+            style="width: 100%;"
+        >
             <textarea matInput id="report_editor" [innerHTML]="pug| safeHtml"
-            [ngClass]="{
-                hide:!editing}"
             ></textarea>
         </mat-form-field>
 
         <app-report-renderer 
         [html]="pug"
         [ngClass]="{
-            hide:editing}"
+            hide:editing==true}"
         ></app-report-renderer>
     </mat-card-content>
 </mat-card>

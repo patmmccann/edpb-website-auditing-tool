@@ -137,8 +137,25 @@ export class ReportService {
           sheetName.push(beacon_sheet);
           sheets[beacon_sheet] = utils.json_to_sheet(beacon_card);
         break;
-        case 'cookies':
         case 'localstorage':
+          const localstorage_card = [...card].map((x :any) => {
+            try {
+              const value = typeof x.value != "string"? JSON.stringify(x.value) : x.value; 
+              if (value.length > 32760) {
+                return value.slice(0, 32760) + "(...)"  //Maxium text lengh for excel
+              }
+            } catch{
+
+            }
+
+            return x;
+          });
+          const localstorage_sheet = name;
+          sheetName.push(localstorage_sheet);
+          sheets[localstorage_sheet] = utils.json_to_sheet(localstorage_card);
+        break;
+
+        case 'cookies':
         case 'evaluations':
         case 'unsafeForms':
         case 'info':
@@ -243,7 +260,7 @@ export class ReportService {
               break;
             case 'https':
               const httpCard = (card as HTTPCard);
-              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":(httpCard.redirects as any)[0]}, evaluation: evaluation });
+              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation });
               break;
             case 'traffic':
               const trafficCard = (card as TrafficCard);
