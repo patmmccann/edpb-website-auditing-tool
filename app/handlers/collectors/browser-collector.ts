@@ -6,6 +6,7 @@ import { CookieCard } from "../cards/cookie-card";
 import { LocalStorageCard } from "../cards/local-storage-card";
 import { UnsafeFormCard } from "../cards/unsafe-form-card";
 import { TestSSLCard } from "../cards/testssl-card";
+import { HTTPCard } from "../cards/http-card";
 import {Collector} from "./collector";
 
 const collector_connection = require("../../../collector/connection");
@@ -22,6 +23,7 @@ export class BrowserCollector extends Collector {
     _local_storage_card: LocalStorageCard;
     _unsafe_form_card: UnsafeFormCard;
     _test_ssl_card: TestSSLCard;
+    _http_card: HTTPCard;
 
     constructor(session_name, args) {
         super();
@@ -33,6 +35,7 @@ export class BrowserCollector extends Collector {
         this._local_storage_card = new LocalStorageCard(this);
         this._unsafe_form_card = new UnsafeFormCard(this);
         this._test_ssl_card = new TestSSLCard(this);
+        this._http_card = new HTTPCard(this);
     }
 
     async createCollector(view: BrowserView, args) {
@@ -149,9 +152,7 @@ export class BrowserCollector extends Collector {
                     this._output.cookies = await this._cookie_card.inspect();
                     break;
                 case 'https':
-                    if (this.contents.getURL()) {
-                        await collector_connection.testHttps(this.contents.getURL(), this._output);
-                    }
+                    this._output.secure_connection = await this._http_card.inspect();
                     break;
                 case 'testSSL':
 
@@ -159,29 +160,6 @@ export class BrowserCollector extends Collector {
                     this._output.testSSLError = this._test_ssl_card.testSSLError;
                     this._output.testSSLErrorOutput = this._test_ssl_card.testSSLErrorOutput;
                     this._output.testSSLErrorCode = this._test_ssl_card.testSSLErrorCode;
-                    //if (!collect.output.uri_ins) return testssl_example;
-                    /*if (this.contents.getURL()) {
-                        if (args.testssl_type == 'script') {
-                            collector_connection.testSSLScript(
-                                this.contents.getURL(),
-                                args,
-                                this.logger,
-                                output
-                            );
-                        } else if (args.testssl_type == 'docker') {
-                            collector_connection.testSSLDocker(
-                                this.contents.getURL(),
-                                args,
-                                this.logger,
-                                output
-                            );
-                        } else {
-                            output.testSSLError = "Unknow method for testssl, go to settings first.";
-                        }
-
-                    } else {
-                        output.testSSLError = "No url given to test_ssl.sh";
-                    }*/
                     break;
                 case 'localstorage':
                     this._output.localStorage = await this._local_storage_card.inspect();

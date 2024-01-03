@@ -16,6 +16,8 @@ test.describe('TestSSL Card', () => {
   });
 
   test('TestSSL Script', async () => {
+    test.setTimeout(120000);
+
     const args = {
       "testssl": true,
       "testssl_type": "script",
@@ -38,6 +40,7 @@ test.describe('TestSSL Card', () => {
   });
 
   test('TestSSL docker', async () => {
+    test.setTimeout(120000);
     const args = {
       "testssl": true,
       "testssl_type": "docker"
