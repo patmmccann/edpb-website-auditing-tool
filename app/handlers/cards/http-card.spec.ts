@@ -16,7 +16,7 @@ test.describe('HTTP Card', () => {
 
   });
   
-  test('TestHTTPS on example.com', async () => {
+  test('Test HTTPS on example.com', async () => {
 
     const args = {};
 
@@ -40,7 +40,7 @@ test.describe('HTTP Card', () => {
     await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 
-  test('TestHTTPS on edpb.europa.eu', async () => {
+  test('Test HTTPS on edpb.europa.eu', async () => {
 
     const args = {};
 
