@@ -1,6 +1,5 @@
 import { ipcMain, BrowserWindow, BrowserView } from 'electron';
 import { BrowserSession } from './sessions/browser-session'
-const collector_connection = require("./../../collector/connection");
 
 export class BrowsersHandler {
     _mainWindow: BrowserWindow;
@@ -30,7 +29,6 @@ export class BrowsersHandler {
         ipcMain.handle('get', this.collectFromSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
-        ipcMain.handle('http_card_update', this.testHttps.bind(this));
     }
 
     unregisterHandlers() {
@@ -52,8 +50,6 @@ export class BrowsersHandler {
             ipcMain.removeHandler('get');
             ipcMain.removeHandler('screenshot');
             ipcMain.removeHandler('toogleDevTool');
-            ipcMain.removeHandler('http_card_update');
-
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
@@ -135,14 +131,6 @@ export class BrowsersHandler {
     async screenshot(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         return await session.screenshot();
-    }
-
-    async testHttps(event, url) {
-        //const httpCard = new HttpCard(url);
-        //return await httpCard.update();
-        const out: any = {};
-        await collector_connection.testHttps(url, out);
-        return out.secure_connection;
     }
 
     toogleDevTool(event, analysis_id, tag_id) {

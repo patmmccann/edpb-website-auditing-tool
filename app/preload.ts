@@ -24,7 +24,6 @@ contextBridge.exposeInMainWorld(
     toogleDevTool: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('toogleDevTool', analysis_id, tag_id),
     renderPug: (template, data) => ipcRenderer.invoke('renderPug', template, data),
     parseHar: (har, args : any) => ipcRenderer.invoke('parseHar', har, args),
-    http_card_update: (url:string) => ipcRenderer.invoke('http_card_update', url),
     print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_docx', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     print_to_pdf: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_pdf', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     subscriveToBrowserEvent: (callback) => {

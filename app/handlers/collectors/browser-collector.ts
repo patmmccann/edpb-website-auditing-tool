@@ -9,8 +9,6 @@ import { TestSSLCard } from "../cards/testssl-card";
 import { HTTPCard } from "../cards/http-card";
 import {Collector} from "./collector";
 
-const collector_connection = require("../../../collector/connection");
-
 
 export class BrowserCollector extends Collector {
     _output: any = {};

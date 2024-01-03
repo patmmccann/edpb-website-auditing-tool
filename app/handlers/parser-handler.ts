@@ -2,10 +2,6 @@ import { ipcMain } from 'electron';
 
 import {HarCollector} from './collectors/har-collector';
 
-const collector = require("../../collector/index");
-const logger = require("../../lib/logger");
-const inspector = require("../../inspector/index");
-
 export class ParserHandler {
     constructor(){
         this.registerHandlers();
