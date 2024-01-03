@@ -208,10 +208,14 @@ export class ReportService {
           function filter_details(lines: Details[], evaluations_opt: string[] | null): Details[] {
             let fitered_line: Details[] = [];
 
-            // Stringify log calls
+            // Stringify log calls and values
             lines.forEach((line :any) => {
               if(line.log){
                 line.log = JSON.stringify(line.log.stacks)
+              }
+
+              if(line.value && typeof(line.value)!="string"){
+                line.value = JSON.stringify(line.value);
               }
             });
 
