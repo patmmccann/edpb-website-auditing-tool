@@ -12,16 +12,20 @@ function safeJSONParse(obj:any) {
 };
 
 export class LocalStorageCard extends Card {
+    _local_storage_logger = null;
 
     constructor(collector: Collector) {
         super("local-storage-card", collector);
     }
 
     enable() {
-        throw new Error("Method not implemented.");
+      this._local_storage_logger = this.register_event_logger;
+      this.collector.event_logger[this._local_storage_logger.type] = this._local_storage_logger.logger;
+
     }
     disable() {
-        throw new Error("Method not implemented.");
+      this.collector.event_logger[this._local_storage_logger.type] = null;
+      this._local_storage_logger = null;
     }
     
     async inspect() {

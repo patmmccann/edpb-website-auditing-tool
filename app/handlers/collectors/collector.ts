@@ -13,6 +13,7 @@ export abstract class Collector {
     _args :any = null;
     _onBeforeRequestCallbacks : { (details: Electron.OnBeforeRequestListenerDetails): void; } [] = [];
     _onHeadersReceivedCallbacks : { (details: Electron.OnHeadersReceivedListenerDetails): void; } [] = [];
+    _event_logger = {};
 
     constructor(){
         this.createLogger();
@@ -90,6 +91,10 @@ export abstract class Collector {
 
     get isHar(){
         return false;
+    }
+
+    get event_logger(){
+        return this._event_logger;
     }
 
     end(){

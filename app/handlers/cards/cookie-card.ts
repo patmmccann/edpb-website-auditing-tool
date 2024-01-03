@@ -7,6 +7,7 @@ import * as lodash from 'lodash';
 
 export class CookieCard extends Card {
     _callback = null;
+    _cookie_logger = null;
 
     constructor(collector: Collector) {
         super("cookie-card", collector);
@@ -15,11 +16,15 @@ export class CookieCard extends Card {
     enable() {
         this._callback = this.add.bind(this);
         this.collector.onHeadersReceivedCallbacks.push(this._callback);
+        this._cookie_logger = this.register_event_logger;
+        this.collector.event_logger[this._cookie_logger.type] = this._cookie_logger.logger;
     }
     disable() {
         const index = this.collector.onBeforeRequestCallbacks.indexOf(this._callback);
         this.collector.onBeforeRequestCallbacks.splice(index, 1);
         this._callback = null;
+        this.collector.event_logger[this._cookie_logger.type] = null;
+        this._cookie_logger = null;
     }
 
     collectCookies(cookies, start_time) {

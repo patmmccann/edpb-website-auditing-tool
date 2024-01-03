@@ -22,6 +22,7 @@ export class BrowserCollector extends Collector {
     _unsafe_form_card: UnsafeFormCard;
     _test_ssl_card: TestSSLCard;
     _http_card: HTTPCard;
+    
 
     constructor(session_name, args) {
         super();
@@ -40,13 +41,8 @@ export class BrowserCollector extends Collector {
         this._view = view;
         this._contents = view.webContents;
         this._args = args;
-        const event_logger = {};
+        const event_logger = this.event_logger;
 
-        const cookie_logger = this._cookie_card.register_event_logger;
-        const local_storage_logger = this._local_storage_card.register_event_logger;
-
-        event_logger[cookie_logger.type] = cookie_logger.logger;
-        event_logger[local_storage_logger.type] = local_storage_logger.logger;
         ipcMain.removeHandler('reportEvent' + this._session_name);
         ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
             const json_location = JSON.parse(location);
@@ -89,6 +85,7 @@ export class BrowserCollector extends Collector {
         this._traffic_card.enable();
         this._beacon_card.enable();
         this._cookie_card.enable();
+        this._local_storage_card.enable();
 
         // forward logs from each requests browser console
         this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
