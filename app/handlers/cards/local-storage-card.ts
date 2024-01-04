@@ -38,6 +38,10 @@ export class LocalStorageCard extends Card {
         this._timeout = null;
       }
     }
+
+    override clear() {
+      this._local_storage = null;
+    }
     
     async inspect() {
         if(this._local_storage == null) return {};

@@ -41,9 +41,20 @@ export class BrowserSession {
         });
 
         this.view.webContents.on('dom-ready', async () => {
-            //await browser.webContents.executeJavaScript(stackTraceHelper);
             this.contents.send('init', this._session_name);
+            this.collector.domReadyCallbacks.forEach(fn => fn());
         });
+
+        this.view.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
+            this.collector.onBeforeRequestCallbacks.forEach(fn => fn(details));
+            callback({});
+        });
+
+        this.view.webContents.session.webRequest.onHeadersReceived(async (details, callback) => {
+            this.collector.onHeadersReceivedCallbacks.forEach(fn => fn(details));
+            callback({});
+        });
+
 
         if (args && args.dnt) {
             this.contents.session.webRequest.onBeforeSendHeaders(

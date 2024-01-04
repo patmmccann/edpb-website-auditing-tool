@@ -5,11 +5,18 @@ import { Card } from "./card";
 const wrapper = require("./../../../tools/wrapper");
 
 export class HTTPCard extends Card {
+    _callback = null;
+    _secure_connection = null;
+
     enable() {
-        throw new Error('Method not implemented.');
+        this._callback = this.testHttps.bind(this);
+        this.collector.domReadyCallbacks.push(this._callback);
     }
+
     disable() {
-        throw new Error('Method not implemented.');
+        const index = this.collector.domReadyCallbacks.indexOf(this._callback);
+        this.collector.onBeforeRequestCallbacks.splice(index, 1);
+        this._callback = null;
     }
 
     constructor(collector: Collector) {
@@ -17,10 +24,10 @@ export class HTTPCard extends Card {
     }
 
     override clear() {
-        throw new Error('Method not implemented.');
+        this._secure_connection = null;
     }
 
-    async inspect() {
+    async testHttps(){
         const secure_connection: any = {};
 
         try {
@@ -70,6 +77,11 @@ export class HTTPCard extends Card {
         } catch (error) {
             secure_connection.http_error = error.toString();
         }
-        return secure_connection;
+
+        this._secure_connection = secure_connection;
+    }
+
+    inspect() {
+        return this._secure_connection;
     }
 }

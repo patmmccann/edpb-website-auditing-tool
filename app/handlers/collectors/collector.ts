@@ -13,6 +13,7 @@ export abstract class Collector {
     _args :any = null;
     _onBeforeRequestCallbacks : { (details: Electron.OnBeforeRequestListenerDetails): void; } [] = [];
     _onHeadersReceivedCallbacks : { (details: Electron.OnHeadersReceivedListenerDetails): void; } [] = [];
+    _domReadyCallbacks : { (): void; } [] = [];
     _event_logger = {};
 
     constructor(){
@@ -117,6 +118,9 @@ export abstract class Collector {
         return this._onHeadersReceivedCallbacks;
     }
 
+    get domReadyCallbacks(){
+        return this._domReadyCallbacks;
+    }
 
     abstract findInHeaders(details, header);
 

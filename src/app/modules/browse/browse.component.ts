@@ -101,9 +101,6 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
     this.safeLoadEventSubscriber = this.browserService.loadEvent.subscribe((event) => {
       (this.navToolbarElement as any).update();
-      const cards_to_update = this.cards.filter(card => card.kind == 'https' || card.kind == 'forms');
-      this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
-      this.navigating = true;
     });
 
   }
@@ -111,8 +108,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   startUpdate(): void {
     this.clearUpdate();
     this.update();
-    const cards_to_update = this.cards.filter(card => card.kind == 'https' || card.kind == 'forms');
-    this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
+    this.browserService.updateCards(window, this.cards, this.analysis, this.tag, false);
     this.id = setInterval(async () => {
       this.update();
     }, 1000);
@@ -135,8 +131,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   async update() {
     try {
-      const cards_to_update = this.cards.filter(card => card.kind == 'beacons' || card.kind == 'cookie' || card.kind == 'localstorage' || card.kind == 'traffic' || card.kind == 'testSSL');
-      await this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
+      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, false);
 
       if (this.save_cards) {
         await this.cardService.updateAll(this.cards);

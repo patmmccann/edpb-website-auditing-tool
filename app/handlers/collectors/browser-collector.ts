@@ -86,18 +86,8 @@ export class BrowserCollector extends Collector {
         this._beacon_card.enable();
         this._cookie_card.enable();
         this._local_storage_card.enable();
-
-        // forward logs from each requests browser console
-        this._contents.session.webRequest.onBeforeRequest(async (details, callback) => {
-            this.onBeforeRequestCallbacks.forEach(fn => fn(details));
-            callback({});
-        });
-
-        // setup tracking
-        this._contents.session.webRequest.onHeadersReceived(async (details, callback) => {
-            this.onHeadersReceivedCallbacks.forEach(fn => fn(details));
-            callback({});
-        });
+        this._unsafe_form_card.enable();
+        this._http_card.enable();
     }
 
     end() {

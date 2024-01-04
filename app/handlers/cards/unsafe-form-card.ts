@@ -2,33 +2,39 @@ import { Collector } from "../collectors/collector";
 import { Card } from "./card";
 
 export class UnsafeFormCard extends Card {
+  _callback = null;
+  _unsafe_form = [];
+
   override enable() {
-    throw new Error("Method not implemented.");
+    this._callback = this.unsafeWebforms.bind(this);
+    this.collector.domReadyCallbacks.push(this._callback);
   }
   override disable() {
-    throw new Error("Method not implemented.");
+    const index = this.collector.domReadyCallbacks.indexOf(this._callback);
+    this.collector.onBeforeRequestCallbacks.splice(index, 1);
+    this._callback = null;
   }
-  override async inspect() {
+
+  async unsafeWebforms() {
     const data = [];
 
-    if (this.contents && this.contents.getURL() != '') {
-      let allframes;
+    let allframes = [];
+    try {
+      allframes = this.contents.mainFrame.framesInSubtree;
+    } catch (error: any) {
+      // ignore error if no localStorage for given origin can be
+      // returned, see also: https://stackoverflow.com/q/62356783/1407622
+      if (this.logger.writable == false) return;
+      this.logger.log("warn", error.message, { type: "Browser" });
+      return data;
+    }
+    for (const frame of allframes) {
       try {
-        allframes = this.contents.mainFrame.framesInSubtree;
-      } catch (error: any) {
-        // ignore error if no localStorage for given origin can be
-        // returned, see also: https://stackoverflow.com/q/62356783/1407622
-        if (this.logger.writable == false) return;
-        this.logger.log("warn", error.message, { type: "Browser" });
-        return data;
-      }
-      for (const frame of allframes) {
-        try {
-          if (!frame.url.startsWith("http")) {
-            continue; // filters chrome-error://, about:blank and empty url
-          }
+        if (!frame.url.startsWith("http")) {
+          continue; // filters chrome-error://, about:blank and empty url
+        }
 
-          const form = await frame.executeJavaScript(`
+        const form = await frame.executeJavaScript(`
                 [].map
                   .call(Array.from(document.querySelectorAll("form")), (form) => {
                     return {
@@ -40,18 +46,26 @@ export class UnsafeFormCard extends Card {
                   .filter((form) => {
                     return form.action.startsWith("http:");
                   });`);
-          if (form.length>0){
-            data.push(...form);
-          }
-        } catch (error: any) {
-          // ignore error if no localStorage for given origin can be
-          // returned, see also: https://stackoverflow.com/q/62356783/1407622
-          if (this.logger.writable == false) return;
-          this.logger.log("warn", error.message, { type: "Browser" });
+        if (form.length > 0) {
+          data.push(...form);
         }
+      } catch (error: any) {
+        // ignore error if no localStorage for given origin can be
+        // returned, see also: https://stackoverflow.com/q/62356783/1407622
+        if (this.logger.writable == false) return;
+        this.logger.log("warn", error.message, { type: "Browser" });
       }
     }
-    return data;
+
+    this._unsafe_form = data;
+  }
+
+  override clear() {
+    this._unsafe_form = [];
+  }
+
+  override inspect() {
+    return this._unsafe_form;
   }
 
   constructor(collector: Collector) {
