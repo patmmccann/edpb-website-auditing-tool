@@ -3,7 +3,7 @@
         <mat-panel-title>
             <h3 class="mt-0">
                 Could match ({{knowledgeBaseData.length}})
-                <ng-container *ngIf="settingService.help">
+                <ng-container *ngIf="settingService.settings.help">
                     <mat-icon
                     matTooltip="The key or the script used by this local storage entries matches entries in the knowledge base."
                     [matTooltipPosition]="'after'"

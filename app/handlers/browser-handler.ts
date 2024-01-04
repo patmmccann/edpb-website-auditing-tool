@@ -25,8 +25,10 @@ export class BrowsersHandler {
         ipcMain.handle('canGoForward', this.canGoForward.bind(this));
         ipcMain.handle('createCollector', this.createBrowserSession.bind(this));
         ipcMain.handle('deleteCollector', this.deleteBrowserSession.bind(this));
+        ipcMain.handle('updateSettings', this.updateSettings.bind(this));
         ipcMain.handle('eraseSession', this.clearSession.bind(this));
         ipcMain.handle('get', this.collectFromSession.bind(this));
+        ipcMain.handle('launch', this.launchOnSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
     }
@@ -48,8 +50,10 @@ export class BrowsersHandler {
             ipcMain.removeHandler('deleteCollector');
             ipcMain.removeHandler('eraseSession');
             ipcMain.removeHandler('get');
+            ipcMain.removeHandler('launch');
             ipcMain.removeHandler('screenshot');
             ipcMain.removeHandler('toogleDevTool');
+            ipcMain.removeHandler('updateSettings');
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
@@ -85,6 +89,12 @@ export class BrowsersHandler {
         if (rect) {
             this.currentView.setBounds({ x: rect.x, y: rect.y, width: rect.width, height: rect.height });
         }
+    }
+
+    updateSettings(event, settings){
+        for (const [name, session] of Object.entries(this.sessions)) {
+            session.applySettings(settings);
+          }
     }
 
     getUrl(event, analysis_id, tag_id) {
@@ -138,11 +148,11 @@ export class BrowsersHandler {
         session.toogleDevTool();
     }
 
-    async createBrowserSession(event, analysis_id, tag_id, url, args) {
+    async createBrowserSession(event, analysis_id, tag_id, url, settings) {
         const session_name = analysis_id && tag_id ? 'session' + analysis_id + tag_id : 'main';
-        const browserSession = new BrowserSession(this.mainWindow, session_name, args);
+        const browserSession = new BrowserSession(this.mainWindow, session_name, settings);
         this._sessions[browserSession.name] = browserSession;
-        await browserSession.create(args);
+        await browserSession.create();
 
         if (url) {
             await browserSession.gotoPage(url);
@@ -165,16 +175,21 @@ export class BrowsersHandler {
         }
     }
 
-    async clearSession(event, analysis_id, tag_id, args) {
+    async clearSession(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
-        await session.clear(args);
+        await session.clear();
     }
 
 
 
-    async collectFromSession(event, analysis_id, tag_id, kinds, waitForComplete, args) {
+    async collectFromSession(event, analysis_id, tag_id, kinds) {
         const session = this.get(analysis_id, tag_id);
-        return await session.collect(kinds, args);
+        return await session.collect(kinds);
+    }
+
+    async launchOnSession(event, analysis_id, tag_id, kinds) {
+        const session = this.get(analysis_id, tag_id);
+        return await session.launch(kinds);
     }
 
     get mainWindow() {

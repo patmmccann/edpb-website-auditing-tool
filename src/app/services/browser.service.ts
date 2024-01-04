@@ -49,15 +49,17 @@ export class BrowserService {
   createFakeElectron(window: any): void {
     window.electron = {
       createCollector: (analysis_id: number, tag_id: number, url: string, args: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      eraseSession: (analysis_id: number, tag_id: number, url: string, args: any): Promise<void> => new Promise((resolve, reject) => resolve()),
+      eraseSession: (analysis_id: number, tag_id: number, url: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       deleteCollector: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       showSession: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       getSessions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
       hideSession: (): Promise<void> => new Promise((resolve, reject) => resolve()),
+      updateSettings:(settings:any): Promise<void> => new Promise((resolve, reject) => resolve()),
       resizeSession: (rect: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       loadURL: (analysis_id: number, tag_id: number, url: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       getURL: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
-      get: (analysis_id: number, tag_id: number, url: string, waitForComplete: boolean): Promise<any> => new Promise((resolve, reject) => resolve([])),
+      get: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
+      launch: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
       screenshot: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       stop: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       refresh: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
@@ -67,23 +69,21 @@ export class BrowserService {
       canGoForward: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       subscriveToBrowserEvent: (callback: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       renderPug: (template: string, data: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      parseHar: (har: any, args: any): Promise<void> => new Promise((resolve, reject) => resolve()),
+      parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
     }
   }
 
   newSession(window: any, analysis: Analysis | null, tag: Tag | null): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      let args = this.settingService.toArgs();
-
       if (analysis && tag) {
-        window.electron.createCollector(analysis.id, tag.id, analysis.url, args).then(() => {
+        window.electron.createCollector(analysis.id, tag.id, analysis.url, this.settingService.settings).then(() => {
           const link = ['/browse', analysis.id, 'tag', tag.id];
           this.sessionEvent.emit({ event: 'new', analysis: analysis, tag: tag, link: link });
           return resolve(link);
         });
       } else {
-        window.electron.createCollector(null, null, null, args);
+        window.electron.createCollector(null, null, null, this.settingService.settings);
       }
 
     });
@@ -106,8 +106,7 @@ export class BrowserService {
   }
 
   eraseSession(window: any, analysis: Analysis | null, tag: Tag | null) {
-    let args = this.settingService.toArgs();
-    return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null, args);
+    return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null);
   }
 
   toogleDevTool(window: any, analysis: Analysis | null, tag: Tag | null) {
@@ -162,14 +161,17 @@ export class BrowserService {
     return window.electron.refresh(analysis ? analysis.id : null, tag ? tag.id : null);
   }
 
-  updateCards(window: any, cards: Card[], analysis: Analysis | null, tag: Tag | null, waitForComplete?: boolean): Promise<void> {
+  updateSettings() {
+    (window as any).electron.updateSettings(this.settingService.settings);
+  }
+
+  updateCards(window: any, cards: Card[], analysis: Analysis | null, tag: Tag | null): Promise<void> {
 
     return new Promise((resolve, reject) => {
       const kindCards = cards
-        .map(card => card.kind)
-        .filter(kind => kind != 'testSSL');
+        .map(card => card.kind);
 
-      window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, kindCards, waitForComplete, this.settingService.toArgs())
+      window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, kindCards)
         .then((output: any) => {
           for (let card of cards) {
             let new_card = null;
@@ -262,7 +264,7 @@ export class BrowserService {
     card.launched = true;
     card.testSSLError = "";
     card.testSSLErrorOutput = "";
-    window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, ['testSSL'], false, this.settingService.toArgs() );
+    window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['testSSL']);
   }
 
 
@@ -290,7 +292,7 @@ export class BrowserService {
 
   parseHar(window: any, har: any): Promise<Card[]> {
     return new Promise((resolve, reject) => {
-      window.electron.parseHar(har, this.settingService.toArgs())
+      window.electron.parseHar(har, this.settingService.settings)
         .then((result: any) => {
           const cards: Card[] = this.inspectionService.inspectionParser(result);
           resolve(cards);

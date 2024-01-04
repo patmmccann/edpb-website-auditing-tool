@@ -11,8 +11,8 @@ export class ParserHandler {
         ipcMain.handle('parseHar', this.parseHar);
     }
 
-    async parseHar (event, har, args){
-        const collector = new HarCollector(har);
+    async parseHar (event, har, settings){
+        const collector = new HarCollector(har, settings);
         return await collector.parseHar();
     }
 

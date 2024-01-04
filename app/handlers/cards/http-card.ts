@@ -20,7 +20,7 @@ export class HTTPCard extends Card {
     }
 
     constructor(collector: Collector) {
-        super("http-card", collector);
+        super("https", collector);
     }
 
     override clear() {
@@ -81,7 +81,7 @@ export class HTTPCard extends Card {
         this._secure_connection = secure_connection;
     }
 
-    inspect() {
-        return this._secure_connection;
+    inspect(output) {
+        output.secure_connection= this._secure_connection;
     }
 }

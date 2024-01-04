@@ -18,17 +18,17 @@ test.describe('Traffic Card', () => {
   
   test('List traffic on edpb.europa.eu', async () => {
 
-    const args = {};
+    const settings = {traffic:true};
 
     function timeout(ms:number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", args);
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", settings);
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['traffic'],false, args);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['traffic']);
     expect(output).toHaveProperty('hosts');
     expect(output.hosts).toHaveProperty('requests');
     expect(output.hosts.requests).toHaveProperty('thirdParty');

@@ -10,7 +10,7 @@ export class CookieCard extends Card {
     _cookie_logger = null;
 
     constructor(collector: Collector) {
-        super("cookie-card", collector);
+        super("cookie", collector);
     }
 
     enable() {
@@ -121,11 +121,11 @@ export class CookieCard extends Card {
         });
     }
 
-    async inspect() {
+    async inspect(output) {
         const cookies = await this.collector.cookies();
         const log_cookies = this.collectCookies(cookies, 0);
         const final = this.inspectCookies(log_cookies);
-        return final;
+        output.cookies= final;
     }
 
     add(details: Electron.OnHeadersReceivedListenerDetails) {

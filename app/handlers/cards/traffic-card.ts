@@ -18,7 +18,7 @@ export class TrafficCard extends Card{
     _hosts = new Set();
     
     constructor(collector : Collector){
-        super("traffic-card", collector);
+        super("traffic", collector);
     }  
 
     add(details : Electron.OnBeforeRequestListenerDetails){
@@ -37,7 +37,9 @@ export class TrafficCard extends Card{
         this._hosts = new Set();
     }
 
-    inspect(){
-        return Array.from(this._hosts);
+    inspect(output){
+        output.hosts = {};
+        output.hosts.requests = {};
+        output.hosts.requests.thirdParty =  Array.from(this._hosts);
     }
 }

@@ -1,80 +1,59 @@
 
 import { BrowserView, WebContents, ipcMain } from 'electron';
-import { TrafficCard } from "../cards/traffic-card";
-import { BeaconCard } from "../cards/beacon-card";
-import { CookieCard } from "../cards/cookie-card";
-import { LocalStorageCard } from "../cards/local-storage-card";
-import { UnsafeFormCard } from "../cards/unsafe-form-card";
-import { TestSSLCard } from "../cards/testssl-card";
-import { HTTPCard } from "../cards/http-card";
 import {Collector} from "./collector";
+import { Card } from '../cards/card';
 
 
 export class BrowserCollector extends Collector {
-    _output: any = {};
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
-    _traffic_card: TrafficCard;
-    _beacon_card: BeaconCard;
-    _cookie_card: CookieCard;
-    _local_storage_card: LocalStorageCard;
-    _unsafe_form_card: UnsafeFormCard;
-    _test_ssl_card: TestSSLCard;
-    _http_card: HTTPCard;
+    _cards : Card[] = [];
     
 
-    constructor(session_name, args) {
-        super();
+    constructor(session_name, settings) {
+        super(settings);
         this._session_name = session_name;
-        this._args = args;
-        this._traffic_card = new TrafficCard(this);
-        this._beacon_card = new BeaconCard(this);
-        this._cookie_card = new CookieCard(this);
-        this._local_storage_card = new LocalStorageCard(this);
-        this._unsafe_form_card = new UnsafeFormCard(this);
-        this._test_ssl_card = new TestSSLCard(this);
-        this._http_card = new HTTPCard(this);
+        this._cards = this.createCardFromSettings();
     }
 
-    async createCollector(view: BrowserView, args) {
+    async createCollector(view: BrowserView) {
         this._view = view;
         this._contents = view.webContents;
-        this._args = args;
         const event_logger = this.event_logger;
 
-        ipcMain.removeHandler('reportEvent' + this._session_name);
-        ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
-            const json_location = JSON.parse(location);
-
-            // determine actual browsed page
-            let browsedLocation = json_location.href;
-            if (json_location.ancestorOrigins && json_location.ancestorOrigins[0]) {
-                // apparently, this is a chrome-specific API
-                browsedLocation = json_location.ancestorOrigins[0];
-            }
-
-            // construct the event object to log
-            // include the stack
-            let event = {
-                type: type,
-                stack: stack.slice(1,stack.length), // remove reference to Document.set (0)
-                origin: json_location.origin,
-                location: browsedLocation,
-                raw: data,
-                data:data
-            };
-
-            let message = "";
-            if (type in event_logger){
-                message = event_logger[type](event, json_location);
-            }
-
-            if (this.logger.writable == false) return;
-            this.logger.log("warn", message, event);
-        });
-
-
+        if (this.settings.logs){
+            ipcMain.removeHandler('reportEvent' + this._session_name);
+            ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
+                const json_location = JSON.parse(location);
+    
+                // determine actual browsed page
+                let browsedLocation = json_location.href;
+                if (json_location.ancestorOrigins && json_location.ancestorOrigins[0]) {
+                    // apparently, this is a chrome-specific API
+                    browsedLocation = json_location.ancestorOrigins[0];
+                }
+    
+                // construct the event object to log
+                // include the stack
+                let event = {
+                    type: type,
+                    stack: stack.slice(1,stack.length), // remove reference to Document.set (0)
+                    origin: json_location.origin,
+                    location: browsedLocation,
+                    raw: data,
+                    data:data
+                };
+    
+                let message = "";
+                if (type in event_logger){
+                    message = event_logger[type](event, json_location);
+                }
+    
+                if (this.logger.writable == false) return;
+                this.logger.log("warn", message, event);
+            });
+        }
 
         // forward logs from the browser console
         this._contents.on("console-message", (event, level, msg, line, sourceId) =>{
@@ -82,26 +61,22 @@ export class BrowserCollector extends Collector {
             this.logger.log("debug", msg, { type: "Browser.Console" })
         });
 
-        this._traffic_card.enable();
-        this._beacon_card.enable();
-        this._cookie_card.enable();
-        this._local_storage_card.enable();
-        this._unsafe_form_card.enable();
-        this._http_card.enable();
+        this._cards.forEach(card => card.enable());
     }
 
     end() {
         this._contents.session.webRequest.onBeforeRequest(null, null);
         this._contents.session.webRequest.onHeadersReceived(null, null);
+        this._cards.forEach(card => card.disable());
         ipcMain.removeHandler('reportEvent' + this._session_name);
 
         this._end_date = new Date();
         return super.end();
     }
 
-    async clear(args) {
+    async clear() {
         this.createLogger();
-        this._traffic_card.clear();
+        this._cards.forEach(card => card.clear());
     }
 
     override get view() {
@@ -131,47 +106,32 @@ export class BrowserCollector extends Collector {
         return sourceUrl;
     }
 
-    async collect(kinds, args) {
-        this._args = args;
+    async collect(kinds) {
+        const output = {};
         await this.refresh();
 
         for (let kind of kinds) {
-            switch (kind) {
-                case 'cookie':
-                    this._output.cookies = await this._cookie_card.inspect();
-                    break;
-                case 'https':
-                    this._output.secure_connection = await this._http_card.inspect();
-                    break;
-                case 'testSSL':
-
-                    this._output.testSSL = await this._test_ssl_card.inspect();
-                    this._output.testSSLError = this._test_ssl_card.testSSLError;
-                    this._output.testSSLErrorOutput = this._test_ssl_card.testSSLErrorOutput;
-                    this._output.testSSLErrorCode = this._test_ssl_card.testSSLErrorCode;
-                    break;
-                case 'localstorage':
-                    this._output.localStorage = await this._local_storage_card.inspect();
-                    break;
-
-                case 'traffic':
-                    this._output.hosts = {};
-                    this._output.hosts.requests = {};
-                    this._output.hosts.requests.thirdParty = this._traffic_card.inspect();
-                    break;
-
-                case 'forms':
-                    this._output.unsafeForms = await this._unsafe_form_card.inspect();
-                    break;
-
-                case 'beacons':
-                    this._output.beacons = this._beacon_card.inspect();
-                    break;
+            const card = this._cards.find(x => x.name == kind);
+            if (!card){
+                this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
+            }else{
+                await card.inspect(output);
             }
         }
 
 
-        return this._output;
+        return output;
+    }
+
+    async launch(kinds) {
+        for (let kind of kinds) {
+            const card = this._cards.find(x => x.name == kind);
+            if (!card){
+                this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
+            }else{
+                await card.launch();
+            }
+        }
     }
 
     override get isElectron(){

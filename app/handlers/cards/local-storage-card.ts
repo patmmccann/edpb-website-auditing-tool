@@ -18,7 +18,7 @@ export class LocalStorageCard extends Card {
     _local_storage = null;
 
     constructor(collector: Collector) {
-        super("local-storage-card", collector);
+        super("localstorage", collector);
     }
 
     enable() {
@@ -43,11 +43,11 @@ export class LocalStorageCard extends Card {
       this._local_storage = null;
     }
     
-    async inspect() {
+    async inspect(output) {
         if(this._local_storage == null) return {};
         const localStorage = structuredClone(this._local_storage);
         await this.inspectLocalStorage(localStorage);
-        return localStorage;
+        output.localStorage= localStorage;
     }
 
     async inspectLocalStorage (local_storage:any) {

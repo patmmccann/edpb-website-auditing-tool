@@ -9,8 +9,8 @@ export class BrowserSession {
     _session_name: string;
     _mainWindow: BrowserWindow;
 
-    constructor(mainWindow: BrowserWindow, session_name: string, args) {
-        this._collector = new BrowserCollector(session_name, args);
+    constructor(mainWindow: BrowserWindow, session_name: string, settings) {
+        this._collector = new BrowserCollector(session_name, settings);
         this._mainWindow = mainWindow;
         this._session_name = session_name;
 
@@ -21,16 +21,7 @@ export class BrowserSession {
             }
         });
         
-        //Set preloads
-        const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
-        const ses = this._view.webContents.session;
-        ses.setPreloads([path.join(__dirname, 'preload.js'), path.join(stacktracePath, '/dist/stacktrace.min.js')]);
-
-        this.contents.send('init', this._session_name);
-
-        if (args && args.useragent) {
-            this.view.webContents.setUserAgent(args.useragent);
-        }
+        this.applySettings(settings);
 
         this.view.webContents.on('did-start-loading', () => {
             this._mainWindow.webContents.send('browser-event', 'did-start-loading', this._session_name);
@@ -38,11 +29,6 @@ export class BrowserSession {
 
         this.view.webContents.on('did-finish-load', () => {
             this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
-        });
-
-        this.view.webContents.on('dom-ready', async () => {
-            this.contents.send('init', this._session_name);
-            this.collector.domReadyCallbacks.forEach(fn => fn());
         });
 
         this.view.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
@@ -54,9 +40,32 @@ export class BrowserSession {
             this.collector.onHeadersReceivedCallbacks.forEach(fn => fn(details));
             callback({});
         });
+    }
 
+    applySettings(settings){
+        this.collector.settings = settings;
+        
+        if (settings && settings.logs){
+            //Set preloads
+            const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
+            const ses = this._view.webContents.session;
+            ses.setPreloads([path.join(__dirname, 'preload.js'), path.join(stacktracePath, '/dist/stacktrace.min.js')]);
 
-        if (args && args.dnt) {
+            this.contents.send('init', this._session_name);
+        }
+
+        if (settings && settings.useragent) {
+            this.view.webContents.setUserAgent(settings.useragent);
+        }
+
+        this.view.webContents.on('dom-ready', async () => {
+            if (settings && settings.logs){
+                this.contents.send('init', this._session_name);
+            }
+            this.collector.domReadyCallbacks.forEach(fn => fn());
+        });
+
+        if (settings && settings.dnt) {
             this.contents.session.webRequest.onBeforeSendHeaders(
                 (details, callback) => {
                     details.requestHeaders['DNT'] = '1';
@@ -64,13 +73,13 @@ export class BrowserSession {
                 });
         }
 
-        if (args && args.dntJs) {
+        if (settings && settings.dntJs) {
             this._view.webContents.send('dntJs');
         }
     }
 
-    async create(args) {
-        await this.collector.createCollector(this._view, args);
+    async create() {
+        await this.collector.createCollector(this._view);
     }
 
     delete() {
@@ -78,10 +87,10 @@ export class BrowserSession {
         (this.contents as any).destroy();
     }
 
-    async clear(args) {
+    async clear() {
         await this.contents.session.clearCache();
         await this.contents.session.clearStorageData();
-        await this.collector.clear(args);
+        await this.collector.clear();
     }
 
     async gotoPage(url) {
@@ -132,8 +141,12 @@ export class BrowserSession {
         this.contents.toggleDevTools();
     }
 
-    async collect(kinds, args) {
-        return await this.collector.collect(kinds, args);
+    async collect(kinds) {
+        return await this.collector.collect(kinds);
+    }
+
+    async launch(kinds) {
+        return await this.collector.launch(kinds);
     }
 
     get view() {

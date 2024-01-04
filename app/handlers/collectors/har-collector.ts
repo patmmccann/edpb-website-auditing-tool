@@ -11,8 +11,8 @@ export class HarCollector extends Collector {
     _har : Har;
     _creator : string;
 
-    constructor(har) {
-        super();
+    constructor(har, settings) {
+        super(settings);
 
         this._har = har;
         this._creator = har.log.creator.name;
@@ -67,11 +67,9 @@ export class HarCollector extends Collector {
 
         const output: any = {};
 
-        output.cookies = await this._cookie_card.inspect();
-        output.hosts = {};
-        output.hosts.requests = {};
-        output.hosts.requests.thirdParty = this._traffic_card.inspect();
-        output.beacons = this._beacon_card.inspect();
+        await this._cookie_card.inspect(output);
+        this._traffic_card.inspect(output);
+        this._beacon_card.inspect(output);
 
         return output;
     }

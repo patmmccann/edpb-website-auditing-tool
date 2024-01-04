@@ -11,14 +11,15 @@ export class TestSSLCard extends Card {
     _testSSLError = null;
     _testSSLErrorOutput = null;
     _testSSLErrorCode = null;
+    _testSSL = null;
 
-    testSSLScript(uri, args, logger) {
+    testSSLScript(uri, settings, logger) {
         return new Promise((resolve, reject) => {
     
             let uri_ins_https = new url.URL(uri);
             uri_ins_https.protocol = "https:";
     
-            let testsslExecutable = args.testsslExecutable || "testssl.sh"; // set default location
+            let testsslExecutable = settings.test_ssl_location || "testssl.sh"; // set default location
             let testsslArgs = [
                 "--ip one", // speed up testssl: just test the first DNS returns (useful for multiple IPs)
                 "--quiet", // no banner
@@ -66,14 +67,14 @@ export class TestSSLCard extends Card {
                     resolve(null);
                 }
     
-                if (!args.output) {
+                if (!settings.output) {
                     fs.removeSync(json_file);
                 }
             });
         });
     }
 
-    testSSLDocker(uri, args, logger) {
+    testSSLDocker(uri, settings, logger) {
         return new Promise((resolve, reject) => {
             let uri_ins_https = new url.URL(uri);
             uri_ins_https.protocol = "https:";
@@ -126,7 +127,7 @@ export class TestSSLCard extends Card {
               resolve(null);
             }
       
-            if (!args.output) {
+            if (!settings.output) {
               fs.removeSync(res_file);
             }
           });
@@ -134,45 +135,44 @@ export class TestSSLCard extends Card {
       }
 
     enable() {
-        throw new Error('Method not implemented.');
+        //throw new Error('Method not implemented.');
     }
     disable() {
-        throw new Error('Method not implemented.');
+        //throw new Error('Method not implemented.');
     }
 
     constructor(collector: Collector) {
-        super("testssl-card", collector);
+        super("testSSL", collector);
     }
 
     override clear() {
         throw new Error('Method not implemented.');
     }
 
-    async inspect() {
+    override async launch(){
         if (!this.collector.contents.getURL()) {
             this._testSSLError = "No url given to test_ssl.sh";
-            return null;
+            return;
         }
 
-        switch (this.collector.args.testssl_type) {
+        switch (this.collector.settings.testssl_type) {
             case 'script':
-                return await this.testSSLScript(this.collector.contents.getURL(), this.collector.args, this.collector.logger)
-
+                this._testSSL = await this.testSSLScript(this.collector.contents.getURL(), this.collector.settings, this.collector.logger)
+                break;
             case 'docker':
-                return await this.testSSLDocker(this.collector.contents.getURL(), this.collector.args, this.collector.logger)
+                this._testSSL = await this.testSSLDocker(this.collector.contents.getURL(), this.collector.settings, this.collector.logger)
                 break;
 
             default:
                 this._testSSLError = "Unknow method for testssl, go to settings first.";
         }
-
-        /* TODO
-        if (this.collector.args.testsslFile) {
-            const content = fs.readFileSync(this.collector.args.testsslFile);
-            return  JSON.parse(content, {encoding :"utf8"});
-        }*/
-
-        return null;
+    }
+    
+    async inspect(output) {
+        output.testSSL = this.testSSL;
+        output.testSSLError = this.testSSLError;
+        output.testSSLErrorOutput = this.testSSLErrorOutput;
+        output.testSSLErrorCode = this.testSSLErrorCode;
     }
 
     get testSSLError() {
@@ -185,5 +185,9 @@ export class TestSSLCard extends Card {
 
     get testSSLErrorCode() {
         return this._testSSLErrorCode;
+    }
+
+    get testSSL(){
+        return this._testSSL;
     }
 }

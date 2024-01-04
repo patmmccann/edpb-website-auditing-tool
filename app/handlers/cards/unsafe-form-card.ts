@@ -64,11 +64,11 @@ export class UnsafeFormCard extends Card {
     this._unsafe_form = [];
   }
 
-  override inspect() {
-    return this._unsafe_form;
+  override inspect(output) {
+    output.unsafeForms = this._unsafe_form;
   }
 
   constructor(collector: Collector) {
-    super("unsafe-form-card", collector);
+    super("forms", collector);
   }
 }

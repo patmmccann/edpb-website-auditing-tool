@@ -168,31 +168,31 @@ export class CardService extends ApplicationDb {
 
   initCardsBasedOnSetting() : Card[]{
     const cards :Card[]= [];
-    if (this.settingService.cookies) {
+    if (this.settingService.settings.cookies) {
       cards.push(new CookieCard("Cookies"));
     }
 
-    if (this.settingService.localstorage) {
+    if (this.settingService.settings.localstorage) {
       cards.push(new LocalStorageCard("Local Storage"));
     }
 
-    if (this.settingService.https) {
+    if (this.settingService.settings.https) {
       cards.push(new HTTPCard(null));
     }
 
-    if (this.settingService.traffic) {
+    if (this.settingService.settings.traffic) {
       cards.push(new TrafficCard(null));
     }
 
-    if (this.settingService.webform) {
+    if (this.settingService.settings.webform) {
       cards.push(new UnsafeFormsCard([]));
     }
 
-    if (this.settingService.beacons) {
+    if (this.settingService.settings.beacons) {
       cards.push(new BeaconCard());
     }
 
-    if (this.settingService.testssl) {
+    if (this.settingService.settings.testssl) {
       cards.push(new TestSSLCard({}, null, null));
     }
 

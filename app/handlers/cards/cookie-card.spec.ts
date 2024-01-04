@@ -18,19 +18,18 @@ test.describe('Cookie Card', () => {
   
   test('List cookies on edpb.europa.eu', async () => {
 
-    const args = {};
+    const settings = {cookies:true};
 
     function timeout(ms:number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", args);
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", settings);
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['cookie'],false, args);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['cookie']);
     expect(output).toHaveProperty('cookies');
-    expect(output.cookies).toHaveProperty('cookies');
     expect(output.cookies).toHaveLength(0);
     await ipcMainInvokeHandler(app, 'deleteCollector');
   });

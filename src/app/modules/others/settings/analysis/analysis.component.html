@@ -1,22 +1,22 @@
 <div class="content" style="max-width: 800px; margin-top: 56px;">
     <div class="header">Analysis</div>
-    <mat-slide-toggle (change)="settingService.setItem('testssl', $event.checked)" [(ngModel)]="settingService.testssl"
+    <mat-slide-toggle (change)="settingService.setItem('testssl', $event.checked)" [(ngModel)]="settingService.settings.testssl"
         color="primary">Enable Testssl </mat-slide-toggle> 
 
-    <ng-container *ngIf="settingService.testssl">
+    <ng-container *ngIf="settingService.settings.testssl">
         <br>
         <mat-form-field appearance="fill">
-            <mat-select [(ngModel)]="settingService.testssl_type" (selectionChange)="settingService.setItem('testssl_type', $event.value)">
+            <mat-select [(ngModel)]="settingService.settings.testssl_type" (selectionChange)="settingService.setItem('testssl_type', $event.value);browserService.updateSettings()">
                 <mat-option value="script">Script</mat-option>
                 <mat-option value="docker">Docker</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <ng-container *ngIf="settingService.testssl_type == 'script'">
+        <ng-container *ngIf="settingService.settings.testssl_type == 'script'">
             <br><br>
             <mat-form-field class="form-ssl-field" appearance="fill">
                 <mat-label>TestSSL location</mat-label>
-                <input disabled matInput type="text" [(ngModel)]="settingService.test_ssl_location">
+                <input disabled matInput type="text" [(ngModel)]="settingService.settings.test_ssl_location">
             </mat-form-field>
             <button (click)="getSSLLocation()">
                 <mat-icon>folder_open</mat-icon>
@@ -29,24 +29,25 @@
             </div>
         </ng-container>
     
-        <ng-container *ngIf="settingService.testssl_type == 'docker'">
+        <ng-container *ngIf="settingService.settings.testssl_type == 'docker'">
         </ng-container>
     </ng-container>
     <br><br>
-    <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)" [(ngModel)]="settingService.cookies"
+    <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)" [(ngModel)]="settingService.settings.cookies"
         color="primary">Enable Cookies analysis</mat-slide-toggle><br><br>
     <mat-slide-toggle (change)="settingService.setItem('localstorage', $event.checked)"
-        [(ngModel)]="settingService.localstorage" color="primary">Enable Local Storage
+        [(ngModel)]="settingService.settings.localstorage" color="primary">Enable Local Storage
         analysis</mat-slide-toggle><br><br>
-    <mat-slide-toggle (change)="settingService.setItem('https', $event.checked)" [(ngModel)]="settingService.https"
+    <mat-slide-toggle (change)="settingService.setItem('https', $event.checked)" [(ngModel)]="settingService.settings.https"
         color="primary">Enable HTTPS analysis</mat-slide-toggle><br><br>
-    <mat-slide-toggle (change)="settingService.setItem('traffic', $event.checked)" [(ngModel)]="settingService.traffic"
+    <mat-slide-toggle (change)="settingService.setItem('traffic', $event.checked)" [(ngModel)]="settingService.settings.traffic"
         color="primary">Enable traffic analysis</mat-slide-toggle><br><br>
-    <mat-slide-toggle (change)="settingService.setItem('webform', $event.checked)" [(ngModel)]="settingService.webform"
+    <mat-slide-toggle (change)="settingService.setItem('webform', $event.checked)" [(ngModel)]="settingService.settings.webform"
         color="primary">Enable unsafe Webform
         analysis</mat-slide-toggle><br><br>
-    <mat-slide-toggle (change)="settingService.setItem('beacons', $event.checked)" [(ngModel)]="settingService.beacons"
+    <mat-slide-toggle (change)="settingService.setItem('beacons', $event.checked)" [(ngModel)]="settingService.settings.beacons"
         color="primary">Enable Web Beacon
         analysis</mat-slide-toggle><br><br>
-
+    <mat-slide-toggle (change)="settingService.setItem('logs', $event.checked)" [(ngModel)]="settingService.settings.logs"
+        color="primary">Enable Log Tracing</mat-slide-toggle><br><br>
 </div>

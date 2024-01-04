@@ -108,7 +108,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   startUpdate(): void {
     this.clearUpdate();
     this.update();
-    this.browserService.updateCards(window, this.cards, this.analysis, this.tag, false);
+    this.browserService.updateCards(window, this.cards, this.analysis, this.tag);
     this.id = setInterval(async () => {
       this.update();
     }, 1000);
@@ -131,7 +131,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   async update() {
     try {
-      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, false);
+      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag);
 
       if (this.save_cards) {
         await this.cardService.updateAll(this.cards);

@@ -52,7 +52,7 @@ export class BeaconCard extends Card {
     _callback = null;
 
     constructor(collector: Collector) {
-        super("beacon-card", collector);
+        super("beacons", collector);
     }
 
     override enable() {
@@ -65,7 +65,7 @@ export class BeaconCard extends Card {
         this._callback = null;
     }
 
-    override inspect() {
+    override inspect(output) {
         const eventData = this.collector.event_data;
         const beacons_from_events = lodash.flatten(
             eventData
@@ -103,7 +103,7 @@ export class BeaconCard extends Card {
             return b2.occurances - b1.occurances;
         });
 
-        return beacons_summary;
+        output.beacons= beacons_summary;
     }
 
     fromElectronDetails(details: Electron.OnBeforeRequestListenerDetails) {

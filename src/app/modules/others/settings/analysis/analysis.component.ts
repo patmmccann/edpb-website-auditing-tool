@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BrowserService } from 'src/app/services/browser.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class AnalysisComponent {
 
   constructor(
     private el: ElementRef,
-    public settingService : SettingsService
+    public settingService : SettingsService,
+    public browserService : BrowserService
   ) { 
     this.localStorage =localStorage;
 
@@ -25,6 +27,7 @@ export class AnalysisComponent {
   checkSSLLocation(event:any) :void{
     if (event.target.files[0].path){
       this.settingService.setTestSSLLocation(event.target.files[0].path)
+      this.browserService.updateSettings();
     }
   }
 

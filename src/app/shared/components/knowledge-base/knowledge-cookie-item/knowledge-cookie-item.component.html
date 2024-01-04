@@ -3,7 +3,7 @@
     <mat-panel-title>
       <h3 class="mt-0">
         Exact match ({{knowledgeBaseData.name_and_domain.length}})
-        <ng-container *ngIf="settingService.help">
+        <ng-container *ngIf="settingService.settings.help">
           <mat-icon
           matTooltip="The name and the domain of this cookies match entries in the knowledge base."
           [matTooltipPosition]="'after'"
@@ -54,7 +54,7 @@
     <mat-panel-title>
       <h3 class="mt-0">
         Match name ({{knowledgeBaseData.name.length}})
-        <ng-container *ngIf="settingService.help">
+        <ng-container *ngIf="settingService.settings.help">
           <mat-icon
           matTooltip="The name associated to no domains (*) matches entries in the knowledge base."
           [matTooltipPosition]="'after'"
@@ -105,7 +105,7 @@
     <mat-panel-title>
       <h3 class="mt-0">
         Match domain ({{knowledgeBaseData.domain.length}})
-        <ng-container *ngIf="settingService.help">
+        <ng-container *ngIf="settingService.settings.help">
           <mat-icon
           matTooltip="The domain of this cookies is associated to other entries in the knowledge base."
           [matTooltipPosition]="'after'"

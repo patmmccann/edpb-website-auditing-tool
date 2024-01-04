@@ -2,6 +2,16 @@ import { Logger, createLogger, format, transports } from 'winston';
 
 import * as isDev from 'electron-is-dev';
 import * as tmp from 'tmp';
+import { BeaconCard } from '../cards/beacon-card';
+import { HTTPCard } from '../cards/http-card';
+import { CookieCard } from '../cards/cookie-card';
+import { TestSSLCard } from '../cards/testssl-card';
+import { TrafficCard } from '../cards/traffic-card';
+import { UnsafeFormCard } from '../cards/unsafe-form-card';
+import { LocalStorageCard } from '../cards/local-storage-card';
+import { Card } from '../cards/card';
+
+
 
 tmp.setGracefulCleanup();
 
@@ -10,13 +20,16 @@ export abstract class Collector {
     _event_data: any[] = [];
     _start_date: Date;
     _end_date: Date | null;
-    _args :any = null;
+    _settings :any = {};
     _onBeforeRequestCallbacks : { (details: Electron.OnBeforeRequestListenerDetails): void; } [] = [];
     _onHeadersReceivedCallbacks : { (details: Electron.OnHeadersReceivedListenerDetails): void; } [] = [];
     _domReadyCallbacks : { (): void; } [] = [];
     _event_logger = {};
 
-    constructor(){
+    constructor(settings){
+        if (settings){
+            this._settings = settings;
+        }
         this.createLogger();
     }
 
@@ -106,8 +119,12 @@ export abstract class Collector {
         });
     }
 
-    get args(){
-        return this._args;
+    get settings(){
+        return this._settings;
+    }
+
+    set settings(settings){
+        this._settings = settings;
     }
 
     get onBeforeRequestCallbacks(){
@@ -129,4 +146,40 @@ export abstract class Collector {
     abstract get mainUrl();
 
     abstract cookies();
+
+    createCardFromSettings() : Card[]{
+        const cards = [];
+
+        for (const [key, value] of Object.entries(this._settings)) {
+            if (value == true){
+                switch(key){
+                    case 'beacons':
+                        cards.push(new BeaconCard(this));
+                        break;
+                    case 'cookies':
+                        cards.push(new CookieCard(this));
+                        break;
+                    case 'https':
+                        cards.push(new HTTPCard(this));
+                        break;
+                    case 'testssl':
+                        cards.push(new TestSSLCard(this));
+                        break;
+                    case 'traffic':
+                        cards.push(new TrafficCard(this));
+                        break;
+                    case 'webform':
+                        cards.push(new UnsafeFormCard(this));
+                        break;
+                    case 'localstorage':
+                        cards.push(new LocalStorageCard(this));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        return cards;
+    }
 }

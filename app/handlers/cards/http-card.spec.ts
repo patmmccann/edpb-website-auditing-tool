@@ -8,6 +8,7 @@ test.describe('HTTP Card', () => {
   let app: ElectronApplication;
   let firstWindow: Page;
   let context: BrowserContext;
+  const settings = {https:true};
 
   test.beforeAll(async () => {
     app = await electron.launch({ args: [PATH.join(__dirname, '../../../electron/main.js')] });
@@ -17,18 +18,15 @@ test.describe('HTTP Card', () => {
   });
   
   test('Test HTTPS on example.com', async () => {
-
-    const args = {};
-
     function timeout(ms:number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'createCollector', null, null, "http://www.example.com/", args);
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "http://www.example.com/", settings);
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https'],false, args);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https']);
     expect(output).toHaveProperty('secure_connection');
     expect(output.secure_connection).toHaveProperty('https_redirect');
     expect(output.secure_connection).toHaveProperty('https_support');
@@ -41,18 +39,15 @@ test.describe('HTTP Card', () => {
   });
 
   test('Test HTTPS on edpb.europa.eu', async () => {
-
-    const args = {};
-
     function timeout(ms:number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", args);
+    await ipcMainInvokeHandler(app, 'createCollector', null, null, "https://edpb.europa.eu/", settings);
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https'],false, args);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https']);
     expect(output).toHaveProperty('secure_connection');
     expect(output.secure_connection).toHaveProperty('https_redirect');
     expect(output.secure_connection).toHaveProperty('https_support');
