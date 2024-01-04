@@ -22,7 +22,7 @@ export class BrowserCollector extends Collector {
         this._contents = view.webContents;
         const event_logger = this.event_logger;
 
-        if (this.settings.logs){
+        if (this.settings && this.settings.logs){
             ipcMain.removeHandler('reportEvent' + this._session_name);
             ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
                 const json_location = JSON.parse(location);
@@ -129,7 +129,7 @@ export class BrowserCollector extends Collector {
             if (!card){
                 this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
             }else{
-                await card.launch();
+                return await card.launch();
             }
         }
     }

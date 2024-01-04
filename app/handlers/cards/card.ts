@@ -29,7 +29,7 @@ export abstract class Card {
     abstract disable();
     abstract inspect(output);
 
-    launch();
+    launch(){};
 
     clear(){};
 }

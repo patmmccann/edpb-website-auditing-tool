@@ -21,7 +21,7 @@ test.describe('TestSSL Card', () => {
     const args = {
       "testssl": true,
       "testssl_type": "script",
-      "testsslExecutable": "./test/testssl.sh-3.2rc3/testssl.sh"
+      "test_ssl_location": "./test/testssl.sh-3.2rc3/testssl.sh"
     };
     function timeout(ms:number) {
       return new Promise(resolve => setTimeout(resolve, ms));
@@ -31,7 +31,8 @@ test.describe('TestSSL Card', () => {
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL'],false, args);
+    await ipcMainInvokeHandler(app, 'launch', null, null, ['testSSL']);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL']);
     expect(output).toHaveProperty('testSSL');
     expect(output.testSSLError).toBeNull;
     expect(output.testSSLErrorCode).toBeNull;
@@ -55,7 +56,8 @@ test.describe('TestSSL Card', () => {
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
-    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL'],false, args);
+    await ipcMainInvokeHandler(app, 'launch', null, null, ['testSSL']);
+    const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['testSSL']);
     expect(output).toHaveProperty('testSSL');
     expect(output.testSSLError).toBeNull;
     expect(output.testSSLErrorCode).toBeNull;

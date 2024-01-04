@@ -26,6 +26,7 @@ test.describe('HTTP Card', () => {
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
+    await ipcMainInvokeHandler(app, 'launch', null, null, ['https']);
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https']);
     expect(output).toHaveProperty('secure_connection');
     expect(output.secure_connection).toHaveProperty('https_redirect');
@@ -47,6 +48,7 @@ test.describe('HTTP Card', () => {
     await ipcMainInvokeHandler(app, 'showSession');
     await timeout(500);
     const url = await ipcMainInvokeHandler(app, 'getURL');
+    await ipcMainInvokeHandler(app, 'launch', null, null, ['https']);
     const output :any = await ipcMainInvokeHandler(app, 'get', null, null, ['https']);
     expect(output).toHaveProperty('secure_connection');
     expect(output.secure_connection).toHaveProperty('https_redirect');

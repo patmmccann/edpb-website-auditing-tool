@@ -9,7 +9,7 @@ export class HTTPCard extends Card {
     _secure_connection = null;
 
     enable() {
-        this._callback = this.testHttps.bind(this);
+        this._callback = this.launch.bind(this);
         this.collector.domReadyCallbacks.push(this._callback);
     }
 
@@ -27,7 +27,7 @@ export class HTTPCard extends Card {
         this._secure_connection = null;
     }
 
-    async testHttps(){
+    override async launch(){
         const secure_connection: any = {};
 
         try {
