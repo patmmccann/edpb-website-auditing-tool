@@ -13,6 +13,9 @@ function safeJSONParse(obj:any) {
 
 export class LocalStorageCard extends Card {
     _local_storage_logger = null;
+    _timeout = null;
+    _cancel_timeout = false;
+    _local_storage = null;
 
     constructor(collector: Collector) {
         super("local-storage-card", collector);
@@ -21,15 +24,24 @@ export class LocalStorageCard extends Card {
     enable() {
       this._local_storage_logger = this.register_event_logger;
       this.collector.event_logger[this._local_storage_logger.type] = this._local_storage_logger.logger;
-
+      this._timeout = setTimeout(this.getLocalStorage.bind(this), 2000);
     }
+
     disable() {
       this.collector.event_logger[this._local_storage_logger.type] = null;
       this._local_storage_logger = null;
+
+      if(this._timeout == null){
+        this._cancel_timeout = true;
+      }else {
+        clearTimeout(this._timeout);
+        this._timeout = null;
+      }
     }
     
     async inspect() {
-        const localStorage = await this.getLocalStorage();
+        if(this._local_storage == null) return {};
+        const localStorage = structuredClone(this._local_storage);
         await this.inspectLocalStorage(localStorage);
         return localStorage;
     }
@@ -62,6 +74,8 @@ export class LocalStorageCard extends Card {
       };
 
     async getLocalStorage () {
+        this._timeout = null;
+
         const data :any = {};
         let allframes;
         try {
@@ -102,7 +116,10 @@ export class LocalStorageCard extends Card {
             this.logger.log("warn", error.message, { type: "Browser" });
           }
         }
-        return data;
+        this._local_storage = data;
+        if (!this._cancel_timeout) {
+          this._timeout = setTimeout(this.getLocalStorage.bind(this), 2000);
+        }
       };
 
       event_logger_data(event, location){
