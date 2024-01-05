@@ -29,7 +29,7 @@ export class LocalStorageCard extends Card {
     enable() {
       this._local_storage_logger = this.register_event_logger;
       this.collector.event_logger[this._local_storage_logger.type] = this._local_storage_logger.logger;
-      this._timeout = setTimeout(this.getLocalStorage.bind(this), 2000);
+      this.getLocalStorage();
     }
 
     disable() {
@@ -127,7 +127,7 @@ export class LocalStorageCard extends Card {
         }
         this._local_storage = data;
         if (!this._cancel_timeout) {
-          this._timeout = setTimeout(this.getLocalStorage.bind(this), 2000);
+          this._timeout = setTimeout(this.getLocalStorage.bind(this), 1000);
         }
       };
 

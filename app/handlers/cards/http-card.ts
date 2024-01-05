@@ -5,9 +5,9 @@
  */
 
 import * as url from 'url';
+import * as got from 'got';
 import { Collector } from "../collectors/collector";
 import { Card } from "./card";
-const wrapper = require("./../../../tools/wrapper");
 
 export class HTTPCard extends Card {
     _callback = null;
@@ -35,14 +35,16 @@ export class HTTPCard extends Card {
     override async launch(){
         const secure_connection: any = {};
 
+        async function gotWrapper() {
+            return await import("got");
+        }
+
         try {
             const uri_ins_https = new url.URL(this.collector.contents.getURL());
-
-            const got = await wrapper.gotWrapper();
-
             
             uri_ins_https.protocol = "https:";
-            await got.got(uri_ins_https, {
+             // @ts-ignore
+            await got(uri_ins_https, {
                 followRedirect: false,
             });
             secure_connection.https_support = true;
@@ -50,14 +52,16 @@ export class HTTPCard extends Card {
         } catch (error) {
             secure_connection.https_support = false;
             secure_connection.https_error = error.toString();
+            if (this.logger.writable == true)
+            this.logger.log("error", error.message, { type: "http-card" });
         }
         // test if server redirects http to https
         try {
             const uri_ins_http = new url.URL(this.collector.contents.getURL());
-            const got = await wrapper.gotWrapper();
+            const got = await gotWrapper();
             uri_ins_http.protocol = "http:";
-
-            let res = await got.got(uri_ins_http, {
+             // @ts-ignore
+            let res = await got(uri_ins_http, {
                 followRedirect: true,
                 // ignore missing/wrongly configured SSL certificates when redirecting to
                 // HTTPS to avoid reporting SSL errors in the output field http_error
@@ -81,6 +85,8 @@ export class HTTPCard extends Card {
             }
         } catch (error) {
             secure_connection.http_error = error.toString();
+            if (this.logger.writable == true)
+            this.logger.log("error", error.message, { type: "http-card" });
         }
 
         this._secure_connection = secure_connection;

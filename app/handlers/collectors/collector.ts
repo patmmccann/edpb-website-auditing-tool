@@ -41,14 +41,12 @@ export abstract class Collector {
     createLogger() {
         const transports_log = [];
 
-        if (isDev) {
-            transports_log.push(new transports.Console({
+        transports_log.push(new transports.Console({
                 level: "debug",
                 silent: false,
                 stderrLevels: ['error', 'debug', 'info', 'warn'],
                 format: process.stdout.isTTY ? format.combine(format.colorize(), format.simple()) : format.json(),
-            }));
-        }
+        }));
 
         transports_log.push(new transports.File({
             filename: tmp.tmpNameSync({ postfix: "-log.ndjson" }),

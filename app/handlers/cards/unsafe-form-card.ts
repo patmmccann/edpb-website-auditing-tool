@@ -57,8 +57,8 @@ export class UnsafeFormCard extends Card {
       } catch (error: any) {
         // ignore error if no localStorage for given origin can be
         // returned, see also: https://stackoverflow.com/q/62356783/1407622
-        if (this.logger.writable == false) return;
-        this.logger.log("warn", error.message, { type: "Browser" });
+        if (this.logger.writable == true)
+        this.logger.log("warn", error.message, { type: "unsafe-form-card" });
       }
     }
 

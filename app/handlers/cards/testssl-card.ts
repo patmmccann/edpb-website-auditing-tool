@@ -58,6 +58,8 @@ export class TestSSLCard extends Card {
                     this._testSSLError = e.message.toString();
                     if (stderr) {
                         this._testSSLErrorOutput = stderr.toString();
+                        if (this.logger.writable == true)
+                        this.logger.log("error", stderr.toString(), { type: "testssl-card" });
                     }
                 } else {
                     this._testSSLErrorCode = null;
@@ -151,7 +153,10 @@ export class TestSSLCard extends Card {
     }
 
     override clear() {
-        throw new Error('Method not implemented.');
+        this._testSSLError = null;
+        this._testSSLErrorOutput = null;
+        this._testSSLErrorCode = null;
+        this._testSSL = null;
     }
 
     override async launch(){
