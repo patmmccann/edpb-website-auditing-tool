@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/testing';

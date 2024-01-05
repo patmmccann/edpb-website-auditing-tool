@@ -1,6 +1,14 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { OthersModule } from '../others.module';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -8,7 +16,8 @@ describe('SettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      declarations: [ SettingsComponent ],
+      imports:      [ MaterialAllModule, SharedModule, OthersModule]
     })
     .compileComponents();
 

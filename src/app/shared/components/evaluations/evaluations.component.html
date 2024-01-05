@@ -55,8 +55,8 @@
       }"
     ></div>
     <div class="commentsBlock-btn">
-      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <i class="fas fa-close"></i> Close edition</button>  
-      <button *ngIf="!this.editorEvaluationComment"  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <i class="fas fa-pen"></i> 
+      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> Close edition</button>  
+      <button *ngIf="!this.editorEvaluationComment"  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon>
         <ng-container *ngIf="evaluationForm.controls['evaluationComment'].value && evaluationForm.controls['evaluationComment'].value.length >0 else write_comment">
           Edit comment
         </ng-container>

@@ -1,4 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 export type Status ='pending' | 'TBD' | 'not_compliant' | 'compliant';
+export const allStatus : Status[] = ['pending' , 'TBD' , 'not_compliant' , 'compliant'];
 
 export class Evaluation {
     public id: number=0;

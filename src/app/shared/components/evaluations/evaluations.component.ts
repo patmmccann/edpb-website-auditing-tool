@@ -1,9 +1,12 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Analysis } from 'src/app/models/analysis.model';
 import { Card } from 'src/app/models/card.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
-import { Tag } from 'src/app/models/tag.model';
 import { EvaluationService } from 'src/app/services/evaluation.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
@@ -58,7 +61,8 @@ export class EvaluationsComponent implements OnInit, OnChanges {
   }
 
   ngOnDestroy(): void {
-    tinymce.remove(this.editorEvaluationComment);
+    if (tinymce)
+      tinymce.remove(this.editorEvaluationComment);
   }
 
   ngDoCheck(): void {

@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Injectable } from '@angular/core';
 import { TagService } from './tag.service';
 import { Tag } from '../models/tag.model';
@@ -33,7 +38,18 @@ export class ReportService {
     private cardService: CardService,
     private tagService: TagService,
     private browserService: BrowserService
-  ) { }
+  ) { 
+    if (!(window as any).electron) this.createFakeElectron(window);
+  }
+
+  createFakeElectron(window: any): void {
+    window.electron = {
+      print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      print_to_pdf: (htmlString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
+    }
+  }
+
+  
 
   getAllCardsWithEvaluations(tag: Tag,
     cards_type?: string[],
@@ -117,9 +133,34 @@ export class ReportService {
       if (!card) continue;
 
       switch (name) {
-        case 'cookies':
-        case 'localstorage':
         case 'beacons':
+          const beacon_card = [...card].map((x :any) => {
+            delete x.query; //FIXME
+            return x;
+          });
+          const beacon_sheet = name;
+          sheetName.push(beacon_sheet);
+          sheets[beacon_sheet] = utils.json_to_sheet(beacon_card);
+        break;
+        case 'localstorage':
+          const localstorage_card = [...card].map((x :any) => {
+            try {
+              const value = typeof x.value != "string"? JSON.stringify(x.value) : x.value; 
+              if (value.length > 32760) {
+                return value.slice(0, 32760) + "(...)"  //Maxium text lengh for excel
+              }
+            } catch{
+
+            }
+
+            return x;
+          });
+          const localstorage_sheet = name;
+          sheetName.push(localstorage_sheet);
+          sheets[localstorage_sheet] = utils.json_to_sheet(localstorage_card);
+        break;
+
+        case 'cookies':
         case 'evaluations':
         case 'unsafeForms':
         case 'info':
@@ -172,10 +213,14 @@ export class ReportService {
           function filter_details(lines: Details[], evaluations_opt: string[] | null): Details[] {
             let fitered_line: Details[] = [];
 
-            // Stringify log calls
+            // Stringify log calls and values
             lines.forEach((line :any) => {
               if(line.log){
                 line.log = JSON.stringify(line.log.stacks)
+              }
+
+              if(line.value && typeof(line.value)!="string"){
+                line.value = JSON.stringify(line.value);
               }
             });
 
@@ -224,7 +269,7 @@ export class ReportService {
               break;
             case 'https':
               const httpCard = (card as HTTPCard);
-              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":(httpCard.redirects as any)[0]}, evaluation: evaluation });
+              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation });
               break;
             case 'traffic':
               const trafficCard = (card as TrafficCard);
@@ -379,4 +424,11 @@ export class ReportService {
     });
   }
 
+  print_to_docx(htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string){
+    return (window as any).electron.print_to_docx(htmlString, headerHTMLString, documentOptions, footerHTMLString);
+  }
+
+  print_to_pdf(htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string){
+    return (window as any).electron.print_to_pdf(htmlString, headerHTMLString, documentOptions, footerHTMLString);
+  }
 }

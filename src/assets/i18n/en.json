@@ -1,0 +1,41 @@
+{
+    "header": {
+        "languages": {
+            "fr": "Français",
+            "en": "English"
+        },
+        "edpb": "European Data Protection Board"
+    },
+    "menu": {
+        "browse": "Browse",
+        "new": "New"
+    },
+    "help": {
+        "welcome": "Welcome to the EDPB website auditing tool",
+        "introduction":"<p>The <strong>EDPB website auditing tool</strong> collects evidence, generates reports regarding trackers that are being used by websites. It is intended to be used to facilitate website inspections.</p><p>On this page you will find information on how to use the EDPB auditing tools. Click on <a href='#/helps/how_the_tool_works'>How the tool works</a> to get a first introduction.</p><p>At any time, you can come back to this page by clicking on the help button on the left sidebar.</p>"
+    },
+    "entries": {
+        "list": {
+            "import": "Import analysis"
+        },
+        "new": {
+            "website_information": "Website information"
+        },
+        "database": {
+            "new_database": "New database"
+        },
+        "template": {
+            "new_template": "New template"
+        }
+    },
+    "browse": {
+        "toolbar": {
+            "search_input": "Search or type in a URL"
+        }
+    },
+    "settings": {
+        "category": {
+            "browser": "Browser"
+        }
+    }
+}

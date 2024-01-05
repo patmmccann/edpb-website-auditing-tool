@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output, Input, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
@@ -7,6 +12,7 @@ import { BrowserService } from 'src/app/services/browser.service';
 import { CookieCard } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageCard } from 'src/app/models/cards/local-storage-card.model';
 import { TagService } from 'src/app/services/tag.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -26,9 +32,11 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   @Output() play = new EventEmitter();
   @Output() pause = new EventEmitter();
   @Output() toggleLog = new EventEmitter();
+  @Output() devTool = new EventEmitter();
   
   @Input() analysis: Analysis | null = null;
   @Input() tag: Tag | null = null;
+  @Input() navigating = false;
   
   pause_state:boolean = false;
   log_opened:boolean =true;
@@ -38,7 +46,8 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   logVisibile:boolean = true;
 
   constructor(
-    private browserService:BrowserService
+    private browserService:BrowserService,
+    public settingsService:SettingsService
   ) { 
 
 

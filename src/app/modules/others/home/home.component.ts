@@ -1,6 +1,13 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { LanguagesService } from 'src/app/services/languages.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +16,12 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   help_content: 'home'| 'how_the_tool_works' | 'new_analysis' | 'knowledge_base' | 'create_reports' = 'home';
+  showLanguage =false;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public translateService: TranslateService,
+    public languagesService: LanguagesService
   ) { }
 
   ngOnInit(): void {

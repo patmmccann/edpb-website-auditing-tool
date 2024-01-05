@@ -26,10 +26,17 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <app-toolbar  #navToolbar
-[analysis]="analysis" [tag]="tag"
-(play)="play()" (pause)="pause()"
-    (screenshot)="screenshot()" (erase)="erase()" (save)="save()" (toggleLog)="toggleLog($event)"
-    ></app-toolbar>
+[navigating]="navigating"
+[analysis]="analysis" 
+[tag]="tag"
+(play)="play()" 
+(pause)="pause()"
+(screenshot)="screenshot()" 
+(erase)="erase()" 
+(save)="save()" 
+(toggleLog)="toggleLog($event)"
+(devTool)="devTool()"
+></app-toolbar>
 <div class="example-container">
 	<as-split [useTransition]="false" (dragEnd)="dragEnd()" [gutterSize]="10">
 		<as-split-area #content [size]="40" [order]="1"  [visible]="true">
@@ -38,12 +45,6 @@
             <div class="browse_content" #content></div>
 		</as-split-area>
 		<as-split-area #logNav [size]="30" [order]="3" [visible]="logVisible">
-            
-                <ng-container *ngIf="bottomSheetId">
-                    <button mat-raised-button class="btn btn-block btn-primary" (click)="closeBottomSheet()">Close details
-                    </button>
-                </ng-container>
-    
     
                 <mat-accordion class="example-headers-align">
                     <app-cards [context]="'view'" [analysis]="analysis" [tag]="tag" [card]="card" *ngFor="let card of cards">

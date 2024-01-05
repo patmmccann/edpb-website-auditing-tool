@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntriesRoutingModule } from './modules/entries/entries-routing.module';
@@ -25,7 +30,6 @@ const routes: Routes = [
     AnalysisRoutingModule,
     ReportRoutingModule,
     RouterModule.forRoot(routes, {
-      relativeLinkResolution: 'legacy',
       useHash: true
     })],
   exports: [RouterModule]

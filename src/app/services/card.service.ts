@@ -1,5 +1,10 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { EventEmitter, Injectable, Output  } from '@angular/core';
-import { ApplicationDb } from '../application.db';
+import { ApplicationDb } from '../classes/application.db';
 import { Card } from '../models/card.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { CookieCard } from '../models/cards/cookie-card.model';
@@ -8,6 +13,7 @@ import { LocalStorageCard } from '../models/cards/local-storage-card.model';
 import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { TrafficCard } from '../models/cards/traffic-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
+import { ScreenshotCard } from '../models/cards/screenshot-card.model';
 import { Evaluation } from '../models/evaluation.model';
 import { EvaluationService } from './evaluation.service';
 import { SettingsService } from './settings.service';
@@ -49,15 +55,6 @@ export class CardService extends ApplicationDb {
       .then(card => {
         resolve(card);
       })
-    });
-  }
-
-
-  deleteCard(card: Card): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.clearEvaluation(card);
-      this.delete(card.id);
-      resolve();
     });
   }
 
@@ -148,6 +145,14 @@ export class CardService extends ApplicationDb {
     });
   }
 
+  override async delete(id: number) {
+    const card = await this.find(id);
+    if (card.evaluation){
+      await this.evaluationService.delete(card.evaluation);
+    }
+    super.delete(card.id);
+  }
+
   clearEvaluation(card: Card): Promise<Card> {
     return new Promise(async (resolve, reject) => {
       if (card.evaluation) {
@@ -168,31 +173,31 @@ export class CardService extends ApplicationDb {
 
   initCardsBasedOnSetting() : Card[]{
     const cards :Card[]= [];
-    if (this.settingService.cookies) {
+    if (this.settingService.settings.cookies) {
       cards.push(new CookieCard("Cookies"));
     }
 
-    if (this.settingService.localstorage) {
+    if (this.settingService.settings.localstorage) {
       cards.push(new LocalStorageCard("Local Storage"));
     }
 
-    if (this.settingService.https) {
+    if (this.settingService.settings.https) {
       cards.push(new HTTPCard(null));
     }
 
-    if (this.settingService.traffic) {
+    if (this.settingService.settings.traffic) {
       cards.push(new TrafficCard(null));
     }
 
-    if (this.settingService.webform) {
+    if (this.settingService.settings.webform) {
       cards.push(new UnsafeFormsCard([]));
     }
 
-    if (this.settingService.beacons) {
+    if (this.settingService.settings.beacons) {
       cards.push(new BeaconCard());
     }
 
-    if (this.settingService.testssl) {
+    if (this.settingService.settings.testssl) {
       cards.push(new TestSSLCard({}, null, null));
     }
 
@@ -225,5 +230,43 @@ export class CardService extends ApplicationDb {
 
   castToBeaconCard(card:Card):BeaconCard{
     return (card as BeaconCard);
+  }
+
+  async export(id: number): Promise<any> {
+    const card = await this.find(id);
+    const data: any = { ...card };
+    delete data.id;
+    
+    if (card.evaluation) {
+      const evaluation = await this.evaluationService.export(card.evaluation);
+      data.evaluation = evaluation;
+    }
+
+    switch(card.kind){
+      case "image":
+        data.image = await ScreenshotCard.blobToBase64(data.image);
+
+    }
+
+    return data;
+  }
+
+  override async find(id: number | string): Promise<Card> {
+    return super.find(id);
+  }
+
+  async parse(data: any){
+    if (data.evaluation) {
+      const evaluation = await this.evaluationService.create(data.evaluation);
+      data.evaluation = evaluation.id;
+    }
+
+    switch(data.kind){
+      case "image":
+        data.image = await ScreenshotCard.base64toBlob(data.image);
+
+    }
+
+    return await this.create(data);
   }
 }

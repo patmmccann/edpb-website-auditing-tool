@@ -26,9 +26,14 @@
             <div title="On startup" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
-                <button (click)="option='browser'">Browser</button>
+                <button (click)="option='general'">General</button>
             </div>
-            <div title="Appearance" class="sc-19uuyq5 option-item">
+            <div title="Browser" class="sc-19uuyq5 option-item">
+                <div class="option-text">
+                </div>
+                <button (click)="option='browser'">{{ 'settings.category.browser' | translate }}</button>
+            </div>
+            <div title="Analysis" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
                 <button (click)="option='analysis'">Analysis</button>
@@ -36,49 +41,9 @@
         </div>
     </div>
 
-    <div *ngIf="option == 'browser'" class="content">
-        <div class="sc-1k9gyyf dkLmOS" style="max-width: 800px; margin-top: 56px;">
-            <div class="sc-xsbocb iOoRIX">Browser options</div>
-            
-            <mat-slide-toggle (change)="settingService.setItem('help', $event.checked)" [(ngModel)]="settingService.help" color="primary">
-                Show help tooltips</mat-slide-toggle> <br> <br>
-
-            <mat-slide-toggle (change)="settingService.setItem('DNT', $event.checked)" [(ngModel)]="settingService.dnt" color="primary">
-                Enable Do Not Track</mat-slide-toggle>
-        </div>
-
-        <div class="sc-1k9gyyf dkLmOS" style="max-width: 800px; margin-top: 56px;">
-            <div class="sc-xsbocb iOoRIX">Browser useragent</div>
-            <mat-form-field class="example-form-field" appearance="fill" style="width:100%">
-                <mat-label>Browser User Agent</mat-label>
-                <input (input)="settingService.setUsageAgent($event.target)" matInput type="text" [(ngModel)]="settingService.useragent">
-            </mat-form-field>
-        </div>
-
-
-     
-
-    </div>
-
-    <div *ngIf="option == 'analysis'" class="content">
-        <div class="sc-1k9gyyf dkLmOS" style="max-width: 800px; margin-top: 56px;">
-            <div class="sc-xsbocb iOoRIX">Analysis</div>
-            <mat-slide-toggle (change)="settingService.setItem('testssl', $event.checked)" [(ngModel)]="settingService.testssl"
-                color="primary">Enable Testssl (Docker must be installed and active)</mat-slide-toggle><br><br>
-            <br><br>
-                <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)" [(ngModel)]="settingService.cookies"
-                color="primary">Enable Cookies analysis</mat-slide-toggle><br><br>
-                <mat-slide-toggle (change)="settingService.setItem('localstorage', $event.checked)" [(ngModel)]="settingService.localstorage"
-                color="primary">Enable Local Storage analysis</mat-slide-toggle><br><br>
-                <mat-slide-toggle (change)="settingService.setItem('https', $event.checked)" [(ngModel)]="settingService.https"
-                color="primary">Enable HTTPS analysis</mat-slide-toggle><br><br>
-                <mat-slide-toggle (change)="settingService.setItem('traffic', $event.checked)" [(ngModel)]="settingService.traffic"
-                color="primary">Enable traffic analysis</mat-slide-toggle><br><br>
-                <mat-slide-toggle (change)="settingService.setItem('webform', $event.checked)" [(ngModel)]="settingService.webform"
-                color="primary">Enable unsafe Webform analysis</mat-slide-toggle><br><br>
-                <mat-slide-toggle (change)="settingService.setItem('beacons', $event.checked)" [(ngModel)]="settingService.beacons"
-                color="primary">Enable Web Beacon analysis</mat-slide-toggle><br><br>
-
-        </div>
+    <div class="content">
+        <app-analysis *ngIf="option == 'analysis'"></app-analysis>
+        <app-browser *ngIf="option == 'browser'"></app-browser>
+        <app-general *ngIf="option == 'general'"></app-general>
     </div>
 </div>

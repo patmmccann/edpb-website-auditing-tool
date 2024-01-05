@@ -1,6 +1,11 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Injectable } from '@angular/core';
 import { KnowledgesService } from '../knowledges.service';
-import { Indexes } from 'src/app/application.db';
+import { Indexes } from 'src/app/classes/application.db';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { Knowledge } from 'src/app/models/knowledge.model';
 
@@ -27,16 +32,34 @@ export class CookieKnowledgesService extends KnowledgesService {
     return new Promise((resolve, reject) => {
       const searchPromises: Promise<Array<CookieKnowledge>>[] = [];
 
-      searchPromises.push(this.findAllByName(name));
-      searchPromises.push(this.findAllByDomain(domain));
+      if (name){
+        searchPromises.push(this.findAllByName(name));
+      }
+      if (domain){
+        searchPromises.push(this.findAllByDomain(domain));
+      }
 
       Promise.all(searchPromises).then((allresults) => {
         const searchName = allresults[0];
         const searchDomain = allresults[1];
 
-        const name_and_domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id == entryDomain.id));
-        const name = searchName.filter(entryName => entryName.domain == "*");
-        const domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id != entryDomain.id));
+        let name :any= [];
+        let name_and_domain :any= [];
+        let domain :any= [];
+        
+        if (searchName){
+          name = searchName.filter(entryName => entryName.domain == "*");
+        }
+        if (searchDomain){
+          domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id != entryDomain.id));
+        }
+
+        if (searchName && searchDomain){
+          name_and_domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id == entryDomain.id));
+        }
+        
+        
+       
 
         resolve({
           name_and_domain: name_and_domain,

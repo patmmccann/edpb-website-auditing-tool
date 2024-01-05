@@ -56,7 +56,7 @@
         
         </div>
         <div class="header-search-input">
-            <input #search [(ngModel)]="addressbarValue" spellcheck="false" placeholder="Search or type in a URL"
+            <input #search [(ngModel)]="addressbarValue" spellcheck="false" placeholder="{{ 'browse.toolbar.search_input' | translate }}"
                 class="header-search-input-content" (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)">
             <div class="header-search-input-hidden"></div>
         </div>
@@ -93,6 +93,16 @@
             </button>
         </div>
 
+      <!--  <div *ngIf="this.analysis && this.tag" class="header-search-right">
+            <button 
+            matTooltip="Take a video of the capture"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>videocam</mat-icon>
+            </button>
+        </div>-->
+
         <div class="header-search-right">
             <button 
             matTooltip="Clear all information stored in the browser"
@@ -100,6 +110,17 @@
             matTooltipShowDelay="3000"
             (click)="erase.emit()"  size="16" opacity="0.87" class="header-search-right-button">
                 <mat-icon>delete_sweep</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="settingsService.settings.devTool" class="header-search-right">
+            <button 
+            matTooltip="Show developper tool for the current page"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+            [disabled]="!navigating"
+            (click)="devTool.emit()"  size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>bug_report</mat-icon>
             </button>
         </div>
 

@@ -6,7 +6,7 @@
             <mat-panel-description *ngIf="!editing">
             <h3 class="mt-0">
                 {{card.name}}             
-                <ng-container *ngIf="context != 'evaluate' && settingService.help && card.help != ''">
+                <ng-container *ngIf="context != 'evaluate' && settingService.settings.help && card.help != ''">
                     <mat-icon
                     [matTooltip]="card.help"
                     [matTooltipPosition]="'after'"

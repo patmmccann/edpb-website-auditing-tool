@@ -1,4 +1,13 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Injectable } from '@angular/core';
+import { BrowserService } from './browser.service';
+
+export type TestSLLType ='script' | 'docker';
+export const allTestSLLType : TestSLLType[] = ['script' , 'docker'];
 
 @Injectable({
   providedIn: 'root'
@@ -8,29 +17,41 @@ export class SettingsService {
   detaultUserAgent =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36";
 
-  dnt :boolean =false;
-  testssl :boolean =false;
-  cookies :boolean =false;
-  localstorage :boolean =false;
-  https :boolean =false;
-  traffic :boolean =false;
-  webform :boolean =false;
-  beacons :boolean =false;
-  useragent:string = "";
-  help:boolean = false;
+  _settings = {
+    dnt : false,
+    devTool : false,
+    testssl : false,
+    testssl_type : 'docker',
+    test_ssl_location : "",
+    cookies : false,
+    localstorage : false,
+    https : false,
+    traffic : false,
+    webform : false,
+    beacons : false,
+    logs : false,
+    useragent:  "",
+    help: false
+  }
 
-  constructor() { 
+  constructor(
+  ) { 
+    const test_ssl_location = localStorage.getItem('test_ssl_location');
     const setAgent = localStorage.getItem('useragent');
-    this.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
-    this.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
-    this.testssl = localStorage.getItem('testssl') == 'true'? true : false ;
-    this.cookies = localStorage.getItem('cookies') == 'false'? false : true ;
-    this.localstorage = localStorage.getItem('localstorage') == 'false'?false : true ;
-    this.https = localStorage.getItem('https') == 'false'? false : true ;
-    this.traffic = localStorage.getItem('traffic') == 'false'? false : true ;
-    this.webform = localStorage.getItem('webform') == 'false'? false : true ;
-    this.beacons = localStorage.getItem('beacons') == 'false'? false : true ;
-    this.help = localStorage.getItem('help') == 'false'? false : true ;
+    this._settings.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
+    this._settings.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
+    this._settings.testssl = localStorage.getItem('testssl') == 'true'? true : false ;
+    this._settings.testssl_type = localStorage.getItem('testssl_type') == 'script'? 'script' : 'docker' ;
+    this._settings.test_ssl_location = test_ssl_location? test_ssl_location : "";
+    this._settings.cookies = localStorage.getItem('cookies') == 'false'? false : true ;
+    this._settings.localstorage = localStorage.getItem('localstorage') == 'false'?false : true ;
+    this._settings.https = localStorage.getItem('https') == 'false'? false : true ;
+    this._settings.traffic = localStorage.getItem('traffic') == 'false'? false : true ;
+    this._settings.webform = localStorage.getItem('webform') == 'false'? false : true ;
+    this._settings.beacons = localStorage.getItem('beacons') == 'false'? false : true ;
+    this._settings.logs = localStorage.getItem('logs') == 'false'? false : true ;
+    this._settings.help = localStorage.getItem('help') == 'false'? false : true ;
+    this._settings.devTool = localStorage.getItem('devTool') == 'true'? true : false ;
   }
   setItem(key :string, value:any):void{
     localStorage.setItem(key, value);
@@ -42,11 +63,12 @@ export class SettingsService {
     }
   }
 
-  toArgs():any{
-    let args:any = {};
-    args.dnt = this.dnt ;
-    args.testssl = this.testssl ;
-    args.useragent = this.useragent
-    return args;
+  setTestSSLLocation(location:string){
+    this._settings.test_ssl_location = location;
+    localStorage.setItem('test_ssl_location', location);
+  }
+
+  get settings(){
+    return this._settings;
   }
 }

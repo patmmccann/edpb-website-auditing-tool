@@ -1,0 +1,20 @@
+.header {
+    margin-top: 4px;
+    margin-bottom: 16px;
+    font-size: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.content {
+    position: relative;
+    margin: 64px;
+    max-width: 1024px;
+}
+
+.form-ssl-field{
+    width: 60%;
+}

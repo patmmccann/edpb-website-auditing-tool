@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
@@ -9,7 +14,7 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 export class KnowledgeBaseItemComponent implements OnInit {
 
   @Input() item: any;
-  @Input() itemKb: any;
+  @Input() itemKb: any = {name:"", description:"", slug:""};
   titleKb: string="";
 
   constructor(

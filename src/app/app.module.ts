@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +14,7 @@ import { BaseModule } from './modules/base/base.module';
 import { BrowseModule } from './modules/browse/browse.module';
 import { TemplateModule } from './modules/template/template.module';
 import { ReportModule } from './modules/report/report.module';
+
 
 
 @NgModule({

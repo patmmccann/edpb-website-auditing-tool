@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -7,18 +12,10 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  localStorage:any=null;
-  option:'browser'|'analysis'|'cookies'='browser';
-
-  SSLLocation: FormGroup = new FormGroup({
-    ssl_location: new FormControl('', [])
-  });
+  option:'general'|'browser'|'analysis'|'cookies'='general';
 
   constructor(
-    private el: ElementRef,
-    public settingService : SettingsService
   ) { 
-    this.localStorage =localStorage;
 
   }
 

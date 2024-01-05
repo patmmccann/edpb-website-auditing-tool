@@ -1,0 +1,11 @@
+<mat-toolbar>
+    <div style="margin-left: 30px;">
+        <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i>  {{ "entries.list.import" | translate }}</button>
+    </div>
+</mat-toolbar>
+
+<div class="hide">
+    <form enctype="multipart/form-data" [formGroup]="importAnalysis">
+        <input type="file" id="import_analysis" (change)="import($event)" class="hide" />
+    </form>
+</div>

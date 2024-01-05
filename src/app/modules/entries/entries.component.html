@@ -3,8 +3,7 @@
         <li class="breadcrumb-item">
             <a>
                 <strong>
-                    <ng-container
-                        *ngIf="type_entries === 'edit' || type_entries === 'new'">
+                    <ng-container *ngIf="type_entries === 'edit' || type_entries === 'new'">
                         Analyses
                     </ng-container>
                     <ng-container *ngIf="type_entries === 'knowledgeBase'">
@@ -26,23 +25,24 @@
                 </ng-container>
             </ng-container>
         </li>
-        <!--
-        <span class="header-spacer"></span>
-        <strong>
-            EN
-        </strong>
-        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-toolbar *ngIf="type_entries=='knowledgeBase'">
     <div style="margin-left: 30px;">
-        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> New
-            database</button>
+        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.database.new_database' | translate }}</button>
         <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Import </button>
-        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> Export all </button>
+        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> Export all
+        </button>
+        <button mat-raised-button color="blue"><mat-icon>search</mat-icon> Search </button>
     </div>
 </mat-toolbar>
+
+<app-toolbar-analysis 
+*ngIf="type_entries=='edit'"
+(imported)="refreshContent()"
+>
+</app-toolbar-analysis>
 
 <mat-toolbar *ngIf="type_entries=='template'">
     <div style="margin-left: 30px;">
@@ -55,7 +55,7 @@
 
     <div class="main_panel">
         <ng-container [ngSwitch]="type_entries" *ngIf="!loading; else loadingEntries">
-            <ng-container *ngSwitchCase="'edit'">
+            <ng-container *ngSwitchCase="'edit'">             
                 <div class="surveytitle">
                     <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of analysis to be evaluated.</strong></span></div>
                 </div><br>
@@ -67,7 +67,8 @@
             </ng-container>
             <ng-container *ngSwitchCase="'knowledgeBase'">
                 <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of known trackers with their purposes</strong></span></div>
+                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of known trackers with
+                                their purposes</strong></span></div>
                 </div><br>
                 <app-knowledgebase-table [entries]="entries" (changed)="updateEntrie($event)"
                     (duplicated)="refreshContent()" (deleted)="refreshContent()">
@@ -77,7 +78,9 @@
             </ng-container>
             <ng-container *ngSwitchCase="'template'">
                 <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>Templates can be used to format report of analysis in HTML or PDF format.</strong><br><i>Refer to the section templating in help for more information about the template format</i></span>
+                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>Templates can be used to
+                                format report of analysis in HTML or PDF format.</strong><br><i>Refer to the section
+                                templating in help for more information about the template format</i></span>
                     </div>
                 </div><br>
 
@@ -90,14 +93,11 @@
         </ng-container>
         <ng-template #loadingEntries>
             <tbody>
-              <div class="entries-loading entries-loading-line">
-                <app-loading-overlay
-                  [visibility]="true"
-                  [childMode]="true"
-                ></app-loading-overlay>
-              </div>
+                <div class="entries-loading entries-loading-line">
+                    <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
+                </div>
             </tbody>
-          </ng-template>
+        </ng-template>
     </div>
     <div *ngIf="type_entries =='edit'" class="right_panel">
         <mat-card class="sticky-card">

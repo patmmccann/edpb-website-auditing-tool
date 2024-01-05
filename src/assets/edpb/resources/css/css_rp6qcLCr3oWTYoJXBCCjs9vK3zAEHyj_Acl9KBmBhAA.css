@@ -5068,8 +5068,8 @@ input[type=button].btn-block {
     display: block;
     min-height: 1.5rem;
     padding-left: 1.5rem;
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact
+    -webkit-print-print-color-adjust: exact;
+    print-color-adjust: exact
 }
 
 .custom-control-inline {
@@ -21154,7 +21154,7 @@ header#header {
     content: "\F7A2";
     position: absolute;
     right: 0;
-    top: -0.15rem;
+    top: 0.2rem;
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     font-size: 1.2em

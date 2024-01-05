@@ -1,0 +1,38 @@
+<mat-form-field>
+    <mat-label>Creator</mat-label>
+    <input matInput type="text" [disabled]="editing" [(ngModel)]="creator">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [disabled]="editing" [(ngModel)]="title">
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Orientation</mat-label>
+    <mat-select [(value)]="orientation" [disabled]="editing">
+        <mat-option value="portrait"><mat-icon>crop_portrait</mat-icon> Portrait</mat-option>
+        <mat-option value="landscape"><mat-icon>crop_landscape</mat-icon> Landscape</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Page size</mat-label>
+    <mat-select [(value)]="_pageSize" [disabled]="editing">
+        <mat-option value="A1">A1</mat-option>
+        <mat-option value="A2">A2</mat-option>
+        <mat-option value="A3">A3</mat-option>
+        <mat-option value="A4">A4</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Page number</mat-label>
+    <mat-select [(value)]="pageNumber" [disabled]="editing">
+        <mat-option value="yes">Yes</mat-option>
+        <mat-option value="no">No</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<button [disabled]="editing" (click)="save()" mat-raised-button color="blue"><mat-icon>save</mat-icon> Save</button>
+
+
+<div class="hide">
+    <a href="" id="exportDocx"></a>
+</div>

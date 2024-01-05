@@ -1,12 +1,17 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
-import { ApplicationDb } from '../application.db';
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
+import { Injectable } from '@angular/core';
+import { ApplicationDb } from '../classes/application.db';
 import { Evaluation } from '../models/evaluation.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvaluationService extends ApplicationDb {
-  
+
 
   constructor() {
     super(1, 'evaluation');
@@ -40,5 +45,16 @@ export class EvaluationService extends ApplicationDb {
       }
     }
     return formData;
+  }
+
+  override async find(id: number | string): Promise<Evaluation> {
+    return super.find(id);
+  }
+
+  async export(id: number): Promise<any> {
+    const evaluation = await this.find(id);
+    const data :any = { ...evaluation };
+    delete data.id;
+    return data;
   }
 }

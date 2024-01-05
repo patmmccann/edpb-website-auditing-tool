@@ -1,112 +1,145 @@
 {
   "name": "website-audit",
-  "version": "1.0.1",
-  "author": "jgorin <jgorin@protonmail.com>",
-  "license": "GPLV3",
+  "version": "1.1.0",
+  "author": "EDPB <jgorin@protonmail.com>",
+  "license": "EUPL-1.0",
   "main": "electron/main.js",
-  "repository": "https://github.com/gorinje/website-audit3.git",
+  "repository": "https://code.europa.eu/spe/website-audit.git",
+  "homepage": "https://code.europa.eu/spe/website-audit",
   "description": "Website auditing tool",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm-run-all -p electron:serve-tsc ng:serve electron:serve",
+    "ng:serve": "ng serve",
+    "ng:test": "ng test",
+    "build": "tsc -p app/tsconfig.prod.json && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "npm run build && npm-run-all -p ng:test e2e",
+    "electron:serve-tsc": "tsc --watch --project ./app",
+    "electron:serve": "wait-on tcp:4200 && electron .",
     "electron:start": "ng build --base-href ./ && electron .",
-    "electron:mac": "ng build --base-href ./ && electron-builder -m --publish=never",
-    "electron:win": "ng build --base-href ./ && electron-builder -w --publish=never",
-    "electron:linux": "ng build --base-href ./ && electron-builder -l --publish=never"
+    "electron:mac": "npm run build && electron-builder -m --publish=never",
+    "electron:win": "npm run build && electron-builder -w --publish=never",
+    "electron:linux": "npm run build && electron-builder -l --publish=never",
+    "e2e": "npx playwright test",
+    "e2e:report": "npx playwright show-report",
+    "e2e:ui": "npx playwright test --ui"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^14.0.0",
-    "@angular/cdk": "~14.2.2",
-    "@angular/common": "^14.0.0",
-    "@angular/compiler": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/forms": "^14.0.0",
-    "@angular/material": "~14.2.2",
-    "@angular/platform-browser": "^14.0.0",
-    "@angular/platform-browser-dynamic": "^14.0.0",
-    "@angular/router": "^14.0.0",
+    "@angular/animations": "^16.0.0",
+    "@angular/cdk": "~16.2.8",
+    "@angular/common": "^16.0.0",
+    "@angular/compiler": "^16.0.0",
+    "@angular/core": "^16.0.0",
+    "@angular/forms": "^16.0.0",
+    "@angular/material": "~16.2.8",
+    "@angular/platform-browser": "^16.0.0",
+    "@angular/platform-browser-dynamic": "^16.0.0",
+    "@angular/router": "^16.0.0",
     "@cliqz/adblocker": "^1.25.1",
-    "angular-split": "^14.1.0",
+    "@cliqz/adblocker-puppeteer": "^1.26.12",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
+    "@types/got": "^9.6.12",
+    "@types/har-format": "^1.2.15",
+    "angular-split": "^16.2.1",
     "electron-is-dev": "^2.0.0",
     "electron-window-state": "^5.0.3",
     "font-awesome": "^4.7.0",
     "foundation-sites": "^6.7.5",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.1",
     "git-describe": "^4.1.1",
     "github-markdown-css": "^5.1.0",
     "got": "^11.8.3",
-    "html-docx-js": "^0.3.1",
+    "html-to-docx": "^1.8.0",
     "js-yaml": "^4.1.0",
+    "npm-run-all": "^4.1.5",
     "pug": "^3.0.2",
-    "rxjs": "~7.5.0",
+    "rxjs": "~7.8.1",
     "stacktrace-js": "^2.0.2",
     "tinymce": "^6.2.0",
-    "tldts-experimental": "^5.7.97",
+    "tldts-experimental": "^6.0.16",
     "tmp": "^0.2.1",
     "tough-cookie": "^4.1.2",
     "tslib": "^2.3.0",
     "winston": "^3.8.2",
-    "xlsx": "^0.18.5",
-    "zone.js": "~0.11.4"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz",
+    "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.1",
-    "@angular/cli": "~14.2.1",
-    "@angular/compiler-cli": "^14.0.0",
-    "@types/jasmine": "~4.0.0",
+    "@angular-devkit/build-angular": "^16.2.6",
+    "@angular/cli": "~16.0.0",
+    "@angular/compiler-cli": "^16.0.0",
+    "@faker-js/faker": "^8.2.0",
+    "@playwright/test": "^1.39.0",
+    "@types/jasmine": "~5.1.0",
     "@types/js-yaml": "^4.0.5",
-    "electron": "^21.1.1",
-    "electron-builder": "^23.6.0",
-    "jasmine-core": "~4.3.0",
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^20.8.10",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "electron-debug": "^3.2.0",
+    "electron-playwright-helpers": "^1.7.0",
+    "electron-reloader": "^1.2.3",
+    "jasmine-core": "~5.1.1",
     "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
+    "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~4.7.2"
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "playwright": "^1.39.0",
+    "typescript": "~5.1.0",
+    "wait-on": "^7.1.0"
   },
   "build": {
     "directories": {
-      "output": "electron/releases"
-    }
-  },
-  "win": {
-    "target": [
-      {
-        "target": "nsis",
+      "output": "releases",
+      "buildResources": "resources"
+    },
+    "files": [
+      "electron/**/*",
+      "assets/**/*",
+      "dist/**/*"
+    ],
+    "linux": {
+      "category": "Utility",
+      "target": "deb"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "resources/icons/512x512.png",
+      "verifyUpdateCodeSignature": false,
+      "publisherName": "EDPB"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "icon": "resources/icons/512x512.png",
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "category": "public.app.category.productivity",
+      "target": {
+        "target": "default",
         "arch": [
-          "x64",
-          "ia32"
+          "universal"
         ]
       }
-    ],
-    "icon": "electron/icons/512x512.png",
-    "verifyUpdateCodeSignature": false,
-    "publisherName": "EDPB"
-  },
-  "nsis": {
-    "oneClick": false,
-    "perMachine": true,
-    "allowToChangeInstallationDirectory": true
-  },
-  "mac": {
-    "hardenedRuntime": true,
-    "gatekeeperAssess": false,
-    "icon": "electron/icons/512x512.png",
-    "entitlements": "electron/entitlements.mac.plist",
-    "entitlementsInherit": "electron/entitlements.mac.plist",
-    "category": "public.app.category.productivity",
-    "target": {
-      "target": "default",
-      "arch": [
-        "universal"
-      ]
     }
   }
 }

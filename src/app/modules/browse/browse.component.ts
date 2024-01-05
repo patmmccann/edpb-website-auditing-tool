@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
@@ -24,7 +29,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   @ViewChild('navToolbar') navToolbarElement: ElementRef = new ElementRef({});
 
   cards: Card[] = [];
-
+  navigating = false;
   analysis: Analysis | null = null;
   tag: Tag | null = null;
   browserId: number = 0;
@@ -92,13 +97,15 @@ export class BrowseComponent implements OnInit, OnDestroy {
             panelClass: 'browser-details-position',
             hasBackdrop: false
           });
+
+          this.bottomSheetId.afterDismissed().subscribe(() => {
+            this.bottomSheetId = null;
+         }); 
       }
     });
 
     this.safeLoadEventSubscriber = this.browserService.loadEvent.subscribe((event) => {
       (this.navToolbarElement as any).update();
-      const cards_to_update = this.cards.filter(card => card.kind == 'https' || card.kind == 'forms');
-      this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
     });
 
   }
@@ -106,8 +113,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   startUpdate(): void {
     this.clearUpdate();
     this.update();
-    const cards_to_update = this.cards.filter(card => card.kind == 'https' || card.kind == 'forms');
-    this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
+    this.browserService.updateCards(window, this.cards, this.analysis, this.tag);
     this.id = setInterval(async () => {
       this.update();
     }, 1000);
@@ -130,8 +136,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   async update() {
     try {
-      const cards_to_update = this.cards.filter(card => card.kind == 'beacons' || card.kind == 'cookie' || card.kind == 'localstorage' || card.kind == 'traffic' || card.kind == 'testSSL');
-      await this.browserService.updateCards(window, cards_to_update, this.analysis, this.tag, false);
+      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag);
 
       if (this.save_cards) {
         await this.cardService.updateAll(this.cards);
@@ -145,25 +150,20 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearUpdate();
-    this.closeBottomSheet();
+    if (this.bottomSheetId){
+      this.bottomSheetId.dismiss();
+    }
 
     this.safeDetailsSubscriber?.unsubscribe();
     this.safeLoadEventSubscriber?.unsubscribe();
     this.browserService.hideSession(window);
   }
 
-  closeBottomSheet(): void {
-    if (this.bottomSheetId) {
-      this.bottomSheetId.dismiss();
-    }
-    this.bottomSheetId = null;
-  }
-
   async save(): Promise<void> {
     if (this.analysis && this.tag) {
       this.clearUpdate();
-      await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, true);
-      await this.cardService.updateAll(this.cards);
+      //await this.browserService.updateCards(window, this.cards, this.analysis, this.tag, true);
+      //await this.cardService.updateAll(this.cards);
       await this.browserService.deleteSession(window, this.analysis, this.tag);
       this.router.navigate(['analysis', this.analysis.id, 'tag', this.tag.id]);
     }
@@ -174,6 +174,12 @@ export class BrowseComponent implements OnInit, OnDestroy {
     this.browserService
       .eraseSession(window, this.analysis, this.tag);
     this.startUpdate();
+  }
+
+  devTool(){
+    this.browserService
+    .toogleDevTool(window, this.analysis, this.tag);
+
   }
 
   screenshot(): void {

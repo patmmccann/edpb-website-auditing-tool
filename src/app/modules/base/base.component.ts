@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +13,7 @@ import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-know
 import { Knowledge } from 'src/app/models/knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-base',
@@ -242,6 +248,10 @@ export class BaseComponent implements OnInit {
           console.log(err);
         });
     }
+  }
+
+  sortBy(sort: Sort): void {
+
   }
 
 }

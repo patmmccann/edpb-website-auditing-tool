@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +15,7 @@ import { ModalComponent } from './components/modal/modal.component';
 
 import {
   FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge
-} from '../tools';
+} from '../pipes/tools';
 
 
 import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-base.component';
@@ -47,10 +52,21 @@ import { BeaconCardComponent } from './components/cards/beacon-card/beacon-card.
 import { BeaconDetailsComponent } from './components/details/beacon-details/beacon-details.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LanguagesComponent } from './components/languages/languages.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+import { WATTranslateLoader } from './translate/wattranslate-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
     SideNavComponent,
+    LanguagesComponent,
     FilterForUser,
     FilterForEval,
     ModalComponent,
@@ -82,7 +98,8 @@ import { HttpClientModule } from '@angular/common/http';
     UnsafeFormCardComponent,
     BeaconCardComponent,
     BeaconDetailsComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    LanguagesComponent
     ],
   imports: [
     HttpClientModule,
@@ -91,10 +108,18 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MaterialAllModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useClass: WATTranslateLoader,
+          deps: [HttpClient]
+      }
+  })
   ],
   exports: [
     SideNavComponent,
+    LanguagesComponent,
     FilterForUser,
     FilterForEval,
     FormsModule,
@@ -124,7 +149,8 @@ import { HttpClientModule } from '@angular/common/http';
     CardsComponent,
     EvaluationsComponent,
     CommentsComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    TranslateModule,
   ],
   providers: [
     KnowledgeBaseService,
