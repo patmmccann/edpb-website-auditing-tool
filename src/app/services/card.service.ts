@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { EventEmitter, Injectable, Output  } from '@angular/core';
 import { ApplicationDb } from '../classes/application.db';
 import { Card } from '../models/card.model';

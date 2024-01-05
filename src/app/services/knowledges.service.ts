@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { ApplicationDb, Indexes } from 'src/app/classes/application.db';
 import { Knowledge } from 'src/app/models/knowledge.model';
 

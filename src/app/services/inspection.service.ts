@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Injectable } from '@angular/core';
 import { Card } from '../models/card.model';
 import { TrafficCard } from '../models/cards/traffic-card.model';

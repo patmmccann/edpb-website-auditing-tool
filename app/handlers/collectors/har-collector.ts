@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Collector } from "./collector";
 import { TrafficCard } from "../cards/traffic-card";
 import { BeaconCard } from "../cards/beacon-card";

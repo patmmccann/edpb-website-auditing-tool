@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import en from '../../../assets/i18n/en.json';
 
 import { TranslateLoader } from '@ngx-translate/core';

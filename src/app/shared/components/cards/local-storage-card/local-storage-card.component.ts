@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { viewContext } from 'src/app/models/card.model';
 import { LocalStorageCard} from 'src/app/models/cards/local-storage-card.model';

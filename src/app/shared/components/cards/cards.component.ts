@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
+ *
+ * SPDX-License-Identifier: EUPL-1.2
+ */
 import { Component, Input, OnInit } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { viewContext } from 'src/app/models/card.model';
