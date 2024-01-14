@@ -4,13 +4,13 @@
             <a>
                 <strong>
                     <ng-container *ngIf="type_entries === 'edit' || type_entries === 'new'">
-                        Analyses
+                        {{ 'header.analyses' | translate }}
                     </ng-container>
                     <ng-container *ngIf="type_entries === 'knowledgeBase'">
-                        Knowledge base
+                        {{ 'header.knowledge' | translate }}
                     </ng-container>
                     <ng-container *ngIf="type_entries === 'template'">
-                        Template
+                        {{ 'menu.template' | translate }}
                     </ng-container>
                 </strong>
             </a>
@@ -18,10 +18,10 @@
         <li class="breadcrumb-item">
             <ng-container [ngSwitch]="type_entries">
                 <ng-container *ngSwitchCase="'edit'">
-                    List
+                    {{ 'header.list' | translate }}
                 </ng-container>
                 <ng-container *ngSwitchCase="'report'">
-                    Report
+                    {{ 'entries.report' | translate }}
                 </ng-container>
             </ng-container>
         </li>
@@ -31,10 +31,10 @@
 <mat-toolbar *ngIf="type_entries=='knowledgeBase'">
     <div style="margin-left: 30px;">
         <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.database.new_database' | translate }}</button>
-        <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Import </button>
-        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> Export all
+        <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> {{ 'header.import' | translate }} </button>
+        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> {{ "entries.export_all" | translate }}
         </button>
-        <button mat-raised-button color="blue"><mat-icon>search</mat-icon> Search </button>
+        <button mat-raised-button color="blue"><mat-icon>search</mat-icon> {{ 'entries.search' | translate }} </button>
     </div>
 </mat-toolbar>
 
@@ -46,8 +46,7 @@
 
 <mat-toolbar *ngIf="type_entries=='template'">
     <div style="margin-left: 30px;">
-        <button (click)="openNewTemplateDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> New
-            template</button>
+        <button (click)="openNewTemplateDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_template' | translate }}</button>
     </div>
 </mat-toolbar>
 
@@ -57,7 +56,7 @@
         <ng-container [ngSwitch]="type_entries" *ngIf="!loading; else loadingEntries">
             <ng-container *ngSwitchCase="'edit'">             
                 <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of analysis to be evaluated.</strong></span></div>
+                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.analysis' | translate }}</strong></span></div>
                 </div><br>
                 <app-analysis-line *ngFor="
                 let analysis of entries | filterForUser: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
@@ -67,8 +66,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'knowledgeBase'">
                 <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>List of known trackers with
-                                their purposes</strong></span></div>
+                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.trackers' | translate }}</strong></span></div>
                 </div><br>
                 <app-knowledgebase-table [entries]="entries" (changed)="updateEntrie($event)"
                     (duplicated)="refreshContent()" (deleted)="refreshContent()">
@@ -102,11 +100,11 @@
     <div *ngIf="type_entries =='edit'" class="right_panel">
         <mat-card class="sticky-card">
             <mat-card-title>
-                <h2>Filters</h2>
+                <h2>{{ 'entries.list.filters' | translate }}</h2>
             </mat-card-title>
             <mat-card-content>
                 <mat-form-field appearance="fill">
-                    <mat-label>Search by name</mat-label>
+                    <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
                     <input matInput [(ngModel)]="searchText" />
                     <mat-icon *ngIf="!searchText" matSuffix>search</mat-icon>
                     <mat-icon *ngIf="searchText && searchText.length>0" (click)="onCleanSearch()" matSuffix>close
@@ -114,25 +112,25 @@
                 </mat-form-field>
                 <mat-list>
                     <mat-divider></mat-divider>
-                    <div mat-subheader>Status</div>
+                    <div mat-subheader>{{ 'analyses.evaluation.status' | translate }}</div>
                     <mat-list-item>
                         <mat-checkbox [(ngModel)]="not_evaluate" [color]="'primary'">
-                            Not evaluate
+                            {{ "analyses.evaluation.not_evaluate" | translate }}
                         </mat-checkbox>
                     </mat-list-item>
                     <mat-list-item>
                         <mat-checkbox [(ngModel)]="compliant" style="color: green;" [color]="'primary'">
-                            Compliant
+                            {{ "analyses.evaluation.compliant" | translate }}
                         </mat-checkbox>
                     </mat-list-item>
                     <mat-list-item>
                         <mat-checkbox [(ngModel)]="not_compliant" style="color: red;" [color]="'primary'">
-                            Not compliant
+                            {{ "analyses.evaluation.not_compliant" | translate }}
                         </mat-checkbox>
                     </mat-list-item>
                     <mat-list-item>
                         <mat-checkbox [(ngModel)]="tbd" style="color:#004494;" [color]="'primary'">
-                            To be defined
+                            {{ "analyses.evaluation.to_be_defined" | translate }}
                         </mat-checkbox>
                     </mat-list-item>
                 </mat-list>

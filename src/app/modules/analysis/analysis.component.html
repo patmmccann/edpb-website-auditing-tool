@@ -4,14 +4,14 @@
             <a>
                 <a [routerLink]="['/entries']">
                     <strong>
-                        Analyses
+                        {{ "header.analyses" | translate }}
                     </strong>
                 </a>
             </a>
         </li>
         <li class="breadcrumb-item">
             <strong>
-                Edit
+                {{ "header.edit" | translate }}
             </strong>
         </li>
         <li class="breadcrumb-item">
@@ -44,15 +44,14 @@
         </h1>
         <mat-chip-listbox *ngIf="evaluation" [ngSwitch]="evaluation.status">
             <ng-container *ngSwitchCase="'compliant'">
-                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;">Compliant</a></mat-chip>
+                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{ "analyses.evaluation.compliant" | translate }}</a></mat-chip>
             </ng-container>
             <ng-container *ngSwitchCase="'not_compliant'">
-                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">Not compliant</a></mat-chip>
+                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;"> {{ "analyses.evaluation.not_compliant" | translate }} </a></mat-chip>
             </ng-container>
             <ng-container *ngSwitchCase="'TBD'">
                 <mat-chip>
-                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">To be
-                        defined</a>
+                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.to_be_defined" | translate }} </a>
                 </mat-chip>
             </ng-container>
         </mat-chip-listbox>
@@ -104,7 +103,7 @@
     >
         <mat-card class="sticky-card">
             <mat-card-title>
-                <h2>More details</h2>
+                <h2>{{ "analyses.panel.more_details" | translate }}</h2>
             </mat-card-title>
             <mat-card-content style="background-color:#fff ;">
                 <mat-tab-group dynamicHeight animationDuration="0ms">
@@ -114,7 +113,7 @@
                         </app-details>
                         <span style="margin-left: 10px;"
                         *ngIf="detailsService.detailsData?.log != null">
-                            <h2 >Callstack details</h2>
+                            <h2 >{{ "analyses.panel.callstack_details" | translate }}</h2>
                             <app-callstack-details [log]="detailsService.detailsData.log">
                             </app-callstack-details>
                         </span>

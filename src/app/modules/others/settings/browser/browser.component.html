@@ -1,23 +1,22 @@
 <div class="content" style="max-width: 800px; margin-top: 56px;">
-    <div class="header">Browser options</div>
 
     <mat-slide-toggle (change)="settingService.setItem('help', $event.checked)"
         [(ngModel)]="settingService.settings.help" color="primary">
-        Show help tooltips</mat-slide-toggle> <br> <br>
+        {{ 'settings.tooltips' | translate }}</mat-slide-toggle> <br> <br>
 
     <mat-slide-toggle (change)="settingService.setItem('DNT', $event.checked)" [(ngModel)]="settingService.settings.dnt"
         color="primary">
-        Enable Do Not Track</mat-slide-toggle> <br> <br>
+        {{ 'settings.do_not_track' | translate }}</mat-slide-toggle> <br> <br>
 
     <mat-slide-toggle (change)="settingService.setItem('devTool', $event.checked)" [(ngModel)]="settingService.settings.devTool"
         color="primary">
-        Show Developer Tools button</mat-slide-toggle>
+        {{ 'settings.developer_tools' | translate }}</mat-slide-toggle>
 </div>
 
 <div class="content" style="max-width: 800px; margin-top: 56px;">
-    <div class="header">Browser useragent</div>
+    <div class="header">{{ 'settings.user_agent' | translate }}</div>
     <mat-form-field appearance="fill" style="width:100%">
-        <mat-label>Browser User Agent</mat-label>
+        <mat-label>{{ 'settings.user_agent' | translate }}</mat-label>
         <input (input)="settingService.setUsageAgent($event.target)" matInput type="text"
             [(ngModel)]="settingService.settings.useragent">
     </mat-form-field>

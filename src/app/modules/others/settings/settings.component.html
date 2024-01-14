@@ -3,40 +3,35 @@
         <li class="breadcrumb-item">
             <a>
                 <strong>
-                    Settings
+                    {{ 'menu.settings' | translate }}
                 </strong>
             </a>
         </li>
-        <!--
-        <span class="header-spacer"></span>
-        <strong>
-            EN
-        </strong>
-        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
     </mat-toolbar-row>
 </mat-toolbar>
 
 
 <div class="top">
     <div class="options">
-        <div class="sc-evue5l jUdBom">
-            <div class="sc-ok1p6c csICXk">Settings</div>
-        </div>
         <div class="sc-ae0wyr jXqoqg">
-            <div title="On startup" class="sc-19uuyq5 option-item">
+            <!-- <div title="On startup" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
-                <button (click)="option='general'">General</button>
-            </div>
+                <button mat-button (click)="option='general'">General</button>
+            </div> -->
             <div title="Browser" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
-                <button (click)="option='browser'">{{ 'settings.category.browser' | translate }}</button>
+                <button mat-button  (click)="option='browser'">{{ 'menu.browser' | translate }}
+                </button>
+                <mat-icon *ngIf="option == 'browser'" >chevron_right</mat-icon>
             </div>
             <div title="Analysis" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
-                <button (click)="option='analysis'">Analysis</button>
+                <button mat-button (click)="option='analysis'">{{ 'menu.analysis' | translate }}
+                </button>
+                <mat-icon *ngIf="option == 'analysis'" >chevron_right</mat-icon>
             </div>
         </div>
     </div>
@@ -44,6 +39,6 @@
     <div class="content">
         <app-analysis *ngIf="option == 'analysis'"></app-analysis>
         <app-browser *ngIf="option == 'browser'"></app-browser>
-        <app-general *ngIf="option == 'general'"></app-general>
+        <!-- <app-general *ngIf="option == 'general'"></app-general> -->
     </div>
 </div>

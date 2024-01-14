@@ -4,12 +4,12 @@
         <li class="breadcrumb-item">
             <a>
                 <strong>
-                    Analysis
+                    {{ 'menu.analysis' | translate }}
                 </strong>
             </a>
         </li>
         <li class="breadcrumb-item">
-            Browse
+            {{ 'menu.browse' | translate }}
         </li>
         <li *ngIf="analysis " class="breadcrumb-item">
                 {{ analysis.name }}

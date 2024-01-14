@@ -12,7 +12,7 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  option:'general'|'browser'|'analysis'|'cookies'='general';
+  option:'general'|'browser'|'analysis'|'cookies'='browser';
 
   constructor(
   ) { 

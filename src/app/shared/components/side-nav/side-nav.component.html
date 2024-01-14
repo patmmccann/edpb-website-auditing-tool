@@ -4,11 +4,13 @@
                                 'unpinned':!pinned}">
 
                 <mat-list-item disabled (click)="changePinned()">
-                    <h3 matSubheader>Analysis</h3>
                     <mat-icon matListItemIcon *ngIf="pinned else unpinned" matListItemIcon>chevron_left</mat-icon>
-                    <ng-template #unpinned>
+                    <ng-template #unpinned> 
                         <mat-icon matListItemIcon style="margin-right: 90px">chevron_right</mat-icon>
                     </ng-template>
+                </mat-list-item>
+                <mat-list-item disabled>
+                    <h3 matSubheader>{{ "menu.analysis" | translate }} </h3>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item [routerLink]="['/browse']">
@@ -21,10 +23,10 @@
                 </mat-list-item>
                 <mat-list-item [routerLink]="['/entries']">
                     <mat-icon matListItemIcon>format_list_bulleted</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>List</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.list" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item disabled>
-                    <h3 matSubheader>Sessions</h3>
+                    <h3 matSubheader>{{ "menu.sessions" | translate }}</h3>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <ng-container *ngFor="let session of sessions">
@@ -36,29 +38,29 @@
                     </mat-list-item>
                 </ng-container>
                 <mat-list-item disabled>
-                    <h3 matSubheader>Editor</h3>
+                    <h3 matSubheader>{{ "menu.editor" | translate }}</h3>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item [routerLink]="['/entries', 'knowledge_bases']">
                     <mat-icon matListItemIcon>menu_book</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>Knowledge</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.knowledge" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item [routerLink]="['/entries', 'template']">
                     <mat-icon matListItemIcon>description</mat-icon>
                     <span [routerLink]="['/entries', 'template']"
-                    class="nav-link text-uppercase is-active">Template</span>
+                    class="nav-link text-uppercase is-active">{{ "menu.template" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item disabled>
-                    <h3 matSubheader>Other</h3>
+                    <h3 matSubheader>{{ "menu.other" | translate }}</h3>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item [routerLink]="['/settings']">
                     <mat-icon matListItemIcon>settings</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>Settings</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.settings" | translate }}</span>
                 </mat-list-item>
                 <mat-list-item [routerLink]="['/']">
                     <mat-icon matListItemIcon>help</mat-icon>
-                    <span class="nav-link text-uppercase is-active" matListItemTitle>Help</span>
+                    <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.help" | translate }}</span>
                 </mat-list-item>
 
         </mat-nav-list>

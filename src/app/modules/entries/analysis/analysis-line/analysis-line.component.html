@@ -7,15 +7,14 @@
         </h2>
         <mat-chip-listbox *ngIf="analysis_evaluation" [ngSwitch]="analysis_evaluation.status">
             <ng-container *ngSwitchCase="'compliant'">
-                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;">Compliant</a></mat-chip>
+                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{ 'analyses.evaluation.compliant' | translate }} </a></mat-chip>
             </ng-container>
             <ng-container *ngSwitchCase="'not_compliant'">
-                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">Not compliant</a></mat-chip>
+                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">{{ "analyses.evaluation.not_compliant" | translate }}</a></mat-chip>
             </ng-container>
             <ng-container *ngSwitchCase="'TBD'">
                 <mat-chip>
-                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">To be
-                        defined</a>
+                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.to_be_defined" | translate }}</a>
                 </mat-chip>
             </ng-container>
         </mat-chip-listbox>
