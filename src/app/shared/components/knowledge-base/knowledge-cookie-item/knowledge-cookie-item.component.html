@@ -2,10 +2,10 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h3 class="mt-0">
-        Exact match ({{knowledgeBaseData.name_and_domain.length}})
+        {{ "knowledge.cookie.exact_match" | translate }} ({{knowledgeBaseData.name_and_domain.length}})
         <ng-container *ngIf="settingService.settings.help">
           <mat-icon
-          matTooltip="The name and the domain of this cookies match entries in the knowledge base."
+          matTooltip="{{ 'knowledge.cookie.exact_match_tooltip' | translate }}"
           [matTooltipPosition]="'after'"
           >help_outline</mat-icon>
       </ng-container>
@@ -18,29 +18,29 @@
   <ng-container *ngFor="let item of knowledgeBaseData.name_and_domain">
     <div class="base-knowledges_base-displayData">
       <div class="base-knowledges_base-displayData-category">
-        Purpose : {{item.category}}
+        {{ "knowledge.purpose" | translate }} : {{item.category}}
       </div>
       <div class="base-knowledges_base-displayData-description">
         <ng-container>
-          Domain : {{item.domain}} <br>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
         </ng-container>
         <ng-container>
-          Name : {{item.name}} <br>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
         </ng-container>
         <ng-container>
-          Source : {{item.source}} <br>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
         </ng-container>
         <ng-container>
-          Data controller : {{item.controller}} <br>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
         </ng-container>
         <ng-container>
-          Privacy policy : {{item.policy}} <br>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
         </ng-container>
         <ng-container>
-          Referenced in : {{item.reference}} <br>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
         </ng-container>
         <ng-container>
-          Comments : <br>
+          {{ "knowledge.comments" | translate }} : <br>
           <div [innerHTML]="item.comment"></div>
         </ng-container>
       </div>
@@ -53,10 +53,10 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h3 class="mt-0">
-        Match name ({{knowledgeBaseData.name.length}})
+        {{ 'knowledge.cookie.match_name' | translate }} ({{knowledgeBaseData.name.length}})
         <ng-container *ngIf="settingService.settings.help">
           <mat-icon
-          matTooltip="The name associated to no domains (*) matches entries in the knowledge base."
+          matTooltip=" {{ 'knowledge.cookie.match_name_tooltip' | translate }}"
           [matTooltipPosition]="'after'"
           >help_outline</mat-icon>
       </ng-container>
@@ -69,29 +69,29 @@
   <ng-container *ngFor="let item of knowledgeBaseData.name">
     <div class="base-knowledges_base-displayData">
       <div class="base-knowledges_base-displayData-category">
-        Purpose : {{item.category}}
+        {{ "knowledge.purpose" | translate }} : {{item.category}}
       </div>
       <div class="base-knowledges_base-displayData-description">
         <ng-container>
-          Domain : {{item.domain}} <br>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
         </ng-container>
         <ng-container>
-          Name : {{item.name}} <br>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
         </ng-container>
         <ng-container>
-          Source : {{item.source}} <br>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
         </ng-container>
         <ng-container>
-          Data controller : {{item.controller}} <br>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
         </ng-container>
         <ng-container>
-          Privacy policy : {{item.policy}} <br>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
         </ng-container>
         <ng-container>
-          Referenced in : {{item.reference}} <br>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
         </ng-container>
         <ng-container>
-          Comments : <br>
+          {{ "knowledge.comments" | translate }} : <br>
           <div [innerHTML]="item.comment"></div>
         </ng-container>
       </div>
@@ -104,10 +104,10 @@
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h3 class="mt-0">
-        Match domain ({{knowledgeBaseData.domain.length}})
+        {{ 'knowledge.cookie.match_domain' | translate }} ({{knowledgeBaseData.domain.length}})
         <ng-container *ngIf="settingService.settings.help">
           <mat-icon
-          matTooltip="The domain of this cookies is associated to other entries in the knowledge base."
+          matTooltip="{{ 'knowledge.cookie.match_domain_tooltip' | translate }}"
           [matTooltipPosition]="'after'"
           >help_outline</mat-icon>
       </ng-container>
@@ -118,29 +118,29 @@
   <ng-container *ngFor="let item of knowledgeBaseData.domain">
     <div class="base-knowledges_base-displayData">
       <div class="base-knowledges_base-displayData-category">
-        Purpose :{{item.category}}
+        {{ "knowledge.purpose" | translate }} :{{item.category}}
       </div>
       <div class="base-knowledges_base-displayData-description">
         <ng-container>
-          Domain : {{item.domain}} <br>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
         </ng-container>
         <ng-container>
-          Name : {{item.name}} <br>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
         </ng-container>
         <ng-container>
-          Source : {{item.source}} <br>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
         </ng-container>
         <ng-container>
-          Data controller : {{item.controller}} <br>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
         </ng-container>
         <ng-container>
-          Privacy policy : {{item.policy}} <br>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
         </ng-container>
         <ng-container>
-          Referenced in : {{item.reference}} <br>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
         </ng-container>
         <ng-container>
-          Comments : <br>
+          {{ "knowledge.comments" | translate }} : <br>
           <div [innerHTML]="item.comment"></div>
         </ng-container>
       </div>

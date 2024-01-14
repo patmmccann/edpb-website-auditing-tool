@@ -7,10 +7,10 @@
   </colgroup>
   <thead>
     <tr>
-      <th mat-sort-header="domain">Domain</th>
-      <th mat-sort-header="name">Name</th>
-      <th mat-sort-header="category">Category</th>
-      <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">Evaluation</th>
+      <th mat-sort-header="domain">{{ "knowledge.domain" | translate }}</th>
+      <th mat-sort-header="name">{{ "knowledge.name" | translate }}</th>
+      <th mat-sort-header="category">{{ "knowledge.category" | translate }}</th>
+      <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }}</th>
     </tr>
   </thead>
   <tbody #tableContent>

@@ -2,17 +2,17 @@
 <div mat-dialog-content>
 
     <mat-form-field appearance="fill">
-        <mat-label>Template name</mat-label>
+        <mat-label>{{ "entries.template_name" | translate }}</mat-label>
 
         <input matInput [(ngModel)]="data.name">
     </mat-form-field>
     <mat-form-field appearance="fill">
 
 
-        <mat-label>Author</mat-label>
+        <mat-label>{{ "knowledge.author" | translate }}</mat-label>
         <input matInput [(ngModel)]="data.author">
     </mat-form-field>
-    <button mat-button (click)="import()">Import</button>
+    <button mat-button (click)="import()">{{ 'header.import' | translate }}</button>
 </div>
 <div class="hide">
     <form enctype="multipart/form-data" [formGroup]="importForm">
@@ -21,6 +21,6 @@
     </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [disabled]="data.name == '' || data.author == '' || data.pug == null" [mat-dialog-close]="data" cdkFocusInitial>Create</button>
+    <button mat-button (click)="onNoClick()">{{ "entries.cancel" | translate }}</button>
+    <button mat-button [disabled]="data.name == '' || data.author == '' || data.pug == null" [mat-dialog-close]="data" cdkFocusInitial>{{ "entries.create" | translate }}</button>
 </div>

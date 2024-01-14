@@ -2,11 +2,11 @@
     <mat-expansion-panel-header>
         <mat-panel-title>
             <ng-container *ngIf="tag else analysis_header">
-                <h2>Global evaluation for scenario {{tag.name}}</h2>
+                <h2>{{ "analyses.edit.scenario_header" | translate }} {{tag.name}}</h2>
             </ng-container>
             <ng-template #analysis_header>
                 <ng-container *ngIf="analysis">
-                    <h2>Global evaluation for {{analysis.name}}</h2>
+                    <h2>{{ "analyses.edit.global_header" | translate }} {{analysis.name}}</h2>
                 </ng-container>
             </ng-template>
         </mat-panel-title>
@@ -14,7 +14,7 @@
     <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
     </app-evaluations>
 
-    <h3>Summary of the evaluations</h3>
+    <h3>{{ "analyses.edit.summary" | translate }}</h3>
     <ng-container *ngIf="tag else analysis_table">
         <table *ngIf="analysis && all_cards.length>0" matSort (matSortChange)="sortCardData($event)" style="width: 100%">
             <colgroup>
@@ -24,9 +24,9 @@
             </colgroup>
             <thead>
               <tr>
-                <th mat-sort-header="name">Name</th>
-                <th mat-sort-header="evaluation">Evaluation</th>
-                <th>Manage</th>
+                <th mat-sort-header="name">{{ "analyses.edits.name" | translate }} </th>
+                <th mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }} </th>
+                <th>{{ "analyses.edit.manage" | translate }} </th>
               </tr>
             </thead>
             <tbody>
@@ -38,13 +38,13 @@
                       [ngSwitch]="card.evaluation.status"
                       >
                       <ng-container  *ngSwitchCase="'compliant'">
-                       <i style="color: green;"> Compliant </i>
+                       <i style="color: green;"> {{ "analyses.evaluation.compliant" | translate }} </i>
                       </ng-container>
                       <ng-container  *ngSwitchCase="'not_compliant'">
-                      <i style="color: red;"> Not compliant </i>
+                      <i style="color: red;"> {{ "analyses.evaluation.not_compliant" | translate }} </i>
                       </ng-container>
                       <ng-container *ngSwitchCase="'TBD'">
-                       <i style="color: #004494;" > To be defined </i>
+                       <i style="color: #004494;" > {{ "analyses.evaluation.to_be_defined" | translate }}</i>
                       </ng-container>
                     </ng-container>
                     </td>
@@ -73,9 +73,9 @@
             </colgroup>
             <thead>
               <tr>
-                <th mat-sort-header="scenario">Scenario</th>
-                <th mat-sort-header="evaluation">Evaluation</th>
-                <th>Manage</th>
+                <th mat-sort-header="scenario">{{ "analyses.edit.scenario" | translate }} </th>
+                <th mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }} </th>
+                <th>{{ "analyses.edit.manage" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -87,13 +87,13 @@
                       [ngSwitch]="tag.evaluation.status"
                       >
                       <ng-container  *ngSwitchCase="'compliant'">
-                       <i style="color: green;"> Compliant </i>
+                       <i style="color: green;">  {{ "analyses.edit.evaluation.compliant" | translate }}  </i>
                       </ng-container>
                       <ng-container  *ngSwitchCase="'not_compliant'">
-                      <i style="color: red;"> Not compliant </i>
+                      <i style="color: red;">{{ "analyses.edit.evaluation.not_compliant" | translate }} </i>
                       </ng-container>
                       <ng-container *ngSwitchCase="'TBD'">
-                       <i style="color: #004494;" > To be defined </i>
+                       <i style="color: #004494;" > {{ "analyses.edit.evaluation.to_be_defined" | translate }} </i>
                       </ng-container>
                     </ng-container>
                     </td>

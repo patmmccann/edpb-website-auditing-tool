@@ -47,52 +47,52 @@
             </div>
 
             <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'cookie'">
-                <label for="domain">Domain:</label>
+                <label for="domain">{{ "knowledge.domain" | translate }}:</label>
                 <input  formControlName="domain" type="text" placeholder="domain"
                     name="domain" required />
             </div>
             <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'cookie'">
-                <label for="name">Name:</label>
+                <label for="name">{{ "knowledge.name" | translate }}:</label>
                 <input  formControlName="name" type="text" placeholder="name" name="name"
                  required />
             </div>
             <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'localstorage'">
-                <label for="domain">Key:</label>
+                <label for="domain">{{ "knowledge.key" | translate }}:</label>
                 <input  formControlName="key" type="text" placeholder="key"
                     name="key" required />
             </div>
             
             <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'localstorage'">
-                <label for="name">Script:</label>
+                <label for="name">{{ "knowledge.script" | translate }}:</label>
                 <input  formControlName="script" type="text" placeholder="script" name="script"
                  required />
             </div>
 
             <div>
-                <label for="source">Source:</label>
+                <label for="source">{{ "knowledge.source" | translate }}:</label>
                 <input formControlName="source" type="text" placeholder="source" name="source" />
             </div>
             <div>
-                <label for="controller">RT:</label>
+                <label for="controller">{{ "knowledge.data_controller" | translate }}:</label>
                 <input formControlName="controller" type="text" placeholder="controller" name="controller" />
             </div>
             <div>
-                <label for="policy">Privacy policy:</label>
+                <label for="policy">{{ "knowledge.privacy_policy" | translate }}:</label>
                 <input formControlName="policy" type="text" placeholder="policy" name="policy" />
             </div>
             <div>
-                <label for="reference">Reference type:</label>
+                <label for="reference">{{ "knowledge.reference_type" | translate }}:</label>
                 <input formControlName="reference" type="text" placeholder="reference" name="reference" />
             </div>
 
             <div>
-                <label for="comment">Comment:</label>
+                <label for="comment">{{ "knowledge.comments" | translate }}:</label>
                 <textarea formControlName="comment" type="text" placeholder="comment" name="comment"></textarea>
             </div>
             <button 
             type="submit" [disabled]="entryForm.invalid" class="btn btn-red" id="structure-save-card-btn"
                 title="Create a new entry">
-                Create a new entry
+                {{ "knowledge.new_entry" | translate }}
             </button>
         </form>
         </div>

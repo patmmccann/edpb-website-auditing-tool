@@ -1,10 +1,10 @@
 <mat-tab-group dynamicHeight animationDuration="0ms">
   <mat-tab *ngIf="detailsService.detailsData">
     <ng-template mat-tab-label>
-      Details
+      {{ "browse.log_details.details" | translate }}
       <ng-container *ngIf="settingService.settings.help">
         <mat-icon
-        matTooltip="Detailed information related to the selected line."
+        matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
         [matTooltipPosition]="'after'"
         >help_outline</mat-icon>
       </ng-container>
@@ -15,10 +15,10 @@
   </mat-tab>
   <mat-tab *ngIf="detailsService.detailsData?.log?.stacks?.length">
     <ng-template mat-tab-label>
-      Logs
+      {{ 'browse.log_details.logs' | translate }}
       <ng-container *ngIf="settingService.settings.help">
         <mat-icon
-        matTooltip="Script or request that stored the selected information."
+        matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
         [matTooltipPosition]="'after'"
         >help_outline</mat-icon>
       </ng-container>
@@ -31,10 +31,10 @@
   <mat-tab 
   *ngIf="knowledgeBaseService.knowledgeBaseData != null">
   <ng-template mat-tab-label>
-    Knowledge
+    {{ 'menu.knowledge' | translate }}
     <ng-container *ngIf="settingService.settings.help">
       <mat-icon
-      matTooltip="Information from the knownledge base that could be linked to the selected line."
+      matTooltip="{{ 'browse.log_details.knowledge_tooltip' | translate }}"
       [matTooltipPosition]="'after'"
       >help_outline</mat-icon>
     </ng-container>

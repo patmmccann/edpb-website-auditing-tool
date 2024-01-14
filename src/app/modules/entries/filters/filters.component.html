@@ -1,10 +1,10 @@
 <mat-card class="sticky-card">
     <mat-card-title>
-        <h2>Filters</h2>
+        <h2>{{ 'entries.list.filters' | translate }}</h2>
     </mat-card-title>
     <mat-card-content>
         <mat-form-field appearance="fill">
-            <mat-label>Search by name</mat-label>
+            <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
             <input matInput [(ngModel)]="searchTerm" />
             <mat-icon *ngIf="!searchTerm" matSuffix>search</mat-icon>
             <mat-icon 
@@ -14,24 +14,24 @@
         </mat-form-field>
         <mat-list>
             <mat-divider></mat-divider>
-            <div mat-subheader>Status</div>
+            <div mat-subheader>{{ 'analyses.evaluation.status' | translate }}</div>
             <mat-list-item>
                 <mat-checkbox style="color: green;" [color]="'primary'">
-                    Compliant
+                    {{ "analyses.evaluation.compliant" | translate }}
                 </mat-checkbox>
             </mat-list-item>
             <mat-list-item>
                 <mat-checkbox style="color: red;"  [color]="'primary'">
-                    Not compliant
+                    {{ "analyses.evaluation.not_compliant" | translate }}
                 </mat-checkbox>
             </mat-list-item>
             <mat-list-item>
                 <mat-checkbox  style="color:#004494;"  [color]="'primary'">
-                    To be defined
+                    {{ "analyses.evaluation.to_be_defined" | translate }}
                 </mat-checkbox>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <div mat-subheader>Category</div>
+            <div mat-subheader>{{ "knowledge.category" | translate }}</div>
             <mat-list-item></mat-list-item>
             <mat-divider></mat-divider>
         </mat-list>

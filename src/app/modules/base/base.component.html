@@ -3,12 +3,12 @@
         <li class="breadcrumb-item">
             <a [routerLink]="['/entries','knowledge_bases']">
                 <strong>
-                    Knowledge base
+                    {{ "header.knowledge" | translate }}
                 </strong>
             </a>
         </li>
         <li class="breadcrumb-item">
-            Edit
+            {{ "header.edit" | translate }}
         </li>
         <li class="breadcrumb-item">
             {{ base.name }}
@@ -42,15 +42,15 @@
   ">
         <ng-container *ngIf="base.category == 'cookie'">
             <i class="fas fa-plus"></i>
-            New cookie entry
+            {{ "knowledge.cookie.new_entry" | translate }}
         </ng-container>
         <ng-container *ngIf="base.category == 'localstorage'">
             <i class="fas fa-plus"></i>
-            New localstorage entry
+            {{ "knowledge.localstorage.new_entry" | translate }}
         </ng-container>
     </button>
 
-    <button mat-raised-button color="blue" title="Create a new entry">
+    <!-- <button mat-raised-button color="blue" title="Create a new entry">
         <ng-container *ngIf="base.category == 'cookie'">
             <i class="fas fa-search"></i>
             Search cookie
@@ -59,16 +59,16 @@
             <i class="fas fa-search"></i>
             Search localstorage
         </ng-container>
-    </button>
+    </button> -->
 
-    <mat-form-field>
+    <!-- <mat-form-field>
         <mat-label>Change confidence</mat-label>
         <mat-select>
           <mat-option value="option1">Validated</mat-option>
           <mat-option value="option2" disabled>Reliable</mat-option>
           <mat-option value="option3">Informative</mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <div class="row">
         <div class="small-9 medium-9 columns">
@@ -79,13 +79,13 @@
                             <tr>
                                 <th style="width:75px;"></th>
                                 <th mat-sort-header="domain" colspan="2">
-                                    <a><span>Domain</span></a>
+                                    <a><span>{{ "knowledge.domain" | translate }}</span></a>
                                 </th>
                                 <th mat-sort-header="name" style="width:75px;">
-                                    <a><span>Name</span></a>
+                                    <a><span>{{ "knowledge.name" | translate }}</span></a>
                                 </th>
                                 <th mat-sort-header="category"  style="width:75px;text-align:center;">
-                                    <a><span> Category</span></a>
+                                    <a><span> {{ "knowledge.category" | translate }}</span></a>
                                 </th>
                             </tr>
                         </thead>
@@ -95,12 +95,13 @@
                                     <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-files-o" aria-hidden="true"></i>
                                         <span title="dupplicate" class="base-tooltip-text">
-                                            dupplicate
+                                            {{ "entries.dupplicate" | translate }}
                                         </span>
                                     </a>
                                     <a (click)="delete(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                        <span title="Remove" class="base-tooltip-text">Remove</span>
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        </span>
                                     </a>
                                 </td>
                                 <td class="base-listsBlock-item-click" (click)="editEntry(item.id)" colspan="2">
@@ -128,25 +129,25 @@
                                     </div>
                                     <div class="base-knowledges_base-displayData-description">
                                         <ng-container>
-                                            Domain : {{item.domain}} <br>
+                                            {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Name : {{item.name}} <br>
+                                            {{ "knowledge.name" | translate }} : {{item.name}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Source : {{item.source}} <br>
+                                            {{ "knowledge.source" | translate }} : {{item.source}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Data controller : {{item.controller}} <br>
+                                            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Privacy policy : {{item.policy}} <br>
+                                            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Referenced in : {{item.reference}} <br>
+                                            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Comments : <br>
+                                            {{ "knowledge.comments" | translate }} : <br>
                                             <div [innerHTML]="item.comment"></div>
                                         </ng-container>
                                     </div>
@@ -161,13 +162,13 @@
                             <tr>
                                 <th style="width:75px;"></th>
                                 <th colspan="2">
-                                    <a><span>Script</span></a>
+                                    <a><span>{{ "knowledge.script" | translate }}</span></a>
                                 </th>
                                 <th style="width:75px;">
-                                    <a><span>Key</span></a>
+                                    <a><span>{{ "knowledge.key" | translate }}</span></a>
                                 </th>
                                 <th style="width:75px;text-align:center;">
-                                    <a><span> Category</span></a>
+                                    <a><span> {{ "knowledge.category" | translate }}</span></a>
                                 </th>
                             </tr>
                         </thead>
@@ -177,12 +178,13 @@
                                     <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-files-o" aria-hidden="true"></i>
                                         <span title="dupplicate" class="base-tooltip-text">
-                                            dupplicate
+                                            {{ "entries.dupplicate" | translate }}
                                         </span>
                                     </a>
                                     <a (click)="delete(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                        <span title="Remove" class="base-tooltip-text">Remove</span>
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        </span>
                                     </a>
                                 </td>
                                 <td class="base-listsBlock-item-click" (click)="editEntry(item.id)" colspan="2">
@@ -210,25 +212,25 @@
                                     </div>
                                     <div class="base-knowledges_base-displayData-description">
                                         <ng-container>
-                                            Key : {{item.key}} <br>
+                                            {{ "knowledge.key" | translate }} : {{item.key}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Script : {{item.script}} <br>
+                                            {{ "knowledge.script" | translate }} : {{item.script}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Source : {{item.source}} <br>
+                                            {{ "knowledge.source" | translate }} : {{item.source}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Data controller : {{item.controller}} <br>
+                                            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Privacy policy : {{item.policy}} <br>
+                                            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Referenced in : {{item.reference}} <br>
+                                            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
                                         </ng-container>
                                         <ng-container>
-                                            Comments : <br>
+                                            {{ "knowledge.comments" | translate }} : <br>
                                             <div [innerHTML]="item.comment"></div>
                                         </ng-container>
                                     </div>
@@ -248,63 +250,63 @@
                 <div>
                     <div class="base-elementCategory-wrapper">
                         <select name="category" formControlName="category" (change)="focusOut()" required>
-                            <option value="null" disabled>Category</option>
+                            <option value="null" disabled>{{ "knowledge.category" | translate }}</option>
                             <option value="{{ category }}" *ngFor="let category of categories">{{category}}
                             </option>
                         </select>
                     </div>
                 </div>
                 <div *ngIf="base.category == 'cookie'">
-                    <label for="domain">Domain:</label>
+                    <label for="domain">{{ "knowledge.domain" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="domain" type="text" placeholder="domain"
                         name="domain" required />
                 </div>
                 <div *ngIf="base.category == 'cookie'">
-                    <label for="name">Name:</label>
+                    <label for="name">{{ "knowledge.name" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="name" type="text" placeholder="name" name="name"
                         required />
                 </div>
                 <div *ngIf="base.category == 'localstorage'">
-                    <label for="domain">Key:</label>
+                    <label for="domain">{{ "knowledge.key" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="key" type="text" placeholder="key"
                         name="key" required />
                 </div>
                 <div *ngIf="base.category == 'localstorage'">
-                    <label for="name">Script:</label>
+                    <label for="name">{{ "knowledge.script" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="script" type="text" placeholder="script" name="script"
                         required />
                 </div>
                 <div>
-                    <label for="source">Source:</label>
+                    <label for="source">{{ "knowledge.source" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="source" type="text" placeholder="source"
                         name="source" />
                 </div>
                 <div>
-                    <label for="controller">Data controler:</label>
+                    <label for="controller">{{ "knowledge.data_controller" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="controller" type="text" placeholder="controller"
                         name="controller" />
                 </div>
                 <div>
-                    <label for="policy">Privacy policy:</label>
+                    <label for="policy">{{ "knowledge.privacy_policy" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="policy" type="text" placeholder="policy"
                         name="policy" />
                 </div>
                 <div>
-                    <label for="reference">Reference type:</label>
+                    <label for="reference">{{ "knowledge.reference_type" | translate }}:</label>
                     <input (focusout)="focusOut()" formControlName="reference" type="text" placeholder="reference"
                         name="reference" />
                 </div>
 
                 <div>
-                    <label for="comment">Comment:</label>
+                    <label for="comment">{{ "knowledge.comments" | translate }}:</label>
                     <textarea (focusout)="focusOut()" formControlName="comment" type="text" placeholder="comment"
                         name="comment"></textarea>
                 </div>
                 <!-- Submit button (new element) -->
                 <div *ngIf="editMode === 'new'">
                     <button type="submit" [disabled]="entryForm.invalid" class="btn btn-red"
-                        id="structure-save-card-btn" title="Create a new entry">
-                        Create a new entry
+                        id="structure-save-card-btn" title="{{ 'knowledge.new_entry' | translate }}">
+                        {{ "knowledge.new_entry" | translate }}
                     </button>
                 </div>
             </form>
