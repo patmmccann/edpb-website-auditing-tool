@@ -2,6 +2,9 @@
  * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
  *
  * SPDX-License-Identifier: EUPL-1.2
+ * 
+ * Based on https://github.com/EU-EDPS/website-evidence-collector/blob/master/lib/logger.js
+ * from the Website Evidence Collector (https://github.com/EU-EDPS/website-evidence-collector)
  */
 import { Logger, createLogger, format, transports } from 'winston';
 

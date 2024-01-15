@@ -2,6 +2,11 @@
  * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
  *
  * SPDX-License-Identifier: EUPL-1.2
+ * 
+ * Based on https://github.com/EU-EDPS/website-evidence-collector/blob/master/inspector/index.js,
+ * https://github.com/EU-EDPS/website-evidence-collector/blob/master/collector/inspector.js and
+ * https://github.com/EU-EDPS/website-evidence-collector/blob/master/lib/setup-beacon-recording.js
+ * from the Website Evidence Collector (https://github.com/EU-EDPS/website-evidence-collector)
  */
 import { Collector } from "../collectors/collector";
 import { Card } from "./card";
