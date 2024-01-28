@@ -1,10 +1,31 @@
-# The EDPB website auditing tool
+# About EDPB Website Auditing Tool
 
-The EDPB website auditing tool collects evidence, classifies data and generates reports regarding trackers that are being used by websites.  It provides a portable and friendly interface based on the [Website Evidence Collector](https://joinup.ec.europa.eu/collection/free-and-open-source-software/solution/website-evidence-collector) with the use of the frameworks [electronjs](https://www.electronjs.org/) and [angular](https://angular.io). It is intended to be used to facilitate website inspections.
+## Overview
+
+The EDPB WAT is developed by Jérôme GORIN for the European Data Protection Board under an SPE project contract. It is a Free Software project, aiming to provide a tool to collect evidence, analyse them and generate reports regarding trackers that are being used by websites. It is intended to be used to facilitate website inspections.
+
+The EDPB WAT is licensed under the European Union Public License (EUPL) 1.2+. 
 
 Please refer to the end-user documentation in the ./doc folder to get information about its use.
 
-## Installation
+## Based on Open-Source Projects
+
+This software builds upon the work of several open-source projects, integrating, adapting or calling features for enhanced functionality:
+
+* [Project WEC](https://edps.europa.eu/edps-inspection-software_en): This EDPS command-line tool allows gathering evidence on personal data processing operations of websites using a reproducible, reliable, and fast method. The EDPB WAT project started thanks to the main WEC components, it stays greatly inspired by the WEC. The EDPB WAT allows to visualize audits made with WEC and wish to stay compliant with this project in the future.
+
+* [EasyList](https://easylist.to/): The EasyList project proposes sets of rules originally designed for Adblock (adblock.mozdev.org on WayBackMachine (archive.org)) that automatically remove unwanted content from the internet, including annoying adverts, bothersome banners and troublesome tracking. 
+The EDPB WAT uses the EasyPrivacy list and the Fanboy’s Annoyance list.
+
+* [Electron](https://www.electronjs.org/): Electron is a free and open-source software framework developed and maintained by OpenJS Foundation. It allows to build cross-platform desktop apps. The EDPB WAT is written with the Electron framework.
+
+## Contributions and Feedback
+
+The EDPB WAT has been enriched by the feedbacks and contributions from the members of the EDPB, and in particular by the officers participating in the 2023 website auditing Bootcamp. Thank you!
+
+To report issues or suggest improvements, please visit https://code.europa.eu/edpb/website-auditing-tool .
+
+# Installation
 
 Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm run start` to install all dependencies.
 
