@@ -1,0 +1,38 @@
+<table *ngIf="this.card.beaconLines.length>0" matSort (matSortChange)="sortData($event)" style="width: 100%">
+    <colgroup>
+      <col span="1" style="width: 60%;">
+      <col span="1" style="width: 10%;">
+      <col *ngIf="context=='evaluate'" span="1" style="width: 20%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th mat-sort-header="url">URL</th>
+        <th mat-sort-header="occurrances">Freq</th>
+        <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">Evaluation</th>
+      </tr>
+    </thead>
+    <tbody #tableContent>
+      <tr *ngFor="let line of this.card.beaconLines; index as idx">
+        <td class="truncate" (click)="selected(line)">{{line.url}}</td>
+        <td class="truncate" (click)="selected(line)">{{line.occurrances}}</td>
+        <td *ngIf="context=='evaluate'">
+         <button
+         (click)="setEvaluation(line, 'compliant')"
+         >
+          <mat-icon [ngClass]="{'eval_not_selected' : line.status!='compliant'}" style="color: green;">done</mat-icon>
+         </button> 
+         <button
+         (click)="setEvaluation(line, 'not_compliant')"
+         >
+          <mat-icon [ngClass]="{'eval_not_selected' : line.status!='not_compliant'}" style="color: red;">close</mat-icon>
+         </button>
+          <button
+          (click)="setEvaluation(line, 'TBD')"
+          >
+            <mat-icon [ngClass]="{'eval_not_selected' : line.status!='TBD'}" style="color: #004494;">search</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  
+  </table>

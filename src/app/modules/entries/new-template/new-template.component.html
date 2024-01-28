@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ "entries.template.new_template" | translate }}</h1>
+<div mat-dialog-content>
+
+    <mat-form-field appearance="fill">
+        <mat-label>{{ "entries.template_name" | translate }}</mat-label>
+
+        <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+
+
+        <mat-label>{{ "knowledge.author" | translate }}</mat-label>
+        <input matInput [(ngModel)]="data.author">
+    </mat-form-field>
+    <button mat-button (click)="import()">{{ 'header.import' | translate }}</button>
+</div>
+<div class="hide">
+    <form enctype="multipart/form-data" [formGroup]="importForm">
+        <input type="file" formControlName="import_template" id="import_template" (change)="import($event)"
+            class="hide" />
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">{{ "entries.cancel" | translate }}</button>
+    <button mat-button [disabled]="data.name == '' || data.author == '' || data.pug == null" [mat-dialog-close]="data" cdkFocusInitial>{{ "entries.create" | translate }}</button>
+</div>

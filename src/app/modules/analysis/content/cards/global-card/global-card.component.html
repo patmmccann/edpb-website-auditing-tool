@@ -1,0 +1,116 @@
+<mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <ng-container *ngIf="tag else analysis_header">
+                <h2>{{ "analyses.edit.scenario_header" | translate }} {{tag.name}}</h2>
+            </ng-container>
+            <ng-template #analysis_header>
+                <ng-container *ngIf="analysis">
+                    <h2>{{ "analyses.edit.global_header" | translate }} {{analysis.name}}</h2>
+                </ng-container>
+            </ng-template>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
+    </app-evaluations>
+
+    <h3>{{ "analyses.edit.summary" | translate }}</h3>
+    <ng-container *ngIf="tag else analysis_table">
+        <table *ngIf="analysis && all_cards.length>0" matSort (matSortChange)="sortCardData($event)" style="width: 100%">
+            <colgroup>
+              <col span="1" style="width: 40%;">
+              <col span="1" style="width: 40%;text-align:center;">
+              <col span="1" style="width: 20%;text-align:center;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th mat-sort-header="name">{{ "analyses.edits.name" | translate }} </th>
+                <th mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }} </th>
+                <th>{{ "analyses.edit.manage" | translate }} </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let card of all_cards">
+                    <td class="truncate">{{card.card.name}}</td>
+                    <td class="truncate">
+                      <ng-container 
+                      *ngIf="card.evaluation"
+                      [ngSwitch]="card.evaluation.status"
+                      >
+                      <ng-container  *ngSwitchCase="'compliant'">
+                       <i style="color: green;"> {{ "analyses.evaluation.compliant" | translate }} </i>
+                      </ng-container>
+                      <ng-container  *ngSwitchCase="'not_compliant'">
+                      <i style="color: red;"> {{ "analyses.evaluation.not_compliant" | translate }} </i>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'TBD'">
+                       <i style="color: #004494;" > {{ "analyses.evaluation.to_be_defined" | translate }}</i>
+                      </ng-container>
+                    </ng-container>
+                    </td>
+                    <td>
+                      <a href="javascript:void(0)" (click)="scroll(card.card)">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
+                      </a>
+                    <a [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
+                    </a>
+                    <a href="javascript:void(0)" (click)="deleteCard(card.card)">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+                    </a>                      
+                    </td>
+                </tr>
+            </tbody>
+          
+          </table>
+    </ng-container>
+    <ng-template #analysis_table>
+        <table *ngIf="analysis && all_tags.length>0" matSort (matSortChange)="sortTagData($event)" style="width: 100%">
+            <colgroup>
+              <col span="1" style="width: 40%;">
+              <col span="1" style="width: 40%;">
+              <col span="1" style="width: 20%;text-align:center;">
+            </colgroup>
+            <thead>
+              <tr>
+                <th mat-sort-header="scenario">{{ "analyses.edit.scenario" | translate }} </th>
+                <th mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }} </th>
+                <th>{{ "analyses.edit.manage" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tag of all_tags">
+                    <td class="truncate">{{tag.tag.name}}</td>
+                    <td class="truncate">
+                      <ng-container 
+                      *ngIf="tag.evaluation"
+                      [ngSwitch]="tag.evaluation.status"
+                      >
+                      <ng-container  *ngSwitchCase="'compliant'">
+                       <i style="color: green;">  {{ "analyses.edit.evaluation.compliant" | translate }}  </i>
+                      </ng-container>
+                      <ng-container  *ngSwitchCase="'not_compliant'">
+                      <i style="color: red;">{{ "analyses.edit.evaluation.not_compliant" | translate }} </i>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'TBD'">
+                       <i style="color: #004494;" > {{ "analyses.edit.evaluation.to_be_defined" | translate }} </i>
+                      </ng-container>
+                    </ng-container>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/analysis', analysis.id, 'tag', tag.tag.id]">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
+                      </a>
+                    <a [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
+                    </a>
+                    <a href="javascript:void(0)" (click)="deleteTag(tag.tag)">
+                        <mat-icon class="action-icon" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+                    </a>                      
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+    </ng-template>
+
+</mat-expansion-panel>

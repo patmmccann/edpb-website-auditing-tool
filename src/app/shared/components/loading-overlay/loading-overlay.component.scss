@@ -1,0 +1,15 @@
+.loading-overlay {
+    background: white;
+    height: 20%;
+    top: 0;
+    width: 20%;
+    z-index: 3000000;
+    display: block;
+    margin: auto;
+  
+    &.child-mode {
+      position: static;
+      background: transparent;
+    }
+  }
+  

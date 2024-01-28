@@ -1,0 +1,102 @@
+<mat-accordion>
+    <ng-container  *ngIf="knowledgeBaseService.knowledgeBaseData != null" [ngSwitch]="knowledgeBaseService.knowledgeBaseKind">
+        <ng-container *ngSwitchCase="'cookie'">
+            <app-knowledge-cookie-item [knowledgeBaseData]="knowledgeBaseService.knowledgeBaseData">
+            </app-knowledge-cookie-item>
+        </ng-container>
+        <ng-container *ngSwitchCase="'localstorage'">
+            <app-knowledge-localstorage-item [knowledgeBaseData]="knowledgeBaseService.knowledgeBaseData">
+            </app-knowledge-localstorage-item>
+        </ng-container>
+    </ng-container>
+
+    <mat-expansion-panel (opened)="loadSelectedValues()" *ngIf="context=='analysis' && (knowledgeBaseService.knowledgeBaseKind =='cookie' || knowledgeBaseService.knowledgeBaseKind =='localstorage')">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3 class="mt-0">
+                    Add this item to a knowledge base
+                </h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="knowledge-content">
+        <form (ngSubmit)="onSubmit()" [formGroup]="entryForm" class="base-knowledges_base-form">
+            <h3>
+                <mat-form-field appearance="fill">
+                    <mat-label>Select a knowledge base</mat-label>
+                    <mat-select #selectedknowbase *ngIf="customKnowledgeBases" (change)="switch(selectedKnowledBase)"
+                        >
+                        <ng-container *ngFor="let base of customKnowledgeBases">
+                            <mat-option
+                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind"
+                            [value]="base.id"
+                            >{{
+                               base.name
+                               }}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </h3>
+            <div>
+                <div class="base-elementCategory-wrapper">
+                    <select name="category" formControlName="category" required>
+                        <option value="null" disabled>Category</option>
+                        <option value="{{ category }}" *ngFor="let category of categories">{{category}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'cookie'">
+                <label for="domain">{{ "knowledge.domain" | translate }}:</label>
+                <input  formControlName="domain" type="text" placeholder="domain"
+                    name="domain" required />
+            </div>
+            <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'cookie'">
+                <label for="name">{{ "knowledge.name" | translate }}:</label>
+                <input  formControlName="name" type="text" placeholder="name" name="name"
+                 required />
+            </div>
+            <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'localstorage'">
+                <label for="domain">{{ "knowledge.key" | translate }}:</label>
+                <input  formControlName="key" type="text" placeholder="key"
+                    name="key" required />
+            </div>
+            
+            <div *ngIf="knowledgeBaseService.knowledgeBaseKind == 'localstorage'">
+                <label for="name">{{ "knowledge.script" | translate }}:</label>
+                <input  formControlName="script" type="text" placeholder="script" name="script"
+                 required />
+            </div>
+
+            <div>
+                <label for="source">{{ "knowledge.source" | translate }}:</label>
+                <input formControlName="source" type="text" placeholder="source" name="source" />
+            </div>
+            <div>
+                <label for="controller">{{ "knowledge.data_controller" | translate }}:</label>
+                <input formControlName="controller" type="text" placeholder="controller" name="controller" />
+            </div>
+            <div>
+                <label for="policy">{{ "knowledge.privacy_policy" | translate }}:</label>
+                <input formControlName="policy" type="text" placeholder="policy" name="policy" />
+            </div>
+            <div>
+                <label for="reference">{{ "knowledge.reference_type" | translate }}:</label>
+                <input formControlName="reference" type="text" placeholder="reference" name="reference" />
+            </div>
+
+            <div>
+                <label for="comment">{{ "knowledge.comments" | translate }}:</label>
+                <textarea formControlName="comment" type="text" placeholder="comment" name="comment"></textarea>
+            </div>
+            <button 
+            type="submit" [disabled]="entryForm.invalid" class="btn btn-red" id="structure-save-card-btn"
+                title="Create a new entry">
+                {{ "knowledge.new_entry" | translate }}
+            </button>
+        </form>
+        </div>
+    </mat-expansion-panel>
+
+
+</mat-accordion>

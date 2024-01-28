@@ -1,0 +1,52 @@
+@import "src/assets/stylesheets/variables";
+
+.eval_not_selected{
+    opacity: 0.1;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    border-bottom: 1px solid #d0d0d0;
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+
+    thead {
+        border: 10;
+        background: #004494;
+        color: #fff;
+    }
+
+    tbody {
+        tr {
+            height: 27px;
+            position: relative;
+
+            &:nth-child(even) {
+                background-color: $base-gray-dark;
+            }
+
+            &:nth-child(odd) {
+                background-color: $base-gray-light;
+            }
+
+            &:focus,
+            &:hover,
+            &:active {
+                background-color: #9ec8ed;
+                color: #fff;
+
+
+                .eval_not_selected {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.displayEvaluation {
+    display: none;
+}

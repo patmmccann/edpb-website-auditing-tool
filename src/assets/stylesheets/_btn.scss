@@ -1,0 +1,108 @@
+@import '../../assets/stylesheets/variables';
+.btn {
+  cursor: pointer;
+  text-align: center;
+  &-default {
+    border: 1px solid transparent;
+    padding: 9px 20px;
+    border-radius: 20px;
+    color: white;
+    &:hover, &:focus {
+      color: white;
+    }
+    &:active {
+      background-color: white;
+    }
+  }
+  &.hide {
+    @extend .btn-default;
+  }
+
+  &-inactive, &[disabled] {
+    @extend .btn-default;
+    color: $base-gray;
+    border-color: $base-gray;
+    cursor: not-allowed;
+    background-color: transparent;
+    &:focus, &:hover {
+      color: $base-gray;
+      background-color: transparent;
+    }
+  }
+
+  &-white {
+    @extend .btn-default;
+    color: $base-green;
+    background-color: white;
+    &:focus, &:hover, &.btn-active {
+      color: $base-green;
+    }
+  }
+
+  &-search {
+    @extend .btn-default;
+    border-radius: 0;
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    color: #000;
+    border-color: #aaa9a9;
+    cursor: text;
+    &::placeholder {
+      color: #aaa9a9;
+    }
+  }
+
+  &-green {
+    @extend .btn-default;
+    color: $base-green;
+    border-color: $base-blue;
+    &:focus, &:hover, &.btn-active, &.btn-active[disabled] {
+      background-color: $base-green;
+      color: white;
+    }
+  }
+
+  &-blue {
+    @extend .btn-default;
+    color: $base-blue;
+    border-color: $base-blue;
+    &:focus, &:hover, &.btn-active, &.btn-active[disabled] {
+      background-color: $base-blue;
+      color: white;
+    }
+  }
+
+  &-red {
+    @extend .btn-default;
+    color: $base-red;
+    border-color: $base-blue;
+    &:focus, &:hover, &.btn-active, &.btn-active[disabled] {
+      background-color: $base-red;
+      color: white;
+    }
+  }
+
+  &-pending-validation, &-pending-validation[disabled] {
+    font-size: 1.3rem;
+    cursor: not-allowed;
+    border: 1px solid $base-blue;
+    color: $base-blue;
+    font-weight: 600;
+    .fa {
+      font-size: 1.8rem;
+      margin-right: 8px;
+      vertical-align: -3px;
+    }
+    &:focus, &:hover, &:active {
+      color: $base-blue;
+    }
+  }
+
+  &-addMeasure {
+    border-radius: 0;
+    width: 100%;
+    box-shadow: 1px 1px 15px 1px #d2d2d2;
+    margin-bottom: 10px;
+  }
+}

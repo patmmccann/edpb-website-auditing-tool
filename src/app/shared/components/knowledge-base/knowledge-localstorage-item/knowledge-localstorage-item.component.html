@@ -1,0 +1,49 @@
+<mat-expansion-panel *ngIf="knowledgeBaseData.length >0">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <h3 class="mt-0">
+                Could match ({{knowledgeBaseData.length}})
+                <ng-container *ngIf="settingService.settings.help">
+                    <mat-icon
+                    matTooltip="The key or the script used by this local storage entries matches entries in the knowledge base."
+                    [matTooltipPosition]="'after'"
+                    >help_outline</mat-icon>
+                </ng-container>
+            </h3>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="knowledge-content">
+        <ng-container *ngFor="let item of knowledgeBaseData">
+            <div class="base-knowledges_base-displayData">
+                <div class="base-knowledges_base-displayData-category">
+                    Purpose : {{item.category}}
+                </div>
+                <div class="base-knowledges_base-displayData-description">
+                    <ng-container>
+                        Key : {{item.key}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Script : {{item.script}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Source : {{item.source}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Data controller : {{item.controller}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Privacy policy : {{item.policy}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Referenced in : {{item.reference}} <br>
+                    </ng-container>
+                    <ng-container>
+                        Comments : <br>
+                        <div [innerHTML]="item.comment"></div>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</mat-expansion-panel>

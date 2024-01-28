@@ -1,0 +1,228 @@
+@import 'src/assets/stylesheets/variables';
+
+.entries-list-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 380px;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: .875rem;
+  
+    thead {
+      border: 0;
+      background: #004494;
+      color: #fff;
+  
+      tr {
+        display: table-row;
+      }
+  
+      th {
+        width: 150px;
+        display: table-cell;
+  
+        a {
+          padding: 5px 0;
+          color: $base-white;
+          text-decoration: none;
+          display: flex;
+          cursor: pointer;
+          justify-content: space-between;
+          position: relative;
+  
+          span {
+            align-self: center;
+            padding-left: 13px;
+          }
+  
+          i {
+            color: $base-white;
+            font-size: 2.5rem;
+            align-self: center;
+            position: absolute;
+            right: 0px;
+  
+            &.deactivate {
+              color: gray;
+            }
+          }
+        }
+  
+        span {
+          border-left: solid 1px $base-white;
+  
+          &:last-child {
+            padding-left: 13px;
+          }
+        }
+  
+        &:first-child span:first-of-type {
+          border: 0;
+        }
+      }
+    }
+  
+    tbody {
+      tr {
+        height: 27px;
+        position: relative;
+  
+        &:nth-child(even) {
+          background-color: $base-gray-dark;
+        }
+  
+        &:nth-child(odd) {
+          background-color: $base-gray-light;
+        }
+  
+        &:focus,
+        &:hover,
+        &:active {
+            background-color: $base-blue-dark2;
+            td{
+              color: #fff;  
+            }
+            
+        }
+  
+        &.noElementsDisplaying {
+  
+          &:focus,
+          &:hover,
+          &:active {
+            .base-knowledges_base-displayData {
+              display: none;
+            }
+          }
+        }
+
+      }
+    }
+ }
+.base-listsBlock-item {
+  position: relative;
+  padding: 0 10px;
+  color:$base-light-blue;
+  cursor: pointer;
+  &:first-child {
+    div[contenteditable] {
+      vertical-align: middle;
+      display: inline-block;
+      width: 80%;
+    }
+  }
+  div[contenteditable] {
+    cursor: text;
+    &:focus,
+    &:hover,
+    &:active {
+      outline: 1px dotted $base-red;
+    }
+    &:focus,
+    &:active {
+      background-color: $base-gray-light;
+      color: $base-blue-dark;
+    }
+  }
+  &:last-child {
+    cursor: default;
+  }
+  &-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: stretch;
+    a {
+      color:$base-light-blue;
+      font-size: 0.875rem;
+      margin: 0 10px 0 0;
+      text-decoration: none;
+      width: 18px;
+    }
+    
+    span {
+      background-color: $base-blue-dark2;
+    }
+  }
+  &-attachment {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    cursor: pointer;
+    ul {
+      display: none;
+      position: absolute;
+      z-index: 999;
+      top: 18px;
+      left: 2px;
+      font-size: 1rem;
+      color: $base-gray-dark;
+      background-color: #fff;
+      text-align: center;
+      min-width: 100px;
+      margin: 10px 0;
+      padding: 2px 4px;
+      box-shadow: 1px 1px 2px 1px rgba(214, 212, 214, 1);
+      li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px dotted $base-gray-dark;
+        padding: 2px 0;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+    &:focus,
+    &:hover,
+    &:active {
+      ul {
+        display: block;
+      }
+    }
+  }
+}
+
+tr {
+  display: table-row;
+}
+th {
+  min-width: 128px;
+  display: table-cell;
+  a {
+    padding: 5px 0;
+    color: $base-white;
+    text-decoration: none;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    position: relative;
+    span {
+      align-self: center;
+      padding-left: 13px;
+    }
+    i {
+      padding-right: 13px;
+      color: $base-light-blue;
+      align-self: center;
+      position: absolute;
+      right: 0px;
+      &.deactivate {
+        color: $base-white;
+      }
+    }
+  }
+  span {
+    border-left: solid 1px $base-white;
+    &:last-child {
+      padding-left: 13px;
+    }
+  }
+  &:first-child span:first-of-type {
+    border: 0;
+  }
+}
+

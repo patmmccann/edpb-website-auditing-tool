@@ -1,0 +1,20 @@
+<ng-container *ngIf="detailsData" [ngSwitch]="detailsData.kind">
+    <ng-container *ngSwitchCase="'cookie'">
+        <app-cookie-details 
+        [line]="castToCookieLine(detailsData)">
+
+        </app-cookie-details>
+    </ng-container>
+    <ng-container *ngSwitchCase="'localstorage'">
+        <app-localstorage-details 
+        [line]="castToLocalStorageLine(detailsData)">
+
+        </app-localstorage-details>
+    </ng-container>
+    <ng-container *ngSwitchCase="'beacon'">
+        <app-beacon-details 
+        [line]="castToBeaconLine(detailsData)">
+
+        </app-beacon-details>
+    </ng-container>
+</ng-container>

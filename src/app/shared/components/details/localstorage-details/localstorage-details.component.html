@@ -1,0 +1,31 @@
+<div *ngIf="line">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                host 
+            </td>
+            <td class="truncate">
+                {{line.host}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                key
+            </td>
+            <td class="truncate">
+                {{line.key}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                value
+            </td>
+            <td class="truncate">
+                {{JSON.stringify(line.value)}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+</div>

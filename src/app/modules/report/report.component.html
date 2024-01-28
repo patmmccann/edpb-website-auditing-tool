@@ -1,0 +1,137 @@
+<mat-toolbar>
+    <mat-toolbar-row class="navigation-header">
+        <li class="breadcrumb-item">
+            <a>
+                <a [routerLink]="['/entries']">
+                    <strong>
+                        Analyses
+                    </strong>
+                </a>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <ng-container *ngIf="tag else displayTag">
+                <a [routerLink]="['/analysis', analysis.id]">
+                    {{ analysis.name }}
+                </a>
+            </ng-container>
+            <ng-template #displayTag>
+                {{ analysis.name }}
+            </ng-template>
+        </li>
+        <li *ngIf="tag" class="breadcrumb-item">
+            <ng-container *ngIf="card else displayCard">
+                <a [routerLink]="['/analysis', analysis.id,'tag',tag.id]">
+                    {{ tag.name }}
+                </a>
+            </ng-container>
+            <ng-template #displayCard>
+                {{ tag.name }}
+            </ng-template>
+        </li>
+        <li *ngIf="card" class="breadcrumb-item">
+            {{ card.name }}
+        </li>
+        <!--
+        <span class="header-spacer"></span>
+        <strong>
+            EN
+        </strong>
+        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-toolbar class="page-header" role="heading">
+    <div style="margin-left: 30px;">
+        <button *ngIf="!editing"  (click)="start_edition()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon> Edit</button>
+        <button *ngIf="editing" (click)="close_edition()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> Close edition</button>        
+        <button [disabled]="editing" (click)="export('json')" mat-raised-button color="blue"> <i class="fas fa-file-import"></i> Save as
+            JSON</button>
+        <button [disabled]="editing" (click)="export('xlsx')" mat-raised-button color="blue"> <i class="fas fa-file-import"></i> Save as
+                XLSX</button>
+        <button [disabled]="editing" (click)="export('html')" mat-raised-button color="blue"> <i class="fas fa-file-import"></i> Save as
+            HTML</button>
+        <button [disabled]="editing" (click)="export('pdf')" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Save as PDF
+        </button>
+        <button [disabled]="editing" (click)="export('docx')" mat-raised-button color="blue"><i class="fas fa-file-import"></i> Save as Docx
+        </button>
+    </div>
+</mat-toolbar>
+<app-toolbar
+[editing]="editing"
+[pug]="pug"
+[saveOption]="saveOption"
+></app-toolbar>
+
+<mat-card class="example-container">
+    <mat-card-header>
+        <mat-form-field appearance="fill">
+            <mat-label>Select a template</mat-label>
+            <mat-select [(value)]="selected_template" (selectionChange)="rendererHTML()">
+                <mat-option *ngFor="let template of templates" [value]="template">{{template.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="report_level == 'analysis'">
+            <mat-label>Select tags to report</mat-label>
+            <mat-select 
+            [formControl]="tags_to_display"  multiple>
+            <mat-option #allSelectedTag  [value]="'All tags'" (click)="toggleAllTagSelection()">All tags</mat-option>
+               <mat-select-trigger>
+                    {{tags_to_display.value?.[0] || ''}}
+                    <span *ngIf="(tags_to_display.value?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(tags_to_display.value?.length || 0) - 1}} {{tags_to_display.value?.length === 2 ? 'other tag' : 'others tags'}})
+                    </span>
+                  </mat-select-trigger>
+              <mat-option *ngFor="let tags_option of tags_options" [value]="tags_option" (click)="toggleTagSelection(tags_option)">{{tags_option}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="report_level == 'analysis' || report_level == 'tag'">
+            <mat-label>Select cards to report</mat-label>
+            <mat-select [formControl]="cards_to_display" multiple>
+               <mat-select-trigger>
+                    {{cards_to_display.value?.[0] || ''}}
+                    <span *ngIf="(cards_to_display.value?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(cards_to_display.value?.length || 0) - 1}} {{cards_to_display.value?.length === 2 ? 'other card' : 'others cards'}})
+                    </span>
+                  </mat-select-trigger>
+              <mat-option #allSelectedCard (click)="toggleAllCardsSelection()" [value]="'All cards'">All cards</mat-option>
+              <mat-option *ngFor="let cards_option of cards_options" [value]="cards_option" (click)="toggleCardSelection(cards_option)">{{cards_option}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Select evaluations to report</mat-label>
+            <mat-select [formControl]="evaluations_to_display" multiple>
+              <mat-select-trigger>
+                    {{evaluations_to_display.value?.[0] || ''}}
+                    <span *ngIf="(evaluations_to_display.value?.length || 0) > 1" class="example-additional-selection">
+                      (+{{(evaluations_to_display.value?.length || 0) - 1}} {{evaluations_to_display.value?.length === 2 ? 'other evaluation' : 'others evaluations'}})
+                    </span>
+                  </mat-select-trigger>
+              <mat-option #allSelectedEvaluation (click)="toggleAllEvaluationsSelection()" [value]="'All evaluations'">All evaluations</mat-option>
+              <mat-option *ngFor="let evaluation_option of evaluation_options" [value]="evaluation_option" (click)="toggleEvaluationSelection(evaluation_option)">{{evaluation_option}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-card-header>
+    <mat-card-content>
+
+        <mat-form-field
+        [ngClass]="{
+            hide:editing==false}"
+            style="width: 100%;"
+        >
+            <textarea matInput id="report_editor" [innerHTML]="pug| safeHtml"
+            ></textarea>
+        </mat-form-field>
+
+        <app-report-renderer 
+        [html]="pug"
+        [ngClass]="{
+            hide:editing==true}"
+        ></app-report-renderer>
+    </mat-card-content>
+</mat-card>
+
+
+<div class="hide">
+    <a href="" id="base-exportBlock"></a>
+</div>

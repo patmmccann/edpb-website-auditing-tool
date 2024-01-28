@@ -1,0 +1,76 @@
+<div class="card-evaluationBlock">
+
+  <div 
+  class="sectiontitle card-evaluationBlock-title"
+  >
+    <span>Evaluate</span> 
+    <span class="icon-spacer"></span>
+    
+  </div>
+
+  <form [formGroup]="evaluationForm">
+    <div class="card-evaluationBlock-buttons">
+      <button class="btn btn-green" aria-hidden="true"
+        [ngClass]="{ 'btn-active': evaluation.status === 'compliant' }" (click)="selectedButton($event, 'compliant')" name="compliant"
+        type="submit">
+        {{ "analyses.evaluation.compliant" | translate }}
+      </button>
+      <button class="btn btn-red"  aria-hidden="true"
+        [ngClass]="{ 'btn-active': evaluation.status === 'not_compliant' }" (click)="selectedButton($event, 'not_compliant')" name="fix"
+        type="submit">
+        {{ "analyses.evaluation.not_compliant" | translate }}
+      </button>
+      <button class="btn-blue"  aria-hidden="true"
+        [ngClass]="{ 'btn-active': evaluation.status === 'TBD' }" (click)="selectedButton($event, 'TBD')" name="tdb"
+        type="submit">
+        {{ "analyses.evaluation.to_be_defined" | translate }}
+      </button>
+    </div>
+
+    <div 
+    class="card-evaluationBlock-question-{{ cardId }} fadeIn" 
+    [ngClass]="{ hide: evaluation.status == 'pending' }"
+    >
+  
+      <mat-form-field >
+      <textarea 
+      matInput
+      (keyup)="autoTextareaResize($event)" id="{{ evaluationCommentElementId }}" rows="8" cols="50"
+        formControlName="evaluationComment" name="card-evaluation-comment" (focusin)="evaluationCommentFocusIn()"
+        [ngClass]="{
+        hide:
+          (!editorEvaluationComment )
+      }" [attr.placeholder]="comment_placeholder"></textarea>
+      <br>
+      <div
+      (click)="evaluationCommentFocusIn()"
+      class="card-evaluationBlock-contentText"
+      [innerHTML]="
+        evaluationForm.controls['evaluationComment'].value | safeHtml
+      "
+      [ngClass]="{
+        hide:
+          editorEvaluationComment ||
+          !evaluationForm.controls['evaluationComment'].value
+      }"
+    ></div>
+    <div class="commentsBlock-btn">
+      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> Close edition</button>  
+      <button *ngIf="!this.editorEvaluationComment"  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon>
+        <ng-container *ngIf="evaluationForm.controls['evaluationComment'].value && evaluationForm.controls['evaluationComment'].value.length >0 else write_comment">
+          Edit comment
+        </ng-container>
+        <ng-template #write_comment>
+          Write a comment
+        </ng-template>
+      
+      </button>
+    </div>
+        </mat-form-field>
+        <mat-label class="evaluationlabel"> <i>Evaluation on {{
+          evaluation.created_at | date
+          }}</i>
+        </mat-label>
+    </div>
+  </form>
+</div>

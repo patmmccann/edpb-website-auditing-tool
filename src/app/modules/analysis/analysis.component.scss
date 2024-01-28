@@ -1,0 +1,71 @@
+@import "src/assets/stylesheets/variables";
+
+mat-toolbar.page-header {
+    h1 {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38.4px;
+        text-align: left;
+        text-size-adjust: 100%;
+        margin-right: 10px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    height: auto;
+}
+
+.header-desc {
+    color: #8c8c8c;
+    font-size: .8rem;
+    font-style: italic;
+    height: 30px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-chip {
+    background: #ecedee;
+    font-size: 0.75rem;
+    min-height: 20px
+}
+
+
+.charts-wrapper {
+    display: flex;
+    margin: 0 8px;
+
+}
+
+.content {
+    width: 40%;
+    margin: 0px 20px 75px 20px;
+}
+
+.left_panel {
+    width: 20%;
+}
+
+.rigth_panel {
+    width: 40%;
+}
+
+.add-button{
+    color: black;
+    height: 30px;
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+mat-card{
+    background: #f7f7f7;
+}
+
+.sticky-card{
+    position: sticky;
+    top: 20px;
+}

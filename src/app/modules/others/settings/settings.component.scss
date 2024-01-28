@@ -1,0 +1,67 @@
+
+.top {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.options{
+    height: 100%;
+    left: 0px;
+    display: flex;
+    flex-flow: column;
+    transition: width 0.2s ease 0s;
+    padding: 0px 32px;
+    width: 320px;
+    background-color: rgb(250, 250, 250);
+}
+
+.content{
+    height: 100vh;
+    flex: 1 1 0%;
+    overflow: auto;
+}
+
+.jUdBom {
+    display: flex;
+    margin-top: 32px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.csICXk {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.jXqoqg {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 0%;
+    margin-top: 24px;
+    padding-bottom: 24px;
+    overflow: hidden auto;
+}
+
+.option-item {
+    padding: 4px 16px;
+    display: flex;
+    height: 40px;
+    border-radius: 4px;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.option-text {
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+    opacity: 0.6;
+    margin-right: 16px;
+    background-size: 20px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: none;
+}

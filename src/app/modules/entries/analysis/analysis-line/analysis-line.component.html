@@ -1,0 +1,68 @@
+<mat-toolbar class="page-header" role="heading">
+    <mat-toolbar-row>
+        <h2>
+            <a [routerLink]="['/analysis', analysis.id]">
+                {{analysis.name}}
+            </a>
+        </h2>
+        <mat-chip-listbox *ngIf="analysis_evaluation" [ngSwitch]="analysis_evaluation.status">
+            <ng-container *ngSwitchCase="'compliant'">
+                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{ 'analyses.evaluation.compliant' | translate }} </a></mat-chip>
+            </ng-container>
+            <ng-container *ngSwitchCase="'not_compliant'">
+                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">{{ "analyses.evaluation.not_compliant" | translate }}</a></mat-chip>
+            </ng-container>
+            <ng-container *ngSwitchCase="'TBD'">
+                <mat-chip>
+                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.to_be_defined" | translate }}</a>
+                </mat-chip>
+            </ng-container>
+        </mat-chip-listbox>
+        <span class="button-spacer"></span>
+        <button mat-button [routerLink]="['/analysis', analysis.id]">
+            <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>
+        </button>
+        <button mat-button (click)="export(analysis.id)">
+            <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">download</mat-icon>
+        </button>
+        <button mat-button (click)="delete()">
+            <mat-icon class="action-icon" aria-hidden="false" aria-label="delete icon">delete</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="header-desc">
+        <ng-container *ngFor="let tag of tags;let i = index">
+            <ng-container *ngIf="tags_evaluation[i] else no_evaluation" [ngSwitch]="tags_evaluation[i]?.status">
+                <ng-container *ngSwitchCase="'compliant'">
+                    <mat-chip>
+                        <a style="color: green;"
+                            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                    </mat-chip>
+                </ng-container>
+                <ng-container *ngSwitchCase="'not_compliant'">
+                    <mat-chip>
+                        <a style="color: red;" [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                    </mat-chip>
+                </ng-container>
+                <ng-container *ngSwitchCase="'TBD'">
+                    <mat-chip>
+                        <a style="color: #004494;"
+                            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                    </mat-chip>
+                </ng-container>
+            </ng-container>
+            <ng-template #no_evaluation>
+                <mat-chip>
+                    <a [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                </mat-chip>
+            </ng-template>
+        </ng-container>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="header-desc">
+        <mat-icon>link</mat-icon>
+        {{analysis.url}}
+    </mat-toolbar-row>
+    <mat-toolbar-row class="header-desc">
+        <mat-icon>date_range</mat-icon>
+        {{analysis.created_at | date}}
+    </mat-toolbar-row>
+</mat-toolbar>

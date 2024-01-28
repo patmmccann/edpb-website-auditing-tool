@@ -1,0 +1,28 @@
+mat-toolbar.page-header {
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    height: auto;
+    border: 1px solid #ecedee;
+}
+
+mat-chip {
+    background: #ecedee;
+    font-size: 0.75rem;
+    min-height: 20px
+}
+
+.header-desc {
+    color: #8c8c8c;
+    font-size: .8rem;
+    font-style: italic;
+    height: 30px;
+}
+
+.action-icon {
+    color: #8c8c8c;
+}
+
+.button-spacer {
+    flex: 1 1 auto;
+}

@@ -1,0 +1,39 @@
+<mat-card class="sticky-card">
+    <mat-card-title>
+        <h2>{{ 'entries.list.filters' | translate }}</h2>
+    </mat-card-title>
+    <mat-card-content>
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
+            <input matInput [(ngModel)]="searchTerm" />
+            <mat-icon *ngIf="!searchTerm" matSuffix>search</mat-icon>
+            <mat-icon 
+            *ngIf="searchTerm && searchTerm.length>0" 
+            (click)="onCleanSearch()"
+            matSuffix>close</mat-icon>
+        </mat-form-field>
+        <mat-list>
+            <mat-divider></mat-divider>
+            <div mat-subheader>{{ 'analyses.evaluation.status' | translate }}</div>
+            <mat-list-item>
+                <mat-checkbox style="color: green;" [color]="'primary'">
+                    {{ "analyses.evaluation.compliant" | translate }}
+                </mat-checkbox>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-checkbox style="color: red;"  [color]="'primary'">
+                    {{ "analyses.evaluation.not_compliant" | translate }}
+                </mat-checkbox>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-checkbox  style="color:#004494;"  [color]="'primary'">
+                    {{ "analyses.evaluation.to_be_defined" | translate }}
+                </mat-checkbox>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <div mat-subheader>{{ "knowledge.category" | translate }}</div>
+            <mat-list-item></mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

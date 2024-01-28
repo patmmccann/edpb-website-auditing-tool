@@ -1,0 +1,27 @@
+<h4>
+    <a [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">
+        <span>
+            {{tag.name}}
+            <ng-container *ngIf="evaluation">
+                <ng-container [ngSwitch]="evaluation.status">
+                    <ng-container *ngSwitchCase="'compliant'">
+                        <mat-icon style="color: green;font-size: 20px; height: 15px ;width: 15px;">done</mat-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'not_compliant'">
+                        <mat-icon style="color: red;font-size: 20px; height: 15px ;width: 15px;">close</mat-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'TBD'">
+                        <mat-icon style="color: #004494;font-size: 20px; height: 15px ;width: 15px;">search</mat-icon>
+                    </ng-container>
+                </ng-container>
+                <ng-container ngSwitch="analysis.">
+                </ng-container>
+            </ng-container> 
+        </span>
+    </a>
+    <br>
+    <span class="header-desc">
+        <mat-icon>date_range</mat-icon>
+        {{tag.created_at | date: "shortDate":""}}
+    </span>
+</h4>

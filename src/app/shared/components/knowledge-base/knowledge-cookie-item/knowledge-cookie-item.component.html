@@ -1,0 +1,150 @@
+<mat-expansion-panel *ngIf="knowledgeBaseData.name_and_domain.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        {{ "knowledge.cookie.exact_match" | translate }} ({{knowledgeBaseData.name_and_domain.length}})
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon
+          matTooltip="{{ 'knowledge.cookie.exact_match_tooltip' | translate }}"
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+<div class="knowledge-content">
+  <ng-container *ngFor="let item of knowledgeBaseData.name_and_domain">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        {{ "knowledge.purpose" | translate }} : {{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.comments" | translate }} : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel *ngIf="knowledgeBaseData.name.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        {{ 'knowledge.cookie.match_name' | translate }} ({{knowledgeBaseData.name.length}})
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon
+          matTooltip=" {{ 'knowledge.cookie.match_name_tooltip' | translate }}"
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="knowledge-content">
+  
+  <ng-container *ngFor="let item of knowledgeBaseData.name">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        {{ "knowledge.purpose" | translate }} : {{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.comments" | translate }} : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</mat-expansion-panel>
+
+<mat-expansion-panel *ngIf="knowledgeBaseData.domain.length >0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        {{ 'knowledge.cookie.match_domain' | translate }} ({{knowledgeBaseData.domain.length}})
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon
+          matTooltip="{{ 'knowledge.cookie.match_domain_tooltip' | translate }}"
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+      </ng-container>
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="knowledge-content">
+  <ng-container *ngFor="let item of knowledgeBaseData.domain">
+    <div class="base-knowledges_base-displayData">
+      <div class="base-knowledges_base-displayData-category">
+        {{ "knowledge.purpose" | translate }} :{{item.category}}
+      </div>
+      <div class="base-knowledges_base-displayData-description">
+        <ng-container>
+          {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.name" | translate }} : {{item.name}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.source" | translate }} : {{item.source}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+        </ng-container>
+        <ng-container>
+          {{ "knowledge.comments" | translate }} : <br>
+          <div [innerHTML]="item.comment"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  </div>
+</mat-expansion-panel>

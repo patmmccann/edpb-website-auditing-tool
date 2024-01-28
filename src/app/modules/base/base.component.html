@@ -1,0 +1,316 @@
+<mat-toolbar>
+    <mat-toolbar-row class="navigation-header">
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/entries','knowledge_bases']">
+                <strong>
+                    {{ "header.knowledge" | translate }}
+                </strong>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            {{ "header.edit" | translate }}
+        </li>
+        <li class="breadcrumb-item">
+            {{ base.name }}
+        </li>
+         <!--
+        <span class="header-spacer"></span>
+        <strong>
+            EN
+        </strong>
+        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-toolbar class="page-header" role="heading">
+    <mat-toolbar-row>
+        <h1>
+            {{base.name}} - {{base.author}}
+        </h1>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="container base-mainContainerBlock base-knowledges_base">
+    <button mat-raised-button color="blue" title="Create a new entry" (click)="
+    showForm = true;
+    editMode = 'new';
+    entryForm.reset();
+    selectedKnowledgeId = null;
+    itemsSelected = []
+  ">
+        <ng-container *ngIf="base.category == 'cookie'">
+            <i class="fas fa-plus"></i>
+            {{ "knowledge.cookie.new_entry" | translate }}
+        </ng-container>
+        <ng-container *ngIf="base.category == 'localstorage'">
+            <i class="fas fa-plus"></i>
+            {{ "knowledge.localstorage.new_entry" | translate }}
+        </ng-container>
+    </button>
+
+    <!-- <button mat-raised-button color="blue" title="Create a new entry">
+        <ng-container *ngIf="base.category == 'cookie'">
+            <i class="fas fa-search"></i>
+            Search cookie
+        </ng-container>
+        <ng-container *ngIf="base.category == 'localstorage'">
+            <i class="fas fa-search"></i>
+            Search localstorage
+        </ng-container>
+    </button> -->
+
+    <!-- <mat-form-field>
+        <mat-label>Change confidence</mat-label>
+        <mat-select>
+          <mat-option value="option1">Validated</mat-option>
+          <mat-option value="option2" disabled>Reliable</mat-option>
+          <mat-option value="option3">Informative</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
+    <div class="row">
+        <div class="small-9 medium-9 columns">
+            <ng-container [ngSwitch]="base.category">
+                <ng-container *ngSwitchCase="'cookie'">
+                    <table matSort (matSortChange)="sortBy($event)"  class="base-list-table">
+                        <thead>
+                            <tr>
+                                <th style="width:75px;"></th>
+                                <th mat-sort-header="domain" colspan="2">
+                                    <a><span>{{ "knowledge.domain" | translate }}</span></a>
+                                </th>
+                                <th mat-sort-header="name" style="width:75px;">
+                                    <a><span>{{ "knowledge.name" | translate }}</span></a>
+                                </th>
+                                <th mat-sort-header="category"  style="width:75px;text-align:center;">
+                                    <a><span> {{ "knowledge.category" | translate }}</span></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of cookieKnowledges" [ngClass]="{ noElementsDisplaying: showForm }">
+                                <td class="base-listsBlock-item">
+                                    <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
+                                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                                        <span title="dupplicate" class="base-tooltip-text">
+                                            {{ "entries.dupplicate" | translate }}
+                                        </span>
+                                    </a>
+                                    <a (click)="delete(item.id)" class="btn base-tooltip">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)" colspan="2">
+                                    <ng-container>{{
+                                        item.domain
+                                        }}</ng-container>
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)">
+                                    {{item.name}}
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)"
+                                    style="text-align:center;">
+                                    {{
+                                    item.category
+                                    }}
+                                </td>
+
+                                <!-- Display element data block in absolute -->
+                                <td class="base-knowledges_base-displayData">
+                                    <h3>
+                                        {{base.category}}
+                                    </h3>
+                                    <div class="base-knowledges_base-displayData-category">
+                                        {{item.category}}
+                                    </div>
+                                    <div class="base-knowledges_base-displayData-description">
+                                        <ng-container>
+                                            {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.name" | translate }} : {{item.name}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.source" | translate }} : {{item.source}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.comments" | translate }} : <br>
+                                            <div [innerHTML]="item.comment"></div>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+                <ng-container *ngSwitchCase="'localstorage'">
+                    <table class="base-list-table">
+                        <thead>
+                            <tr>
+                                <th style="width:75px;"></th>
+                                <th colspan="2">
+                                    <a><span>{{ "knowledge.script" | translate }}</span></a>
+                                </th>
+                                <th style="width:75px;">
+                                    <a><span>{{ "knowledge.key" | translate }}</span></a>
+                                </th>
+                                <th style="width:75px;text-align:center;">
+                                    <a><span> {{ "knowledge.category" | translate }}</span></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of localStorageKnowledges" [ngClass]="{ noElementsDisplaying: showForm }">
+                                <td class="base-listsBlock-item">
+                                    <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
+                                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                                        <span title="dupplicate" class="base-tooltip-text">
+                                            {{ "entries.dupplicate" | translate }}
+                                        </span>
+                                    </a>
+                                    <a (click)="delete(item.id)" class="btn base-tooltip">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)" colspan="2">
+                                    <ng-container>{{
+                                        item.script
+                                        }}</ng-container>
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)">
+                                    {{item.key}}
+                                </td>
+                                <td class="base-listsBlock-item-click" (click)="editEntry(item.id)"
+                                    style="text-align:center;">
+                                    {{
+                                    item.category
+                                    }}
+                                </td>
+
+                                <!-- Display element data block in absolute -->
+                                <td class="base-knowledges_base-displayData">
+                                    <h3>
+                                        {{base.category}}
+                                    </h3>
+                                    <div class="base-knowledges_base-displayData-category">
+                                        {{item.category}}
+                                    </div>
+                                    <div class="base-knowledges_base-displayData-description">
+                                        <ng-container>
+                                            {{ "knowledge.key" | translate }} : {{item.key}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.script" | translate }} : {{item.script}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.source" | translate }} : {{item.source}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+                                        </ng-container>
+                                        <ng-container>
+                                            {{ "knowledge.comments" | translate }} : <br>
+                                            <div [innerHTML]="item.comment"></div>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+            </ng-container>
+        </div>
+
+        <!-- NEW ENTRY FORM -->
+        <div class="small-3 medium-3 columns sticky-card">
+
+            <form (ngSubmit)="onSubmit()" [formGroup]="entryForm" class="base-knowledges_base-form" *ngIf="showForm">
+                <h3>{{base.category}}</h3>
+                <div>
+                    <div class="base-elementCategory-wrapper">
+                        <select name="category" formControlName="category" (change)="focusOut()" required>
+                            <option value="null" disabled>{{ "knowledge.category" | translate }}</option>
+                            <option value="{{ category }}" *ngFor="let category of categories">{{category}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="base.category == 'cookie'">
+                    <label for="domain">{{ "knowledge.domain" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="domain" type="text" placeholder="domain"
+                        name="domain" required />
+                </div>
+                <div *ngIf="base.category == 'cookie'">
+                    <label for="name">{{ "knowledge.name" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="name" type="text" placeholder="name" name="name"
+                        required />
+                </div>
+                <div *ngIf="base.category == 'localstorage'">
+                    <label for="domain">{{ "knowledge.key" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="key" type="text" placeholder="key"
+                        name="key" required />
+                </div>
+                <div *ngIf="base.category == 'localstorage'">
+                    <label for="name">{{ "knowledge.script" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="script" type="text" placeholder="script" name="script"
+                        required />
+                </div>
+                <div>
+                    <label for="source">{{ "knowledge.source" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="source" type="text" placeholder="source"
+                        name="source" />
+                </div>
+                <div>
+                    <label for="controller">{{ "knowledge.data_controller" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="controller" type="text" placeholder="controller"
+                        name="controller" />
+                </div>
+                <div>
+                    <label for="policy">{{ "knowledge.privacy_policy" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="policy" type="text" placeholder="policy"
+                        name="policy" />
+                </div>
+                <div>
+                    <label for="reference">{{ "knowledge.reference_type" | translate }}:</label>
+                    <input (focusout)="focusOut()" formControlName="reference" type="text" placeholder="reference"
+                        name="reference" />
+                </div>
+
+                <div>
+                    <label for="comment">{{ "knowledge.comments" | translate }}:</label>
+                    <textarea (focusout)="focusOut()" formControlName="comment" type="text" placeholder="comment"
+                        name="comment"></textarea>
+                </div>
+                <!-- Submit button (new element) -->
+                <div *ngIf="editMode === 'new'">
+                    <button type="submit" [disabled]="entryForm.invalid" class="btn btn-red"
+                        id="structure-save-card-btn" title="{{ 'knowledge.new_entry' | translate }}">
+                        {{ "knowledge.new_entry" | translate }}
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>

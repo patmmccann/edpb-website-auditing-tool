@@ -1,0 +1,23 @@
+<div class="content" style="max-width: 800px; margin-top: 56px;">
+
+    <mat-slide-toggle (change)="settingService.setItem('help', $event.checked)"
+        [(ngModel)]="settingService.settings.help" color="primary">
+        {{ 'settings.tooltips' | translate }}</mat-slide-toggle> <br> <br>
+
+    <mat-slide-toggle (change)="settingService.setItem('DNT', $event.checked)" [(ngModel)]="settingService.settings.dnt"
+        color="primary">
+        {{ 'settings.do_not_track' | translate }}</mat-slide-toggle> <br> <br>
+
+    <mat-slide-toggle (change)="settingService.setItem('devTool', $event.checked)" [(ngModel)]="settingService.settings.devTool"
+        color="primary">
+        {{ 'settings.developer_tools' | translate }}</mat-slide-toggle>
+</div>
+
+<div class="content" style="max-width: 800px; margin-top: 56px;">
+    <div class="header">{{ 'settings.user_agent' | translate }}</div>
+    <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>{{ 'settings.user_agent' | translate }}</mat-label>
+        <input (input)="settingService.setUsageAgent($event.target)" matInput type="text"
+            [(ngModel)]="settingService.settings.useragent">
+    </mat-form-field>
+</div>
