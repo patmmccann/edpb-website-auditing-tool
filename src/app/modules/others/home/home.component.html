@@ -2,7 +2,7 @@
     <mat-toolbar-row style="max-width: 75rem;"  class="navigation-header">
         <ng-container *ngIf="help_content == 'home' else help_content_header">
             <div class="py-1 px-4 px-xl-5 top-headers">
-                <div class="col-xl-2 px-0 site-name"><a href="/edpb_en" title="European Data Protection Board"
+                <div class="col-xl-2 px-0 site-name"><a target="_blank" href="https://edpb.europa.eu/edpb_en" title="European Data Protection Board"
                         rel="home" class=""> {{ "header.edpb" | translate}}</a></div>
                 <div class="language-switcher-oe-multilingual-url-suffix-negotiation-method block block-language block-language-blocklanguage-interface text-right"
                     id="block-edpbweb-theme-language-switcher" role="navigation">
@@ -26,29 +26,34 @@
             <li class="breadcrumb-item">
                 <a [routerLink]="['/']">
                     <strong>
-                        Help
+                        {{ "help.header" | translate}}
                     </strong>
                 </a>
             </li>
             <ng-container [ngSwitch]="help_content">
                 <ng-container *ngSwitchCase="'how_the_tool_works'">
                     <li class="breadcrumb-item">
-                        How the tool works
+                        {{ "help.how_tool_works" | translate}}
                     </li>
                 </ng-container>
                 <ng-container *ngSwitchCase="'new_analysis'">
                     <li class="breadcrumb-item">
-                        Provide new analysis
+                        {{ "help.new_analysis" | translate}}
                     </li>
                 </ng-container>
                 <ng-container *ngSwitchCase="'knowledge_base'">
                     <li class="breadcrumb-item">
-                        Knowledge base
+                        {{ "help.knowledge_base" | translate}}
                     </li>
                 </ng-container>
                 <ng-container *ngSwitchCase="'create_reports'">
                     <li class="breadcrumb-item">
-                        Create reports
+                        {{ "help.create_reports" | translate}}
+                    </li>
+                </ng-container>
+                <ng-container *ngSwitchCase="'about_tool'">
+                    <li class="breadcrumb-item">
+                        {{ "help.about_tool" | translate}}
                     </li>
                 </ng-container>
             </ng-container>
@@ -85,27 +90,31 @@
                     <ng-container *ngSwitchCase="'home'">
                         <div class="col-lg-4">
                             <div class="row text-center home-ctas">
-                                <a href="#/helps/how_the_tool_works"
+                                <a href="#/helps/about_tool"
                                     class="col-6 col-md-4 col-lg-6 col-xl-4 home-1-title text-uppercase">
-                                    <div class="home-block">How the tool works</div>
+                                    <div class="home-block">{{ "help.about_tool" | translate}}</div>
                                 </a>
-                                <a href="#/helps/new_analysis"
+                                <a href="#/helps/how_the_tool_works"
                                     class="col-6 col-md-4 col-lg-6 col-xl-4 home-2-title text-uppercase">
-                                    <div class="home-block">Provide new analysis</div>
-
+                                    <div class="home-block">{{ "help.how_tool_works" | translate}}</div>
                                 </a>
                                 <a class="col-6 col-md-4 col-lg-6 col-xl-4 home-3-title text-uppercase">
 
                                 </a>
-                                <a href="#/helps/create_reports"
+                                <a href="#/helps/new_analysis"
                                     class="col-6 col-md-4 col-lg-6 col-xl-4 home-4-title text-uppercase">
-                                    <div class="home-block">Create reports</div>
+                                    <div class="home-block">{{ "help.new_analysis" | translate}}</div>
                                 </a>
-                                <a href="#/helps/knowledge_base"
+                                <a href="#/helps/create_reports"
                                     class="col-6 col-md-4 col-lg-6 col-xl-4 home-5-title text-uppercase">
-                                    <div class="home-block">Knowledge base</div>
+                                    <div class="home-block">{{ "help.create_reports" | translate}}</div>
                                 </a>
-                                <a class="col-6 col-md-4 col-lg-6 col-xl-4 home-5-title text-uppercase">
+
+                                <a href="#/helps/knowledge_base"
+                                    class="col-6 col-md-4 col-lg-6 col-xl-4 home-6-title text-uppercase">
+                                    <div class="home-block">{{ "help.knowledge_base" | translate}}</div>
+                                </a>
+                                <a class="col-6 col-md-4 col-lg-6 col-xl-4 home-7-title text-uppercase">
                                     <img alt="" src="./assets/images/header.jpeg"
                                         style="position: absolute; margin: 0px; padding: 0px; border: none; width: 0px; height: 0px; max-width: none; inset: 0px auto auto 0px;">
                                 </a>
@@ -124,9 +133,29 @@
                                         <div class="content">
                                             <div 
                                             class="view-header mb-4 w-100" style="margin-top: 30px;"
-                                            [innerHTML]="'help.introduction' | translate">
+                                            [innerHTML]="'help.overview' | translate">
+                                            </div>
+                                            <div 
+                                            class="view-header mb-4 w-100" style="margin-top: 30px;"
+                                            [innerHTML]="'help.copyright' | translate">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'about_tool'">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-12 px-4 px-xl-5 order-0">
+                                <div id="block-pagetitle" class="block block-core block-page-title-block">
+                                    <div 
+                                    class="view-header mb-4 w-100" style="margin-top: 30px;"
+                                    [innerHTML]="'help.open_source' | translate">
+                                    </div>
+                                    <div 
+                                    class="view-header mb-4 w-100" style="margin-top: 30px;"
+                                    [innerHTML]="'help.contributions' | translate">
                                     </div>
                                 </div>
                             </div>

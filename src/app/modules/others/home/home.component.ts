@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  help_content: 'home'| 'how_the_tool_works' | 'new_analysis' | 'knowledge_base' | 'create_reports' = 'home';
+  help_content: 'home'| 'how_the_tool_works' | 'new_analysis' | 'knowledge_base' | 'create_reports' | 'about_tool' = 'home';
   showLanguage =false;
 
   constructor(
@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit {
       const section = params['section_id'];
 
       switch(section){
+        case 'about_tool':
+          this.help_content = 'about_tool';
+          break;
         case 'how_the_tool_works':
           this.help_content = 'how_the_tool_works';
           break;

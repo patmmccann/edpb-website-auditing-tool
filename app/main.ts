@@ -95,8 +95,15 @@ function createWindow() {
         mainWindow = null;
     });
 
-    //FIX ME
-    /*mainWindow.webContents.on('new-window', function (e, url) {
+    /*app.on("web-contents-created", (webContentsCreatedEvent, contents)=>{
+        contents.on("will-navigate", function(e, url) {
+            e.preventDefault();
+            require("electron").shell.openExternal(url);
+        });
+    });*/
+
+    /*
+    mainWindow.webContents.on('new-window', function (e, url) {
         e.preventDefault();
         require("electron").shell.openExternal(url);
     });*/
