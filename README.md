@@ -30,7 +30,7 @@ All versions of the software have not (yet) been signed. We therefore encourage 
 
 For error messages, please refer to the documentation https://code.europa.eu/edpb/website-auditing-tool/-/tree/main/Doc.
 
-#Installation of the project, compile your own version
+## Installation of the project, compile your own version
 
 Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm run start` to install all dependencies.
 
