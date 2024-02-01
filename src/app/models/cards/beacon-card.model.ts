@@ -38,9 +38,4 @@ export class BeaconCard extends Card {
     push(line:BeaconLine){
         this.beaconLines.push(line);
     }
-
-
-    override get help():string  {
-        return "Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists."
-    } 
 }

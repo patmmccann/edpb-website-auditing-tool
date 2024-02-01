@@ -6,9 +6,9 @@
             <mat-panel-description *ngIf="!editing">
             <h3 class="mt-0">
                 {{card.name}}             
-                <ng-container *ngIf="context != 'evaluate' && settingService.settings.help && card.help != '' && tag==null && analysis == null ">
+                <ng-container *ngIf="context != 'evaluate' && settingService.settings.help">
                     <mat-icon
-                    [matTooltip]="card.help"
+                    matTooltip="{{ 'cards.help.'+card.kind | translate }}"
                     [matTooltipPosition]="'after'"
                     >help_outline</mat-icon>
                 </ng-container>

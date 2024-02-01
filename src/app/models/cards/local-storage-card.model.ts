@@ -35,8 +35,4 @@ export class LocalStorageCard extends Card {
     push(line:LocalStorageLine){
         this.localStorageLines.push(line);
     }
-
-    override get help():string {
-        return "Pairs of keys and values stored in the browser local storage on the current displayed pagew ith their potential purposes from the knowledge base. Click on header to sort key and values and on a line to get more detailed on a specific key."
-    } 
 }

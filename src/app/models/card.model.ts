@@ -46,8 +46,4 @@ export class Card {
         this.name = name;
         this.kind = kind;
     }
-
-    get help():string {
-        return "";
-    } 
 }

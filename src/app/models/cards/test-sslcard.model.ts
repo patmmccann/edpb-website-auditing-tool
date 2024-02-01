@@ -56,8 +56,4 @@ export class TestSSLCard extends Card{
         this.testSSLError = testSSLError;
         this.testSSLErrorOutput = testSSLErrorOutput;
     }
-
-    override get help():string {
-        return "The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical."
-    } 
 }

@@ -30,8 +30,4 @@ export class UnsafeFormsCard extends Card {
             this.unsafeForms.push(new UnsafeForm(line.id, line.action, line.method))
         }
     }
-
-    override get help():string {
-        return "The source code of the currently displayed webpage is analyzed in order to check if data may be send through unsecure (HTTP) communication."
-    } 
 }

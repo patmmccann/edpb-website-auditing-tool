@@ -22,8 +22,4 @@ export class HTTPCard extends Card {
         this.https_error =  value.https_error,
         this.http_error=  value.http_error
     }
-
-    override get help():string{
-        return "Redirecting behaviour of the website with respect to the use of HTTPS"
-    } 
 }
