@@ -25,7 +25,12 @@ The EDPB WAT has been enriched by the feedbacks and contributions from the membe
 
 To report issues or suggest improvements, please visit https://code.europa.eu/edpb/website-auditing-tool .
 
-# Installation
+# Installation of the software (release version)
+All versions of the software have not (yet) been signed. We therefore encourage you to only use the version on https://code.europa.eu/edpb/website-auditing-tool/-/releases or to compile it yourself. 
+
+For error messages, please refer to the documentation https://code.europa.eu/edpb/website-auditing-tool/-/tree/main/Doc.
+
+# Installation of the project (build version)
 
 Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm run start` to install all dependencies.
 
