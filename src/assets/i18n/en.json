@@ -97,13 +97,15 @@
             "scenario": "Scenario"
         },
         "evaluation": {
+            "evaluate":"Evaluate",
             "status": "Status",
             "not_evaluate": "Not evaluate",
             "compliant": "Compliant",
             "not_compliant": "Not compliant",
             "to_be_defined": "To be defined",
             "edit_comment":"Edit comment",
-            "write_comment":"Write a comment"
+            "write_comment":"Write a comment",
+            "close_edition":"Close edition"
         },
         "panel": {
             "more_details": "More details",
