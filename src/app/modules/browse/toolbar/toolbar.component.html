@@ -2,7 +2,7 @@
     <div class="header-buttons">
         <div class="header-button" style="margin-left: 6px;">
             <button 
-            matTooltip="Go back in browsing history"
+            matTooltip="{{ 'browse.toolbar.go_back' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             matTooltipClass="browser-tooptil"
@@ -12,7 +12,7 @@
         </div>
         <div class="header-button">
             <button 
-            matTooltip="Go forward in browsing history"
+            matTooltip="{{ 'browse.toolbar.go_forward' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             [disabled]="!canGoForward" (click)="forward()" size="20" class="header-button-content">
@@ -21,7 +21,7 @@
         </div>
         <div class="header-button">
             <button 
-            matTooltip="Reload this url"
+            matTooltip="{{ 'browse.toolbar.reload' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             (click)="refresh()" size="20" class="header-button-content">
@@ -33,7 +33,7 @@
         <div class="header-search-loop">
             
             <button 
-            matTooltip="Resume evidence collection."
+            matTooltip="{{ 'browse.toolbar.resume' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -44,7 +44,7 @@
         </button>
         <ng-template #play_button>
             <button 
-            matTooltip="Suspend temporarily evidence collection."
+            matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -62,7 +62,7 @@
         </div>
         <div *ngIf="analysis && tag" class="analysis-name">
             <button 
-            [matTooltip]="'This sessions is associated to the analysis ' +analysis.name+' and the scenario ' + tag.name"
+            matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -72,7 +72,7 @@
         </div>
         <div class="analysis-plus">
             <button
-            matTooltip="Create a new scenario"
+            matTooltip="{{ 'browse.toolbar.new' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -84,7 +84,7 @@
         
         <div *ngIf="this.analysis && this.tag" class="header-search-right">
             <button 
-            matTooltip="Take a screenshot of this page"
+            matTooltip="{{ 'browse.toolbar.screenshot' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -105,7 +105,7 @@
 
         <div class="header-search-right">
             <button 
-            matTooltip="Clear all information stored in the browser"
+            matTooltip="{{ 'browse.toolbar.clear' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             (click)="erase.emit()"  size="16" opacity="0.87" class="header-search-right-button">
@@ -115,7 +115,7 @@
 
         <div *ngIf="settingsService.settings.devTool" class="header-search-right">
             <button 
-            matTooltip="Show developper tool for the current page"
+            matTooltip="{{ 'browse.toolbar.developer' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             [disabled]="!navigating"
@@ -127,7 +127,7 @@
 
         <div *ngIf="analysis && tag" class="header-search-right">
             <button 
-            matTooltip="Stop and save the analysis"
+            matTooltip="{{ 'browse.toolbar.stop' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
@@ -139,7 +139,7 @@
     <div class="header-option">
         <div class="header-option-div">
             <button 
-            matTooltip="Show/hide the evidence bar"
+            matTooltip="{{ 'browse.toolbar.show' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 

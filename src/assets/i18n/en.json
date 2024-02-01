@@ -145,10 +145,23 @@
         "add_this_item":"Add this item to a knowledge base",
         "select_a_knowledge_base":"Select a knowledge base",
         "reference_type":"Reference type"
+       
     },
     "browse": {
         "toolbar": {
-            "search_input": "Search or type in a URL"
+            "search_input": "Search or type in a URL",
+            "go_back": "Go back in browsing history",
+            "go_forward": "Go forward in browsing history",
+            "reload": "Reload this url",
+            "resume": "Resume evidence collection",
+            "suspend": "Suspend temporarily evidence collection",
+            "session": "Name and scenario associated to this analysis",
+            "new":"Create a new scenario",
+            "screenshot":"Take a screenshot of this page",
+            "clear":"Clear all information stored in the browser",
+            "developer":"Show developper tool for the current page",
+            "stop":"Stop and save the analysis",
+            "show":"Show/hide the evidence bar"
         },
         "log_details": {
             "details": "Details",
