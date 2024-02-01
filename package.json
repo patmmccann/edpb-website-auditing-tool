@@ -73,6 +73,7 @@
     "@angular-devkit/build-angular": "^16.2.6",
     "@angular/cli": "~16.0.0",
     "@angular/compiler-cli": "^16.0.0",
+    "@electron/notarize": "^2.2.1",
     "@faker-js/faker": "^8.2.0",
     "@playwright/test": "^1.39.0",
     "@types/jasmine": "~5.1.0",
@@ -95,6 +96,11 @@
     "wait-on": "^7.1.0"
   },
   "build": {
+    "appId": "com.edpb.wat ",
+    "afterSign": "./scripts/notarize.js",
+    "dmg": {
+      "sign": false
+    },
     "directories": {
       "output": "releases",
       "buildResources": "resources"

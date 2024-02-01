@@ -18,3 +18,4 @@ package-lock.json
 /blob-report/
 /playwright/.cache/
 /test
+.env
