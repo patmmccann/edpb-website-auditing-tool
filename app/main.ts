@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain, Menu } from 'electron';
 import * as windowStateKeeper from 'electron-window-state';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
@@ -19,11 +19,38 @@ import { ParserHandler } from './handlers/parser-handler';
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: BrowserWindow | null = null;
 
+const menu = Menu.buildFromTemplate([
+    {
+        label: "Edit",
+        submenu: [
+            { role: "undo" },
+            { role: "redo" },
+            { type: "separator" },
+            { role: "cut" },
+            { role: "copy" },
+            { role: "paste" },
+            { role: "delete" }
+        ]
+    },
+    {
+        label: "View",
+        submenu: [
+            { role: "togglefullscreen" }
+        ]
+    },
+    {
+        role: "window",
+        submenu: [{ role: "minimize" }, { role: "close" }]
+    }
+]);
+
 function createWindow() {
     let winState = windowStateKeeper({
         defaultWidth: 1400,
         defaultHeight: 800
     });
+
+    Menu.setApplicationMenu(menu);
 
     globalShortcut.register("CommandOrControl+R", () => {
         // Do nothing
@@ -74,7 +101,7 @@ function createWindow() {
     const reportsHandler = new ReportsHandler();
     const parserHandler = new ParserHandler();
 
-    async function parseHar(){
+    async function parseHar() {
         var fs = require('fs');
         var har = JSON.parse(fs.readFileSync('./test/firefox.har', 'utf8'));
         const output = await parserHandler.parseHar(null, har, null);
