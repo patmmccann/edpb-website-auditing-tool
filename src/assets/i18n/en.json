@@ -119,7 +119,7 @@
             "exact_match_tooltip":"The name and the domain of this cookies match entries in the knowledge base.",
             "match_name":"Match name",
             "match_name_tooltip":"The name associated to no domains (*) matches entries in the knowledge base.",
-            "match_domain":"Match name",
+            "match_domain":"Match domain",
             "match_domain_tooltip":"The domain of this cookies is associated to other entries in the knowledge base."
         },
         "localstorage": {
@@ -146,8 +146,13 @@
         "purpose":"Purpose",
         "add_this_item":"Add this item to a knowledge base",
         "select_a_knowledge_base":"Select a knowledge base",
-        "reference_type":"Reference type"
-       
+        "reference_type":"Reference type",
+        "trust_level":"Level of trust",
+        "used_knowledge":"Used in analysis",
+        "validated":"Validated",
+        "reliable":"Reliable",
+        "informative":"Informative",
+        "undefined":"Undefined"
     },
     "browse": {
         "toolbar": {
@@ -188,7 +193,15 @@
         "tooltips": "Show help tooltips",
         "do_not_track": "Enable Do Not Track",
         "developer_tools": "Show Developer Tools button",
-        "user_agent": "Browser User Agent"
+        "user_agent": "Browser User Agent",
+        "language":"Language",
+        "storage":"Analysis location",
+        "local":"Local",
+        "remote":"Remote",
+        "server_url" : "Povide the address (URL) of the remote server",
+        "client_id" : "Client ID",
+        "client_secret" : "Client Secret",
+        "update" : "Update"
     },
     "reports": {
         "creator": "Creator",

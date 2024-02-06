@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
+import { KnowledgeBase, allTrustLevel,TrustLevel } from 'src/app/models/knowledgeBase.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { Sort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-knowledgebase-table',
@@ -20,6 +21,7 @@ export class KnowledgebaseTableComponent implements OnInit {
   @Output() deleted = new EventEmitter<any>();
 
   @Input() entries:any[]=[];
+  allTrustLevel = allTrustLevel;
 
   constructor(
     private knowledgeBaseService: KnowledgeBaseService
@@ -81,6 +83,16 @@ export class KnowledgebaseTableComponent implements OnInit {
   duplicate(id:number): void {
     this.knowledgeBaseService.duplicate(id);
     this.duplicated.emit();
+  }
+
+  updateTrust(base:KnowledgeBase, trustLevel : TrustLevel): void {
+    base.trustLevel = trustLevel;
+    this.knowledgeBaseService.update(base);
+  }
+
+  updateUsed(base:KnowledgeBase, used : string): void {
+    base.used = used;
+    this.knowledgeBaseService.update(base);
   }
 
     /**

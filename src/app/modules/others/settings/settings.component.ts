@@ -5,6 +5,7 @@
  */
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BrowserService } from 'src/app/services/browser.service';
 import { SettingsService } from 'src/app/services/settings.service';
 @Component({
   selector: 'app-settings',
@@ -12,9 +13,10 @@ import { SettingsService } from 'src/app/services/settings.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  option:'general'|'browser'|'analysis'|'cookies'='browser';
+  option:'general'|'browser'|'analysis'|'cookies'='general';
 
   constructor(
+    public browserService: BrowserService
   ) { 
 
   }

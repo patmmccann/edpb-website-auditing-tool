@@ -1,3 +1,5 @@
+import { ApiService } from "../services/api.service";
+
 /*
  * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
  *
@@ -8,6 +10,8 @@ export interface Indexes {
   }
 
 export class ApplicationDb {
+    protected apiService: ApiService | null = null;
+    
     protected dbVersion: number;
     protected tableName: string;
     protected indexes:Indexes[];
@@ -18,6 +22,10 @@ export class ApplicationDb {
         this.dbVersion = dbVersion;
         this.tableName = tableName;
         this.indexes = indexes?indexes:[];
+    }
+
+    prepareApi(apiService: ApiService) {
+        this.apiService = apiService;
     }
 
     /**

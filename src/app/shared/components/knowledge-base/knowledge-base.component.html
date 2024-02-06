@@ -27,11 +27,11 @@
                         >
                         <ng-container *ngFor="let base of customKnowledgeBases">
                             <mat-option
-                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind"
+                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind && base.used == 'true'"
                             [value]="base.id"
                             >{{
                                base.name
-                               }}</mat-option>
+                               }} ({{base.trustLevel}})</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>

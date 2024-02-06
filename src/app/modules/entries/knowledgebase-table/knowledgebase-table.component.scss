@@ -1,5 +1,21 @@
 @import 'src/assets/stylesheets/variables';
 
+.validated{
+  color: red
+}
+
+.reliable{
+  color: blue
+}
+
+.informative{
+  color: yellow
+}
+
+.undefined{
+  color: green($color: #000000)
+}
+
 .entries-list-table {
     border-collapse: collapse;
     width: 100%;

@@ -8,6 +8,8 @@ import { BrowserService } from './browser.service';
 
 export type TestSLLType ='script' | 'docker';
 export const allTestSLLType : TestSLLType[] = ['script' , 'docker'];
+export type StorageType ='local' | 'remote';
+export const allStorageType : StorageType[] = ['local' , 'remote'];
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,7 @@ export class SettingsService {
     devTool : false,
     testssl : false,
     testssl_type : 'docker',
+    storage_type : 'local',
     test_ssl_location : "",
     cookies : false,
     localstorage : false,
@@ -31,17 +34,25 @@ export class SettingsService {
     beacons : false,
     logs : false,
     useragent:  "",
-    help: false
+    help: false,
+    server_url:"",
+    client_id:"",
+    client_secret:""
   }
 
   constructor(
   ) { 
+    const server_url = localStorage.getItem('server_url');
+    const client_id = localStorage.getItem('client_id');
+    const client_secret = localStorage.getItem('client_secret');
+
     const test_ssl_location = localStorage.getItem('test_ssl_location');
     const setAgent = localStorage.getItem('useragent');
     this._settings.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
     this._settings.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
     this._settings.testssl = localStorage.getItem('testssl') == 'true'? true : false ;
     this._settings.testssl_type = localStorage.getItem('testssl_type') == 'script'? 'script' : 'docker' ;
+    this._settings.storage_type = localStorage.getItem('storage_type') == 'remote'? 'remote' : 'local' ;
     this._settings.test_ssl_location = test_ssl_location? test_ssl_location : "";
     this._settings.cookies = localStorage.getItem('cookies') == 'false'? false : true ;
     this._settings.localstorage = localStorage.getItem('localstorage') == 'false'?false : true ;
@@ -52,6 +63,10 @@ export class SettingsService {
     this._settings.logs = localStorage.getItem('logs') == 'false'? false : true ;
     this._settings.help = localStorage.getItem('help') == 'false'? false : true ;
     this._settings.devTool = localStorage.getItem('devTool') == 'true'? true : false ;
+    this._settings.server_url = server_url != null ? server_url : "";
+    this._settings.client_id = client_id != null ? client_id : "";
+    this._settings.client_secret = client_secret != null ? client_secret : "";;
+
   }
   setItem(key :string, value:any):void{
     localStorage.setItem(key, value);

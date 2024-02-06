@@ -56,18 +56,18 @@ export class LocalstorageKnowledgesService extends KnowledgesService {
     return new Promise((resolve, reject) => {
       this.find(id).then((entry: Knowledge) => {
 
-        const entry_cookie = entry as LocalStorageKnowledge;
+        const entry_localstorage = entry as LocalStorageKnowledge;
         const temp = new LocalStorageKnowledge();
-        temp.key = entry_cookie.key;
-        temp.script = entry_cookie.script;
-        temp.source = entry_cookie.source;
-        temp.controller = entry_cookie.controller;
-        temp.policy = entry_cookie.policy;
-        temp.category = entry_cookie.category;
-        temp.reference = entry_cookie.reference;
-        temp.comment = entry_cookie.comment;
-        temp.created_at = entry_cookie.created_at;
-        temp.updated_at = entry_cookie.updated_at;
+        temp.key = entry_localstorage.key;
+        temp.script = entry_localstorage.script;
+        temp.source = entry_localstorage.source;
+        temp.controller = entry_localstorage.controller;
+        temp.policy = entry_localstorage.policy;
+        temp.category = entry_localstorage.category;
+        temp.reference = entry_localstorage.reference;
+        temp.comment = entry_localstorage.comment;
+        temp.created_at = entry_localstorage.created_at;
+        temp.updated_at = entry_localstorage.updated_at;
 
 
         this.add(baseId, temp)

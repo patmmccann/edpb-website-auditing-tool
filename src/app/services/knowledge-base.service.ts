@@ -49,7 +49,9 @@ export class KnowledgeBaseService extends ApplicationDb {
                   e.name,
                   e.author,
                   e.category,
-                  e.created_at
+                  e.created_at,
+                  e.trustLevel,
+                  e.used
                 )
               );
             });
@@ -102,6 +104,8 @@ export class KnowledgeBaseService extends ApplicationDb {
         entry.name = base.name;
         entry.author = base.author;
         entry.category = base.category;
+        entry.trustLevel = base.trustLevel;
+        entry.used = base.used;
         entry.updated_at = new Date();
 
         super
@@ -165,7 +169,9 @@ export class KnowledgeBaseService extends ApplicationDb {
         data.name,
         data.author,
         data.category,
-        new Date()
+        new Date(),
+        data.trustLevel,
+        data.used
       );
 
       this.create(newKnowledgeBase)
@@ -235,7 +241,9 @@ export class KnowledgeBaseService extends ApplicationDb {
             data.name + ' (copy)',
             data.author,
             data.category,
-            new Date()
+            new Date(),
+            data.trustLevel,
+            data.used
           )
         )
           .then((newKnowledgeBase: KnowledgeBase) => {

@@ -13,11 +13,11 @@
                     <h3 matSubheader>{{ "menu.analysis" | translate }} </h3>
                 </mat-list-item>
                 <mat-divider></mat-divider>
-                <mat-list-item [routerLink]="['/browse']">
+                <mat-list-item  *ngIf="browserService.use_electron" [routerLink]="['/browse']">
                     <mat-icon matListItemIcon>web</mat-icon>
                     <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.browse" | translate }}</span>
                 </mat-list-item>
-                <mat-list-item [routerLink]="['/entries', 'new']">
+                <mat-list-item *ngIf="browserService.use_electron" [routerLink]="['/entries', 'new']">
                     <mat-icon matListItemIcon>assessment</mat-icon>
                     <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.new" | translate }}</span>
                 </mat-list-item>
@@ -25,10 +25,10 @@
                     <mat-icon matListItemIcon>format_list_bulleted</mat-icon>
                     <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.list" | translate }}</span>
                 </mat-list-item>
-                <mat-list-item disabled>
+                <mat-list-item *ngIf="browserService.use_electron"  disabled>
                     <h3 matSubheader>{{ "menu.sessions" | translate }}</h3>
                 </mat-list-item>
-                <mat-divider></mat-divider>
+                <mat-divider *ngIf="browserService.use_electron" ></mat-divider>
                 <ng-container *ngFor="let session of sessions">
                     <mat-list-item [routerLink]="session.link">
                         <mat-icon matListItemIcon>cached</mat-icon>

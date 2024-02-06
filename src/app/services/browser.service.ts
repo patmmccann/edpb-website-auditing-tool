@@ -37,12 +37,17 @@ export class BrowserService {
   @Output() sessionEvent = new EventEmitter<BrowserSession>();
   @Output() loadEvent = new EventEmitter<any>();
   cards: Card[] = [];
+  use_electron = false;
 
   constructor(
     private inspectionService: InspectionService,
     private settingService: SettingsService
   ) {
-    if (!(window as any).electron) this.createFakeElectron(window);
+    if (!(window as any).electron) {
+      this.createFakeElectron(window);
+    }else{
+      this.use_electron = true;
+    }
 
     (window as any).electron.subscriveToBrowserEvent((args: any) => {
       this.loadEvent.emit(args);

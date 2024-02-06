@@ -1,9 +1,44 @@
 <div class="content" style="max-width: 800px; margin-top: 56px;">
     <div class="content">
         <div class="links dropdown">
+            <div class="header">{{ 'settings.language' | translate }}</div>
+            <br>
             <ul style="right: auto;left: 0" class="dropdown-menu dropdown-menu-right px-4 py-3 show">
                 <app-languages></app-languages>
             </ul>
         </div>
     </div>
+    <br>
+    <!-- <div class="content" style="max-width: 800px; margin-top: 56px;">
+        <div class="header">{{ 'settings.storage' | translate }}</div>
+
+        <mat-form-field appearance="fill">
+            <mat-select [(ngModel)]="settingService.settings.storage_type"
+                (selectionChange)="settingService.setItem('storage_type', $event.value);">
+                <mat-option value="local">{{ "settings.local" | translate }}</mat-option>
+                <mat-option value="remote">{{ 'settings.remote' | translate }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <form *ngIf="settingService.settings.storage_type == 'remote'" [formGroup]="remoteForm" (ngSubmit)="onSubmit()" novalidate>
+            <mat-form-field style="width:100%">
+                <mat-label for="server_url">{{ "settings.server_url" | translate }} : </mat-label>
+                <input matInput type="text" id="server_url" formControlName="server_url" placeholder="https://"
+                    (blur)="purify('server_url', $event)" />
+            </mat-form-field> 
+            <mat-form-field style="width:100%">
+                <mat-label for="client_id">{{ "settings.client_id" | translate }} : </mat-label>
+                <input matInput type="text" id="client_id" formControlName="client_id" placeholder="Client ID"
+                    (blur)="purify('client_id', $event)" />
+            </mat-form-field><br>
+            <mat-form-field style="width:100%">
+                <mat-label for="client_secret">{{ "settings.client_secret" | translate }} : </mat-label>
+                <input matInput type="password" id="client_secret" formControlName="client_secret"
+                    placeholder="Client SECRET" (blur)="purify('client_secret', $event)" />
+            </mat-form-field><br>
+            <button mat-raised-button color="primary" type="submit">
+                {{ "settings.update" | translate }}
+            </button>
+        </form>
+    </div> -->
 </div>

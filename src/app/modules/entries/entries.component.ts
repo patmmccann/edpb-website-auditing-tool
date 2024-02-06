@@ -155,28 +155,29 @@ export class EntriesComponent implements OnInit {
    async refreshContent(): Promise<void> {
     this.loading = true;
     this.entries = [];
+    const self = this;
     setTimeout(async () => {
-      switch (this.type_entries) {
+      switch (self.type_entries) {
         case 'edit':
-          await this.analysisService.getAllActives().then((entries: Array<Analysis>) => {
-            this.entries = entries;
-            this.loading = false;
+          await self.analysisService.getAllActives().then((entries: Array<Analysis>) => {
+            self.entries = entries;
+            self.loading = false;
           });
           break;
           case 'knowledgeBase':
-            await this.knowledgeBaseService.getAll().then((result: any) => {
-              this.entries = result;
-              this.loading = false;
-              this.sortOrder = localStorage.getItem('knowledgeBaseOrder');
-              this.sortValue = localStorage.getItem('knowledgeBaseValue');
+            await self.knowledgeBaseService.getAll().then((result: any) => {
+              self.entries = result;
+              self.loading = false;
+              self.sortOrder = localStorage.getItem('knowledgeBaseOrder');
+              self.sortValue = localStorage.getItem('knowledgeBaseValue');
             });
             break;
           case 'template':
             await this.templateService.getAll().then((result: any) => {
-              this.entries = result;
-              this.loading = false;
-              this.sortOrder = localStorage.getItem('knowledgeBaseOrder');
-              this.sortValue = localStorage.getItem('knowledgeBaseValue');
+              self.entries = result;
+              self.loading = false;
+              self.sortOrder = localStorage.getItem('knowledgeBaseOrder');
+              self.sortValue = localStorage.getItem('knowledgeBaseValue');
             });
             break;
         default:
@@ -202,7 +203,9 @@ export class EntriesComponent implements OnInit {
         result.name, 
         result.author, 
         result.category,
-        new Date()
+        new Date(),
+        result.trustLevel,
+        result.used
       );
       
       this.knowledgeBaseService.create(newKnowledgeBase)
