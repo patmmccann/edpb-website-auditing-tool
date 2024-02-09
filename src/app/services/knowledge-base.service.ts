@@ -355,14 +355,18 @@ export class KnowledgeBaseService extends ApplicationDb {
         const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
         const localstorageLine = value as LocalStorageLine;
         this.knowledgeBaseSource = { 'key': localstorageLine.key, 'script': localstorageLine.log.stacks[0]?.fileName };
-        this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log).then(result => {
-          if (result.length > 0) {
-            this.knowledgeBaseData = result;
-          } else {
-            this.knowledgeBaseData = null;
-          }
-          this.knowledgeBaseKind = 'localstorage';
-        });
+        const localstorage = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log);
+        
+        if (localstorage.length >0) {
+          localstoragebase.map((localbase :any) => {
+            localbase.localstorage = localstorage.filter((x:any) => x.knowledge_base_id == localbase.id);
+          });
+          this.knowledgeBaseData = localstoragebase.filter((x:any) => x.localstorage.length >0);;
+        }else{
+          this.knowledgeBaseData = null;
+        }
+
+        this.knowledgeBaseKind = 'localstorage';
         break;
       default:
         this.knowledgeBaseData = null;

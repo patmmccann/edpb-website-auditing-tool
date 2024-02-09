@@ -1,145 +1,143 @@
-<ng-container *ngIf="knowledgeBaseData">
-  <ng-container *ngIf="knowledgeBaseData">
-    <mat-expansion-panel *ngFor="let coookie_knowledge of knowledgeBaseData">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h3 class="mt-0">
-            ({{"knowledge."+coookie_knowledge.trustLevel | translate}}) {{ coookie_knowledge.name }}  -
-            {{coookie_knowledge.all_cookies}}
-          </h3>
+<mat-expansion-panel *ngFor="let coookie_knowledge of knowledgeBaseData">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="mt-0">
+        ({{"knowledge."+coookie_knowledge.trustLevel | translate}}) {{ coookie_knowledge.name }} -
+        {{coookie_knowledge.all_cookies}} match(es)
+      </h3>
 
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
 
-      <div class="knowledge-content" *ngIf="coookie_knowledge.cookie_name_and_domain.length >0">
-        <header class="article-title">
-          <h1 class="node__title mb-3 mt-0"><span
-              class="field field--name-title field--type-string field--label-hidden">{{ 'knowledge.cookie.exact_match' | translate }}</span>
-              <ng-container *ngIf="settingService.settings.help">
-                <mat-icon matTooltip="{{ 'knowledge.cookie.exact_match_tooltip' | translate }}"
-                  [matTooltipPosition]="'after'">help_outline</mat-icon>
-              </ng-container>
-          </h1>
-        </header>
+  <div class="knowledge-content" *ngIf="coookie_knowledge.cookie_name_and_domain.length >0">
+    <header class="article-title">
+      <h1 class="node__title mb-3 mt-0"><span class="field field--name-title field--type-string field--label-hidden">{{
+          'knowledge.cookie.exact_match' | translate }}</span>
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon matTooltip="{{ 'knowledge.cookie.exact_match_tooltip' | translate }}"
+            [matTooltipPosition]="'after'">help_outline</mat-icon>
+        </ng-container>
+      </h1>
+    </header>
 
-        <ng-container *ngFor="let item of coookie_knowledge.cookie_name_and_domain">
-          <div class="base-knowledges_base-displayData">
-            <div class="base-knowledges_base-displayData-category">
-              {{ "knowledge.purpose" | translate }} : {{item.category}}
-            </div>
-            <div class="base-knowledges_base-displayData-description">
-              <ng-container>
-                {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.name" | translate }} : {{item.name}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.source" | translate }} : {{item.source}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.comments" | translate }} : <br>
-                <div [innerHTML]="item.comment"></div>
-              </ng-container>
-            </div>
-          </div>
-        </ng-container>
+    <ng-container *ngFor="let item of coookie_knowledge.cookie_name_and_domain">
+      <div class="base-knowledges_base-displayData">
+        <div class="base-knowledges_base-displayData-category">
+          {{ "knowledge.purpose" | translate }} : {{item.category}}
+        </div>
+        <div class="base-knowledges_base-displayData-description">
+          <ng-container>
+            {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.name" | translate }} : {{item.name}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.source" | translate }} : {{item.source}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.comments" | translate }} : <br>
+            <div [innerHTML]="item.comment"></div>
+          </ng-container>
+        </div>
       </div>
-      <div class="knowledge-content" *ngIf="coookie_knowledge.cookie_name.length >0">
-        <header class="article-title">
-          <h1 class="node__title mb-3 mt-0"><span
-              class="field field--name-title field--type-string field--label-hidden">{{ 'knowledge.cookie.match_name' | translate }}</span>
-              <ng-container *ngIf="settingService.settings.help">
-                <mat-icon matTooltip="{{ 'knowledge.cookie.match_name_tooltip' | translate }}"
-                  [matTooltipPosition]="'after'">help_outline</mat-icon>
-              </ng-container>
-          </h1>
-        </header>
-        <ng-container *ngFor="let item of coookie_knowledge.cookie_name">
-          <div class="base-knowledges_base-displayData">
-            <div class="base-knowledges_base-displayData-category">
-              {{ "knowledge.purpose" | translate }} : {{item.category}}
-            </div>
-            <div class="base-knowledges_base-displayData-description">
-              <ng-container>
-                {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.name" | translate }} : {{item.name}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.source" | translate }} : {{item.source}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.comments" | translate }} : <br>
-                <div [innerHTML]="item.comment"></div>
-              </ng-container>
-            </div>
-          </div>
+    </ng-container>
+  </div>
+  <div class="knowledge-content" *ngIf="coookie_knowledge.cookie_name.length >0">
+    <header class="article-title">
+      <h1 class="node__title mb-3 mt-0"><span class="field field--name-title field--type-string field--label-hidden">{{
+          'knowledge.cookie.match_name' | translate }}</span>
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon matTooltip="{{ 'knowledge.cookie.match_name_tooltip' | translate }}"
+            [matTooltipPosition]="'after'">help_outline</mat-icon>
         </ng-container>
+      </h1>
+    </header>
+    <ng-container *ngFor="let item of coookie_knowledge.cookie_name">
+      <div class="base-knowledges_base-displayData">
+        <div class="base-knowledges_base-displayData-category">
+          {{ "knowledge.purpose" | translate }} : {{item.category}}
+        </div>
+        <div class="base-knowledges_base-displayData-description">
+          <ng-container>
+            {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.name" | translate }} : {{item.name}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.source" | translate }} : {{item.source}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.comments" | translate }} : <br>
+            <div [innerHTML]="item.comment"></div>
+          </ng-container>
+        </div>
       </div>
-      <div *ngIf="coookie_knowledge.cookie_domain.length >0" class="knowledge-content">
-        <header class="article-title">
-          <h1 class="node__title mb-3 mt-0"><span
-              class="field field--name-title field--type-string field--label-hidden">{{ 'knowledge.cookie.match_domain' | translate }}</span>
-              <ng-container *ngIf="settingService.settings.help">
-                <mat-icon matTooltip="{{ 'knowledge.cookie.match_domain_tooltip' | translate }}"
-                  [matTooltipPosition]="'after'">help_outline</mat-icon>
-              </ng-container>
-          </h1>
-        </header>
-        <ng-container *ngFor="let item of coookie_knowledge.cookie_domain">
-          <div class="base-knowledges_base-displayData">
-            <div class="base-knowledges_base-displayData-category">
-              {{ "knowledge.purpose" | translate }} : {{item.category}}
-            </div>
-            <div class="base-knowledges_base-displayData-description">
-              <ng-container>
-                {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.name" | translate }} : {{item.name}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.source" | translate }} : {{item.source}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
-              </ng-container>
-              <ng-container>
-                {{ "knowledge.comments" | translate }} : <br>
-                <div [innerHTML]="item.comment"></div>
-              </ng-container>
-            </div>
-          </div>
+    </ng-container>
+  </div>
+  <div *ngIf="coookie_knowledge.cookie_domain.length >0" class="knowledge-content">
+    <header class="article-title">
+      <h1 class="node__title mb-3 mt-0"><span class="field field--name-title field--type-string field--label-hidden">{{
+          'knowledge.cookie.match_domain' | translate }}</span>
+        <ng-container *ngIf="settingService.settings.help">
+          <mat-icon matTooltip="{{ 'knowledge.cookie.match_domain_tooltip' | translate }}"
+            [matTooltipPosition]="'after'">help_outline</mat-icon>
         </ng-container>
+      </h1>
+    </header>
+    <ng-container *ngFor="let item of coookie_knowledge.cookie_domain">
+      <div class="base-knowledges_base-displayData">
+        <div class="base-knowledges_base-displayData-category">
+          {{ "knowledge.purpose" | translate }} : {{item.category}}
+        </div>
+        <div class="base-knowledges_base-displayData-description">
+          <ng-container>
+            {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.name" | translate }} : {{item.name}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.source" | translate }} : {{item.source}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+          </ng-container>
+          <ng-container>
+            {{ "knowledge.comments" | translate }} : <br>
+            <div [innerHTML]="item.comment"></div>
+          </ng-container>
+        </div>
       </div>
-    </mat-expansion-panel>
-    <!-- 
+    </ng-container>
+  </div>
+</mat-expansion-panel>
+<!-- 
 <mat-expansion-panel *ngIf="knowledgeBaseData.name.length >0">
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -190,7 +188,7 @@
   </ng-container>
 </div>
 </mat-expansion-panel> -->
-    <!-- 
+<!-- 
 <mat-expansion-panel *ngIf="knowledgeBaseData.domain.length >0">
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -239,5 +237,3 @@
   </ng-container>
   </div>
 </mat-expansion-panel> -->
-  </ng-container>
-</ng-container>

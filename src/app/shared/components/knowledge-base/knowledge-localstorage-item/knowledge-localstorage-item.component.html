@@ -1,20 +1,15 @@
-<mat-expansion-panel *ngIf="knowledgeBaseData.length >0">
+<mat-expansion-panel *ngFor="let localstorage_knowledge of knowledgeBaseData">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h3 class="mt-0">
-                {{ "knowledge.localstorage.could_match" | translate }} ({{knowledgeBaseData.length}})
-                <ng-container *ngIf="settingService.settings.help">
-                    <mat-icon
-                    matTooltip="{{ 'knowledge.localstorage.could_match_tooltip' | translate }}"
-                    [matTooltipPosition]="'after'"
-                    >help_outline</mat-icon>
-                </ng-container>
+                ({{"knowledge."+localstorage_knowledge.trustLevel | translate}}) {{ localstorage_knowledge.name }} -
+                {{localstorage_knowledge.localstorage.length}} match(es)
             </h3>
         </mat-panel-title>
     </mat-expansion-panel-header>
 
     <div class="knowledge-content">
-        <ng-container *ngFor="let item of knowledgeBaseData">
+        <ng-container *ngFor="let item of localstorage_knowledge.localstorage">
             <div class="base-knowledges_base-displayData">
                 <div class="base-knowledges_base-displayData-category">
                     {{ "knowledge.purpose" | translate }} : {{item.category}}
