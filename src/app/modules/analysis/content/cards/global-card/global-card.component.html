@@ -52,7 +52,7 @@
                       <a href="javascript:void(0)" (click)="scroll(card.card)">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
-                    <a [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
+                    <a *ngIf="browserService.use_electron" [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteCard(card.card)">
@@ -101,7 +101,7 @@
                       <a [routerLink]="['/analysis', analysis.id, 'tag', tag.tag.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
-                    <a [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
+                    <a *ngIf="browserService.use_electron" [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteTag(tag.tag)">
