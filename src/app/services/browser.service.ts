@@ -81,6 +81,7 @@ export class BrowserService {
       renderPug: (template: string, data: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      versions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
     }
   }
 

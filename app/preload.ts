@@ -33,6 +33,7 @@ contextBridge.exposeInMainWorld(
     parseHar: (har, args : any) => ipcRenderer.invoke('parseHar', har, args),
     print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_docx', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     print_to_pdf: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_pdf', htmlString, headerHTMLString, documentOptions, footerHTMLString),
+    versions: () => ipcRenderer.invoke('versions'),
     subscriveToBrowserEvent: (callback) => {
       ipcRenderer.on('browser-event', (event, ...args) => {
         callback([...args]);
