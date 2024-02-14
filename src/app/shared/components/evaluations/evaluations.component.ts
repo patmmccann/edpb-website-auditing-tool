@@ -160,7 +160,7 @@ export class EvaluationsComponent implements OnInit, OnChanges {
       autoresize_min_height: 40,
       selector: '#' + elementId,
       toolbar:
-        'undo redo bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+        'copy cut paste undo redo | selectall  removeformat remove |  bold italic underline fontselect fontsizeselect formatselect styleselect forecolor backcolor |  lineheight  alignleft aligncenter alignright alignjustify alignnone | bullist numlist blockquote subscript superscript |  outdent indent',
       skin: false,
       setup: (editor: any) => {
         this.editorEvaluationComment = editor;

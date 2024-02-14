@@ -268,7 +268,7 @@ export class ReportComponent implements OnInit, OnDestroy {
       height: 600,
       selector: '#report_editor',
       toolbar:
-        'undo redo bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+        'copy cut paste undo redo | selectall  removeformat remove |  bold italic underline fontselect fontsizeselect formatselect styleselect forecolor backcolor |  lineheight  alignleft aligncenter alignright alignjustify alignnone | bullist numlist blockquote subscript superscript |  outdent indent',
       skin: false,
       setup: (editor: any) => {
         this.reportEditor = editor;
