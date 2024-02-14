@@ -261,48 +261,48 @@ export class ReportService {
           switch (card.kind) {
             case 'cookie':
               const cookieCard = (card as CookieCard);
-              resolve({ cookies: filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation });
+              resolve({ cookies: {values : filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'localstorage':
               const localstorageCard = (card as LocalStorageCard);
-              resolve({ localstorage: filter_details(localstorageCard.localStorageLines, evaluations_opt), evaluation: evaluation });
+              resolve({ localstorage : {values : filter_details(localstorageCard.localStorageLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'https':
               const httpCard = (card as HTTPCard);
-              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation });
+              resolve({ secure_connection: {values : {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation }});
               break;
             case 'traffic':
               const trafficCard = (card as TrafficCard);
               const requests = trafficCard.requests;
-              resolve({ traffic: requests['thirdParty'].map(request =>({'requested':request})), evaluation: evaluation });
+              resolve({ traffic:  {values : requests['thirdParty'].map(request =>({'requested':request})), evaluation: evaluation }});
               break;
             case 'forms':
               const formCard = (card as UnsafeFormsCard);
-              resolve({ unsafeForms: formCard.unsafeForms, evaluation: evaluation });
+              resolve({ unsafeForms :  {values : formCard.unsafeForms, evaluation: evaluation }});
               break;
             case 'beacons':
               const beaconCard = (card as BeaconCard);
-              resolve({ beacons: filter_details(beaconCard.beaconLines, evaluations_opt), evaluation: evaluation });
+              resolve({ beacons: {values :filter_details(beaconCard.beaconLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'testSSL':
               const testsslCard = (card as TestSSLCard);
-              resolve({ testSSL: {protocols:filter_details(testsslCard.protocols, evaluations_opt), vulnerabilities:filter_details(testsslCard.vulnerabilities, evaluations_opt)}, evaluation: evaluation });
+              resolve({ testSSL: {values : {protocols:filter_details(testsslCard.protocols, evaluations_opt), vulnerabilities:filter_details(testsslCard.vulnerabilities, evaluations_opt)}, evaluation: evaluation }});
               break;
             case 'image':
               const screenshotCard = (card as ScreenshotCard);
               let reader = new FileReader();
               reader.readAsDataURL(screenshotCard.image);
               reader.onloadend = function() {
-                resolve({ screenshot: {src:reader.result, name:screenshotCard.name}, evaluation: evaluation });
+                resolve({ screenshot: {values : {src:reader.result, name:screenshotCard.name}, evaluation: evaluation }});
               }
               break;
             case 'html':
               const htmlCard = (card as SourceCard);
-              resolve({ source: htmlCard, evaluation: evaluation });
+              resolve({ source: {values :htmlCard, evaluation: evaluation }});
               break;
             case 'info':
               const infoCard = (card as WebsiteCard);
-              resolve({ info: [{'name':infoCard.name, 'url':infoCard.url}], evaluation: evaluation });
+              resolve({ info: {values : [{'name':infoCard.name, 'url':infoCard.url}], evaluation: evaluation }});
               break;
             default:
               resolve({});
