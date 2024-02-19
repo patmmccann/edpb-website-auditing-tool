@@ -32,7 +32,7 @@ For error messages, please refer to the documentation https://code.europa.eu/edp
 
 # Installation of the project (build version)
 
-Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm run start` to install all dependencies.
+Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm install` to install all dependencies.
 
 
 ## Build and run the project (electron)
