@@ -33,6 +33,9 @@ For error messages, please refer to the documentation https://code.europa.eu/edp
 # Installation of the project (build version)
 
 Before any of the following steps, make sure that Node.js (minimal version > 20.10.0) and npm is installed on your computer. Run `npm install` to install all dependencies.
+In case of memory problem (JavaScript heap out of memory), you can try to increase the amount of memory allocated to your installation of Node.js with the NODE_OPTIONS global variable (e.g. NODE_OPTIONS=--max-old-space-size=8192).
+
+For instance in Linux/macOS terminal : export NODE_OPTIONS=--max-old-space-size=8192
 
 ## Build and run the project
 
