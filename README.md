@@ -37,7 +37,6 @@ In case of memory problem (JavaScript heap out of memory), you can try to increa
 
 For instance in Linux/macOS terminal : export NODE_OPTIONS=--max-old-space-size=8192
 
-
 ## Build and run the project (electron)
 
 Run `npm run start` to build the project. The build artifacts will be stored in the `dist/` directory. 
