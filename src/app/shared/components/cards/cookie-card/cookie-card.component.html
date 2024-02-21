@@ -17,8 +17,9 @@
     <tr *ngFor="let line of this.card.cookieLines; index as idx">
       <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
       <td class="truncate" (click)="selected(line)">{{line.name}}</td>
-      <td class="truncate" (click)="selected(line)">
-        {{line | findInKnowlegeBase | async}}
+      <td class="truncate" (click)="selected(line)"
+      [innerHTML]="line | findInKnowlegeBase | async | safeHtml"
+      >
       </td>
       <td *ngIf="context=='evaluate'">
        <button

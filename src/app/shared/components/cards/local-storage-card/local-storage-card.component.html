@@ -17,8 +17,9 @@
     <tr *ngFor="let line of this.card.localStorageLines; index as idx">
       <td class="truncate" (click)="selected(line)">{{line.host}}</td>
       <td class="truncate" (click)="selected(line)">{{line.key}}</td>
-      <td class="truncate" (click)="selected(line)">
-        {{line | findInKnowlegeBase | async}}
+      <td class="truncate" (click)="selected(line)"
+      [innerHTML]="line | findInKnowlegeBase | async | safeHtml"
+      >
       </td>
       <td *ngIf="context=='evaluate'">
        <button

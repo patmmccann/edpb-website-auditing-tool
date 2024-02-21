@@ -1,19 +1,19 @@
 @import 'src/assets/stylesheets/variables';
 
 .validated{
-  color: red
+  background-color: $base-green-dark;
 }
 
 .reliable{
-  color: blue
+  background-color: $base-blue-dark2;
 }
 
 .informative{
-  color: yellow
+  background-color: $base-orange;
 }
 
 .undefined{
-  color: green($color: #000000)
+  background-color: $base-gray-light;
 }
 
 .entries-list-table {

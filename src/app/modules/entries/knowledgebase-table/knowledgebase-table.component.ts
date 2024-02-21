@@ -111,6 +111,10 @@ export class KnowledgebaseTableComponent implements OnInit {
             return compare(a.category, b.category, isAsc);
           case 'knowledges':
             return compare(a.knowledges, b.knowledges, isAsc);
+          case 'trust':
+            return compare(a.trust, b.trust, isAsc);
+          case 'used':
+            return compare(a.used, b.used, isAsc);
           default:
             return 0;
         }

@@ -148,11 +148,12 @@
         "select_a_knowledge_base":"Select a knowledge base",
         "reference_type":"Reference type",
         "trust_level":"Level of trust",
-        "used_knowledge":"Used in analysis",
+        "used_knowledge":"In use ?",
         "validated":"Validated",
         "reliable":"Reliable",
         "informative":"Informative",
-        "undefined":"Undefined"
+        "undefined":"Undefined",
+        "matches":"match(es)"
     },
     "browse": {
         "toolbar": {

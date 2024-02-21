@@ -69,14 +69,13 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <td class="base-listsBlock-item">
-          {{ base.trustLevel }}  <mat-icon>arrow_drop_down</mat-icon>
-          <mat-select               [ngClass]="{
-            'validated': base.trustLevel == 'validated',
-            'reliable':  base.trustLevel == 'reliable',
-            'informative':  base.trustLevel == 'informative',
-            'undefined':  base.trustLevel == 'undefined'
-          }"
+      <td [ngClass]="{
+        'validated': base.trustLevel == 'validated',
+        'reliable':  base.trustLevel == 'reliable',
+        'informative':  base.trustLevel == 'informative',
+        'undefined':  base.trustLevel == 'undefined'
+      }">
+          <mat-select   class="base-listsBlock-item" 
            [(value)]="base.trustLevel" (selectionChange)="updateTrust(base, $event.value)">
               <mat-option 
               [ngClass]="{
@@ -91,7 +90,7 @@
 
       </td>
       <td class="base-listsBlock-item">
-        <mat-select               
+        <mat-select   class="base-listsBlock-item"             
          [(value)]="base.used" (selectionChange)="updateUsed(base, $event.value)">
             <mat-option value=true >Yes</mat-option>
             <mat-option value=false >No</mat-option>

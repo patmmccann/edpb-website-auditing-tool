@@ -4,6 +4,23 @@
   overflow: auto;
 }
 
+.validated{
+  color: $base-green-dark;
+}
+
+.reliable{
+  color: $base-blue-dark2;
+}
+
+.informative{
+  color: $base-orange;
+}
+
+.undefined{
+  color: $base-gray-light;
+}
+
+
 .base-knowledges_base {
   &-form,
   &-displayData {
