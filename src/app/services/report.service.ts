@@ -216,7 +216,7 @@ export class ReportService {
             // Stringify log calls and values
             lines.forEach((line :any) => {
               if(line.log){
-                line.log = JSON.stringify(line.log.stacks)
+                line.log = line.log.stacks;
               }
 
               if(line.value && typeof(line.value)!="string"){

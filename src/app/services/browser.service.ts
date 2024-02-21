@@ -19,7 +19,8 @@ import { TrafficCard } from '../models/cards/traffic-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { SettingsService } from './settings.service';
-
+import { environment } from 'src/environments/environment';
+import { version } from 'os';
 
 export interface BrowserSession {
   event: 'new' | 'delete',
@@ -86,6 +87,7 @@ export class BrowserService {
   }
 
   newSession(window: any, analysis: Analysis | null, tag: Tag | null): Promise<any[]> {
+
     return new Promise((resolve, reject) => {
       if (analysis && tag) {
         window.electron.createCollector(analysis.id, tag.id, analysis.url, this.settingService.settings).then(() => {
@@ -309,5 +311,11 @@ export class BrowserService {
           resolve(cards);
         });
     });
+  }
+
+  async versions(){
+    const version = await (window as any).electron.versions();
+    version['appVersion'] = environment.version;
+    return version;
   }
 }
