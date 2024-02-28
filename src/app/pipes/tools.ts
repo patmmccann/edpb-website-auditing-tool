@@ -13,7 +13,7 @@ import { TrustLevel } from 'src/app/models/knowledgeBase.model';
 export class SafeHtmlPipe implements PipeTransform {
   constructor(private sanitized: DomSanitizer) { }
   transform(value: string | null) {
-    if (value){
+    if (value) {
       return this.sanitized.bypassSecurityTrustHtml(value);
     }
     return "";
@@ -105,13 +105,37 @@ export class FilterForEval implements PipeTransform {
 
 }
 
+@Pipe({ name: 'filterForStatus' })
+export class FilterForStatus implements PipeTransform {
+  constructor(
+    private evaluationService: EvaluationService
+  ) {
+  }
+
+  transform(items: Details[],
+    status: Status[]): any {
+    if (status.length == 0) return items;
+    const res = [];
+    for (let item of items) {
+      if ((status.includes('compliant') && item.status == 'compliant') ||
+        (status.includes('not_compliant') && item.status == 'not_compliant') ||
+        (status.includes('TBD') && item.status == 'TBD') ||
+        (status.includes('pending') && item.status == 'pending')) {
+        res.push(item);
+      }
+    }
+    return res;
+  }
+}
+
 import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { LocalstorageKnowledgesService } from '../services/knowledges/localstorage-knowledges.service';
 import { KnowledgeBaseService } from '../services/knowledge-base.service';
 import { KnowledgeBase, allTrustLevel } from 'src/app/models/knowledgeBase.model';
-import { KnowledgesService } from '../services/knowledges.service';
+import { Details } from '../models/details.model';
+import { Status } from '../models/evaluation.model';
 
 @Pipe({ name: 'findInKnowlegeBase' })
 export class FindPurpose implements PipeTransform {

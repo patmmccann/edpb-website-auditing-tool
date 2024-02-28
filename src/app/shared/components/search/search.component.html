@@ -1,0 +1,141 @@
+<div class="card-evaluationBlock">
+
+  <div class="sectiontitle card-evaluationBlock-title">
+    <span>Selectors</span>
+    <span class="icon-spacer"></span>
+
+  </div>
+</div>
+<div>
+  <mat-button-toggle-group #toolbargroup="matButtonToggleGroup" [(value)]="selector" multiple>
+    <mat-button-toggle 
+    (change)="!$event.source.checked?removeFilter('from_columns'):null"
+    class="btn-toogle-primary" 
+    value="from_columns">
+      
+      <mat-icon aria-hidden="false"
+        aria-label="columns icon">search</mat-icon> From columns </mat-button-toggle>
+    <mat-button-toggle class="btn-toogle-primary" value="from_knowledge"><mat-icon aria-hidden="false"
+        aria-label="knowledge icon">menu_book</mat-icon> From knowledge </mat-button-toggle>
+    <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
+        aria-label="mark icon">edit</mat-icon> Mark as </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+
+<mat-toolbar class="page-header" role="heading" *ngIf="selector.length >0">
+
+  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+    From columns
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('from_columns')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+    <mat-form-field appearance="fill">
+      <mat-label>Domain</mat-label>
+      <input matInput [(ngModel)]="searchDomain" />
+      <mat-icon *ngIf="!searchDomain" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchDomain && searchDomain.length>0" (click)="searchDomain=''" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="searchName" />
+      <mat-icon *ngIf="!searchName" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchName && searchName.length>0" (click)="searchName=''" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+    <section [formGroup]="searchStatusForm">
+      <mat-checkbox formControlName="pending" [color]="'primary'">
+        {{ "analyses.evaluation.not_evaluate" | translate }}
+      </mat-checkbox>
+      <mat-checkbox formControlName="compliant" style="color: green;" [color]="'primary'">
+        {{ "analyses.evaluation.compliant" | translate }}
+      </mat-checkbox>
+      <mat-checkbox formControlName="not_compliant"  style="color: red;" [color]="'primary'">
+        {{ "analyses.evaluation.not_compliant" | translate }}
+      </mat-checkbox>
+      <mat-checkbox formControlName="TBD"  style="color:#004494;" [color]="'primary'">
+        {{ "analyses.evaluation.to_be_defined" | translate }}
+      </mat-checkbox>
+    </section>
+  </mat-toolbar-row>
+
+
+
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
+    From knowledge
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('mark_as')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
+    <mat-form-field>
+      <mat-label>Mark all</mat-label>
+      <mat-select>
+        <mat-option value="domain">{{ "knowledge.domain" | translate }}</mat-option>
+        <mat-option value="name">{{ "knowledge.name" | translate }}</mat-option>
+        <mat-option value="category">{{ "knowledge.category" | translate }}</mat-option>
+        <mat-option value="evaluation">{{ "analyses.edit.evaluation" | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>of value</mat-label>
+      <mat-select>
+        <mat-option value="domain">{{ "knowledge.domain" | translate }}</mat-option>
+        <mat-option value="name">{{ "knowledge.name" | translate }}</mat-option>
+        <mat-option value="category">{{ "knowledge.category" | translate }}</mat-option>
+        <mat-option value="evaluation">{{ "analyses.edit.evaluation" | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>with evaluation</mat-label>
+      <mat-select>
+        <mat-option value="option1"><mat-icon style="color: green;">done</mat-icon></mat-option>
+        <mat-option value="option2"><mat-icon style="color: red;">close</mat-icon></mat-option>
+        <mat-option value="option3"><mat-icon style="color: #004494;">search</mat-icon></mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('mark_as')">
+    Mark as
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('mark_as')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+
+  <mat-toolbar-row *ngIf="selector.includes('mark_as')">
+    <mat-form-field>
+      <mat-label>Evaluation</mat-label>
+      <mat-select (selectionChange)="mark_as($event)">
+        <mat-option value="compliant"><mat-icon style="color: green;">done</mat-icon>Compliant</mat-option>
+        <mat-option value="not_compliant"><mat-icon style="color: red;">close</mat-icon>Not compliant</mat-option>
+        <mat-option value="TBD"><mat-icon style="color: #004494;">search</mat-icon> To be defined</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="card-evaluationBlock">
+
+  <div class="sectiontitle card-evaluationBlock-title">
+    <span>Content</span>
+    <span class="icon-spacer"></span>
+
+  </div>
+</div>

@@ -20,17 +20,26 @@
                 </mat-form-field>
             </mat-panel-description>
         </mat-panel-title>
-        <mat-panel-description *ngIf="context == 'view' && card.is_runnable">
+        <mat-panel-description *ngIf="context == 'view' && card.kind == 'testSSL'">
             <button (click)="runCard()">
                 <mat-icon>play_arrow</mat-icon>
             </button>
         </mat-panel-description>
-        <mat-panel-description *ngIf="card.is_name_editable">
+        <mat-panel-description *ngIf="card.kind == 'image'">
             <button (click)="edit($event)">
                 <mat-icon>edit</mat-icon>
             </button>
         </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <ng-container *ngIf="context == 'evaluate' && 
+    (card.kind == 'cookie') || (card.kind == 'localstorage')|| (card.kind == 'beacons')">
+        <app-search 
+        [card]="card"
+        (searchStatusEvent)="searchStatus = $event"
+        >
+        </app-search>
+    </ng-container>
 
     <ng-container [ngSwitch]="card.kind">
         <ng-container *ngSwitchCase="'testSSL'">
@@ -38,7 +47,10 @@
             </app-testssl-card>
         </ng-container>
         <ng-container *ngSwitchCase="'cookie'">
-            <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)">
+            <app-cookie-card [context]="context" 
+            [card]="cardService.castToCookieCard(card)"
+            [searchStatus]="searchStatus"
+            >
             </app-cookie-card>
         </ng-container>
         <ng-container *ngSwitchCase="'https'">
@@ -46,7 +58,10 @@
             </app-http-card>
         </ng-container>
         <ng-container *ngSwitchCase="'localstorage'">
-            <app-local-storage-card [context]="context" [card]="cardService.castToLocalStorageCard(card)">
+            <app-local-storage-card [context]="context" 
+            [card]="cardService.castToLocalStorageCard(card)"
+            [searchStatus]="searchStatus"
+            >
             </app-local-storage-card>
         </ng-container>
         <ng-container *ngSwitchCase="'traffic'">
@@ -58,7 +73,10 @@
             </app-unsafe-form-card>
         </ng-container>
         <ng-container *ngSwitchCase="'beacons'">
-            <app-beacon-card [context]="context" [card]="cardService.castToBeaconCard(card)">
+            <app-beacon-card [context]="context" 
+            [card]="cardService.castToBeaconCard(card)"
+            [searchStatus]="searchStatus"
+            >
             </app-beacon-card>
         </ng-container>
         <ng-container *ngSwitchCase="'image'">
@@ -66,7 +84,7 @@
             </app-screenshot-card>
         </ng-container>
     </ng-container>
-    <ng-container *ngIf="context == 'evaluate' &&  card.allow_evaluation">
+    <ng-container *ngIf="context == 'evaluate' &&  card.kind != 'global'">
         <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
         </app-evaluations>
     </ng-container>

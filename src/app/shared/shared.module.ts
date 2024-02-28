@@ -14,7 +14,7 @@ import { ModalComponent } from './components/modal/modal.component';
 
 
 import {
-  FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge
+  FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge, FilterForStatus
 } from '../pipes/tools';
 
 
@@ -57,6 +57,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { WATTranslateLoader } from './translate/wattranslate-loader';
+import { SearchComponent } from './components/search/search.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguagesComponent,
     FilterForUser,
     FilterForEval,
+    FilterForStatus,
     ModalComponent,
     KnowledgeBaseComponent,
     SafeHtmlPipe,
@@ -99,7 +101,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BeaconCardComponent,
     BeaconDetailsComponent,
     LoadingOverlayComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    SearchComponent
     ],
   imports: [
     HttpClientModule,

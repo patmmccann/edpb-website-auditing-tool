@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody #tableContent>
-      <tr *ngFor="let line of this.card.beaconLines; index as idx">
+      <tr *ngFor="let line of this.card.beaconLines | filterForStatus:searchStatus; index as idx">
         <td class="truncate" (click)="selected(line)">{{line.url}}</td>
         <td class="truncate" (click)="selected(line)">{{line.occurrances}}</td>
         <td *ngIf="context=='evaluate'">

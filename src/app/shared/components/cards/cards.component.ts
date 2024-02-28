@@ -11,7 +11,7 @@ import { Card } from 'src/app/models/card.model';
 import { CardService } from 'src/app/services/card.service';
 import { BrowserService } from 'src/app/services/browser.service';
 import { TestSSLCard } from 'src/app/models/cards/test-sslcard.model';
-import { Evaluation } from 'src/app/models/evaluation.model';
+import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
@@ -26,6 +26,7 @@ export class CardsComponent implements OnInit {
   @Input() card: Card = new Card("","");
   @Input() evaluation : Evaluation = new Evaluation();
   editing : boolean = false;
+  searchStatus :Status[]= [];
 
   constructor(
     public cardService : CardService,
