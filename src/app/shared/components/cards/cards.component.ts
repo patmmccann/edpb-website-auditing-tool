@@ -27,6 +27,9 @@ export class CardsComponent implements OnInit {
   @Input() evaluation : Evaluation = new Evaluation();
   editing : boolean = false;
   searchStatus :Status[]= [];
+  searchCookie = {};
+  searchLocalStorage = {};
+  searchBeacon = {};
 
   constructor(
     public cardService : CardService,

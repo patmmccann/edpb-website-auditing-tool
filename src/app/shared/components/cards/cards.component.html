@@ -37,6 +37,9 @@
         <app-search 
         [card]="card"
         (searchStatusEvent)="searchStatus = $event"
+        (searchCookieEvent)="searchCookie = $event"
+        (searchLocalStorageEvent)="searchLocalStorage = $event"
+        (searchBeaconEvent)="searchBeacon = $event"
         >
         </app-search>
     </ng-container>
@@ -50,6 +53,7 @@
             <app-cookie-card [context]="context" 
             [card]="cardService.castToCookieCard(card)"
             [searchStatus]="searchStatus"
+            [searchCookie]="searchCookie"
             >
             </app-cookie-card>
         </ng-container>
@@ -61,6 +65,7 @@
             <app-local-storage-card [context]="context" 
             [card]="cardService.castToLocalStorageCard(card)"
             [searchStatus]="searchStatus"
+            [searchLocalStorage]="searchLocalStorage"
             >
             </app-local-storage-card>
         </ng-container>
@@ -76,6 +81,7 @@
             <app-beacon-card [context]="context" 
             [card]="cardService.castToBeaconCard(card)"
             [searchStatus]="searchStatus"
+            [searchBeacon]="searchBeacon"
             >
             </app-beacon-card>
         </ng-container>

@@ -14,9 +14,16 @@ import { ModalComponent } from './components/modal/modal.component';
 
 
 import {
-  FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge, FilterForStatus
-} from '../pipes/tools';
+  SafeHtmlPipe, SafeImgPipe, SafeUrl
+} from '../pipes/tools.pipe';
 
+import {
+  FilterForUser, FilterForEval, FilterForStatus, filterForCookie, filterForLocalStorage, filterForBeacon
+} from '../pipes/filters.pipe';
+
+import {
+  FindPurpose, NbEntriesInKnowledge
+} from '../pipes/knowledges.pipe';
 
 import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-base.component';
 
@@ -71,6 +78,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterForUser,
     FilterForEval,
     FilterForStatus,
+    filterForCookie,
+    filterForLocalStorage,
+    filterForBeacon,
     ModalComponent,
     KnowledgeBaseComponent,
     SafeHtmlPipe,

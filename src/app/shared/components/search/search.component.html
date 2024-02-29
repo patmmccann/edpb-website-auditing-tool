@@ -8,14 +8,14 @@
 </div>
 <div>
   <mat-button-toggle-group #toolbargroup="matButtonToggleGroup" [(value)]="selector" multiple>
+    <mat-button-toggle (change)="!$event.source.checked?removeFilter('from_values'):null" class="btn-toogle-primary"
+      value="from_values">
+
+      <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon> From values </mat-button-toggle>
     <mat-button-toggle 
-    (change)="!$event.source.checked?removeFilter('from_columns'):null"
+    *ngIf="(card.kind == 'cookie' && hasCookieKnowledge) || (card.kind == 'localstorage' && hasLocalstorageKnowledge)"
     class="btn-toogle-primary" 
-    value="from_columns">
-      
-      <mat-icon aria-hidden="false"
-        aria-label="columns icon">search</mat-icon> From columns </mat-button-toggle>
-    <mat-button-toggle class="btn-toogle-primary" value="from_knowledge"><mat-icon aria-hidden="false"
+    value="from_knowledge"><mat-icon aria-hidden="false"
         aria-label="knowledge icon">menu_book</mat-icon> From knowledge </mat-button-toggle>
     <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
         aria-label="mark icon">edit</mat-icon> Mark as </mat-button-toggle>
@@ -25,32 +25,66 @@
 
 <mat-toolbar class="page-header" role="heading" *ngIf="selector.length >0">
 
-  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
-    From columns
+  <mat-toolbar-row *ngIf="selector.includes('from_values')">
+    From values
     <span class="spacer"></span>
-    <button mat-icon-button (click)="removeFilter('from_columns')">
+    <button mat-icon-button (click)="removeFilter('from_values')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='cookie'" [formGroup]="searchCookieForm">
     <mat-form-field appearance="fill">
       <mat-label>Domain</mat-label>
-      <input matInput [(ngModel)]="searchDomain" />
-      <mat-icon *ngIf="!searchDomain" matSuffix>search</mat-icon>
-      <mat-icon *ngIf="searchDomain && searchDomain.length>0" (click)="searchDomain=''" matSuffix>close
+      <input formControlName="searchDomain" matInput />
+      <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
+        (click)="searchCookieForm.patchValue({searchDomain:''})" matSuffix>close
       </mat-icon>
     </mat-form-field>
-  </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="searchName" />
-      <mat-icon *ngIf="!searchName" matSuffix>search</mat-icon>
-      <mat-icon *ngIf="searchName && searchName.length>0" (click)="searchName=''" matSuffix>close
+      <input formControlName="searchName" matInput />
+      <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
+        (click)="searchCookieForm.patchValue({searchName:''})" matSuffix>close
       </mat-icon>
     </mat-form-field>
   </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="selector.includes('from_columns')">
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='localstorage'" [formGroup]="searchLocalStorageForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Host</mat-label>
+      <input formControlName="searchHost" matInput />
+      <mat-icon *ngIf="!searchLocalStorageForm.value.searchHost" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchLocalStorageForm.value.searchHost && searchLocalStorageForm.value.searchHost.length>0"
+        (click)="searchLocalStorageForm.patchValue({searchHost:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Key</mat-label>
+      <input formControlName="searchKey" matInput />
+      <mat-icon *ngIf="!searchLocalStorageForm.value.searchKey" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchLocalStorageForm.value.searchKey && searchLocalStorageForm.value.searchKey.length>0"
+        (click)="searchLocalStorageForm.patchValue({searchKey:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='beacons'" [formGroup]="searchBeaconForm">
+    <mat-form-field appearance="fill">
+      <mat-label>URL</mat-label>
+      <input formControlName="searchUrl" matInput />
+      <mat-icon *ngIf="!searchBeaconForm.value.searchUrl" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchBeaconForm.value.searchUrl && searchBeaconForm.value.searchUrl.length>0"
+        (click)="searchBeaconForm.patchValue({searchUrl:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values')">
     <section [formGroup]="searchStatusForm">
       <mat-checkbox formControlName="pending" [color]="'primary'">
         {{ "analyses.evaluation.not_evaluate" | translate }}
@@ -58,10 +92,10 @@
       <mat-checkbox formControlName="compliant" style="color: green;" [color]="'primary'">
         {{ "analyses.evaluation.compliant" | translate }}
       </mat-checkbox>
-      <mat-checkbox formControlName="not_compliant"  style="color: red;" [color]="'primary'">
+      <mat-checkbox formControlName="not_compliant" style="color: red;" [color]="'primary'">
         {{ "analyses.evaluation.not_compliant" | translate }}
       </mat-checkbox>
-      <mat-checkbox formControlName="TBD"  style="color:#004494;" [color]="'primary'">
+      <mat-checkbox formControlName="TBD" style="color:#004494;" [color]="'primary'">
         {{ "analyses.evaluation.to_be_defined" | translate }}
       </mat-checkbox>
     </section>
@@ -72,7 +106,7 @@
 
 
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
-    From knowledge
+    From knowledges
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('mark_as')">
       <mat-icon>close</mat-icon>

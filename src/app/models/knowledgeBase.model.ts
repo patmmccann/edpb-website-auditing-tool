@@ -11,6 +11,12 @@ export type TrustLevel =
 'informative'|
 'undefined';
 
+export type KnowledgeCategory = 
+''|
+'cookie' |
+'localstorage';
+
+
 export const allTrustLevel : TrustLevel[] =[
     'validated',
     'reliable' ,
@@ -22,13 +28,13 @@ export class KnowledgeBase {
     public id: number = -1;
     public name: string;
     public author: string;
-    public category: string;
+    public category: KnowledgeCategory;
     public knowledges: Knowledge[] = [];
     public created_at: Date;
     public trustLevel: TrustLevel;
     public used: string;
     
-    constructor(id :number, name :string, author :string, category : string, createdAt :Date, trustLevel : TrustLevel, used:string) {
+    constructor(id :number, name :string, author :string, category : KnowledgeCategory, createdAt :Date, trustLevel : TrustLevel, used:string) {
       this.id = id;
       this.name = name;
       this.author = author;

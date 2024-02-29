@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody #tableContent>
-    <tr *ngFor="let line of this.card.cookieLines | filterForStatus:searchStatus ; index as idx ">
+    <tr *ngFor="let line of this.card.cookieLines | filterForCookie:searchCookie| filterForStatus:searchStatus ; index as idx ">
       <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
       <td class="truncate" (click)="selected(line)">{{line.name}}</td>
       <td class="truncate" (click)="selected(line)"
