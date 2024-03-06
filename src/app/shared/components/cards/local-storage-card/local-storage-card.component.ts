@@ -25,6 +25,10 @@ export class LocalStorageCardComponent implements OnInit {
   @Input() context: viewContext = 'evaluate';
   @Input() searchStatus :Status[]= [];
   @Input() searchLocalStorage = {};
+  @Input() searchKnowledge = {
+    searchKnowledge : [],
+    searchCategory : []
+  };
 
   constructor(
     private cardService:CardService,

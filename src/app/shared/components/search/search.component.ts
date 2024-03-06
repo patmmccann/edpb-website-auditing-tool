@@ -6,7 +6,9 @@ import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
 import { Status, allStatus } from 'src/app/models/evaluation.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
-import { FilterForStatus, filterForBeacon, filterForCookie, filterForLocalStorage } from 'src/app/pipes/filters.pipe';
+import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
+import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
+import { FilterForStatus, FilterForBeacon, FilterForCookie, FilterForLocalStorage } from 'src/app/pipes/filters.pipe';
 import { CardService } from 'src/app/services/card.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
@@ -14,77 +16,90 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  providers: [FilterForStatus, filterForCookie, filterForLocalStorage, filterForBeacon]
+  providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon]
 })
 export class SearchComponent {
-  
+
   selector: string[] = [];
 
-  @Input() card: Card = new Card('','');
+  @Input() card: Card = new Card('', '');
 
   @Output() searchStatusEvent = new EventEmitter<any>();
-  searchStatusForm :FormGroup = new FormGroup({});
+  searchStatusForm: FormGroup = new FormGroup({});
 
   @Output() searchCookieEvent = new EventEmitter<any>();
-  searchCookieForm :FormGroup = new FormGroup({});
+  searchCookieForm: FormGroup = new FormGroup({});
 
   @Output() searchLocalStorageEvent = new EventEmitter<any>();
-  searchLocalStorageForm :FormGroup = new FormGroup({});
+  searchLocalStorageForm: FormGroup = new FormGroup({});
 
   @Output() searchBeaconEvent = new EventEmitter<any>();
-  searchBeaconForm :FormGroup = new FormGroup({});
+  searchBeaconForm: FormGroup = new FormGroup({});
 
-  hasCookieKnowledge = false;
-  hasLocalstorageKnowledge = false;
+  @Output() searchKnowledgeEvent = new EventEmitter<any>();
+  searchKnowledgeForm: FormGroup = new FormGroup({});
+
+
+  cookieKnowledges: CookieKnowledge[] = [];
+  localstorageKnowledges: LocalStorageKnowledge[] = [];
 
   constructor(
     private cardService: CardService,
     private formBuilder: FormBuilder,
-    private filterForStatus : FilterForStatus,
-    private filterForCookie : filterForCookie,
-    private filterForLocalStorage : filterForLocalStorage,
-    private filterForBeacon : filterForBeacon,
-    private knowledgeBaseService : KnowledgeBaseService
+    private filterForStatus: FilterForStatus,
+    private filterForCookie: FilterForCookie,
+    private filterForLocalStorage: FilterForLocalStorage,
+    private filterForBeacon: FilterForBeacon,
+    public knowledgeBaseService: KnowledgeBaseService
   ) {
 
     knowledgeBaseService.getAll()
-    .then((result: any) => {
-      this.hasCookieKnowledge = result.filter(((x:KnowledgeBase)=> x.category == 'cookie')).length >0;
-      this.hasLocalstorageKnowledge  = result.filter(((x:KnowledgeBase)=> x.category == 'localstorage')).length >0;
-    });
+      .then((result: any) => {
+        this.cookieKnowledges = result.filter((x: KnowledgeBase) => x.category == 'cookie' && x.used);
+        this.localstorageKnowledges = result.filter((x: KnowledgeBase) => x.category == 'localstorage' && x.used);
+      });
 
     this.searchStatusForm = this.formBuilder.group({
-      searchStatus : []
+      searchStatus: []
     });
 
-    this.searchStatusForm.valueChanges.subscribe((selectedValue :any) => {
+    this.searchStatusForm.valueChanges.subscribe((selectedValue: any) => {
       this.searchStatusEvent.emit(selectedValue.searchStatus);
     });
 
-    this.searchCookieForm = this.formBuilder.group({
-      searchDomain : "",
-      searchName : ""
+    this.searchKnowledgeForm = this.formBuilder.group({
+      searchKnowledge: [],
+      searchCategory: []
     });
 
-    this.searchCookieForm.valueChanges.subscribe((selectedValue :any) => {
+    this.searchKnowledgeForm.valueChanges.subscribe((selectedValue: any) => {
+      this.searchKnowledgeEvent.emit(selectedValue);
+    });
+
+    this.searchCookieForm = this.formBuilder.group({
+      searchDomain: "",
+      searchName: ""
+    });
+
+    this.searchCookieForm.valueChanges.subscribe((selectedValue: any) => {
       this.searchCookieEvent.emit(selectedValue);
     });
 
 
     this.searchLocalStorageForm = this.formBuilder.group({
-      searchHost : "",
-      searchKey : ""
+      searchHost: "",
+      searchKey: ""
     });
 
-    this.searchLocalStorageForm.valueChanges.subscribe((selectedValue :any) => {
+    this.searchLocalStorageForm.valueChanges.subscribe((selectedValue: any) => {
       this.searchLocalStorageEvent.emit(selectedValue);
     });
 
     this.searchBeaconForm = this.formBuilder.group({
-      searchUrl : ""
+      searchUrl: ""
     });
 
-    this.searchBeaconForm.valueChanges.subscribe((selectedValue :any) => {
+    this.searchBeaconForm.valueChanges.subscribe((selectedValue: any) => {
       this.searchBeaconEvent.emit(selectedValue);
     });
   }
@@ -92,22 +107,28 @@ export class SearchComponent {
   removeFilter(val: any) {
     this.selector = this.selector.filter(x => x != val);
 
-    switch(val){
+    switch (val) {
       case 'from_values':
         this.searchStatusForm.setValue({
-          searchStatus : []
+          searchStatus: []
         })
         this.searchCookieForm.setValue({
-          searchDomain : "",
-          searchName : ""
+          searchDomain: "",
+          searchName: ""
         })
         this.searchLocalStorageForm.setValue({
-          searchHost : "",
-          searchKey : ""
+          searchHost: "",
+          searchKey: ""
         })
         this.searchBeaconForm.setValue({
-          searchUrl : ""
+          searchUrl: ""
         })
+        break;
+      case 'from_knowledge':
+        this.searchKnowledgeForm.setValue({
+          searchKnowledge: [],
+          searchCategory: []
+        });
         break;
     }
   }
@@ -120,7 +141,7 @@ export class SearchComponent {
         this.filterForStatus.transform(
           this.filterForCookie.transform(cookieCard.cookieLines, this.searchCookieForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line :CookieLine)=> line.status = event.value);
+          .map((line: CookieLine) => line.status = event.value);
 
         this.cardService.update(cookieCard);
         break;
@@ -129,7 +150,7 @@ export class SearchComponent {
         this.filterForStatus.transform(
           this.filterForLocalStorage.transform(localstorageCard.localStorageLines, this.searchLocalStorageForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line :LocalStorageLine)=> line.status = event.value);
+          .map((line: LocalStorageLine) => line.status = event.value);
 
         this.cardService.update(localstorageCard);
         break;
@@ -138,14 +159,14 @@ export class SearchComponent {
         this.filterForStatus.transform(
           this.filterForBeacon.transform(beaconCard.beaconLines, this.searchBeaconForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line :BeaconLine)=> line.status = event.value);
+          .map((line: BeaconLine) => line.status = event.value);
 
         this.cardService.update(beaconCard);
         break;
     }
   }
 
-  get allStatus(){
+  get allStatus() {
     return allStatus;
   }
 }

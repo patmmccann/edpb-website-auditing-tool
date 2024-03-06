@@ -21,7 +21,7 @@ export class FindPurpose implements PipeTransform {
 
   async transform(line: CookieLine | LocalStorageLine): Promise<string> {
     const bases = await this.knowledgeBaseService.getAll();
-    const used_bases = bases.filter(x => x.used == "true");
+    const used_bases = bases.filter(x => x.used == true);
     const sorted_bases = used_bases.sort((a, b) => (allTrustLevel.indexOf(a.trustLevel) > allTrustLevel.indexOf(b.trustLevel)) ? 1 : ((allTrustLevel.indexOf(b.trustLevel) > allTrustLevel.indexOf(a.trustLevel)) ? -1 : 0));
     const color = {
       validated: "#127137",

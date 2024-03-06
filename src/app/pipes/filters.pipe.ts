@@ -6,6 +6,9 @@ import { Status } from '../models/evaluation.model';
 import { CookieLine } from '../models/cards/cookie-card.model';
 import { LocalStorageLine } from '../models/cards/local-storage-card.model';
 import { BeaconLine } from '../models/cards/beacon-card.model';
+import { CookieKnowledgesService, CookieSearch } from '../services/knowledges/cookie-knowledges.service';
+import { LocalstorageKnowledgesService } from '../services/knowledges/localstorage-knowledges.service';
+import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
 
 @Pipe({ name: 'filterForUser' })
 export class FilterForUser implements PipeTransform {
@@ -82,7 +85,7 @@ export class FilterForStatus implements PipeTransform {
 }
 
 @Pipe({ name: 'filterForCookie' })
-export class filterForCookie implements PipeTransform {
+export class FilterForCookie implements PipeTransform {
   transform(items: CookieLine[],
     cookie: any): any {
     if (Object.keys(cookie).length == 0 ||
@@ -105,7 +108,7 @@ export class filterForCookie implements PipeTransform {
 
 
 @Pipe({ name: 'filterForLocalStorage' })
-export class filterForLocalStorage implements PipeTransform {
+export class FilterForLocalStorage implements PipeTransform {
   transform(items: LocalStorageLine[],
     localstorage: any): any {
     if (Object.keys(localstorage).length == 0 ||
@@ -127,7 +130,7 @@ export class filterForLocalStorage implements PipeTransform {
 }
 
 @Pipe({ name: 'filterForBeacon' })
-export class filterForBeacon implements PipeTransform {
+export class FilterForBeacon implements PipeTransform {
   transform(items: BeaconLine[],
     beacon: any): any {
     if (Object.keys(beacon).length == 0 ||
@@ -140,5 +143,68 @@ export class filterForBeacon implements PipeTransform {
   matchURL(item: BeaconLine, beacon: any) {
     if (!beacon.searchUrl || beacon.searchUrl == '' || item.url.includes(beacon.searchUrl)) return true;
     return false;
+  }
+}
+
+@Pipe({ name: 'filterForCookieKnowledgeBase' })
+export class FilterForCookieKnowledge implements PipeTransform {
+  constructor(
+    private cookieKnowledgesService: CookieKnowledgesService
+  ) {
+  }
+
+  async transform(items: CookieLine[],
+    knowledgeBasesAndCategories: any): Promise<CookieLine[]> {
+    if ((!knowledgeBasesAndCategories.searchKnowledge || knowledgeBasesAndCategories.searchKnowledge.length == 0) && 
+    (!knowledgeBasesAndCategories.searchCategory || knowledgeBasesAndCategories.searchCategory.length ==0))
+      return items;
+
+      const search = items.map(cookieLine => this.cookieKnowledgesService.getCookieEntries(cookieLine.domain, cookieLine.name));
+      const results = await Promise.all(search);
+
+      return items.filter((item, idx) => this.matchKnowledgeBasesAndCategories(results[idx], knowledgeBasesAndCategories));
+  }
+
+  matchKnowledgeBasesAndCategories(search: CookieSearch, knowledgeBasesAndCategories: any) {
+    if (!search.matched) return false;
+
+    const searchKnowledgeBase = (knowledgeBasesAndCategories.searchKnowledge && knowledgeBasesAndCategories.searchKnowledge.length > 0);
+    const searchCategory = (knowledgeBasesAndCategories.searchCategory && knowledgeBasesAndCategories.searchCategory.length > 0);
+
+    const match_domain = search.domain.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
+    const match_name = search.name.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
+    const match_name_and_domain = search.name_and_domain.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
+
+    return (match_domain.length>0 || match_name.length >0 || match_name_and_domain.length>0);
+  }
+}
+
+@Pipe({ name: 'filterForLocalStorageKnowledge' })
+export class FilterForLocalStorageKnowledge implements PipeTransform {
+  constructor(
+    private localstorageKnowledgesService: LocalstorageKnowledgesService
+  ) {
+  }
+
+  async transform(items: LocalStorageLine[],
+    knowledgeBasesAndCategories: any): Promise<LocalStorageLine[]> {
+    if ((!knowledgeBasesAndCategories.searchKnowledge || knowledgeBasesAndCategories.searchKnowledge.length == 0) && 
+    (!knowledgeBasesAndCategories.searchCategory || knowledgeBasesAndCategories.searchCategory.length ==0))
+      return items;
+
+      const search = items.map(localstorageline => this.localstorageKnowledgesService.getLocalStorageEntries(localstorageline.key, localstorageline.log));
+      const results = await Promise.all(search);
+
+      return items.filter((item, idx) => this.matchKnowledgeBasesAndCategories(results[idx], knowledgeBasesAndCategories));
+  }
+
+  matchKnowledgeBasesAndCategories(search: LocalStorageKnowledge[], knowledgeBasesAndCategories: any) {
+    if (search.length == 0) return false;
+
+    const searchKnowledgeBase = (knowledgeBasesAndCategories.searchKnowledge && knowledgeBasesAndCategories.searchKnowledge.length > 0);
+    const searchCategory = (knowledgeBasesAndCategories.searchCategory && knowledgeBasesAndCategories.searchCategory.length > 0);
+
+    const match = search.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
+    return match.length>0;
   }
 }

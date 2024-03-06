@@ -21,7 +21,7 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
-  base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', 'true');
+  base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);
   knowledges: Knowledge[] = [];
   cookieKnowledges : CookieKnowledge[] = [];
   localStorageKnowledges : LocalStorageKnowledge[] = [];

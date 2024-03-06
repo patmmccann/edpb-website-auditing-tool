@@ -90,7 +90,7 @@ export class KnowledgebaseTableComponent implements OnInit {
     this.knowledgeBaseService.update(base);
   }
 
-  updateUsed(base:KnowledgeBase, used : string): void {
+  updateUsed(base:KnowledgeBase, used : boolean): void {
     base.used = used;
     this.knowledgeBaseService.update(base);
   }

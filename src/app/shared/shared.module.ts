@@ -18,7 +18,7 @@ import {
 } from '../pipes/tools.pipe';
 
 import {
-  FilterForUser, FilterForEval, FilterForStatus, filterForCookie, filterForLocalStorage, filterForBeacon
+  FilterForUser, FilterForEval, FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge
 } from '../pipes/filters.pipe';
 
 import {
@@ -78,9 +78,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterForUser,
     FilterForEval,
     FilterForStatus,
-    filterForCookie,
-    filterForLocalStorage,
-    filterForBeacon,
+    FilterForCookie,
+    FilterForLocalStorage,
+    FilterForBeacon,
+    FilterForCookieKnowledge,
     ModalComponent,
     KnowledgeBaseComponent,
     SafeHtmlPipe,

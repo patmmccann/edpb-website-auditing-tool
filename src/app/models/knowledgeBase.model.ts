@@ -32,9 +32,9 @@ export class KnowledgeBase {
     public knowledges: Knowledge[] = [];
     public created_at: Date;
     public trustLevel: TrustLevel;
-    public used: string;
+    public used: boolean;
     
-    constructor(id :number, name :string, author :string, category : KnowledgeCategory, createdAt :Date, trustLevel : TrustLevel, used:string) {
+    constructor(id :number, name :string, author :string, category : KnowledgeCategory, createdAt :Date, trustLevel : TrustLevel, used:boolean) {
       this.id = id;
       this.name = name;
       this.author = author;

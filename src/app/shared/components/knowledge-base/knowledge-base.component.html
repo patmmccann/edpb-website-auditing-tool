@@ -27,7 +27,7 @@
                         >
                         <ng-container *ngFor="let base of customKnowledgeBases">
                             <mat-option
-                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind && base.used == 'true'"
+                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind && base.used == true"
                             [value]="base.id"
                             >{{
                                base.name

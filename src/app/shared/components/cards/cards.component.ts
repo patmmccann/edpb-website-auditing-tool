@@ -30,6 +30,10 @@ export class CardsComponent implements OnInit {
   searchCookie = {};
   searchLocalStorage = {};
   searchBeacon = {};
+  searchKnowledge = {
+    searchKnowledge : [],
+    searchCategory : []
+  };
 
   constructor(
     public cardService : CardService,

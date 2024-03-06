@@ -40,6 +40,7 @@
         (searchCookieEvent)="searchCookie = $event"
         (searchLocalStorageEvent)="searchLocalStorage = $event"
         (searchBeaconEvent)="searchBeacon = $event"
+        (searchKnowledgeEvent)="searchKnowledge = $event"
         >
         </app-search>
     </ng-container>
@@ -54,6 +55,7 @@
             [card]="cardService.castToCookieCard(card)"
             [searchStatus]="searchStatus"
             [searchCookie]="searchCookie"
+            [searchKnowledge]="searchKnowledge"
             >
             </app-cookie-card>
         </ng-container>
@@ -66,6 +68,7 @@
             [card]="cardService.castToLocalStorageCard(card)"
             [searchStatus]="searchStatus"
             [searchLocalStorage]="searchLocalStorage"
+            [searchKnowledge]="searchKnowledge"
             >
             </app-local-storage-card>
         </ng-container>

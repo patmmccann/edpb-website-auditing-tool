@@ -325,7 +325,7 @@ export class KnowledgeBaseService extends ApplicationDb {
   async search(value: CookieLine | LocalStorageLine, kind: string): Promise<void> {
     // Only search in enabled databases
     const bases = await this.getAll();
-    const used_bases = bases.filter(x => x.used == "true");
+    const used_bases = bases.filter(x => x.used == true);
     const sorted_bases = used_bases.sort((a, b) => (allTrustLevel.indexOf(a.trustLevel) > allTrustLevel.indexOf(b.trustLevel)) ? 1 : ((allTrustLevel.indexOf(b.trustLevel) > allTrustLevel.indexOf(a.trustLevel)) ? -1 : 0));
 
     switch (kind) {

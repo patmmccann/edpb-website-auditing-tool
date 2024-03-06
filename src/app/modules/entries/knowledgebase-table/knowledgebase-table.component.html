@@ -92,8 +92,8 @@
       <td class="base-listsBlock-item">
         <mat-select   class="base-listsBlock-item"             
          [(value)]="base.used" (selectionChange)="updateUsed(base, $event.value)">
-            <mat-option value=true >Yes</mat-option>
-            <mat-option value=false >No</mat-option>
+            <mat-option [value]="true" >Yes</mat-option>
+            <mat-option [value]="false" >No</mat-option>
         </mat-select>
 
     </td>

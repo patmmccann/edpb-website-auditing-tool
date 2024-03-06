@@ -12,10 +12,9 @@
       value="from_values">
 
       <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon> From values </mat-button-toggle>
-    <mat-button-toggle 
-    *ngIf="(card.kind == 'cookie' && hasCookieKnowledge) || (card.kind == 'localstorage' && hasLocalstorageKnowledge)"
-    class="btn-toogle-primary" 
-    value="from_knowledge"><mat-icon aria-hidden="false"
+    <mat-button-toggle
+      *ngIf="(card.kind == 'cookie' && cookieKnowledges.length >0) || (card.kind == 'localstorage' && localstorageKnowledges.length >0)"
+      class="btn-toogle-primary" value="from_knowledge"><mat-icon aria-hidden="false"
         aria-label="knowledge icon">menu_book</mat-icon> From knowledge </mat-button-toggle>
     <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
         aria-label="mark icon">edit</mat-icon> Mark as </mat-button-toggle>
@@ -53,7 +52,8 @@
     </mat-form-field>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='localstorage'" [formGroup]="searchLocalStorageForm">
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='localstorage'"
+    [formGroup]="searchLocalStorageForm">
     <mat-form-field appearance="fill">
       <mat-label>Host</mat-label>
       <input formControlName="searchHost" matInput />
@@ -88,24 +88,10 @@
     <mat-form-field appearance="fill">
       <mat-label> {{ "analyses.edit.evaluation" | translate }} </mat-label>
       <mat-select formControlName="searchStatus" multiple>
-        <mat-option *ngFor="let status of allStatus" [value]="status" >{{ "analyses.evaluation."+ status | translate }} </mat-option> 
+        <mat-option *ngFor="let status of allStatus" [value]="status">{{ "analyses.evaluation."+ status | translate }}
+        </mat-option>
       </mat-select>
-  </mat-form-field> 
-
-    <!-- <section [formGroup]="searchStatusForm">
-      <mat-checkbox formControlName="pending" [color]="'primary'">
-        {{ "analyses.evaluation.not_evaluate" | translate }}
-      </mat-checkbox>
-      <mat-checkbox formControlName="compliant" style="color: green;" [color]="'primary'">
-        {{ "analyses.evaluation.compliant" | translate }}
-      </mat-checkbox>
-      <mat-checkbox formControlName="not_compliant" style="color: red;" [color]="'primary'">
-        {{ "analyses.evaluation.not_compliant" | translate }}
-      </mat-checkbox>
-      <mat-checkbox formControlName="TBD" style="color:#004494;" [color]="'primary'">
-        {{ "analyses.evaluation.TBD" | translate }}
-      </mat-checkbox>
-    </section> -->
+    </mat-form-field>
   </mat-toolbar-row>
 
 
@@ -113,39 +99,29 @@
 
 
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
-    From knowledges
+    {{ "knowledge.from_knowledges" | translate }}
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('from_knowledge')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-toolbar-row>
 
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')" [formGroup]="searchKnowledgeForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "knowledge.select_a_knowledge_base" | translate }} </mat-label>
+      <mat-select formControlName="searchKnowledge" multiple>
+        <mat-option *ngFor="let knowledgeBase of cookieKnowledges" [value]="knowledgeBase.id">{{ knowledgeBase.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
-    <mat-form-field>
-      <mat-label>Knowledge base</mat-label>
-      <mat-select>
-        <mat-option value="domain">{{ "knowledge.domain" | translate }}</mat-option>
-        <mat-option value="name">{{ "knowledge.name" | translate }}</mat-option>
-        <mat-option value="category">{{ "knowledge.category" | translate }}</mat-option>
-        <mat-option value="evaluation">{{ "analyses.edit.evaluation" | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>of value</mat-label>
-      <mat-select>
-        <mat-option value="domain">{{ "knowledge.domain" | translate }}</mat-option>
-        <mat-option value="name">{{ "knowledge.name" | translate }}</mat-option>
-        <mat-option value="category">{{ "knowledge.category" | translate }}</mat-option>
-        <mat-option value="evaluation">{{ "analyses.edit.evaluation" | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>with evaluation</mat-label>
-      <mat-select>
-        <mat-option value="option1"><mat-icon style="color: green;">done</mat-icon></mat-option>
-        <mat-option value="option2"><mat-icon style="color: red;">close</mat-icon></mat-option>
-        <mat-option value="option3"><mat-icon style="color: #004494;">search</mat-icon></mat-option>
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')" [formGroup]="searchKnowledgeForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "knowledge.select_a_category" | translate }} </mat-label>
+      <mat-select formControlName="searchCategory" multiple>
+        <mat-option *ngFor="let knowledgeBase of cookieKnowledges" [value]="knowledgeBase.id">{{ knowledgeBase.name }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
   </mat-toolbar-row>
