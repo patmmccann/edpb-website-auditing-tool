@@ -120,7 +120,7 @@
     <mat-form-field appearance="fill">
       <mat-label> {{ "knowledge.select_a_category" | translate }} </mat-label>
       <mat-select formControlName="searchCategory" multiple>
-        <mat-option *ngFor="let knowledgeBase of cookieKnowledges" [value]="knowledgeBase.id">{{ knowledgeBase.name }}
+        <mat-option *ngFor="let category of searchCategory" [value]="category">{{ category }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -42,6 +42,7 @@ export class SearchComponent {
 
   cookieKnowledges: CookieKnowledge[] = [];
   localstorageKnowledges: LocalStorageKnowledge[] = [];
+  searchCategory = [];
 
   constructor(
     private cardService: CardService,
