@@ -84,8 +84,15 @@
   </mat-toolbar-row>
 
 
-  <mat-toolbar-row *ngIf="selector.includes('from_values')">
-    <section [formGroup]="searchStatusForm">
+  <mat-toolbar-row *ngIf="selector.includes('from_values')" [formGroup]="searchStatusForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "analyses.edit.evaluation" | translate }} </mat-label>
+      <mat-select formControlName="searchStatus" multiple>
+        <mat-option *ngFor="let status of allStatus" [value]="status" >{{ "analyses.evaluation."+ status | translate }} </mat-option> 
+      </mat-select>
+  </mat-form-field> 
+
+    <!-- <section [formGroup]="searchStatusForm">
       <mat-checkbox formControlName="pending" [color]="'primary'">
         {{ "analyses.evaluation.not_evaluate" | translate }}
       </mat-checkbox>
@@ -96,9 +103,9 @@
         {{ "analyses.evaluation.not_compliant" | translate }}
       </mat-checkbox>
       <mat-checkbox formControlName="TBD" style="color:#004494;" [color]="'primary'">
-        {{ "analyses.evaluation.to_be_defined" | translate }}
+        {{ "analyses.evaluation.TBD" | translate }}
       </mat-checkbox>
-    </section>
+    </section> -->
   </mat-toolbar-row>
 
 
@@ -108,7 +115,7 @@
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
     From knowledges
     <span class="spacer"></span>
-    <button mat-icon-button (click)="removeFilter('mark_as')">
+    <button mat-icon-button (click)="removeFilter('from_knowledge')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-toolbar-row>
@@ -116,7 +123,7 @@
 
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
     <mat-form-field>
-      <mat-label>Mark all</mat-label>
+      <mat-label>Knowledge base</mat-label>
       <mat-select>
         <mat-option value="domain">{{ "knowledge.domain" | translate }}</mat-option>
         <mat-option value="name">{{ "knowledge.name" | translate }}</mat-option>

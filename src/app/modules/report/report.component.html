@@ -107,7 +107,7 @@
                       (+{{(evaluations_to_display.value?.length || 0) - 1}} {{evaluations_to_display.value?.length === 2 ? 'other evaluation' : 'others evaluations'}})
                     </span>
                   </mat-select-trigger>
-              <mat-option #allSelectedEvaluation (click)="toggleAllEvaluationsSelection()" [value]="'All evaluations'">All evaluations</mat-option>
+              <mat-option #allSelectedEvaluation (click)="toggleAllEvaluationsSelection()" [value]="'All evaluations'"> {{ "reports.all_evaluations" | translate }}</mat-option>
               <mat-option *ngFor="let evaluation_option of evaluation_options" [value]="evaluation_option" (click)="toggleEvaluationSelection(evaluation_option)">{{evaluation_option}}</mat-option>
             </mat-select>
         </mat-form-field>

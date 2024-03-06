@@ -24,6 +24,7 @@ mat-toolbar.page-header {
     background: none;
     height: auto;
     border: 1px solid #ecedee;
+    transition:right .25s linear;
 }
 
 mat-chip {

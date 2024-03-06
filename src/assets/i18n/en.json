@@ -102,7 +102,8 @@
             "not_evaluate": "Not evaluate",
             "compliant": "Compliant",
             "not_compliant": "Not compliant",
-            "to_be_defined": "To be defined",
+            "TBD": "To be defined",
+            "pending":"Pending",
             "edit_comment":"Edit comment",
             "write_comment":"Write a comment",
             "close_edition":"Close edition"
