@@ -49,6 +49,13 @@ export class FindPurpose implements PipeTransform {
             purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
           }
         });
+      } else if (result.domain.length > 0) {
+        result.domain.forEach(el => {
+          const base = cookiebases.find(x => x.id = el.knowledge_base_id);
+          if (base) {
+            purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
+          }
+        });
       }
       return Array.from(purposes).join(" ");
     } else if (line.kind == 'localstorage') {
