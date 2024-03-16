@@ -14,9 +14,11 @@
       <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon> From values </mat-button-toggle>
     <mat-button-toggle
       *ngIf="(card.kind == 'cookie' && cookieKnowledges.length >0) || (card.kind == 'localstorage' && localstorageKnowledges.length >0)"
+      (change)="!$event.source.checked?removeFilter('from_knowledge'):updateCategory(null)"
       class="btn-toogle-primary" value="from_knowledge"><mat-icon aria-hidden="false"
         aria-label="knowledge icon">menu_book</mat-icon> From knowledge </mat-button-toggle>
-    <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
+    <mat-button-toggle 
+    class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
         aria-label="mark icon">edit</mat-icon> Mark as </mat-button-toggle>
   </mat-button-toggle-group>
 </div>
@@ -109,7 +111,7 @@
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')" [formGroup]="searchKnowledgeForm">
     <mat-form-field appearance="fill">
       <mat-label> {{ "knowledge.select_a_knowledge_base" | translate }} </mat-label>
-      <mat-select formControlName="searchKnowledge" multiple>
+      <mat-select (selectionChange)="updateCategory($event)" formControlName="searchKnowledge" multiple>
         <mat-option *ngFor="let knowledgeBase of cookieKnowledges" [value]="knowledgeBase.id">{{ knowledgeBase.name }}
         </mat-option>
       </mat-select>

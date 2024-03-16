@@ -9,6 +9,7 @@ import { BeaconLine } from '../models/cards/beacon-card.model';
 import { CookieKnowledgesService, CookieSearch } from '../services/knowledges/cookie-knowledges.service';
 import { LocalstorageKnowledgesService } from '../services/knowledges/localstorage-knowledges.service';
 import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
+import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';
 
 @Pipe({ name: 'filterForUser' })
 export class FilterForUser implements PipeTransform {
@@ -171,9 +172,22 @@ export class FilterForCookieKnowledge implements PipeTransform {
     const searchKnowledgeBase = (knowledgeBasesAndCategories.searchKnowledge && knowledgeBasesAndCategories.searchKnowledge.length > 0);
     const searchCategory = (knowledgeBasesAndCategories.searchCategory && knowledgeBasesAndCategories.searchCategory.length > 0);
 
-    const match_domain = search.domain.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
-    const match_name = search.name.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
-    const match_name_and_domain = search.name_and_domain.filter(item => (searchKnowledgeBase && knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id)) || (searchCategory && knowledgeBasesAndCategories.searchCategory.includes(item.category)));
+    function filterSearch(item :CookieKnowledge): boolean{
+      if (searchCategory && searchKnowledgeBase){
+        return knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id) &&
+        knowledgeBasesAndCategories.searchCategory.includes(item.category);
+      }else if(searchKnowledgeBase){
+        return knowledgeBasesAndCategories.searchKnowledge.includes(item.knowledge_base_id);
+      }else if (searchCategory){
+        return knowledgeBasesAndCategories.searchCategory.includes(item.category);
+      }
+
+      return false;
+    }
+
+    const match_domain = search.domain.filter(filterSearch);
+    const match_name = search.name.filter(filterSearch);
+    const match_name_and_domain = search.name_and_domain.filter(filterSearch);
 
     return (match_domain.length>0 || match_name.length >0 || match_name_and_domain.length>0);
   }

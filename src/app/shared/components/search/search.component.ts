@@ -8,15 +8,16 @@ import { Status, allStatus } from 'src/app/models/evaluation.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
-import { FilterForStatus, FilterForBeacon, FilterForCookie, FilterForLocalStorage } from 'src/app/pipes/filters.pipe';
+import { FilterForStatus, FilterForBeacon, FilterForCookie, FilterForLocalStorage, FilterForCookieKnowledge } from 'src/app/pipes/filters.pipe';
 import { CardService } from 'src/app/services/card.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
+import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon]
+  providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge]
 })
 export class SearchComponent {
 
@@ -51,7 +52,8 @@ export class SearchComponent {
     private filterForCookie: FilterForCookie,
     private filterForLocalStorage: FilterForLocalStorage,
     private filterForBeacon: FilterForBeacon,
-    public knowledgeBaseService: KnowledgeBaseService
+    public knowledgeBaseService: KnowledgeBaseService,
+    private cookieKnowledgesService: CookieKnowledgesService
   ) {
 
     knowledgeBaseService.getAll()
@@ -103,6 +105,41 @@ export class SearchComponent {
     this.searchBeaconForm.valueChanges.subscribe((selectedValue: any) => {
       this.searchBeaconEvent.emit(selectedValue);
     });
+  }
+
+  async updateCategory(event: any) {
+    switch (this.card.kind) {
+      case 'cookie':
+        const knowledge_bases = this.searchKnowledgeForm.value.searchKnowledge;
+        const cookieCard = this.cardService.castToCookieCard(this.card);
+        const searchesPromises = cookieCard.cookieLines.map(cookieLine => this.cookieKnowledgesService.getCookieEntries(cookieLine.domain, cookieLine.name));
+        const searches = await Promise.all(searchesPromises);
+        const matching_knowledge = new Set();
+        searches.forEach((search: any) => {
+          const match_name = knowledge_bases && knowledge_bases.length > 0 ?
+            search.name.filter((x: any) => knowledge_bases.includes(x.knowledge_base_id)) :
+            search.name;
+          match_name.forEach((x: any) => matching_knowledge.add(x));
+          const match_domain = knowledge_bases && knowledge_bases.length > 0 ?
+            search.domain.filter((x: any) => knowledge_bases.includes(x.knowledge_base_id)) :
+            search.domain;
+          match_domain.forEach((x: any) => matching_knowledge.add(x));
+          const match_name_and_domain = knowledge_bases &&  knowledge_bases.length > 0 ?
+            search.name_and_domain.filter((x: any) => knowledge_bases.includes(x.knowledge_base_id)) :
+            search.name_and_domain;
+          match_name_and_domain.forEach((x: any) => matching_knowledge.add(x));
+        });
+        const matching_categorie = new Set();
+        matching_knowledge.forEach((match: any) => {
+          matching_categorie.add(match.category);
+        })
+
+        this.searchCategory = Array.from(matching_categorie) as any;
+        break;
+      case 'localstorage':
+        this.searchCategory = [];
+        break;
+    }
   }
 
   removeFilter(val: any) {
