@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld(
     getURL: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('getURL', analysis_id, tag_id),
     get: (analysis_id : number, tag_id : number, kind) => ipcRenderer.invoke('get', analysis_id, tag_id, kind),
     launch: (analysis_id : number, tag_id : number, kind) => ipcRenderer.invoke('launch', analysis_id, tag_id, kind),
-    screenshot: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('screenshot', analysis_id, tag_id),
+    screenshot: (analysis_id : number, tag_id : number, full_screenshot:boolean) => ipcRenderer.invoke('screenshot', analysis_id, tag_id,full_screenshot),
     stop: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('stop', analysis_id, tag_id),
     refresh: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('refresh', analysis_id, tag_id),
     backward: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('backward', analysis_id, tag_id),

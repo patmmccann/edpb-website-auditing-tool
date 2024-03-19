@@ -89,7 +89,12 @@
             </app-beacon-card>
         </ng-container>
         <ng-container *ngSwitchCase="'image'">
-            <app-screenshot-card [context]="context" [card]="card">
+            <app-screenshot-card 
+            [context]="context" 
+            [card]="card"
+            [analysis]="analysis"
+            [tag]="tag"
+            >
             </app-screenshot-card>
         </ng-container>
     </ng-container>

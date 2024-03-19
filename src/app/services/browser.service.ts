@@ -71,7 +71,7 @@ export class BrowserService {
       getURL: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       get: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
       launch: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
-      screenshot: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
+      screenshot: (analysis_id: number, tag_id: number, full_screenshot:boolean): Promise<void> => new Promise((resolve, reject) => resolve()),
       stop: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       refresh: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       backward: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
@@ -281,9 +281,9 @@ export class BrowserService {
   }
 
 
-  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null): Promise<ScreenshotCard> {
+  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null, fullpage : boolean): Promise<ScreenshotCard> {
     return new Promise((resolve, reject) => {
-      window.electron.screenshot(analysis?.id, tag?.id)
+      window.electron.screenshot(analysis?.id, tag?.id, fullpage)
         .then((result: any) => {
           const screenShotCard = new ScreenshotCard("New screenshot");
           screenShotCard.image = new Blob([result], { type: "image/png" });

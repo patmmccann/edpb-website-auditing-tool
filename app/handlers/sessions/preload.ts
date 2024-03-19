@@ -9,6 +9,7 @@
 const { ipcRenderer, contextBridge } = require('electron');
 
 declare var StackTrace;
+declare var htmlToImage;
 
 function setup_cookie_preload(ipcRenderer :Electron.IpcRenderer, partition : string) {
     // original object
@@ -106,4 +107,16 @@ ipcRenderer.on('dntJs', (event, messages) => {
 
 ipcRenderer.on('init', (event, partition) => {
     setup_cookie_preload(ipcRenderer, partition);
+});
+
+ipcRenderer.on('full_screenshot', (event, partition) => {
+    const $body = document.querySelectorAll('body')[0];
+    console.log("go");
+    htmlToImage.toPng($body, { cacheBust: true })
+    .then((image)=>{
+            ipcRenderer.invoke('full_screenshot_image', image);
+    })
+    .catch(function (error) {
+        console.error('Something went wrong with capture!', error);
+    });
 });

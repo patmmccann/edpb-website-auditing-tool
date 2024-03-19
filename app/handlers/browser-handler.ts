@@ -145,9 +145,9 @@ export class BrowsersHandler {
         return session.canGoForward();
     }
 
-    async screenshot(event, analysis_id, tag_id) {
+    async screenshot(event, analysis_id, tag_id, full_screenshot) {
         const session = this.get(analysis_id, tag_id);
-        return await session.screenshot();
+        return await session.screenshot(full_screenshot);
     }
 
     toogleDevTool(event, analysis_id, tag_id) {

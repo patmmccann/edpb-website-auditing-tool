@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { app, BrowserView, BrowserWindow } from 'electron';
+import { app, BrowserView, BrowserWindow, ipcMain } from 'electron';
 import { BrowserCollector } from '../collectors/browser-collector';
 
 import * as path from 'path';
@@ -49,15 +49,21 @@ export class BrowserSession {
 
     applySettings(settings){
         this.collector.settings = settings;
-        
+        const preloads = [];
         if (settings && settings.logs){
             //Set preloads
             const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
-            const ses = this._view.webContents.session;
-            ses.setPreloads([path.join(__dirname, 'preload.js'), path.join(stacktracePath, '/dist/stacktrace.min.js')]);
-
-            this.contents.send('init', this._session_name);
+            preloads.push(path.join(__dirname, 'preload.js'));
+            preloads.push(path.join(stacktracePath, '/dist/stacktrace.min.js'));
         }
+
+        const htmlToImagePath = path.dirname(require.resolve("html-to-image/package.json"));
+        preloads.push(path.join(htmlToImagePath, '/dist/html-to-image.js'));
+
+        const ses = this._view.webContents.session;
+        ses.setPreloads(preloads);
+
+        this.contents.send('init', this._session_name);
 
         if (settings && settings.useragent) {
             this.view.webContents.setUserAgent(settings.useragent);
@@ -137,9 +143,23 @@ export class BrowserSession {
         return this.contents.getURL();
     }
 
-    async screenshot() {
-        const capture = await this.contents.capturePage();
-        return await capture.toPNG();
+    async screenshot(full_screenshot) {
+        if (full_screenshot){
+            return new Promise((resolve) => {
+                ipcMain.removeHandler('full_screenshot_image');
+                ipcMain.handleOnce('full_screenshot_image', ((event, img)=>{
+                    if (img){
+                        const data = img.replace(/^data:image\/\w+;base64,/, "");
+                        resolve(Buffer.from(data, "base64"));
+                    }
+                    resolve(Buffer.from([]));
+                }));
+                this.contents.send('full_screenshot');
+            });
+        }else{
+            const capture = await this.contents.capturePage();
+            return await capture.toPNG();
+        }
     }
 
     toogleDevTool() {

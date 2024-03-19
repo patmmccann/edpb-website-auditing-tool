@@ -4,8 +4,12 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit, Input } from '@angular/core';
+import { Analysis } from 'src/app/models/analysis.model';
 import { Card, viewContext } from 'src/app/models/card.model';
 import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
+import { Tag } from 'src/app/models/tag.model';
+import { BrowserService } from 'src/app/services/browser.service';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-screenshot-card',
@@ -15,10 +19,16 @@ import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
 export class ScreenshotCardComponent implements OnInit {
   screenshotCard: ScreenshotCard = new ScreenshotCard("");
   @Input() context: viewContext = 'evaluate';
-  
   @Input() card: Card | null = null;
+  @Input() analysis: Analysis | null = null;
+  @Input() tag: Tag | null = null;
   
-  constructor() { }
+  screenshot_option : 'visible' | 'full' = 'visible';
+  loading :boolean = false;
+  constructor(
+    private browserService: BrowserService,
+    private tagService : TagService
+  ) { }
 
   ngOnInit(): void {
     if (this.card){
@@ -26,4 +36,18 @@ export class ScreenshotCardComponent implements OnInit {
     }
   }
 
+  updateScreenshot(){
+    if (this.analysis && this.tag){
+      this.loading = true;
+      this.browserService.takeScreenshot(window, this.analysis, this.tag, this.screenshot_option == 'visible'? false: true)
+      .then(async (screenShotCard) => {
+        if (this.tag){
+          this.tagService.removeCard(this.tag, this.screenshotCard);
+          screenShotCard = (await this.tagService.addCard(this.tag, screenShotCard)) as ScreenshotCard;
+          this.screenshotCard = screenShotCard;
+          this.loading = false;
+        }
+      });
+    }
+  }
 }
