@@ -9,7 +9,7 @@
 const { ipcRenderer, contextBridge } = require('electron');
 
 declare var StackTrace;
-declare var htmlToImage;
+declare var html2canvas;
 
 function setup_cookie_preload(ipcRenderer :Electron.IpcRenderer, partition : string) {
     // original object
@@ -110,13 +110,17 @@ ipcRenderer.on('init', (event, partition) => {
 });
 
 ipcRenderer.on('full_screenshot', (event, partition) => {
-    const $body = document.querySelectorAll('body')[0];
-    console.log("go");
-    htmlToImage.toPng($body, { cacheBust: true })
-    .then((image)=>{
-            ipcRenderer.invoke('full_screenshot_image', image);
-    })
-    .catch(function (error) {
+    html2canvas(document.body).then((canvas) => {
+        canvas.toBlob((blob) => {
+            const reader = new FileReader();
+            reader.addEventListener('loadend', () => {
+              const arrayBuffer = reader.result;
+              ipcRenderer.invoke('full_screenshot_image', arrayBuffer);
+            });
+            reader.readAsArrayBuffer(blob);
+        });
+    }).catch(function (error) {
         console.error('Something went wrong with capture!', error);
+        ipcRenderer.invoke('full_screenshot_image', null);
     });
 });

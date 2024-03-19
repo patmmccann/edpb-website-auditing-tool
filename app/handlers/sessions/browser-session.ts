@@ -56,9 +56,8 @@ export class BrowserSession {
             preloads.push(path.join(__dirname, 'preload.js'));
             preloads.push(path.join(stacktracePath, '/dist/stacktrace.min.js'));
         }
-
-        const htmlToImagePath = path.dirname(require.resolve("html-to-image/package.json"));
-        preloads.push(path.join(htmlToImagePath, '/dist/html-to-image.js'));
+        const htmlToImagePath = path.dirname(require.resolve("html2canvas/package.json"));
+        preloads.push(path.join(htmlToImagePath, '/dist/html2canvas.min.js'));
 
         const ses = this._view.webContents.session;
         ses.setPreloads(preloads);
@@ -148,11 +147,7 @@ export class BrowserSession {
             return new Promise((resolve) => {
                 ipcMain.removeHandler('full_screenshot_image');
                 ipcMain.handleOnce('full_screenshot_image', ((event, img)=>{
-                    if (img){
-                        const data = img.replace(/^data:image\/\w+;base64,/, "");
-                        resolve(Buffer.from(data, "base64"));
-                    }
-                    resolve(Buffer.from([]));
+                    resolve(img);
                 }));
                 this.contents.send('full_screenshot');
             });
