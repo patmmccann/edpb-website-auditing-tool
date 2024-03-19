@@ -13,7 +13,7 @@
         <li class="breadcrumb-item">
             {{ base.name }}
         </li>
-         <!--
+        <!--
         <span class="header-spacer"></span>
         <strong>
             EN
@@ -24,57 +24,95 @@
 
 <mat-toolbar class="page-header" role="heading">
     <mat-toolbar-row>
-        <h1>
-            {{base.name}} - {{base.author}}
-        </h1>
 
-    </mat-toolbar-row>
+        <button mat-raised-button color="blue" title="Create a new entry" (click)="
+        showForm = true;
+        editMode = 'new';
+        entryForm.reset();
+        selectedKnowledgeId = null;
+        itemsSelected = []
+      ">
+            <ng-container *ngIf="base.category == 'cookie'">
+                <i class="fas fa-plus"></i>
+                {{ "knowledge.cookie.new_entry" | translate }}
+            </ng-container>
+            <ng-container *ngIf="base.category == 'localstorage'">
+                <i class="fas fa-plus"></i>
+                {{ "knowledge.localstorage.new_entry" | translate }}
+            </ng-container>
+        </button>
+        </mat-toolbar-row>        
 </mat-toolbar>
 
-
 <div class="container base-mainContainerBlock base-knowledges_base">
-    <button mat-raised-button color="blue" title="Create a new entry" (click)="
-    showForm = true;
-    editMode = 'new';
-    entryForm.reset();
-    selectedKnowledgeId = null;
-    itemsSelected = []
-  ">
-        <ng-container *ngIf="base.category == 'cookie'">
-            <i class="fas fa-plus"></i>
-            {{ "knowledge.cookie.new_entry" | translate }}
+    <ng-container  [ngSwitch]="base.category">
+        <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchCookieForm">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ "knowledge.domain" | translate }}</mat-label>
+                <input formControlName="searchDomain" matInput />
+                <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
+                <mat-icon
+                    *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
+                    (click)="searchCookieForm.patchValue({searchDomain:''})" matSuffix>close
+                </mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ "knowledge.name" | translate }}</mat-label>
+                <input formControlName="searchName" matInput />
+                <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
+                <mat-icon
+                    *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
+                    (click)="searchCookieForm.patchValue({searchName:''})" matSuffix>close
+                </mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>{{ "knowledge.category" | translate }}</mat-label>
+                <input formControlName="searchCategory" matInput />
+                <mat-icon *ngIf="!searchCookieForm.value.searchCategory" matSuffix>search</mat-icon>
+                <mat-icon
+                    *ngIf="searchCookieForm.value.searchCategory && searchCookieForm.value.searchCategory.length>0"
+                    (click)="searchCookieForm.patchValue({searchCategory:''})" matSuffix>close
+                </mat-icon>
+            </mat-form-field>
         </ng-container>
-        <ng-container *ngIf="base.category == 'localstorage'">
-            <i class="fas fa-plus"></i>
-            {{ "knowledge.localstorage.new_entry" | translate }}
+        <ng-container *ngSwitchCase="'localstorage'">
+            <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchLocalStorageForm">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "knowledge.host" | translate }}</mat-label>
+                    <input formControlName="searchHost" matInput />
+                    <mat-icon *ngIf="!searchCookieForm.value.searchHost" matSuffix>search</mat-icon>
+                    <mat-icon
+                        *ngIf="searchCookieForm.value.searchHost && searchCookieForm.value.searchHost.length>0"
+                        (click)="searchCookieForm.patchValue({searchHost:''})" matSuffix>close
+                    </mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "knowledge.key" | translate }}</mat-label>
+                    <input formControlName="searchKey" matInput />
+                    <mat-icon *ngIf="!searchCookieForm.value.searchKey" matSuffix>search</mat-icon>
+                    <mat-icon
+                        *ngIf="searchCookieForm.value.searchKey && searchCookieForm.value.searchKey.length>0"
+                        (click)="searchCookieForm.patchValue({searchKey:''})" matSuffix>close
+                    </mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "knowledge.category" | translate }}</mat-label>
+                    <input formControlName="searchCategory" matInput />
+                    <mat-icon *ngIf="!searchCookieForm.value.searchCategory" matSuffix>search</mat-icon>
+                    <mat-icon
+                        *ngIf="searchCookieForm.value.searchCategory && searchCookieForm.value.searchCategory.length>0"
+                        (click)="searchCookieForm.patchValue({searchCategory:''})" matSuffix>close
+                    </mat-icon>
+                </mat-form-field>
+            </ng-container>
         </ng-container>
-    </button>
-
-    <!-- <button mat-raised-button color="blue" title="Create a new entry">
-        <ng-container *ngIf="base.category == 'cookie'">
-            <i class="fas fa-search"></i>
-            Search cookie
-        </ng-container>
-        <ng-container *ngIf="base.category == 'localstorage'">
-            <i class="fas fa-search"></i>
-            Search localstorage
-        </ng-container>
-    </button> -->
-
-    <!-- <mat-form-field>
-        <mat-label>Change confidence</mat-label>
-        <mat-select>
-          <mat-option value="option1">Validated</mat-option>
-          <mat-option value="option2" disabled>Reliable</mat-option>
-          <mat-option value="option3">Informative</mat-option>
-        </mat-select>
-    </mat-form-field> -->
-
-    <div class="row">
+    </ng-container>
+    <div class="row">        
         <div class="small-9 medium-9 columns">
+
             <ng-container [ngSwitch]="base.category">
                 <ng-container *ngSwitchCase="'cookie'">
-                    <table matSort (matSortChange)="sortBy($event)"  class="base-list-table">
+                    <table matSort (matSortChange)="sortBy($event)" class="base-list-table">
                         <thead>
                             <tr>
                                 <th style="width:75px;"></th>
@@ -84,7 +122,7 @@
                                 <th mat-sort-header="name" style="width:75px;">
                                     <a><span>{{ "knowledge.name" | translate }}</span></a>
                                 </th>
-                                <th mat-sort-header="category"  style="width:75px;text-align:center;">
+                                <th mat-sort-header="category" style="width:75px;text-align:center;">
                                     <a><span> {{ "knowledge.category" | translate }}</span></a>
                                 </th>
                             </tr>
@@ -100,7 +138,8 @@
                                     </a>
                                     <a (click)="delete(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate
+                                            }}
                                         </span>
                                     </a>
                                 </td>
@@ -173,7 +212,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of localStorageKnowledges" [ngClass]="{ noElementsDisplaying: showForm }">
+                            <tr *ngFor="let item of localStorageKnowledges"
+                                [ngClass]="{ noElementsDisplaying: showForm }">
                                 <td class="base-listsBlock-item">
                                     <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-files-o" aria-hidden="true"></i>
@@ -183,7 +223,8 @@
                                     </a>
                                     <a (click)="delete(item.id)" class="btn base-tooltip">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
-                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}
+                                        <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate
+                                            }}
                                         </span>
                                     </a>
                                 </td>
@@ -244,9 +285,17 @@
 
         <!-- NEW ENTRY FORM -->
         <div class="small-3 medium-3 columns sticky-card">
-
             <form (ngSubmit)="onSubmit()" [formGroup]="entryForm" class="base-knowledges_base-form" *ngIf="showForm">
-                <h3>{{base.category}}</h3>
+                <button
+                (click)="showForm=false"
+                class="base-knowledges_base-form-close"
+                type="button"
+              >
+              <mat-icon>close</mat-icon>
+              </button>
+                <h3>
+                    {{base.category}}
+                </h3>
                 <div>
                     <div class="base-elementCategory-wrapper">
                         <select name="category" formControlName="category" (change)="focusOut()" required>
@@ -268,13 +317,13 @@
                 </div>
                 <div *ngIf="base.category == 'localstorage'">
                     <label for="domain">{{ "knowledge.key" | translate }}:</label>
-                    <input (focusout)="focusOut()" formControlName="key" type="text" placeholder="key"
-                        name="key" required />
+                    <input (focusout)="focusOut()" formControlName="key" type="text" placeholder="key" name="key"
+                        required />
                 </div>
                 <div *ngIf="base.category == 'localstorage'">
                     <label for="name">{{ "knowledge.script" | translate }}:</label>
-                    <input (focusout)="focusOut()" formControlName="script" type="text" placeholder="script" name="script"
-                        required />
+                    <input (focusout)="focusOut()" formControlName="script" type="text" placeholder="script"
+                        name="script" required />
                 </div>
                 <div>
                     <label for="source">{{ "knowledge.source" | translate }}:</label>

@@ -132,6 +132,7 @@
         "new_knowledge": "New knowledge base",
         "domain": "Domain",
         "name": "Name",
+        "host":"Host",
         "base_name": "Base name",
         "number": "Entry number",
         "author": "Author",
@@ -143,6 +144,7 @@
         "category": "Category",
         "script": "Script",
         "key": "Key",
+        "url": "URL",
         "value": "Value",
         "purpose":"Purpose",
         "from_knowledges":"From knowledges",
@@ -243,9 +245,6 @@
             "http_to_https": "HTTP redirect to HTTPS",
             "http_redirect": "HTTP redirect location"
         },
-        "localstorage": {
-            "host": "Host"
-        },
         "testssl":{
             "processing":"Processing... this may take a while.",
             "testssl_error":"Test ssl error",
@@ -282,5 +281,12 @@
             "full_page" : "Full page",
             "option" : "Screenshot option"
         }
+    },
+    "search":{
+        "selectors": "Selectors",
+        "from_values":"From values",
+        "from_knowledges":"From knowledges",
+        "mark_as":"Mark as",
+        "content":"Content"
     }
 }

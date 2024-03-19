@@ -7,9 +7,12 @@ import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-know
 import { LocalstorageKnowledgesService } from '../services/knowledges/localstorage-knowledges.service';
 import { KnowledgeBaseService } from '../services/knowledge-base.service';
 import { KnowledgeBase, allTrustLevel } from 'src/app/models/knowledgeBase.model';
+import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';
+import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
+import { FormGroup } from '@angular/forms';
 
 
-@Pipe({ name: 'findInKnowlegeBase' })
+@Pipe({ name: 'findPurpose' })
 export class FindPurpose implements PipeTransform {
   constructor(
     private knowledgeBaseService: KnowledgeBaseService,
@@ -99,4 +102,46 @@ export class NbEntriesInKnowledge implements PipeTransform {
     }
     return 0;
   }
+}
+
+@Pipe({ name: 'filterCookieKnowledge' })
+export class FilterCookieKnowledge implements PipeTransform {
+  transform(items: CookieKnowledge[],
+    filter: any): any[] {
+
+      if (filter.searchName != ''){
+        items = items.filter(x => x.name.includes(filter.searchName))
+      }
+
+      if (filter.searchDomain != ''){
+        items = items.filter(x => x.domain.includes(filter.searchDomain))
+      }
+
+      if (filter.searchCategory != ''){
+        items = items.filter(x => x.category.includes(filter.searchCategory))
+      }
+
+      return items;
+    }
+}
+
+@Pipe({ name: 'filterLocalStorageKnowledge' })
+export class FilterLocalStorageKnowledge implements PipeTransform {
+  transform(items: LocalStorageKnowledge[],
+    filter: any): any[] {
+
+      if (filter.searchHost != ''){
+        items = items.filter(x => x.script.includes(filter.searchHost))
+      }
+
+      if (filter.searchKey != ''){
+        items = items.filter(x => x.key.includes(filter.searchKey))
+      }
+
+      if (filter.searchCategory != ''){
+        items = items.filter(x => x.category.includes(filter.searchCategory))
+      }
+
+      return items;
+    }
 }

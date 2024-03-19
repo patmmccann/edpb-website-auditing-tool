@@ -18,11 +18,11 @@ import {
 } from '../pipes/tools.pipe';
 
 import {
-  FilterForUser, FilterForEval, FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge
+  FilterForAnalysis, FilterForEval, FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge
 } from '../pipes/filters.pipe';
 
 import {
-  FindPurpose, NbEntriesInKnowledge
+  FindPurpose, NbEntriesInKnowledge, FilterCookieKnowledge, FilterLocalStorageKnowledge
 } from '../pipes/knowledges.pipe';
 
 import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-base.component';
@@ -75,7 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     SideNavComponent,
     LanguagesComponent,
-    FilterForUser,
+    FilterForAnalysis,
     FilterForEval,
     FilterForStatus,
     FilterForCookie,
@@ -87,6 +87,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafeHtmlPipe,
     SafeImgPipe,
     FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
     NbEntriesInKnowledge,
     SafeUrl,
     KnowledgeBaseItemComponent,
@@ -134,7 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   exports: [
     SideNavComponent,
     LanguagesComponent,
-    FilterForUser,
+    FilterForAnalysis,
     FilterForEval,
     FormsModule,
     ReactiveFormsModule,
@@ -144,6 +146,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafeImgPipe,
     SafeUrl,
     FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
     NbEntriesInKnowledge,
     CookieCardComponent,
     TestsslCardComponent,

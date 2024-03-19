@@ -11,8 +11,8 @@ import { LocalstorageKnowledgesService } from '../services/knowledges/localstora
 import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
 import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';
 
-@Pipe({ name: 'filterForUser' })
-export class FilterForUser implements PipeTransform {
+@Pipe({ name: 'filterForAnalysis' })
+export class FilterForAnalysis implements PipeTransform {
   transform(items: any[],
     searchText: string): any[] {
     if (!items || !searchText) return items;

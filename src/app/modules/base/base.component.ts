@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
@@ -14,17 +14,21 @@ import { Knowledge } from 'src/app/models/knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
 import { Sort } from '@angular/material/sort';
+import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
 
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
-  styleUrls: ['./base.component.scss']
+  styleUrls: ['./base.component.scss'],
+  providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge]
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);
   knowledges: Knowledge[] = [];
   cookieKnowledges: CookieKnowledge[] = [];
   localStorageKnowledges: LocalStorageKnowledge[] = [];
+  searchCookieForm: FormGroup = new FormGroup({});
+  searchLocalStorageForm: FormGroup = new FormGroup({});
 
   entryForm: FormGroup = new FormGroup({
     category: new FormControl(),
@@ -50,10 +54,44 @@ export class BaseComponent implements OnInit {
     private cookieKnowledgesService: CookieKnowledgesService,
     private localStorageKnowledgeService: LocalstorageKnowledgesService,
     private knowledgeBaseService: KnowledgeBaseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private filterCookieKnowledge: FilterCookieKnowledge,
+    private filterLocalStorageKnowledge: FilterLocalStorageKnowledge,
   ) {
 
     this.KnowledgesService = this.cookieKnowledgesService;
+    this.searchCookieForm = this.formBuilder.group({
+      searchDomain: "",
+      searchName: "",
+      searchCategory: ""
+    });
+
+    this.searchCookieForm.valueChanges.subscribe((selectedValue: any) => {
+      this.refresh().then(()=>{
+        this.cookieKnowledges = this.filterCookieKnowledge.transform(this.cookieKnowledges, selectedValue);
+      });
+    });
+
+    this.searchLocalStorageForm = this.formBuilder.group({
+      searchHost: "",
+      searchKey: "",
+      searchCategory: ""
+    });
+
+    this.searchLocalStorageForm.valueChanges.subscribe((selectedValue: any) => {
+      this.localStorageKnowledges = this.filterLocalStorageKnowledge.transform(this.localStorageKnowledges, selectedValue);
+    });
+  }
+
+  async refresh() {
+    const result = await this.KnowledgesService.getEntries(this.base.id);
+    this.knowledges = result;
+    if (this.base.category == 'cookie') {
+      this.cookieKnowledges = result as CookieKnowledge[];
+    } else if (this.base.category == 'localstorage') {
+      this.localStorageKnowledges = result as LocalStorageKnowledge[];
+    }
   }
 
   ngOnInit(): void {
@@ -64,22 +102,10 @@ export class BaseComponent implements OnInit {
       .then((base: KnowledgeBase) => {
         this.base = base;
         this.KnowledgesService = base.category == 'cookie' ? this.cookieKnowledgesService : this.localStorageKnowledgeService;
-
-        // GET Knowledges entries from selected base
-        this.KnowledgesService
-          .getEntries(this.base.id)
-          .then((result: Knowledge[]) => {
-            this.knowledges = result;
-            if (base.category == 'cookie') {
-              this.cookieKnowledges = result as CookieKnowledge[];
-            } else if (base.category == 'localstorage') {
-              this.localStorageKnowledges = result as LocalStorageKnowledge[];
-            }
-          });
+        this.refresh();
       })
       .catch((error: Error) => {
         console.log(error);
-
       });
 
   }
@@ -266,7 +292,7 @@ export class BaseComponent implements OnInit {
             case 'domain':
               return compare(a.domain, b.domain, isAsc);
             case 'category':
-                return compare(a.category, b.category, isAsc);
+              return compare(a.category, b.category, isAsc);
             default:
               return 0;
           }
@@ -280,14 +306,13 @@ export class BaseComponent implements OnInit {
             case 'key':
               return compare(a.key, b.key, isAsc);
             case 'category':
-                return compare(a.category, b.category, isAsc);
+              return compare(a.category, b.category, isAsc);
             default:
               return 0;
           }
         });
         break;
     }
-    console.log(sort);
   }
 
 }

@@ -18,7 +18,7 @@
       <td class="truncate" (click)="selected(line)">{{line.host}}</td>
       <td class="truncate" (click)="selected(line)">{{line.key}}</td>
       <td class="truncate" (click)="selected(line)"
-      [innerHTML]="line | findInKnowlegeBase | async | safeHtml"
+      [innerHTML]="line | findPurpose | async | safeHtml"
       >
       </td>
       <td *ngIf="context=='evaluate'">

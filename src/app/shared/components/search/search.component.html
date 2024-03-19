@@ -1,7 +1,7 @@
 <div class="card-evaluationBlock">
 
   <div class="sectiontitle card-evaluationBlock-title">
-    <span>Selectors</span>
+    <span> {{ "search.selectors" | translate }}</span>
     <span class="icon-spacer"></span>
 
   </div>
@@ -11,15 +11,13 @@
     <mat-button-toggle (change)="!$event.source.checked?removeFilter('from_values'):null" class="btn-toogle-primary"
       value="from_values">
 
-      <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon> From values </mat-button-toggle>
+      <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon>  {{ "search.from_values" | translate }} </mat-button-toggle>
     <mat-button-toggle
       *ngIf="(card.kind == 'cookie' && cookieKnowledges.length >0) || (card.kind == 'localstorage' && localstorageKnowledges.length >0)"
-      (change)="!$event.source.checked?removeFilter('from_knowledge'):updateCategory(null)"
-      class="btn-toogle-primary" value="from_knowledge"><mat-icon aria-hidden="false"
-        aria-label="knowledge icon">menu_book</mat-icon> From knowledge </mat-button-toggle>
-    <mat-button-toggle 
-    class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
-        aria-label="mark icon">edit</mat-icon> Mark as </mat-button-toggle>
+      (change)="!$event.source.checked?removeFilter('from_knowledge'):updateCategory(null)" class="btn-toogle-primary"
+      value="from_knowledge"><mat-icon aria-hidden="false" aria-label="knowledge icon">menu_book</mat-icon> {{ "search.from_knowledges" | translate }} </mat-button-toggle>
+    <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
+        aria-label="mark icon">edit</mat-icon> {{ "search.mark_as" | translate }} </mat-button-toggle>
   </mat-button-toggle-group>
 </div>
 
@@ -27,7 +25,7 @@
 <mat-toolbar class="page-header" role="heading" *ngIf="selector.length >0">
 
   <mat-toolbar-row *ngIf="selector.includes('from_values')">
-    From values
+    {{ "search.from_values" | translate }}
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('from_values')">
       <mat-icon>close</mat-icon>
@@ -37,7 +35,7 @@
 
   <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='cookie'" [formGroup]="searchCookieForm">
     <mat-form-field appearance="fill">
-      <mat-label>Domain</mat-label>
+      <mat-label>{{ "knowledge.domain" | translate }}</mat-label>
       <input formControlName="searchDomain" matInput />
       <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
       <mat-icon *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
@@ -45,7 +43,7 @@
       </mat-icon>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
+      <mat-label>{{ "knowledge.name" | translate }}</mat-label>
       <input formControlName="searchName" matInput />
       <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
       <mat-icon *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
@@ -57,7 +55,7 @@
   <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='localstorage'"
     [formGroup]="searchLocalStorageForm">
     <mat-form-field appearance="fill">
-      <mat-label>Host</mat-label>
+      <mat-label>{{ "knowledge.host" | translate }}</mat-label>
       <input formControlName="searchHost" matInput />
       <mat-icon *ngIf="!searchLocalStorageForm.value.searchHost" matSuffix>search</mat-icon>
       <mat-icon *ngIf="searchLocalStorageForm.value.searchHost && searchLocalStorageForm.value.searchHost.length>0"
@@ -65,7 +63,7 @@
       </mat-icon>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Key</mat-label>
+      <mat-label>{{ "knowledge.key" | translate }}</mat-label>
       <input formControlName="searchKey" matInput />
       <mat-icon *ngIf="!searchLocalStorageForm.value.searchKey" matSuffix>search</mat-icon>
       <mat-icon *ngIf="searchLocalStorageForm.value.searchKey && searchLocalStorageForm.value.searchKey.length>0"
@@ -76,7 +74,7 @@
 
   <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='beacons'" [formGroup]="searchBeaconForm">
     <mat-form-field appearance="fill">
-      <mat-label>URL</mat-label>
+      <mat-label>{{ "knowledge.url" | translate }}</mat-label>
       <input formControlName="searchUrl" matInput />
       <mat-icon *ngIf="!searchBeaconForm.value.searchUrl" matSuffix>search</mat-icon>
       <mat-icon *ngIf="searchBeaconForm.value.searchUrl && searchBeaconForm.value.searchUrl.length>0"
@@ -129,7 +127,7 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="selector.includes('mark_as')">
-    Mark as
+    {{ "search.mark_as" | translate }}
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('mark_as')">
       <mat-icon>close</mat-icon>
@@ -139,11 +137,11 @@
 
   <mat-toolbar-row *ngIf="selector.includes('mark_as')">
     <mat-form-field>
-      <mat-label>Evaluation</mat-label>
+      <mat-label>{{ "analyses.edit.evaluation" | translate }}</mat-label>
       <mat-select (selectionChange)="mark_as($event)">
-        <mat-option value="compliant"><mat-icon style="color: green;">done</mat-icon>Compliant</mat-option>
-        <mat-option value="not_compliant"><mat-icon style="color: red;">close</mat-icon>Not compliant</mat-option>
-        <mat-option value="TBD"><mat-icon style="color: #004494;">search</mat-icon> To be defined</mat-option>
+        <mat-option value="compliant"><mat-icon style="color: green;">done</mat-icon>{{ "analyses.evaluation.compliant" | translate }}</mat-option>
+        <mat-option value="not_compliant"><mat-icon style="color: red;">close</mat-icon>{{ "analyses.evaluation.not_compliant" | translate }}</mat-option>
+        <mat-option value="TBD"><mat-icon style="color: #004494;">search</mat-icon> {{ "analyses.evaluation.TBD" | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-toolbar-row>
@@ -153,7 +151,7 @@
 <div class="card-evaluationBlock">
 
   <div class="sectiontitle card-evaluationBlock-title">
-    <span>Content</span>
+    <span>{{ "search.content" | translate }}</span>
     <span class="icon-spacer"></span>
 
   </div>
