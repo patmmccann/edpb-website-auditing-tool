@@ -26,7 +26,7 @@
             <li class="breadcrumb-item">
                 <a [routerLink]="['/']">
                     <strong>
-                        {{ "help.header" | translate}}
+                        {{ "menu.help" | translate}}
                     </strong>
                 </a>
             </li>
@@ -43,7 +43,7 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="'knowledge_base'">
                     <li class="breadcrumb-item">
-                        {{ "help.knowledge_base" | translate}}
+                        {{ "header.knowledge" | translate }}
                     </li>
                 </ng-container>
                 <ng-container *ngSwitchCase="'create_reports'">
@@ -112,7 +112,7 @@
 
                                 <a href="#/helps/knowledge_base"
                                     class="col-6 col-md-4 col-lg-6 col-xl-4 home-6-title text-uppercase">
-                                    <div class="home-block">{{ "help.knowledge_base" | translate}}</div>
+                                    <div class="home-block">{{ "header.knowledge" | translate }}</div>
                                 </a>
                                 <a class="col-6 col-md-4 col-lg-6 col-xl-4 home-7-title text-uppercase">
                                     <img alt="" src="./assets/images/header.jpeg"
