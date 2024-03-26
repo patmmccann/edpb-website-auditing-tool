@@ -5,6 +5,7 @@
  */
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {WATTranslateLoader} from '../shared/translate/wattranslate-loader';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class LanguagesService {
   selectedLanguage: string = "en";
 
-  constructor(private translateService: TranslateService) { }
+  constructor(private translateService: TranslateService
+    ) { }
 
   /**
    * Initialize languages on the PIA tool
    */
   initLanguages(): void {
-    this.translateService.addLangs([
-      'en'
-    ]);
-
-    this.translateService.setDefaultLang('en');
+    this.translateService.addLangs(this.availableLanguages);
+    this.translateService.setDefaultLang(this.selectedLanguage);
   }
 
   /**
@@ -63,5 +62,9 @@ export class LanguagesService {
 
   browserCultureLang() : string | undefined {
     return this.translateService.getBrowserCultureLang();
+  }
+
+  get availableLanguages(){
+    return Object.keys(WATTranslateLoader.availableLanguages);
   }
 }

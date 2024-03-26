@@ -94,7 +94,7 @@
                       (+{{(cards_to_display.value?.length || 0) - 1}} {{cards_to_display.value?.length === 2 ? 'other card' : 'others cards'}})
                     </span>
                   </mat-select-trigger>
-              <mat-option #allSelectedCard (click)="toggleAllCardsSelection()" [value]="'All cards'">All cards</mat-option>
+              <mat-option #allSelectedCard (click)="toggleAllCardsSelection()" [value]="'All cards'">{{ "reports.all_cards" | translate }}</mat-option>
               <mat-option *ngFor="let cards_option of cards_options" [value]="cards_option" (click)="toggleCardSelection(cards_option)">{{cards_option}}</mat-option>
             </mat-select>
         </mat-form-field>

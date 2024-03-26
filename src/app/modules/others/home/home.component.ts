@@ -27,8 +27,16 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const language = this.translateService.currentLang;
-    let fileTranslation = /*language  === 'fr' ? 'fr' :*/ 'en';
+    let fileTranslation: string;
+
+    switch(this.translateService.currentLang){
+      case 'fr':
+        fileTranslation = 'fr';
+        break;
+      default:
+        fileTranslation = 'en';
+        break;
+    }
     let file :null |string = null;
 
     this.route.params.subscribe((params: Params) => {

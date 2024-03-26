@@ -204,7 +204,8 @@
         "server_url" : "Provide the address (URL) of the remote server",
         "client_id" : "Client ID",
         "client_secret" : "Client Secret",
-        "update" : "Update"
+        "update" : "Update",
+        "infos" : "Show browser informations"
     },
     "reports": {
         "creator": "Creator",
@@ -229,6 +230,7 @@
         "select_evaluations": "Select evaluations to report",
         "all_tags": "All tags",
         "all_cards": "All cards",
+        "versions": "Versions",
         "all_evaluations": "All evaluations"
     },
     "cards": {
@@ -277,6 +279,12 @@
             "visible" : "Visible",
             "full_page" : "Full page",
             "option" : "Screenshot option"
+        },
+        "infos": {
+            "chrome_version":"Chrome version",
+            "tool_version":"Tool version",
+            "user_agent":"User agent",
+            "visited_urls":"Visited urls"
         }
     },
     "search":{

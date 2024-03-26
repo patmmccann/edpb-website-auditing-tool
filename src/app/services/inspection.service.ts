@@ -17,7 +17,7 @@ import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { BeaconLine } from '../models/cards/beacon-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
-import { WebsiteCard } from '../models/cards/website-card.model';
+import { InfoCard } from '../models/cards/info-card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +69,10 @@ export class InspectionService {
     return new UnsafeFormsCard(value);
   }
 
+  inspectInfo(value:any) : InfoCard{
+    return new InfoCard(value);
+  }
+
   inspectBeacons(value:any) : BeaconCard{
     const beaconCard = new BeaconCard();
     if (!value) return beaconCard;
@@ -87,7 +91,7 @@ export class InspectionService {
       if (!value) continue;
       switch (key) {
         case "host":
-          const website = new WebsiteCard();
+          const website = new InfoCard(null);
           website.url = value;
           cards.push(website);
           break;

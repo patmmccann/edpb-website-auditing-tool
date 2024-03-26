@@ -12,7 +12,7 @@ import { BrowserService } from 'src/app/services/browser.service';
 import { InspectionService } from 'src/app/services/inspection.service';
 import { Tag } from 'src/app/models/tag.model';
 import { Card } from 'src/app/models/card.model';
-import { WebsiteCard } from 'src/app/models/cards/website-card.model'
+import { InfoCard } from 'src/app/models/cards/info-card.model'
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -237,8 +237,8 @@ export class NewAnalysisComponent implements OnInit {
         .then((cards: Card[]) => {
           this.firstTag.source = "wec";
           this.cards = cards;
-          const websiteCard = <WebsiteCard>cards.filter(card => card.kind == 'info')[0];
-          const url_corrected = websiteCard.url.indexOf('://') === -1 ? `http://${websiteCard.url}` : websiteCard.url;
+          const infoCard = <InfoCard>cards.filter(card => card.kind == 'info')[0];
+          const url_corrected = infoCard.url.indexOf('://') === -1 ? `http://${infoCard.url}` : infoCard.url;
           this.analysisForm.controls['url'].setValue(url_corrected);
           this.wecOK = true;
           this.wecError = false;

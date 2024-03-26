@@ -1,0 +1,31 @@
+<table >
+    <colgroup>
+      <col style="width: 50%">
+      <col style="width: 50%">
+    </colgroup>
+    <tbody>
+      <tr>
+        <td class="truncate">{{ "cards.infos.chrome_version" | translate }} </td>
+        <td>{{card.chrome_version}}</td>
+      </tr>
+      <tr>
+        <td class="truncate">{{ "cards.infos.tool_version" | translate }}</td>
+        <td class="truncate">
+            {{card.tool_version}}
+        </td>
+      </tr>
+      <tr>
+        <td class="truncate">{{ "cards.infos.user_agent" | translate }}</td>
+        <td class="truncate">
+            {{card.user_agent}}
+        </td>
+      </tr>
+      <tr>
+        <td class="truncate" colspan="2"> {{ "cards.infos.visited_urls" | translate }} : </td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let url of card.visited_urls">
+        <td colspan="2" class="truncate"> {{url}} </td>
+      </tr>
+    </tbody>
+  </table>

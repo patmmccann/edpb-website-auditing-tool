@@ -17,6 +17,7 @@ import { TestSSLCard } from '../cards/testssl-card';
 import { TrafficCard } from '../cards/traffic-card';
 import { UnsafeFormCard } from '../cards/unsafe-form-card';
 import { LocalStorageCard } from '../cards/local-storage-card';
+import { InfoCard } from '../cards/info-card';
 import { Card } from '../cards/card';
 
 
@@ -179,6 +180,8 @@ export abstract class Collector {
                         break;
                     case 'localstorage':
                         cards.push(new LocalStorageCard(this));
+                    case 'infos':
+                        cards.push(new InfoCard(this));
                         break;
                     default:
                         break;

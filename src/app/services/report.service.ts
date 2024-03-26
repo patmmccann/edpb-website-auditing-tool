@@ -23,7 +23,7 @@ import { BeaconCard } from '../models/cards/beacon-card.model';
 import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { ScreenshotCard } from '../models/cards/screenshot-card.model';
 import { SourceCard } from '../models/cards/source-card.model';
-import { WebsiteCard } from '../models/cards/website-card.model';
+import { InfoCard } from '../models/cards/info-card.model';
 import { Details } from '../models/details.model';
 
 const exportable_cards = ["cookie", "localstorage"];
@@ -301,7 +301,7 @@ export class ReportService {
               resolve({ source: {values :htmlCard, evaluation: evaluation }});
               break;
             case 'info':
-              const infoCard = (card as WebsiteCard);
+              const infoCard = (card as InfoCard);
               resolve({ info: {values : [{'name':infoCard.name, 'url':infoCard.url}], evaluation: evaluation }});
               break;
             default:

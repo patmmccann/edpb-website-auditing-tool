@@ -17,6 +17,7 @@ import { ScreenshotCard } from '../models/cards/screenshot-card.model';
 import { Evaluation } from '../models/evaluation.model';
 import { EvaluationService } from './evaluation.service';
 import { SettingsService } from './settings.service';
+import { InfoCard } from '../models/cards/info-card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -201,6 +202,10 @@ export class CardService extends ApplicationDb {
       cards.push(new TestSSLCard({}, null, null));
     }
 
+    if (this.settingService.settings.infos) {
+      cards.push(new InfoCard(null));
+    }
+
     return cards;
   }
 
@@ -230,6 +235,10 @@ export class CardService extends ApplicationDb {
 
   castToBeaconCard(card:Card):BeaconCard{
     return (card as BeaconCard);
+  }
+
+  castToInfoCard(card:Card):InfoCard{
+    return (card as InfoCard);
   }
 
   async export(id: number): Promise<any> {

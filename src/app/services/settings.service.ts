@@ -33,6 +33,7 @@ export class SettingsService {
     webform : false,
     beacons : false,
     logs : false,
+    infos:false,
     useragent:  "",
     help: false,
     server_url:"",
@@ -63,6 +64,7 @@ export class SettingsService {
     this._settings.logs = localStorage.getItem('logs') == 'false'? false : true ;
     this._settings.help = localStorage.getItem('help') == 'false'? false : true ;
     this._settings.devTool = localStorage.getItem('devTool') == 'true'? true : false ;
+    this._settings.infos = localStorage.getItem('infos') == 'false'? false : true ;
     this._settings.server_url = server_url != null ? server_url : "";
     this._settings.client_id = client_id != null ? client_id : "";
     this._settings.client_secret = client_secret != null ? client_secret : "";;
