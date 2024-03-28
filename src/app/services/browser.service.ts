@@ -274,6 +274,7 @@ export class BrowserService {
                   infoCard.chrome_version = new_card.chrome_version;
                   infoCard.tool_version = new_card.tool_version;
                   infoCard.user_agent = new_card.user_agent;
+                  infoCard.end_time = new Date().toString();
                   if (new_card.visited_urls.length != infoCard.visited_urls.length) {
                     infoCard.visited_urls = new_card.visited_urls;
                   }

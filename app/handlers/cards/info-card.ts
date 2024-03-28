@@ -13,6 +13,8 @@ export class InfoCard extends Card{
     chrome_version;
     user_agent;
     visited_urls;
+    start_time;
+    end_time;
 
     constructor(collector: Collector) {
         super("info", collector);

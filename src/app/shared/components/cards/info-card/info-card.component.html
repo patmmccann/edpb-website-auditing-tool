@@ -1,7 +1,7 @@
 <table>
     <colgroup>
-      <col style="width: 50%">
-      <col style="width: 50%">
+      <col style="width: 40%">
+      <col style="width: 60%">
     </colgroup>
     <tbody>
       <tr>
@@ -18,6 +18,18 @@
         <td class="truncate">{{ "cards.infos.user_agent" | translate }}</td>
         <td class="truncate">
             {{card.user_agent}}
+        </td>
+      </tr>
+      <tr>
+        <td class="truncate">{{ "cards.infos.start_time" | translate }}</td>
+        <td class="truncate">
+            {{card.start_time | date:'full' }}
+        </td>
+      </tr>
+      <tr>
+        <td class="truncate">{{ "cards.infos.end_time" | translate }}</td>
+        <td class="truncate">
+            {{card.end_time | date:'full' }}
         </td>
       </tr>
     </tbody>

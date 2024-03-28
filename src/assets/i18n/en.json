@@ -283,6 +283,8 @@
         "infos": {
             "chrome_version":"Chrome version",
             "tool_version":"Tool version",
+            "start_time":" Data collection started at",
+            "end_time":"Data collection finished at",
             "user_agent":"User agent",
             "visited_urls":"Visited urls"
         }

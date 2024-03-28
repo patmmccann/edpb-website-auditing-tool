@@ -56,9 +56,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
   body
       if tag
         h1=tag.name
-        i Data collection started at #{new Date(tag.created_at).toLocaleString()}
         br
-        i Data collection finished at #{new Date(tag.updated_at).toLocaleString()}
 
       if info
         h3  Browser information:
@@ -66,14 +64,20 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                 tbody
                     tr
                       td.notrunc Chrome version
-                      td.notrunc=info.values.httpschrome_version_support
+                      td.notrunc=info.values.chrome_version
                     tr 
                       td.notrunc Tool version
                       td.notrunc=info.values.tool_version
                     tr 
                       td.notrunc User agent
                       td.notrunc=info.values.user_agent
-          
+                    tr 
+                      td.notrunc Data collection started at
+                      td.notrunc=new Date(info.values.start_time).toLocaleString()
+                    tr 
+                      td.notrunc Data collection finished at
+                      td.notrunc=new Date(info.values.end_time).toLocaleString()
+
           <br>
           table(style="width: 100%;")
             thead

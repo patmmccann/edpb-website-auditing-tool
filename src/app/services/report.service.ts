@@ -307,6 +307,8 @@ export class ReportService {
                 'chrome_version':infoCard.chrome_version, 
                 'tool_version':infoCard.tool_version,
                 'user_agent':infoCard.user_agent,
+                'start_time':infoCard.start_time,
+                'end_time':infoCard.end_time,
                 'visited_urls':infoCard.visited_urls
               } 
               }});

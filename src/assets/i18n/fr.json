@@ -284,6 +284,8 @@
             "chrome_version":"Version de Chrome ",
             "tool_version":"Version de l'outil",
             "user_agent":"User agent",
+            "start_time":" Debut de la collecte de données",
+            "end_time":"Fin de la collecte de données",
             "visited_urls":"URLs visités"
         }
     },
