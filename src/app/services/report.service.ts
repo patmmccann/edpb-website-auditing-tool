@@ -302,7 +302,14 @@ export class ReportService {
               break;
             case 'info':
               const infoCard = (card as InfoCard);
-              resolve({ info: {values : [{'name':infoCard.name, 'url':infoCard.url}], evaluation: evaluation }});
+              resolve({ info: {
+                values : {
+                'chrome_version':infoCard.chrome_version, 
+                'tool_version':infoCard.tool_version,
+                'user_agent':infoCard.user_agent,
+                'visited_urls':infoCard.visited_urls
+              } 
+              }});
               break;
             default:
               resolve({});

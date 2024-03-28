@@ -1,4 +1,4 @@
-<table >
+<table>
     <colgroup>
       <col style="width: 50%">
       <col style="width: 50%">
@@ -20,12 +20,22 @@
             {{card.user_agent}}
         </td>
       </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <table>
+    <colgroup>
+      <col style="width: 100%">
+    </colgroup>
+    <thead>
       <tr>
-        <td class="truncate" colspan="2"> {{ "cards.infos.visited_urls" | translate }} : </td>
-        <td></td>
+        <th>{{ "cards.infos.visited_urls" | translate }} :</th>
       </tr>
-      <tr *ngFor="let url of card.visited_urls">
-        <td colspan="2" class="truncate"> {{url}} </td>
-      </tr>
+    </thead>
+    <tbody>      
+    <tr *ngFor="let url of card.visited_urls">
+      <td colspan="2" class="truncate"> {{url}} </td>
+    </tr>
     </tbody>
   </table>

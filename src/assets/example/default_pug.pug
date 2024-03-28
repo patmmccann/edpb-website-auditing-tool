@@ -60,6 +60,31 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
         br
         i Data collection finished at #{new Date(tag.updated_at).toLocaleString()}
 
+      if info
+        h3  Browser information:
+          table(style="width: 50%;")
+                tbody
+                    tr
+                      td.notrunc Chrome version
+                      td.notrunc=info.values.httpschrome_version_support
+                    tr 
+                      td.notrunc Tool version
+                      td.notrunc=info.values.tool_version
+                    tr 
+                      td.notrunc User agent
+                      td.notrunc=info.values.user_agent
+          
+          <br>
+          table(style="width: 100%;")
+            thead
+              tr
+                th.notrunc Visited URLs
+            tbody
+              each visited_url,index in info.values.visited_urls
+                tr
+                  td.trunc= visited_url
+
+
       if cookies
         h3  #{cookies.values.length} cookies have been stored in the browser :
         table(style="width: 100%;")
