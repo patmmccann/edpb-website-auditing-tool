@@ -127,24 +127,22 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="selector.includes('mark_as')">
-    {{ "search.mark_as" | translate }}
+    {{ "search.mark_as" | translate }} 
+    <span class="spacer"></span>
+    <mat-button-toggle-group #mark_as_group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle value="compliant"><mat-icon style="color: green;">done</mat-icon>{{ "analyses.evaluation.compliant" | translate }}</mat-button-toggle>
+      <mat-button-toggle value="not_compliant"><mat-icon style="color: red;">close</mat-icon>{{ "analyses.evaluation.not_compliant" | translate }}</mat-button-toggle>
+      <mat-button-toggle value="TBD"><mat-icon style="color: #004494;">search</mat-icon> {{ "analyses.evaluation.TBD" | translate }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    &nbsp;
+    <button mat-raised-button (click)="mark_as(mark_as_group.value)" class="btn-toogle-primary">{{ "search.apply" | translate }}</button>
+
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('mark_as')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-toolbar-row>
 
-
-  <mat-toolbar-row *ngIf="selector.includes('mark_as')">
-    <mat-form-field>
-      <mat-label>{{ "analyses.edit.evaluation" | translate }}</mat-label>
-      <mat-select (selectionChange)="mark_as($event)">
-        <mat-option value="compliant"><mat-icon style="color: green;">done</mat-icon>{{ "analyses.evaluation.compliant" | translate }}</mat-option>
-        <mat-option value="not_compliant"><mat-icon style="color: red;">close</mat-icon>{{ "analyses.evaluation.not_compliant" | translate }}</mat-option>
-        <mat-option value="TBD"><mat-icon style="color: #004494;">search</mat-icon> {{ "analyses.evaluation.TBD" | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-toolbar-row>
 
 </mat-toolbar>
 

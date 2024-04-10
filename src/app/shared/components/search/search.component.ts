@@ -171,15 +171,16 @@ export class SearchComponent {
     }
   }
 
-  mark_as(event: any) {
-    const test = this.searchStatusForm.value.searchStatus;
+  mark_as(value: Status) {
+    if (!value)return;
+
     switch (this.card?.kind) {
       case 'cookie':
         const cookieCard = this.cardService.castToCookieCard(this.card);
         this.filterForStatus.transform(
           this.filterForCookie.transform(cookieCard.cookieLines, this.searchCookieForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line: CookieLine) => line.status = event.value);
+          .map((line: CookieLine) => line.status = value);
 
         this.cardService.update(cookieCard);
         break;
@@ -188,7 +189,7 @@ export class SearchComponent {
         this.filterForStatus.transform(
           this.filterForLocalStorage.transform(localstorageCard.localStorageLines, this.searchLocalStorageForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line: LocalStorageLine) => line.status = event.value);
+          .map((line: LocalStorageLine) => line.status = value);
 
         this.cardService.update(localstorageCard);
         break;
@@ -197,7 +198,7 @@ export class SearchComponent {
         this.filterForStatus.transform(
           this.filterForBeacon.transform(beaconCard.beaconLines, this.searchBeaconForm.value),
           this.searchStatusForm.value.searchStatus)
-          .map((line: BeaconLine) => line.status = event.value);
+          .map((line: BeaconLine) => line.status = value);
 
         this.cardService.update(beaconCard);
         break;

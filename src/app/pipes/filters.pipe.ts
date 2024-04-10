@@ -71,8 +71,8 @@ export class FilterForEval implements PipeTransform {
 export class FilterForStatus implements PipeTransform {
 
   transform(items: Details[],
-    status: Status[]): any {
-    if (status.length == 0) return items;
+    status: Status[] | null): any {
+    if (!status ||status.length == 0) return items;
 
     return items.filter(item => this.matchValue(item, status))
   }
