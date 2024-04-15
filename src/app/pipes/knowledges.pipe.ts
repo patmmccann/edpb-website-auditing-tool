@@ -117,7 +117,7 @@ export class FilterCookieKnowledge implements PipeTransform {
         items = items.filter(x => x.domain.includes(filter.searchDomain))
       }
 
-      if (filter.searchCategory != ''){
+      if (filter.searchCategory != '' && filter.searchCategory != undefined){
         items = items.filter(x => x.category.includes(filter.searchCategory))
       }
 
