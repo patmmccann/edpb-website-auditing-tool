@@ -185,6 +185,7 @@
     },
     "settings": {
         "testssl": "Enable Testssl",
+        "testssl_configuration": "Test your configuration",
         "testssl_location": "TestSSL location",
         "docker": "Docker",
         "cookies": "Enable Cookies analysis",

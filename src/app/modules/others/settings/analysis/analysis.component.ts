@@ -20,6 +20,8 @@ export class AnalysisComponent {
     ssl_location: new FormControl('', [])
   });
 
+  testSSLResult = "";
+
   constructor(
     private el: ElementRef,
     public settingService : SettingsService,
@@ -42,5 +44,9 @@ export class AnalysisComponent {
     } else {
       this.el.nativeElement.querySelector('#ssl_location').click();
     }
+  }
+
+  async testSSLLocation(testssl_type: string){
+    this.testSSLResult = await this.browserService.testSSLLocation(window, testssl_type);
   }
 }

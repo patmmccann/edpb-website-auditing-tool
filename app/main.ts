@@ -14,6 +14,7 @@ const gotTheLock = app.requestSingleInstanceLock();
 import { BrowsersHandler } from "./handlers/browser-handler";
 import { ReportsHandler } from './handlers/report-handler';
 import { ParserHandler } from './handlers/parser-handler';
+import { TestSSLHandler } from './handlers/testssl-handler';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -100,6 +101,7 @@ function createWindow() {
     const browserHandlers = new BrowsersHandler(mainWindow);
     const reportsHandler = new ReportsHandler();
     const parserHandler = new ParserHandler();
+    const testSSLHandler = new TestSSLHandler();
 
     async function parseHar() {
         var fs = require('fs');
@@ -115,6 +117,7 @@ function createWindow() {
         browserHandlers.unregisterHandlers();
         reportsHandler.unregisterHandlers();
         parserHandler.unregisterHandlers();
+        testSSLHandler.unregisterHandlers();
 
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time

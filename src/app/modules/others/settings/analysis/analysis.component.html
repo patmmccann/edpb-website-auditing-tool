@@ -32,6 +32,14 @@
 
         <ng-container *ngIf="settingService.settings.testssl_type == 'docker'">
         </ng-container>
+        <br>
+        <button mat-button (click)="testSSLLocation(settingService.settings.testssl_type)" color="primary">
+            {{ 'settings.testssl_configuration' | translate }}
+        </button>
+
+        <app-modal *ngIf='testSSLResult !=""' (clickOnClose)='testSSLResult = ""'>
+            {{testSSLResult}}
+        </app-modal>
     </ng-container>
     <br><br>
     <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)"
