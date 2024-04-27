@@ -9,10 +9,12 @@ import { BaseComponent } from './base.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BaseRoutingModule } from './base-routing.module';
 import { MaterialAllModule } from 'src/app/material.module';
+import { CompareComponent } from './compare/compare.component';
 
 @NgModule({
   declarations: [
-    BaseComponent
+    BaseComponent,
+    CompareComponent
   ],
   imports: [
     CommonModule,

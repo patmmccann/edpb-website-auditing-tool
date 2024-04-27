@@ -127,6 +127,7 @@
         },
         "new_entry": "Create a new entry",
         "new_knowledge": "New knowledge base",
+        "update_knowledge": "Update this database",
         "domain": "Domain",
         "name": "Name",
         "host":"Host",
@@ -296,5 +297,19 @@
         "mark_as":"Mark as",
         "apply":"Apply",
         "content":"Content"
+    },
+    "compare":{
+        "no_modifications":"No modifications found with the current database",
+        "new_elements":"New elements",
+        "new_elements_expand":"Expands this list to add new elements to the base",
+        "add":"Add?",
+        "add_to_database":"Add to current database",
+        "remove_modification":"Remove modification",
+        "deleted_elements":"Deleted elements",
+        "deleted_elements_expand":"Expands this list to remove deleted elements from the base",
+        "remove":"Remove?",
+        "delete_from_database":"Delete from current database",
+        "apply_all":"Apply all",
+        "dismiss":"Dismiss"
     }
 }

@@ -13,24 +13,17 @@
         <li class="breadcrumb-item">
             {{ base.name }}
         </li>
-        <!--
-        <span class="header-spacer"></span>
-        <strong>
-            EN
-        </strong>
-        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-toolbar class="page-header" role="heading">
     <mat-toolbar-row>
-
         <button mat-raised-button color="blue" title="Create a new entry" (click)="
         showForm = true;
         editMode = 'new';
         entryForm.reset();
         selectedKnowledgeId = null;
-        itemsSelected = []
+        itemsSelected = [];
       ">
             <ng-container *ngIf="base.category == 'cookie'">
                 <i class="fas fa-plus"></i>
@@ -41,73 +34,99 @@
                 {{ "knowledge.localstorage.new_entry" | translate }}
             </ng-container>
         </button>
-        </mat-toolbar-row>        
+
+        <button mat-raised-button color="blue" title="Create a new entry" (click)="updateEntries()">
+            <i class="fas fa-refresh"></i>
+            {{ "knowledge.update_knowledge" | translate }}
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="showModal">
+        <app-modal (clickOnClose)="showModal = false">
+            <b style="color: red"> Error with database updates : malformed file !</b>
+        </app-modal>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="container base-mainContainerBlock base-knowledges_base">
-    <ng-container  [ngSwitch]="base.category">
-        <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchCookieForm">
-            <mat-form-field appearance="fill">
-                <mat-label>{{ "knowledge.domain" | translate }}</mat-label>
-                <input formControlName="searchDomain" matInput />
-                <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
-                <mat-icon
-                    *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
-                    (click)="searchCookieForm.patchValue({searchDomain:''})" matSuffix>close
-                </mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{ "knowledge.name" | translate }}</mat-label>
-                <input formControlName="searchName" matInput />
-                <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
-                <mat-icon
-                    *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
-                    (click)="searchCookieForm.patchValue({searchName:''})" matSuffix>close
-                </mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>{{ "knowledge.category" | translate }}</mat-label>
-                <mat-select formControlName="searchCategory">
-                    <mat-option [value]=""></mat-option>
-                    <mat-option 
-                    *ngFor="let cat of categories" [value]="cat"
-                    >{{cat}}</mat-option>
-                  </mat-select>
-            </mat-form-field>
-        </ng-container>
-        <ng-container *ngSwitchCase="'localstorage'">
-            <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchLocalStorageForm">
-                <mat-form-field appearance="fill">
-                    <mat-label>{{ "knowledge.host" | translate }}</mat-label>
-                    <input formControlName="searchHost" matInput />
-                    <mat-icon *ngIf="!searchCookieForm.value.searchHost" matSuffix>search</mat-icon>
-                    <mat-icon
-                        *ngIf="searchCookieForm.value.searchHost && searchCookieForm.value.searchHost.length>0"
-                        (click)="searchCookieForm.patchValue({searchHost:''})" matSuffix>close
-                    </mat-icon>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>{{ "knowledge.key" | translate }}</mat-label>
-                    <input formControlName="searchKey" matInput />
-                    <mat-icon *ngIf="!searchCookieForm.value.searchKey" matSuffix>search</mat-icon>
-                    <mat-icon
-                        *ngIf="searchCookieForm.value.searchKey && searchCookieForm.value.searchKey.length>0"
-                        (click)="searchCookieForm.patchValue({searchKey:''})" matSuffix>close
-                    </mat-icon>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>{{ "knowledge.category" | translate }}</mat-label>
-                    <input formControlName="searchCategory" matInput />
-                    <mat-icon *ngIf="!searchCookieForm.value.searchCategory" matSuffix>search</mat-icon>
-                    <mat-icon
-                        *ngIf="searchCookieForm.value.searchCategory && searchCookieForm.value.searchCategory.length>0"
-                        (click)="searchCookieForm.patchValue({searchCategory:''})" matSuffix>close
-                    </mat-icon>
-                </mat-form-field>
+    <div *ngIf="updateKnowledges.length >0" class="row">
+        <div class="small-9 medium-9 columns">
+            <app-compare 
+            [knowledgesService]="KnowledgesService" 
+            [base]="base"
+            [updateKnowledges]="updateKnowledges"
+            (closeEvent)="updateKnowledges = []"
+            (refreshEvent)="refresh()"
+            (deleteEvent)="delete(cookieKnowledges[$event].id)"
+            >
+        </app-compare>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-9 medium-9 columns">
+            <ng-container [ngSwitch]="base.category">
+                <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchCookieForm">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ "knowledge.domain" | translate }}</mat-label>
+                        <input formControlName="searchDomain" matInput />
+                        <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
+                        <mat-icon
+                            *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
+                            (click)="searchCookieForm.patchValue({searchDomain:''})" matSuffix>close
+                        </mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ "knowledge.name" | translate }}</mat-label>
+                        <input formControlName="searchName" matInput />
+                        <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
+                        <mat-icon
+                            *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
+                            (click)="searchCookieForm.patchValue({searchName:''})" matSuffix>close
+                        </mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ "knowledge.category" | translate }}</mat-label>
+                        <mat-select formControlName="searchCategory">
+                            <mat-option [value]=""></mat-option>
+                            <mat-option *ngFor="let cat of categories" [value]="cat">{{cat}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngSwitchCase="'localstorage'">
+                    <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchLocalStorageForm">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ "knowledge.host" | translate }}</mat-label>
+                            <input formControlName="searchHost" matInput />
+                            <mat-icon *ngIf="!searchCookieForm.value.searchHost" matSuffix>search</mat-icon>
+                            <mat-icon
+                                *ngIf="searchCookieForm.value.searchHost && searchCookieForm.value.searchHost.length>0"
+                                (click)="searchCookieForm.patchValue({searchHost:''})" matSuffix>close
+                            </mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ "knowledge.key" | translate }}</mat-label>
+                            <input formControlName="searchKey" matInput />
+                            <mat-icon *ngIf="!searchCookieForm.value.searchKey" matSuffix>search</mat-icon>
+                            <mat-icon
+                                *ngIf="searchCookieForm.value.searchKey && searchCookieForm.value.searchKey.length>0"
+                                (click)="searchCookieForm.patchValue({searchKey:''})" matSuffix>close
+                            </mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{ "knowledge.category" | translate }}</mat-label>
+                            <input formControlName="searchCategory" matInput />
+                            <mat-icon *ngIf="!searchCookieForm.value.searchCategory" matSuffix>search</mat-icon>
+                            <mat-icon
+                                *ngIf="searchCookieForm.value.searchCategory && searchCookieForm.value.searchCategory.length>0"
+                                (click)="searchCookieForm.patchValue({searchCategory:''})" matSuffix>close
+                            </mat-icon>
+                        </mat-form-field>
+                    </ng-container>
+                </ng-container>
             </ng-container>
-        </ng-container>
-    </ng-container>
-    <div class="row">        
+        </div>
+    </div>
+    <div class="row">
         <div class="small-9 medium-9 columns">
 
             <ng-container [ngSwitch]="base.category">
@@ -286,13 +305,9 @@
         <!-- NEW ENTRY FORM -->
         <div class="small-3 medium-3 columns sticky-card">
             <form (ngSubmit)="onSubmit()" [formGroup]="entryForm" class="base-knowledges_base-form" *ngIf="showForm">
-                <button
-                (click)="showForm=false"
-                class="base-knowledges_base-form-close"
-                type="button"
-              >
-              <mat-icon>close</mat-icon>
-              </button>
+                <button (click)="showForm=false" class="base-knowledges_base-form-close" type="button">
+                    <mat-icon>close</mat-icon>
+                </button>
                 <h3>
                     {{base.category}}
                 </h3>
@@ -362,4 +377,13 @@
 
         </div>
 
+    </div>
+
+    <!-- Import/export functions -->
+    <div class="hide">
+        <form enctype="multipart/form-data" [formGroup]="updateForm">
+            <input type="file" formControlName="import_file" id="import_file" (change)="updateEntries($event)"
+                class="hide" />
+        </form>
+        <a href="" id="base-exportBlock"></a>
     </div>

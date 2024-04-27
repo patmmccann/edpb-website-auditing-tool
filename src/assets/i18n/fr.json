@@ -127,6 +127,7 @@
         },
         "new_entry": "Créer une nouvelle entrée",
         "new_knowledge": "Nouvelle base de connaissances",
+        "update_knowledge": "Mise à jour de la base",
         "domain": "Domaine",
         "name": "Nom",
         "host":"Hôte",
@@ -296,5 +297,19 @@
         "mark_as":"Marquer comme",
         "apply":"Appliquer",
         "content":"Contenu"
+    },
+    "compare":{
+        "no_modifications":"Aucune modifications n'a été trouvé dans cette base",
+        "new_elements":"Nouveaux éléments",
+        "new_elements_expand":"Dérouler cette liste pour ajouter de nouveaux éléments à la base",
+        "add":"Ajouter?",
+        "add_to_database":"Ajouter à la base courante",
+        "remove_modification":"Effacer la modification",
+        "deleted_elements":"Elements supprimés",
+        "deleted_elements_expand":"Dérouler cette liste pour supprimer des éléments absents de cette base",
+        "remove":"Supprimer?",
+        "delete_from_database":"Supprimer de la base courante",
+        "apply_all":"Appliquer tout",
+        "dismiss":"Annuler"
     }
 }

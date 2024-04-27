@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
@@ -29,6 +29,12 @@ export class BaseComponent implements OnInit {
   localStorageKnowledges: LocalStorageKnowledge[] = [];
   searchCookieForm: FormGroup = new FormGroup({});
   searchLocalStorageForm: FormGroup = new FormGroup({});
+  updateKnowledges: CookieKnowledge[] = [];
+  showModal = false;
+
+  updateForm: FormGroup = new FormGroup({
+    import_file: new FormControl('', [])
+  });
 
   entryForm: FormGroup = new FormGroup({
     category: new FormControl(),
@@ -58,6 +64,7 @@ export class BaseComponent implements OnInit {
     private formBuilder: FormBuilder,
     private filterCookieKnowledge: FilterCookieKnowledge,
     private filterLocalStorageKnowledge: FilterLocalStorageKnowledge,
+    private el: ElementRef,
   ) {
 
     this.KnowledgesService = this.cookieKnowledgesService;
@@ -68,7 +75,7 @@ export class BaseComponent implements OnInit {
     });
 
     this.searchCookieForm.valueChanges.subscribe((selectedValue: any) => {
-      this.refresh().then(()=>{
+      this.refresh().then(() => {
         this.cookieKnowledges = this.filterCookieKnowledge.transform(this.cookieKnowledges, selectedValue);
       });
     });
@@ -131,6 +138,7 @@ export class BaseComponent implements OnInit {
         }
       })
       .catch(() => {
+        console.log("Error! Can remove item from knowledge database.");
         return;
       });
   }
@@ -273,6 +281,28 @@ export class BaseComponent implements OnInit {
         .catch(err => {
           console.log(err);
         });
+    }
+  }
+
+  updateEntries(event?: any) {
+    if (event) {
+      this.updateKnowledges = [];
+      const reader = new FileReader();
+      reader.readAsText(event.target.files[0], 'UTF-8');
+      reader.onload = (event2: any) => {
+        try {
+          const data = JSON.parse(event2.target.result);
+          if ("knowledges" in data && data.knowledges.length > 0) {
+            this.updateKnowledges = data["knowledges"];
+          } else {
+            this.showModal = true;
+          }
+        } catch (error) {
+          this.showModal = true;
+        }
+      };
+    } else {
+      this.el.nativeElement.querySelector('#import_file').click();
     }
   }
 
