@@ -84,7 +84,7 @@ export class BrowserService {
       parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       versions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
-      testSSLLocation:(type:string): Promise<string>=> new Promise((resolve, reject) => resolve(""))
+      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve(""))
     }
   }
 
@@ -295,8 +295,8 @@ export class BrowserService {
     window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['testSSL']);
   }
 
-  async testSSLLocation(window: any, type:string) {
-    return await window.electron.testSSLLocation(type);
+  async testSSLLocation(window: any) {
+    return await window.electron.testSSLLocation(this.settingService.settings);
   }
 
 

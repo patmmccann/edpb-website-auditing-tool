@@ -33,7 +33,7 @@
         <ng-container *ngIf="settingService.settings.testssl_type == 'docker'">
         </ng-container>
         <br>
-        <button mat-button (click)="testSSLLocation(settingService.settings.testssl_type)" color="primary">
+        <button mat-button (click)="testSSLLocation()" color="primary">
             {{ 'settings.testssl_configuration' | translate }}
         </button>
 

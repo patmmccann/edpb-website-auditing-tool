@@ -46,7 +46,7 @@ export class AnalysisComponent {
     }
   }
 
-  async testSSLLocation(testssl_type: string){
-    this.testSSLResult = await this.browserService.testSSLLocation(window, testssl_type);
+  async testSSLLocation(){
+    this.testSSLResult = await this.browserService.testSSLLocation(window);
   }
 }
