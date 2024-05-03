@@ -86,6 +86,10 @@ export class BrowserSession {
         if (settings && settings.dntJs) {
             this._view.webContents.send('dntJs');
         }
+
+        if (settings && settings.use_proxy) {
+            ses.setProxy({proxyRules:settings.proxy_settings})
+        }
     }
 
     async create() {

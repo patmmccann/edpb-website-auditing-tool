@@ -38,7 +38,9 @@ export class SettingsService {
     help: false,
     server_url:"",
     client_id:"",
-    client_secret:""
+    client_secret:"",
+    use_proxy : false,
+    proxy_settings: ""
   }
 
   constructor(
@@ -48,6 +50,7 @@ export class SettingsService {
     const client_secret = localStorage.getItem('client_secret');
 
     const test_ssl_location = localStorage.getItem('test_ssl_location');
+    const proxy_settings = localStorage.getItem('proxy_settings');
     const setAgent = localStorage.getItem('useragent');
     this._settings.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
     this._settings.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
@@ -67,16 +70,23 @@ export class SettingsService {
     this._settings.infos = localStorage.getItem('infos') == 'false'? false : true ;
     this._settings.server_url = server_url != null ? server_url : "";
     this._settings.client_id = client_id != null ? client_id : "";
-    this._settings.client_secret = client_secret != null ? client_secret : "";;
-
+    this._settings.client_secret = client_secret != null ? client_secret : "";
+    this._settings.use_proxy = localStorage.getItem('use_proxy') == 'true'? true : false ;
+    this._settings.proxy_settings = proxy_settings != null ? proxy_settings : "";
   }
   setItem(key :string, value:any):void{
     localStorage.setItem(key, value);
   }
 
-  setUsageAgent(event:any){
+  setUserAgent(event:any){
     if (event){
       localStorage.setItem('useragent', event.value);
+    }
+  }
+
+  setProxySettings(event:any){
+    if (event){
+      localStorage.setItem('proxy_settings', event.value);
     }
   }
 

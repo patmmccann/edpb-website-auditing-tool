@@ -170,7 +170,7 @@
             "new":"Create a new scenario",
             "screenshot":"Take a screenshot of this page",
             "clear":"Clear all information stored in the browser",
-            "developer":"Show developper tool for the current page",
+            "developer":"Show developer tool for the current page",
             "stop":"Stop and save the analysis",
             "show":"Show/hide the evidence bar"
         },
@@ -198,6 +198,9 @@
         "tooltips": "Show help tooltips",
         "do_not_track": "Enable Do Not Track",
         "developer_tools": "Show Developer Tools button",
+        "use_proxy": "Use proxy",
+        "proxy_settings_header": "Proxy settings (restart may be required)",
+        "proxy_settings": "Proxy settings",
         "user_agent": "Browser User Agent",
         "language":"Language",
         "storage":"Analysis location",

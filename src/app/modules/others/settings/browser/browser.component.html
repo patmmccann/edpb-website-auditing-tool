@@ -10,14 +10,30 @@
 
     <mat-slide-toggle (change)="settingService.setItem('devTool', $event.checked)" [(ngModel)]="settingService.settings.devTool"
         color="primary">
-        {{ 'settings.developer_tools' | translate }}</mat-slide-toggle>
+        {{ 'settings.developer_tools' | translate }}</mat-slide-toggle><br> <br>
+    <mat-slide-toggle (change)="settingService.setItem('use_proxy', $event.checked)" [(ngModel)]="settingService.settings.use_proxy"
+        color="primary">
+        {{ 'settings.use_proxy' | translate }}</mat-slide-toggle>
 </div>
+
+<div 
+*ngIf="settingService.settings.use_proxy"
+class="content" style="max-width: 800px; margin-top: 56px;">
+    <div class="header">{{ 'settings.proxy_settings_header' | translate }}</div>
+    <mat-form-field 
+    appearance="fill" style="width:100%">
+            <mat-label>{{ 'settings.proxy_settings' | translate }}</mat-label>
+            <input (input)="settingService.setProxySettings($event.target)" matInput type="text"
+                [(ngModel)]="settingService.settings.proxy_settings">
+    </mat-form-field>
+</div>
+
 
 <div class="content" style="max-width: 800px; margin-top: 56px;">
     <div class="header">{{ 'settings.user_agent' | translate }}</div>
     <mat-form-field appearance="fill" style="width:100%">
         <mat-label>{{ 'settings.user_agent' | translate }}</mat-label>
-        <input (input)="settingService.setUsageAgent($event.target)" matInput type="text"
+        <input (input)="settingService.setUserAgent($event.target)" matInput type="text"
             [(ngModel)]="settingService.settings.useragent">
     </mat-form-field>
 </div>
