@@ -199,7 +199,7 @@
     </mat-card-content>
     <mat-card-actions *ngIf="!showModal">
         <span class="spacer"></span>
-        <button mat-button
+        <button *ngIf="to_remove.length != 0 && to_add.length != 0" mat-button
         (click)="applyAll()" > {{ "compare.apply_all" | translate }}
         </button>
         <button mat-button 

@@ -53,7 +53,7 @@ export class CompareComponent implements OnInit {
 
   apply_add(i: number) {
     if (this.knowledgesService && this.base) {
-      const elt =  this.delete_add(i);
+      const elt = this.delete_add(i);
       this.knowledgesService
         .add(this.base.id, elt)
         .then((result: Knowledge) => {
@@ -73,11 +73,11 @@ export class CompareComponent implements OnInit {
     return elt[0];
   }
 
-  apply_remove(i : number, id: number) {
+  apply_remove(i: number, id: number) {
     if (this.knowledgesService && this.base) {
       this.delete_remove(i);
       this.deleteEvent.emit(id);
-    } 
+    }
   }
 
   delete_remove(i: number) {
@@ -88,9 +88,19 @@ export class CompareComponent implements OnInit {
   }
 
   async applyAll() {
-    this.to_add.forEach((x,i) => this.apply_add(i));
+    const promises = this.to_add.map((x, i) => {
+      const elt = this.to_add[i];
+      if (this.knowledgesService && this.base) {
+        return this.knowledgesService.add(this.base.id, elt);
+      }
+      return;
+    });
+
     this.to_remove.forEach(x => this.deleteEvent.emit(x.id));
-    this.closeEvent.emit();
+    await Promise.all(promises)
+    this.to_remove = [];
+    this.to_add = [];
+
     this.refreshEvent.emit();
   }
 }

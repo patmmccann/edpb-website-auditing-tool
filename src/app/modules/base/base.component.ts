@@ -300,6 +300,7 @@ export class BaseComponent implements OnInit {
         } catch (error) {
           this.showModal = true;
         }
+        this.updateForm.reset();
       };
     } else {
       this.el.nativeElement.querySelector('#import_file').click();
