@@ -281,7 +281,8 @@
             "localstorage": "Accoppiamenti di chiavi e valori memorizzati nella memoria locale del browser nella pagina visualizzata correntew i loro potenziali scopi dalla base di conoscenze. Fare clic sull'intestazione per ordinare la chiave e i valori e su una linea per ottenere maggiori dettagli su una chiave specifica.",
             "testSSL": "Il software TestSSL controlla la configurazione HTTPS dell'host del servizio web. Classifica le vulnerabilità rilevate in base al loro livello di gravità basso, medio, alto o critico.",
             "traffic": "Elenco degli host che hanno ricevuto almeno una richiesta durante la sessione di navigazione.",
-            "forms": "Il codice sorgente della pagina web attualmente visualizzata viene analizzato al fine di verificare se i dati possono essere inviati attraverso una comunicazione non sicura (HTTP)."
+            "forms": "Il codice sorgente della pagina web attualmente visualizzata viene analizzato al fine di verificare se i dati possono essere inviati attraverso una comunicazione non sicura (HTTP).",
+            "image":"Screenshot del visibile o dell'intera pagina del sito web."
         },
         "screenshot": {
             "visible": "Visibile",

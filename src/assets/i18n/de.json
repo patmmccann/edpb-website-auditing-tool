@@ -281,7 +281,8 @@
             "localstorage": "Paare von Schlüsseln und Werten, die im lokalen Speicher des Browsers auf der aktuell angezeigten Seite gespeichert sind, indem sie ihre potenziellen Zwecke aus der Wissensdatenbank ableiten. Klicken Sie auf die Kopfzeile, um Schlüssel und Werte zu sortieren, und auf eine Zeile, um genauer auf einen bestimmten Schlüssel zu gelangen.",
             "testSSL": "Die Software testet die HTTPS-Konfiguration des Webservice-Hosts. Es klassifiziert erkannte Schwachstellen nach ihrem Schweregrad niedrig, mittel, hoch oder kritisch.",
             "traffic": "Liste der Hosts, die während der Browsersitzung mindestens eine Anfrage erhalten haben.",
-            "forms": "Der Quellcode der aktuell angezeigten Webseite wird analysiert, um zu prüfen, ob Daten durch ungesicherte (HTTP) Kommunikation gesendet werden können."
+            "forms": "Der Quellcode der aktuell angezeigten Webseite wird analysiert, um zu prüfen, ob Daten durch ungesicherte (HTTP) Kommunikation gesendet werden können.",
+            "image":"Screenshot der sichtbaren oder vollständigen Seite der Website."
         },
         "screenshot": {
             "visible": "Sichtbar",

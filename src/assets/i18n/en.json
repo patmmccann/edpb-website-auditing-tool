@@ -281,7 +281,8 @@
             "localstorage":"Pairs of keys and values stored in the browser local storage on the current displayed pagew ith their potential purposes from the knowledge base. Click on header to sort key and values and on a line to get more detailed on a specific key.",
             "testSSL":"The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical.",
             "traffic":"List of hosts that received at least one request during the browsing session.",
-            "forms":"The source code of the currently displayed webpage is analyzed in order to check if data may be send through unsecure (HTTP) communication."
+            "forms":"The source code of the currently displayed webpage is analyzed in order to check if data may be send through unsecure (HTTP) communication.",
+            "image":"Screenshot of the visible or the full page of the website."
         },
         "screenshot": {
             "visible" : "Visible",

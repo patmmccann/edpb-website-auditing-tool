@@ -281,7 +281,8 @@
             "localstorage": "Paires de clés/valeurs stockées dans le Local Storage du navigateur sur la page actuellement affichée avec leurs objectifs potentiels à partir de la base de connaissances. Cliquez sur l'en-tête pour trier la clé et les valeurs et sur une ligne pour obtenir plus de détails sur une clé spécifique.",
             "testSSL": "Le logiciel TestSSL inspecte la configuration HTTPS de l'hébergeur du service. Il classe les vulnérabilités détectées selon leur niveau de gravité faible, moyen, élevé ou critique.",
             "traffic": "Liste des hôtes ayant reçu au moins une requête lors de la session de navigation.",
-            "forms": "Le code source de la page est analysé afin de vérifier que les données ne sont pas envoyées depuis une communication non sécurisée (HTTP)."
+            "forms": "Le code source de la page est analysé afin de vérifier que les données ne sont pas envoyées depuis une communication non sécurisée (HTTP).",
+            "image":"Capture d'écran de la page visible ou complète du site."
         },
         "screenshot": {
             "visible": "Visible",
