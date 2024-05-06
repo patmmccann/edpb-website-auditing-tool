@@ -1,7 +1,10 @@
 {
     "languages": {
         "en": "English",
-        "fr": "French"
+        "fr" : "Français",
+        "de" : "Deutsch",
+        "el" : "ελληνικά",
+        "it" : "Italiano"
     },
     "header": {
         "edpb": "European Data Protection Board",

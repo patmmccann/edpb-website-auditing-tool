@@ -3,8 +3,11 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
+import de from '../../../assets/i18n/de.json';
+import el from '../../../assets/i18n/el.json';
 import en from '../../../assets/i18n/en.json';
 import fr from '../../../assets/i18n/fr.json';
+import it from '../../../assets/i18n/it.json';
 
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -12,8 +15,11 @@ import { Observable } from 'rxjs';
 export class WATTranslateLoader implements TranslateLoader {
   
   static availableLanguages :any =  {
+    'de' :de,
+    'el' :el,
     'en' :en,
-    'fr' :fr
+    'fr' :fr,
+    'it' :it
   }
 
   public getTranslation(lang: string): Observable<any> {

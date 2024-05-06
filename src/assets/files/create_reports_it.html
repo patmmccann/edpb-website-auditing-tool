@@ -1,0 +1,109 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12 px-4 px-xl-5 order-0">
+        <div id="block-pagetitle" class="block block-core block-page-title-block">
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Creare report</h1>
+                </header>
+                <p>Le relazioni sono documenti formattati secondo un determinato <i>modello</i> di informazioni contenute in un&#39;analisi, <i></i> uno <i>scenario</i> o una determinata <i>scheda.</i></p>
+
+                <p>I rapporti di modifica dell&#39;interfaccia sono accessibili su ogni riga della tabella <strong> Riepilogo delle valutazioni in </strong> una determinata analisi o scenario.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Interfaccia di segnalazione</h2>
+                </header>
+                <p>L&#39;interfaccia della relazione si compone delle tre componenti principali seguenti:</p>
+                <ul>
+                    <li>la <i>barra degli strumenti Modifica/esportazione</i> nella parte superiore dell&#39;interfaccia consente di modificare il rapporto e di selezionare un formato per le sue esportazioni (json<i></i>, <i>XLSX</i>, <i>PDF</i> o <i>DOCX</i>),</li>
+                    <li>la <i>barra degli strumenti di filtraggio delle informazioni</i> consente di selezionare le informazioni da segnalare, in base alla loro identificazione o valutazione,</li>
+                    <li>il riquadro <i>Anteprima</i> fornisce una panoramica delle informazioni contenute nelle relazioni finali. Fornisce anche un semplice editor per aggiungere o rimuovere informazioni nel rapporto. Si noti che il rendering finale può variare a seconda del formato di esportazione selezionato.</li>
+                </ul>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h3 class="node__title mb-3 mt-0">Modifica/esportazione barra degli strumenti</h3>
+                </header>
+                <p>La barra degli strumenti Modifica/Esportazione per la modifica delle informazioni delle relazioni e per l&#39;esportazione in un determinato formato:</p>
+                <table border="2">
+                    <tr>
+                        <td><button  color="blue"><i class="fas fa-pen"></i> Modifica</button></td>
+                        <td>Aprire un semplice editor nella cornice di anteprima per aggiungere o rimuovere informazioni nel report generato. Si noti che le informazioni modificate saranno visibili solo quando si esporta in pdf o docx. La selezione di nuovi filtri dalla <i>barra degli strumenti di filtraggio delle informazioni</i> cancella tutte le modifiche correnti.</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Salva come JSON</button></td>
+                        <td>Esporta le informazioni grezze di una determinata <i>analisi,</i> <i>scenario</i> o <i>scheda</i> utilizzando il formato JavaScript Object Notation (JSON).</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Salva come XLSX</button></td>
+                        <td>Esporta le informazioni grezze di una determinata <i>analisi,</i> <i>scenario</i> o <i>scheda</i> in fogli di calcolo utilizzando il formato Office Open XML (XLXS).</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Salva come PDF </button></td>
+                        <td>Esporta le informazioni formattate di una determinata <i>analisi,</i> <i>scenario</i> o <i>scheda</i> in formato PDF (Portable Document Format).</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Salva come Docx </button></td>
+                        <td>Esporta le informazioni formattate di una determinata <i>analisi,</i> <i>scenario</i> o <i>scheda</i> in un Office Open XML (DOCX) modificabile.</td>
+                    </tr>
+                </table>
+
+                <p>Le informazioni formattate corrispondono alla generazione di una rappresentazione HTML di un report basata su un modello in formato PUG. I nuovi modelli possono essere importati nella sezione <span
+                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Modello</span> della barra di navigazione laterale sinistra e selezionati nella <i>barra degli strumenti di filtraggio delle informazioni.</i></p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h3 class="node__title mb-3 mt-0">Barra degli strumenti di filtraggio delle informazioni</h3>
+                </header>
+                <p>La barra degli strumenti di filtraggio delle informazioni consente di selezionare analisi, scenari e schede in base alla loro identificazione o alla rispettiva valutazione in base alle opzioni o a un modello:<p><table border="2">
+                    <tr>
+                        <td>Seleziona un modello</td>
+                        <td>Usare un modello PUG è stato importato dalla sezione <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Template</span> della barra di navigazione laterale sinistra.</td>
+                    </tr>
+                    <tr>
+                        <td>Seleziona i tag da segnalare</td>
+                        <td>Quando si riporta un&#39;analisi completa, consente di selezionare una serie di scenari o tutti gli scenari da includere nel report.</td>
+                    </tr>
+                    <tr>
+                        <td>Seleziona le carte da segnalare</td>
+                        <td>Quando si segnala un&#39;analisi o uno scenario, consente di selezionare un set di carte o tutte le carte da includere nel rapporto.</td>
+                    </tr>
+                    <tr>
+                        <td>Selezionare le valutazioni da segnalare</td>
+                        <td>Quando si riporta un&#39;analisi, uno scenario o una scheda, consente di selezionare valutazioni o commenti da includere nel rapporto. Si noti che questa opzione si applica anche alle linee in cookie, archiviazione locale, beacon e testsl.</td>
+                    </tr>
+                </table>
+
+                <p>I modelli e le opzioni di filtraggio sono reciprocamente inclusivi. In quanto tali, i modelli possono essere informazioni complete su analisi, scenari e schede che potrebbero essere successivamente selezionate attraverso le opzioni di filtraggio.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Modifica di nuovi modelli</h2>
+                </header>
+                <p>Tuttavia, l&#39;unica sintassi supportata per il modello è <a target="_blank"
+                        href="https://github.com/pugjs/pug">PUG.</a> I report generati da un modello corrispondono all&#39;oggetto dati contenuto nel json di un&#39;analisi, uno scenario o una scheda ai locali corrispondenti <i>nella</i> sintassi del carlino.</p>
+                <p>Puoi fare riferimento alla sezione <i>Language Reference</i> del suo <a
+                        target="_blank"
+                        href="https://pugjs.org/api/getting-started.html">sito ufficiale</a> per ottenere informazioni complete nella sua sintassi.</p>
+
+                <p>Il<mat-icon>descrizione</mat-icon><span
+                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Il modello</span> fornisce una serie di azioni per importare, modificare o duplicare i modelli esistenti:</p>
+
+                <table border="2">
+                    <tr>
+                        <td><button  color="blue"><i class="fas fa-plus"></i> Nuovo modello</button></td>
+                        <td>Importare un modello nella sintassi PUG con un nome e un autore per il suo uso successivo nei report.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="javascript:;"> <i class="fa fa-download" aria-hidden="true"></i> </a> <a href="javascript:;"> <i class="fa fa-trash" aria-hidden="true"></i> </a></td>
+                        <td>Rispettivamente scaricare ed eliminare i modelli importati</td>
+                    </tr>
+                </table>
+
+                <p>Come prima introduzione per la generazione di nuovi modelli, si consiglia di scaricare un&#39;analisi, uno scenario o un tag dalla <i>barra degli strumenti Modifica / esportazione</i> in formato raw JSON per trovare le voci corrispondenti.</p>
+                <p>Molti Online Pug Testing Tool consentono di copiare / incollare il modello PUG e le informazioni JSON per rendere l&#39;HTML finale. <i>Il modello predefinito</i> può anche essere esportato come riferimento.</p>
+            </div>
+        </div>
+    </div>
+</div>
