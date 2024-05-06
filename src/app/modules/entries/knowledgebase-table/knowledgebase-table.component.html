@@ -41,10 +41,6 @@
             <i class="fa fa-files-o" aria-hidden="true"></i>
             <span title="dupplicate" class="base-tooltip-text">{{ "entries.dupplicate" | translate }}</span>
           </a>
-          <a href="javascript:;" class="base-tooltip">
-            <i class="fa fa-ban" aria-hidden="true"></i>
-            <span title="dupplicate" class="base-tooltip-text">{{ "entries.disable" | translate }}</span>
-          </a>
           <a href="javascript:;" (click)="remove(base.id)" class="base-tooltip">
             <i class="fa fa-trash" aria-hidden="true"></i>
             <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}</span>
@@ -79,10 +75,10 @@
            [(value)]="base.trustLevel" (selectionChange)="updateTrust(base, $event.value)">
               <mat-option 
               [ngClass]="{
-                'validated': trustLevel == 'validated',
-                'reliable':  trustLevel == 'reliable',
-                'informative':  trustLevel == 'informative',
-                'undefined':  trustLevel == 'undefined'
+                'validated_selection': trustLevel == 'validated',
+                'reliable_selection':  trustLevel == 'reliable',
+                'informative_selection':  trustLevel == 'informative',
+                'undefined_selection':  trustLevel == 'undefined'
               }"
               *ngFor="let trustLevel of allTrustLevel" 
               [value]="trustLevel">{{ "knowledge."+trustLevel | translate }}</mat-option>

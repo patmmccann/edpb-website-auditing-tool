@@ -16,6 +16,22 @@
   background-color: $base-gray-light;
 }
 
+.validated_selection{
+  color: $base-green-dark;
+}
+
+.reliable_selection{
+  color: $base-blue-dark2;
+}
+
+.informative_selection{
+  color: $base-orange;
+}
+
+.undefined_selection{
+  color: $base-dark-black;
+}
+
 .entries-list-table {
     border-collapse: collapse;
     width: 100%;

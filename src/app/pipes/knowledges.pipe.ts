@@ -40,21 +40,21 @@ export class FindPurpose implements PipeTransform {
       const result = await this.cookieKnowledgesService.getCookieEntries(cookieLine.domain, cookieLine.name);
       if (result.name_and_domain.length > 0) {
         result.name_and_domain.forEach(el => {
-          const base = cookiebases.find(x => x.id = el.knowledge_base_id);
+          const base = cookiebases.find(x => x.id == el.knowledge_base_id);
           if (base) {
             purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
           }
         });
       } else if (result.name.length > 0) {
         result.name.forEach(el => {
-          const base = cookiebases.find(x => x.id = el.knowledge_base_id);
+          const base = cookiebases.find(x => x.id == el.knowledge_base_id);
           if (base) {
             purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
           }
         });
       } else if (result.domain.length > 0) {
         result.domain.forEach(el => {
-          const base = cookiebases.find(x => x.id = el.knowledge_base_id);
+          const base = cookiebases.find(x => x.id == el.knowledge_base_id);
           if (base) {
             purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
           }
@@ -68,7 +68,7 @@ export class FindPurpose implements PipeTransform {
       const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.log);
       if (result.length > 0) {
         result.forEach((el: any) => {
-          const base = localstoragebase.find(x => x.id = el.knowledge_base_id);
+          const base = localstoragebase.find(x => x.id == el.knowledge_base_id);
           if (base) {
             purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
           }
