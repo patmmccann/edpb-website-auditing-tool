@@ -189,6 +189,10 @@
     "settings": {
         "testssl": "Abilitare Testssl",
         "testssl_configuration": "Prova la tua configurazione",
+        "testssl_script_settings": "Impostazioni dello script TestSSL",
+        "testssl_docker_settings": "Impostazioni dello Docker TestSSL",
+        "testssl_script_help": "Scarica l'ultima versione di Testssl.sh dal <a target='_blank' href='https://github.com/drwetter/testssl.sh/releases'> repository ufficiale </a>. <br> Archivialo sul tuo computer e imposta il percorso dello script. <br>",
+        "testssl_docker_help": "Il software <a target='_blank' href='https://www.docker.com/products/docker-desktop/'> Docker </a> deve essere installato e in esecuzione.",
         "testssl_location": "Ubicazione TestSSL",
         "docker": "Docker",
         "cookies": "Abilita l'analisi dei cookie",

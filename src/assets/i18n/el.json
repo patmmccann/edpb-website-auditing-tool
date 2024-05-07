@@ -189,6 +189,10 @@
     "settings": {
         "testssl": "Ενεργοποιήστε το Testssl",
         "testssl_configuration": "Δοκιμάστε τη διαμόρφωσή σας",
+        "testssl_script_settings": "Ρυθμίσεις σεναρίου TestSSL",
+        "testssl_docker_settings": "Ρυθμίσεις TestSSL Docker",
+        "testssl_script_help": "Κάντε λήψη της τελευταίας έκδοσης του Testssl.sh στο επίσημο αποθετήριο <a target='_blank' href='https://github.com/drwetter/testssl.sh/releases'> </a>. <br> Αποθηκεύστε το στον υπολογιστή σας και ορίστε τη θέση του σεναρίου. <br>",
+        "testssl_docker_help": "Το λογισμικό <a target='_blank' href='https://www.docker.com/products/docker-desktop/'> Docker </a> θα πρέπει να εγκατασταθεί και να εκτελείται.",
         "testssl_location": "Τοποθεσία TestSSL",
         "docker": "Λόκερ",
         "cookies": "Ενεργοποίηση ανάλυσης cookies",

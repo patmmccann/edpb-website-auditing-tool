@@ -14,7 +14,7 @@
         </mat-form-field>
 
         <ng-container *ngIf="settingService.settings.testssl_type == 'script'">
-            <br><br>
+            <div class="header">{{ 'settings.testssl_script_settings' | translate }}</div>
             <mat-form-field class="form-ssl-field" appearance="fill">
                 <mat-label>{{ 'settings.testssl_location' | translate }}</mat-label>
                 <input disabled matInput type="text" [(ngModel)]="settingService.settings.test_ssl_location">
@@ -28,9 +28,16 @@
                         (change)="checkSSLLocation($event)" class="hide" />
                 </form>
             </div>
+            <div
+            [innerHTML]="'settings.testssl_script_help' | translate"
+            ></div>
         </ng-container>
 
         <ng-container *ngIf="settingService.settings.testssl_type == 'docker'">
+            <div class="header">{{ 'settings.testssl_docker_settings' | translate }}</div>
+            <div
+            [innerHTML]="'settings.testssl_docker_help' | translate"
+            ></div>
         </ng-container>
         <br>
         <button mat-button (click)="testSSLLocation()" color="primary">
