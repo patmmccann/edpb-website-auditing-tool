@@ -1,10 +1,29 @@
 {
     "languages": {
+        "bg": "български (MT)",
+        "fi": "Suomi (MT)",
+        "ga": "Gaeilge (MT)",
+        "hr": "Hrvatski (MT)",
+        "hu": "Magyar (MT)",
+        "it": "Italiano (MT)",
+        "es": "Español (MT)",
+        "fr": "Français",
+        "cs": "Čeština (MT)",
+        "lt": "Lietuvių (MT)",
+        "da": "Dansk (MT)",
+        "lv": "Latviešu (MT)",
+        "de": "Deutsch (MT)",
+        "mt": "Malti (MT)",
+        "nl": "Nederlands (MT)",
+        "et": "Eesti (MT)",
+        "el": "Ελληνικά (MT)",
+        "pl": "Polski (MT)",
         "en": "English",
-        "fr" : "Français",
-        "de" : "Deutsch (MT)",
-        "el" : "ελληνικά (MT)",
-        "it" : "Italiano (MT)"
+        "pt": "Português (MT)",
+        "ro": "Română (MT)",
+        "sk": "Slovenčina (MT)",
+        "sl": "Slovenščina (MT)",
+        "sv": "Svenska (MT)"
     },
     "header": {
         "edpb": "Ευρωπαϊκό Συμβούλιο Προστασίας Δεδομένων",

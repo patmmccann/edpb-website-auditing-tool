@@ -1,10 +1,29 @@
 {
     "languages": {
+        "bg": "български (MT)",
+        "fi": "Suomi (MT)",
+        "ga": "Gaeilge (MT)",
+        "hr": "Hrvatski (MT)",
+        "hu": "Magyar (MT)",
+        "it": "Italiano (MT)",
+        "es": "Español (MT)",
+        "fr": "Français",
+        "cs": "Čeština (MT)",
+        "lt": "Lietuvių (MT)",
+        "da": "Dansk (MT)",
+        "lv": "Latviešu (MT)",
+        "de": "Deutsch (MT)",
+        "mt": "Malti (MT)",
+        "nl": "Nederlands (MT)",
+        "et": "Eesti (MT)",
+        "el": "Ελληνικά (MT)",
+        "pl": "Polski (MT)",
         "en": "English",
-        "fr" : "Français",
-        "de" : "Deutsch (MT)",
-        "el" : "ελληνικά (MT)",
-        "it" : "Italiano (MT)"
+        "pt": "Português (MT)",
+        "ro": "Română (MT)",
+        "sk": "Slovenčina (MT)",
+        "sl": "Slovenščina (MT)",
+        "sv": "Svenska (MT)"
     },
     "header": {
         "edpb": "European Data Protection Board",
@@ -28,15 +47,15 @@
         "browser": "Browser"
     },
     "help": {
-        "how_tool_works":"How the tool works",
-        "new_analysis":"Provide new analysis",
-        "create_reports":"Create reports",
-        "about_tool":"About the Tool",
+        "how_tool_works": "How the tool works",
+        "new_analysis": "Provide new analysis",
+        "create_reports": "Create reports",
+        "about_tool": "About the Tool",
         "welcome": "Welcome to the EDPB Website Auditing Tool",
         "overview": "<p>The <strong>EDPB Website Auditing Tool</strong> is developed by Jérôme GORIN for the <a target='_blank' href='https://edpb.europa.eu/edpb_en'>European Data Protection Board <a/> under an <a target='_blank' href='https://edpb.europa.eu/support-pool-experts-spe-programme_en'>SPE project</a> contract. It is a Free Software project, aiming to provide a tool to collect evidence, analyse them and generate reports regarding trackers that are being used by websites. It is intended to be used to facilitate website inspections.</p><p>Click on How the tool works to get a first introduction. At any time, you can come back to this page by clicking on the help button on the left sidebar.</p><p>The EDPB WAT is licensed under the European Union Public License (EUPL) 1.2+. The source code is available at <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool</a>.</p><p>The software is built upon the work of several open-source projects, namely <a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'>Project WEC</a>, <a target='_blank' href='https://easylist.to/'>EasyList</a> and <a target='_blank' href='https://www.electronjs.org/'>Electron</a>. Click on About the tool to get more information on these projects.</p><p><strong>All languages noted (MT) have been translated automatically with eTranslation by Directorate-General for Translation. Please report any error on our <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'>GitLab <a/>. </strong></p>",
         "open_source": "<h2>Based on Open-Source Projects</h2><p>This software builds upon the work of several open-source projects, integrating, adapting or calling features for enhanced functionality:<ul><li><a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'> Project WEC </a> : This EDPS command-line tool allows gathering evidence on personal data processing operations of websites using a reproducible, reliable, and fast method. The EDPB WAT project started thanks to the main WEC components, it stays greatly inspired by the WEC. The EDPB WAT allows to visualize audits made with WEC and wish to stay compliant with this project in the future.</li><li><a target='_blank' href='https://easylist.to/'> EasyList</a>: The EasyList project proposes sets of rules originally designed for <a target='_blank' href='http://adblock.mozdev.org/'> Adblock </a> (adblock.mozdev.org on WayBackMachine (archive.org)) that automatically remove unwanted content from the internet, including annoying adverts, bothersome banners and troublesome tracking. The EDPB WAT uses the EasyPrivacy list and the Fanboy’s Annoyance list.</li><li><a target='_blank' href='https://www.electronjs.org/'> Electron </a> : Electron is a free and open-source software framework developed and maintained by OpenJS Foundation. It allows to build cross-platform desktop apps. The EDPB WAT is written with the Electron framework.</li></p>",
         "contributions": "<h2>Contributions and Feedback</h2><p>The EDPB WAT has been enriched by the feedbacks and contributions from the members of the EDPB, and in particular by the officers participating in the 2023 website auditing Bootcamp. Thank you!</p><p>To report issues or suggest improvements, please visit <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool. </a> </p>",
-        "copyright":"<i>© 2022, European Data Protection Board (EDPB). All rights reserved.</i>"
+        "copyright": "<i>© 2022, European Data Protection Board (EDPB). All rights reserved.</i>"
     },
     "entries": {
         "list": {
@@ -97,16 +116,16 @@
             "scenario": "Scenario"
         },
         "evaluation": {
-            "evaluate":"Evaluate",
+            "evaluate": "Evaluate",
             "status": "Status",
             "not_evaluate": "Not evaluate",
             "compliant": "Compliant",
             "not_compliant": "Not compliant",
             "TBD": "To be defined",
-            "pending":"Pending",
-            "edit_comment":"Edit comment",
-            "write_comment":"Write a comment",
-            "close_edition":"Close edition"
+            "pending": "Pending",
+            "edit_comment": "Edit comment",
+            "write_comment": "Write a comment",
+            "close_edition": "Close edition"
         },
         "panel": {
             "more_details": "More details",
@@ -116,12 +135,12 @@
     "knowledge": {
         "cookie": {
             "new_entry": "New cookie entry",
-            "exact_match":"Exact match",
-            "exact_match_tooltip":"The name and the domain of this cookies match entries in the knowledge base.",
-            "match_name":"Match name",
-            "match_name_tooltip":"The name associated to no domains (*) matches entries in the knowledge base.",
-            "match_domain":"Match domain",
-            "match_domain_tooltip":"The domain of this cookies is associated to other entries in the knowledge base."
+            "exact_match": "Exact match",
+            "exact_match_tooltip": "The name and the domain of this cookies match entries in the knowledge base.",
+            "match_name": "Match name",
+            "match_name_tooltip": "The name associated to no domains (*) matches entries in the knowledge base.",
+            "match_domain": "Match domain",
+            "match_domain_tooltip": "The domain of this cookies is associated to other entries in the knowledge base."
         },
         "localstorage": {
             "new_entry": "New localstorage entry",
@@ -133,7 +152,7 @@
         "update_knowledge": "Update this database",
         "domain": "Domain",
         "name": "Name",
-        "host":"Host",
+        "host": "Host",
         "base_name": "Base name",
         "number": "Entry number",
         "author": "Author",
@@ -147,19 +166,19 @@
         "key": "Key",
         "url": "URL",
         "value": "Value",
-        "purpose":"Purpose",
-        "from_knowledges":"From knowledges",
-        "add_this_item":"Add this item to a knowledge base",
-        "select_a_knowledge_base":"Select a knowledge base",
-        "select_a_category":"Select a category",
-        "reference_type":"Reference type",
-        "trust_level":"Level of trust",
-        "used_knowledge":"In use ?",
-        "validated":"Validated",
-        "reliable":"Reliable",
-        "informative":"Informative",
-        "undefined":"Undefined",
-        "matches":"match(es)"
+        "purpose": "Purpose",
+        "from_knowledges": "From knowledges",
+        "add_this_item": "Add this item to a knowledge base",
+        "select_a_knowledge_base": "Select a knowledge base",
+        "select_a_category": "Select a category",
+        "reference_type": "Reference type",
+        "trust_level": "Level of trust",
+        "used_knowledge": "In use ?",
+        "validated": "Validated",
+        "reliable": "Reliable",
+        "informative": "Informative",
+        "undefined": "Undefined",
+        "matches": "match(es)"
     },
     "browse": {
         "toolbar": {
@@ -170,12 +189,12 @@
             "resume": "Resume evidence collection",
             "suspend": "Suspend temporarily evidence collection",
             "session": "Name and scenario associated to this analysis",
-            "new":"Create a new scenario",
-            "screenshot":"Take a screenshot of this page",
-            "clear":"Clear all information stored in the browser",
-            "developer":"Show developer tool for the current page",
-            "stop":"Stop and save the analysis",
-            "show":"Show/hide the evidence bar"
+            "new": "Create a new scenario",
+            "screenshot": "Take a screenshot of this page",
+            "clear": "Clear all information stored in the browser",
+            "developer": "Show developer tool for the current page",
+            "stop": "Stop and save the analysis",
+            "show": "Show/hide the evidence bar"
         },
         "log_details": {
             "details": "Details",
@@ -209,15 +228,15 @@
         "proxy_settings_header": "Proxy settings (restart may be required)",
         "proxy_settings": "Proxy settings",
         "user_agent": "Browser User Agent",
-        "language":"Language",
-        "storage":"Analysis location",
-        "local":"Local",
-        "remote":"Remote",
-        "server_url" : "Provide the address (URL) of the remote server",
-        "client_id" : "Client ID",
-        "client_secret" : "Client Secret",
-        "update" : "Update",
-        "infos" : "Show browser informations"
+        "language": "Language",
+        "storage": "Analysis location",
+        "local": "Local",
+        "remote": "Remote",
+        "server_url": "Provide the address (URL) of the remote server",
+        "client_id": "Client ID",
+        "client_secret": "Client Secret",
+        "update": "Update",
+        "infos": "Show browser informations"
     },
     "reports": {
         "creator": "Creator",
@@ -249,79 +268,79 @@
         "beacons": {
             "url": "URL",
             "freq": "Freq",
-            "help":"Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists."
+            "help": "Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists."
         },
         "http": {
             "allow_https": "allows connection with HTTPS",
             "http_to_https": "HTTP redirect to HTTPS",
             "http_redirect": "HTTP redirect location"
         },
-        "testssl":{
-            "processing":"Processing... this may take a while.",
-            "testssl_error":"Test ssl error",
-            "output_error":"Output error",
-            "testssl_not_launched":"Test_ssl.sh has not been launched.",
-            "protocols":"Protocols",
-            "protocol":"Protocol",
-            "finding":"Finding",
-            "severity":"Severity",
-            "vulnerability":"Vulnerability",
-            "vulnerabilites":"Vulnerabilites",
-            "cve":"CVE"
+        "testssl": {
+            "processing": "Processing... this may take a while.",
+            "testssl_error": "Test ssl error",
+            "output_error": "Output error",
+            "testssl_not_launched": "Test_ssl.sh has not been launched.",
+            "protocols": "Protocols",
+            "protocol": "Protocol",
+            "finding": "Finding",
+            "severity": "Severity",
+            "vulnerability": "Vulnerability",
+            "vulnerabilites": "Vulnerabilites",
+            "cve": "CVE"
         },
-        "traffic":{
-            "resquested_hosts":"Requested hosts"
+        "traffic": {
+            "resquested_hosts": "Requested hosts"
         },
-        "form":{
-            "method":"Method",
-            "to_URL":"to URL",
-            "form_id":"Form id",
-            "no_forms":"No web forms submitting data without HTTPS secure communication found in the current page."
+        "form": {
+            "method": "Method",
+            "to_URL": "to URL",
+            "form_id": "Form id",
+            "no_forms": "No web forms submitting data without HTTPS secure communication found in the current page."
         },
-        "help":{
-            "beacons":"Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists.",
-            "cookie":"Persistent cookies stored in the browser during the browsing session with their potential purposes from the knowledge base. Click on header to sort cookies and on a line to get more detailed on a specific cookie.",
-            "https":"Redirecting behaviour of the website with respect to the use of HTTPS",
-            "localstorage":"Pairs of keys and values stored in the browser local storage on the current displayed pagew ith their potential purposes from the knowledge base. Click on header to sort key and values and on a line to get more detailed on a specific key.",
-            "testSSL":"The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical.",
-            "traffic":"List of hosts that received at least one request during the browsing session.",
-            "forms":"The source code of the currently displayed webpage is analyzed in order to check if data may be send through unsecure (HTTP) communication.",
-            "image":"Screenshot of the visible or the full page of the website."
+        "help": {
+            "beacons": "Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists.",
+            "cookie": "Persistent cookies stored in the browser during the browsing session with their potential purposes from the knowledge base. Click on header to sort cookies and on a line to get more detailed on a specific cookie.",
+            "https": "Redirecting behaviour of the website with respect to the use of HTTPS",
+            "localstorage": "Pairs of keys and values stored in the browser local storage on the current displayed pagew ith their potential purposes from the knowledge base. Click on header to sort key and values and on a line to get more detailed on a specific key.",
+            "testSSL": "The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical.",
+            "traffic": "List of hosts that received at least one request during the browsing session.",
+            "forms": "The source code of the currently displayed webpage is analyzed in order to check if data may be send through unsecure (HTTP) communication.",
+            "image": "Screenshot of the visible or the full page of the website."
         },
         "screenshot": {
-            "visible" : "Visible",
-            "full_page" : "Full page",
-            "option" : "Screenshot option"
+            "visible": "Visible",
+            "full_page": "Full page",
+            "option": "Screenshot option"
         },
         "infos": {
-            "chrome_version":"Chrome version",
-            "tool_version":"Tool version",
-            "start_time":" Data collection started at",
-            "end_time":"Data collection finished at",
-            "user_agent":"User agent",
-            "visited_urls":"Visited urls"
+            "chrome_version": "Chrome version",
+            "tool_version": "Tool version",
+            "start_time": " Data collection started at",
+            "end_time": "Data collection finished at",
+            "user_agent": "User agent",
+            "visited_urls": "Visited urls"
         }
     },
-    "search":{
+    "search": {
         "selectors": "Selectors",
-        "from_values":"From values",
-        "from_knowledges":"From knowledges",
-        "mark_as":"Mark as",
-        "apply":"Apply",
-        "content":"Content"
+        "from_values": "From values",
+        "from_knowledges": "From knowledges",
+        "mark_as": "Mark as",
+        "apply": "Apply",
+        "content": "Content"
     },
-    "compare":{
-        "no_modifications":"No modifications found with the current database",
-        "new_elements":"New elements",
-        "new_elements_expand":"Expands this list to add new elements to the base",
-        "add":"Add?",
-        "add_to_database":"Add to current database",
-        "remove_modification":"Remove modification",
-        "deleted_elements":"Deleted elements",
-        "deleted_elements_expand":"Expands this list to remove deleted elements from the base",
-        "remove":"Remove?",
-        "delete_from_database":"Delete from current database",
-        "apply_all":"Apply all",
-        "dismiss":"Dismiss"
+    "compare": {
+        "no_modifications": "No modifications found with the current database",
+        "new_elements": "New elements",
+        "new_elements_expand": "Expands this list to add new elements to the base",
+        "add": "Add?",
+        "add_to_database": "Add to current database",
+        "remove_modification": "Remove modification",
+        "deleted_elements": "Deleted elements",
+        "deleted_elements_expand": "Expands this list to remove deleted elements from the base",
+        "remove": "Remove?",
+        "delete_from_database": "Delete from current database",
+        "apply_all": "Apply all",
+        "dismiss": "Dismiss"
     }
 }

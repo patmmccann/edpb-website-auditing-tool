@@ -1,0 +1,346 @@
+{
+    "languages": {
+        "bg": "български (MT)",
+        "fi": "Suomi (MT)",
+        "ga": "Gaeilge (MT)",
+        "hr": "Hrvatski (MT)",
+        "hu": "Magyar (MT)",
+        "it": "Italiano (MT)",
+        "es": "Español (MT)",
+        "fr": "Français",
+        "cs": "Čeština (MT)",
+        "lt": "Lietuvių (MT)",
+        "da": "Dansk (MT)",
+        "lv": "Latviešu (MT)",
+        "de": "Deutsch (MT)",
+        "mt": "Malti (MT)",
+        "nl": "Nederlands (MT)",
+        "et": "Eesti (MT)",
+        "el": "Ελληνικά (MT)",
+        "pl": "Polski (MT)",
+        "en": "English",
+        "pt": "Português (MT)",
+        "ro": "Română (MT)",
+        "sk": "Slovenčina (MT)",
+        "sl": "Slovenščina (MT)",
+        "sv": "Svenska (MT)"
+    },
+    "header": {
+        "edpb": "Consejo Europeo de Protección de Datos",
+        "edit": "Editar",
+        "analyses": "Análisis",
+        "knowledge": "Base de conocimientos",
+        "import": "Importar..."
+    },
+    "menu": {
+        "analysis": "Análisis",
+        "browse": "Navegar",
+        "new": "Nuevo",
+        "list": "Lista",
+        "sessions": "Sesiones",
+        "editor": "Editor",
+        "knowledge": "Conocimiento",
+        "template": "Plantilla",
+        "other": "Otros",
+        "settings": "Configuración",
+        "help": "Ayuda",
+        "browser": "Navegador"
+    },
+    "help": {
+        "how_tool_works": "Cómo funciona la herramienta",
+        "new_analysis": "Proporcionar un nuevo análisis",
+        "create_reports": "Crear informes",
+        "about_tool": "Acerca de la herramienta",
+        "welcome": "Bienvenido a la herramienta de auditoría del sitio web del CEPD",
+        "overview": "<p>El <strong>EDPB Website Auditing Tool</strong> está desarrollado por Jérôme GORIN para <a target='_blank' href='https://edpb.europa.eu/edpb_en'>European Data Protection Board <a/> bajo un contrato <a target='_blank' href='https://edpb.europa.eu/support-pool-experts-spe-programme_en'>SPE project</a>.Es un proyecto de Software Libre, con el objetivo de proporcionar una herramienta para recopilar pruebas, analizarlas y generar informes sobre los rastreadores que están siendo utilizados por los sitios web. Está destinado a ser utilizado para facilitar las inspecciones del sitio web.</p><p>Haga clic en Cómo funciona la herramienta para obtener una primera introducción.En cualquier momento, puede volver a esta página haciendo clic en el botón de ayuda en la barra lateral izquierda.</p><p>El EDPB WAT está licenciado bajo la Licencia Pública de la Unión Europea (EUPL) 1.2+. El código fuente está disponible en <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool</a>.</p><p>El software se basa en el trabajo de varios proyectos de código abierto, a saber, <a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'>Project WEC</a>, <a target='_blank' href='https://easylist.to/'>EasyList</a> y <a target'blank' href=htps/www.electronjs.org/'>Electron</a>.Haga clic en Acerca de la herramienta para obtener más información sobre estos proyectos.</p><p><strong>Todas las lenguas indicadas (MT) han sido traducidas automáticamente con eTranslation por la Dirección General de Traducción. Indique cualquier error en nuestra herramienta <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'>GitLab <a/>.</strong></p>",
+        "open_source": "<h2>Basado en proyectos de código abierto</h2><p>Este software se basa en el trabajo de varios proyectos de código abierto, integrando, adaptando o llamando características para una funcionalidad mejorada:<ul><li><a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'> Project WEC </a> : Esta herramienta de línea de comandos del SEPD permite recopilar pruebas sobre las operaciones de tratamiento de datos personales de los sitios web utilizando un método reproducible, fiable y rápido.El proyecto EDPB WAT comenzó gracias a los principales componentes del WEC, se mantiene muy inspirado por el WEC. El EDPB WAT permite visualizar auditorías realizadas con WEC y desea seguir cumpliendo con este proyecto en el futuro.</li><li><a target='_blank' href='https://easylist.to/'> EasyList</a>:El proyecto EasyList propone conjuntos de reglas diseñadas originalmente para <a target='_blank' href='http://adblock.mozdev.org/'> Adblock </a> (adblock.mozdev.org en WayBackMachine (archive.org)) que eliminan automáticamente el contenido no deseado de Internet, incluidos anuncios molestos, banners molestos y seguimiento problemático. El WAT del CEPD utiliza la lista EasyPrivacy y la lista Fanboy’s Annoyance.</li><li><a target='_blank' href='https://www.electronjs.org/'> Electron </a>:Electron es un marco de software libre y de código abierto desarrollado y mantenido por OpenJS Foundation. Permite crear aplicaciones de escritorio multiplataforma.El EDPB WAT está escrito con el marco Electron.</li></p>",
+        "contributions": "<h2>Contribuciones y observaciones</h2><p>El WAT del CEPD se ha enriquecido con las observaciones y contribuciones de los miembros del CEPD, y en particular de los funcionarios que participan en el Bootcamp de auditoría del sitio web de 2023. ¡Gracias!</p><p>Para informar de problemas o sugerir mejoras, visite <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool.</a> </p>",
+        "copyright": "<i>© 2022, Consejo Europeo de Protección de Datos (CEPD). Todos los derechos reservados.</i>"
+    },
+    "entries": {
+        "list": {
+            "import": "Análisis de importación",
+            "filters": "Filtros",
+            "search_by_name": "Buscar por nombre"
+        },
+        "new": {
+            "website_information": "Información del sitio web",
+            "new_scenario": "Nuevo escenario",
+            "first_scenario": "Primer escenario",
+            "start_a_new_analysis": "Inicie un nuevo análisis que se almacenará en la sección de lista.",
+            "select_a_source": "Seleccione una fuente para este escenario",
+            "select_a_source_help": "Define la fuente utilizada para recopilar pruebas en el análisis:la sección de navegación de esta herramienta, un extracto de las comunicaciones de un navegador o las pruebas generadas por la herramienta Website Evidence Collector (WEC) del SEPD.",
+            "section": "sección.",
+            "name_of_the_website": "Nombre del sitio web o entidad responsable.",
+            "name_of_the_website_help": "Este nombre ayuda a identificar este análisis en la lista. ",
+            "url_of_the_website": "URL del sitio web",
+            "url_of_the_website_help": "Esta url es el punto de partida de su análisis. Tenga en cuenta que esta url es solo informativa y otras urls se pueden usar durante la navegación.",
+            "import_har": "Importar comunicaciones desde el formato HTTP Archive (HAR)",
+            "import_wec": "Importar evidencia desde el sitio web Evidence Collector",
+            "set_a_tag": "Establecer una etiqueta para este escenario",
+            "set_a_tag_help": "Un análisis puede contener múltiples escenarios (por ejemplo, antes del consentimiento, después del consentimiento, después de la denegación, etc.).Esta etiqueta ayuda a identificar un escenario entre el análisis."
+        },
+        "header": {
+            "analysis": "Lista de análisis a evaluar.",
+            "trackers": "Lista de rastreadores conocidos con sus propósitos",
+            "knowledge": "Las plantillas se pueden utilizar para dar formato al informe de análisis en formato HTML o PDF.",
+            "knowledge_sub": "Consulte la sección de plantillas en Ayuda para obtener más información sobre el formato de la plantilla."
+        },
+        "database": {
+            "new_database": "Nueva base de datos"
+        },
+        "template": {
+            "new_template": "Nueva plantilla"
+        },
+        "create": "Crear",
+        "cancel": "Cancelar",
+        "view": "Ver",
+        "search": "Búsqueda",
+        "report": "Informe",
+        "export": "Exportación",
+        "export_all": "Exportar todo",
+        "dupplicate": "Dupplicado",
+        "remove": "Quitar",
+        "disable": "Deshabilitar",
+        "cookie": "Cookie",
+        "local_storage": "Almacenamiento local",
+        "template_name": "Nombre de la plantilla"
+    },
+    "analyses": {
+        "edit": {
+            "global_header": "Evaluación global para",
+            "scenario_header": "Evaluación global del escenario",
+            "summary": "Resumen de las evaluaciones",
+            "evaluation": "Evaluación",
+            "manage": "Gestionar",
+            "scenario": "Escenario"
+        },
+        "evaluation": {
+            "evaluate": "Evaluar",
+            "status": "Situación",
+            "not_evaluate": "No evaluar",
+            "compliant": "Compatible",
+            "not_compliant": "Incumplimiento",
+            "TBD": "Por definir",
+            "pending": "Pendiente ",
+            "edit_comment": "Editar comentario",
+            "write_comment": "Escribir un comentario",
+            "close_edition": "Cerrar edición"
+        },
+        "panel": {
+            "more_details": "Más detalles",
+            "callstack_details": "Detalles de Callstack"
+        }
+    },
+    "knowledge": {
+        "cookie": {
+            "new_entry": "Nueva entrada de cookies",
+            "exact_match": "Coincidencia exacta",
+            "exact_match_tooltip": "El nombre y el dominio de estas cookies coinciden con las entradas en la base de conocimientos.",
+            "match_name": "Nombre del partido",
+            "match_name_tooltip": "El nombre asociado a ningún dominio (*) coincide con las entradas de la base de conocimientos.",
+            "match_domain": "Dominio de coincidencia",
+            "match_domain_tooltip": "El dominio de estas cookies está asociado a otras entradas en la base de conocimientos."
+        },
+        "localstorage": {
+            "new_entry": "Nueva entrada de localstorage",
+            "could_match": "Podría coincidir",
+            "could_match_tooltip": "La clave o el script utilizado por estas entradas de almacenamiento local coincide con las entradas de la base de conocimientos."
+        },
+        "new_entry": "Crear una nueva entrada",
+        "new_knowledge": "Nueva base de conocimientos",
+        "update_knowledge": "Actualizar esta base de datos",
+        "domain": "Dominio",
+        "name": "Nombre",
+        "host": "Anfitrión",
+        "base_name": "Nombre de la base",
+        "number": "Número de entrada",
+        "author": "Autor",
+        "source": "Fuente",
+        "data_controller": "Responsable del tratamiento",
+        "privacy_policy": "Política de privacidad",
+        "referenced_in": "Referencia en",
+        "comments": "Observaciones",
+        "category": "Categoría",
+        "script": "Guión",
+        "key": "Clave",
+        "url": "URL",
+        "value": "Valor",
+        "purpose": "Finalidad",
+        "from_knowledges": "A partir de los conocimientos",
+        "add_this_item": "Agregar este elemento a una base de conocimientos",
+        "select_a_knowledge_base": "Seleccionar una base de conocimientos",
+        "select_a_category": "Seleccione una categoría",
+        "reference_type": "Tipo de referencia",
+        "trust_level": "Nivel de confianza",
+        "used_knowledge": "¿En uso?",
+        "validated": "Validado",
+        "reliable": "Fiable",
+        "informative": "Informativa",
+        "undefined": "Sin definir",
+        "matches": "coincidencia(s)"
+    },
+    "browse": {
+        "toolbar": {
+            "search_input": "Buscar o escribir una URL",
+            "go_back": "Volver atrás en el historial de navegación",
+            "go_forward": "Seguir adelante en el historial de navegación",
+            "reload": "Vuelve a cargar esta URL ",
+            "resume": "Reanudar la recogida de pruebas",
+            "suspend": "Suspender temporalmente la recogida de pruebas",
+            "session": "Nombre y escenario asociado a este análisis",
+            "new": "Crear un nuevo escenario",
+            "screenshot": "Tomar una captura de pantalla de esta página",
+            "clear": "Borrar toda la información almacenada en el navegador",
+            "developer": "Mostrar la herramienta de desarrollo para la página actual ",
+            "stop": "Detener y guardar el análisis",
+            "show": "Mostrar/ocultar la barra de evidencia"
+        },
+        "log_details": {
+            "details": "Detalles",
+            "details_tooltip": "Información detallada relacionada con la línea seleccionada.",
+            "close_details": "Cerrar detalles",
+            "logs": "Registros",
+            "logs_tooltip": "Guión o solicitud que almacenó la información seleccionada.",
+            "knowledge_tooltip": "Información de la base de conocimiento que podría estar vinculada a la línea seleccionada."
+        }
+    },
+    "settings": {
+        "testssl": "Habilitar Testssl",
+        "testssl_configuration": "Pruebe su configuración",
+        "testssl_script_settings": "Configuración de TestSSL Script Configuración de TestSSL Docker",
+        "testssl_docker_settings": "Descargue la última versión de Testssl.sh en el repositorio oficial </a> <a target='_blank' href='https://github.com/drwetter/testssl.sh/releases'>.",
+        "testssl_script_help": "<br> Almacénelo en su máquina y configure la ubicación del script.<br>",
+        "testssl_docker_help": "Debe instalarse y ejecutarse el software <a target='_blank' href='https://www.docker.com/products/docker-desktop/'> Docker </a>.",
+        "testssl_location": "Ubicación de TestSSL",
+        "docker": "Docker",
+        "cookies": "Habilitar el análisis de cookies",
+        "localstorage": "Habilitar el análisis de almacenamiento local",
+        "https": "Habilitar el análisis HTTPS",
+        "traffic": "Habilitar el análisis de tráfico ",
+        "webform": "Habilitar el análisis de formularios web inseguros",
+        "beacon": "Habilitar el análisis de Web Beacon",
+        "log": "Habilitar el seguimiento de registros",
+        "tooltips": "Mostrar consejos de ayuda",
+        "do_not_track": "Habilitar No rastrear",
+        "developer_tools": "Mostrar el botón Herramientas de desarrollo",
+        "use_proxy": "Usar proxy",
+        "proxy_settings_header": "Configuración del proxy (puede ser necesario reiniciar)",
+        "proxy_settings": "Configuración del proxy",
+        "user_agent": "Agente de usuario del navegador",
+        "language": "Lengua",
+        "storage": "Localización del análisis",
+        "local": "Local",
+        "remote": "Remoto",
+        "server_url": "Proporcione la dirección (URL) del servidor remoto",
+        "client_id": "ID de cliente",
+        "client_secret": "Secreto del cliente",
+        "update": "Actualización",
+        "infos": "Mostrar información del navegador"
+    },
+    "reports": {
+        "creator": "Creador",
+        "title": "Título",
+        "orientation": "Orientación",
+        "portrait": "Retrato",
+        "landscape": "Paisaje",
+        "page_size": "Tamaño de página",
+        "scale": "Escala",
+        "A1": "A1",
+        "A2": "A2",
+        "A3": "A3",
+        "A4": "A4",
+        "page_number": "Número de página",
+        "yes": "Sí",
+        "no": "No",
+        "save": "Guardar",
+        "save_as": "Guardar como",
+        "select_template": "Seleccione una plantilla",
+        "select_tags": "Seleccionar etiquetas para reportar",
+        "select_cards": "Seleccionar tarjetas para reportar",
+        "select_evaluations": "Seleccionar evaluaciones para informar",
+        "all_tags": "Todas las etiquetas",
+        "all_cards": "Todas las cartas",
+        "versions": "Versiones",
+        "all_evaluations": "Todas las evaluaciones"
+    },
+    "cards": {
+        "beacons": {
+            "url": "URL",
+            "freq": "Freq",
+            "help": "Coincidencias positivas con anuncios y firmas de seguimiento compiladas de EasyPrivacy y la lista Annoyance de Fanboy. Esta lista puede incluir falsos positivos y puede estar incompleta debido a listas de firmas inexactas, obsoletas o incompletas."
+        },
+        "http": {
+            "allow_https": "permite la conexión con HTTPS",
+            "http_to_https": "Redirección HTTP a HTTPS",
+            "http_redirect": "Ubicación de redireccionamiento HTTP"
+        },
+        "testssl": {
+            "processing": "Procesamiento ... esto puede tomar un tiempo.",
+            "testssl_error": "Error ssl de la prueba",
+            "output_error": "Error de salida",
+            "testssl_not_launched": "Test_ssl.sh no se ha lanzado.",
+            "protocols": "Protocolos",
+            "protocol": "Protocolo",
+            "finding": "Constatación",
+            "severity": "Gravedad",
+            "vulnerability": "Vulnerabilidad",
+            "vulnerabilites": "Vulnerabilidades",
+            "cve": "CVE"
+        },
+        "traffic": {
+            "resquested_hosts": "Anfitriones solicitados"
+        },
+        "form": {
+            "method": "Método",
+            "to_URL": "a la URL",
+            "form_id": "Identificador del formulario",
+            "no_forms": "No hay formularios web que envíen datos sin la comunicación segura HTTPS que se encuentra en la página actual."
+        },
+        "help": {
+            "beacons": "Coincidencias positivas con anuncios y firmas de seguimiento compiladas de EasyPrivacy y la lista Annoyance de Fanboy.Esta lista puede incluir falsos positivos y puede estar incompleta debido a listas de firmas inexactas, obsoletas o incompletas.",
+            "cookie": "Cookies persistentes almacenadas en el navegador durante la sesión de navegación con sus posibles finalidades desde la base de conocimientos. Haga clic en el encabezado para ordenar las cookies y en una línea para obtener más detalles sobre una cookie específica.",
+            "https": "Redirigir el comportamiento del sitio web con respecto al uso de HTTPS",
+            "localstorage": "Pares de claves y valores almacenados en el almacenamiento local del navegador en la página actual mostrada con sus posibles propósitos desde la base de conocimientos.Haga clic en el encabezado para ordenar la clave y los valores y en una línea para obtener más detalles sobre una clave específica.",
+            "testSSL": "El software TestSSL inspecciona la configuración HTTPS del host del servicio web. Clasifica las vulnerabilidades detectadas por su nivel de gravedad bajo, medio, alto o crítico.",
+            "traffic": "Lista de hosts que recibieron al menos una solicitud durante la sesión de navegación.",
+            "forms": "El código fuente de la página web que se muestra actualmente se analiza para verificar si los datos pueden enviarse a través de una comunicación no segura (HTTP).",
+            "image": "Captura de pantalla de la página visible o completa del sitio web."
+        },
+        "screenshot": {
+            "visible": "Visible",
+            "full_page": "Página completa ",
+            "option": "Opción de captura de pantalla"
+        },
+        "infos": {
+            "chrome_version": "Versión de Chrome",
+            "tool_version": "Versión de la herramienta",
+            "start_time": "La recogida de datos comenzó en",
+            "end_time": "Recopilación de datos terminada en",
+            "user_agent": "Agente de usuario",
+            "visited_urls": "urls visitadas"
+        }
+    },
+    "search": {
+        "selectors": "Selectores",
+        "from_values": "De los valores",
+        "from_knowledges": "A partir de los conocimientos",
+        "mark_as": "Marcar como",
+        "apply": "Aplicar",
+        "content": "Contenido"
+    },
+    "compare": {
+        "no_modifications": "No se han encontrado modificaciones en la base de datos actual",
+        "new_elements": "Nuevos elementos",
+        "new_elements_expand": "Expande esta lista para agregar nuevos elementos a la base",
+        "add": "¿Añadir?",
+        "add_to_database": "Añadir a la base de datos actual",
+        "remove_modification": "Eliminar la modificación",
+        "deleted_elements": "Elementos eliminados",
+        "deleted_elements_expand": "Expande esta lista para eliminar elementos eliminados de la base",
+        "remove": "¿Eliminar?",
+        "delete_from_database": "Eliminar de la base de datos actual",
+        "apply_all": "Aplicar todo",
+        "dismiss": "Desestimar"
+    }
+}

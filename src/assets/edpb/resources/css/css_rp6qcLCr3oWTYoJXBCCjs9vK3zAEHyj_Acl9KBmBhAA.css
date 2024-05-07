@@ -23538,7 +23538,7 @@ li.dropdown-item a::after {
         -moz-columns: 3;
         columns: 3;
         right: -0.5rem;
-        min-width: 25rem;
+        min-width: 30rem;
         font-size: .875rem;
         line-height: 2
     }
