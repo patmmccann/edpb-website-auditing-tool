@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '../../shared.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -8,7 +11,8 @@ describe('SearchComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchComponent]
+      declarations: [SearchComponent],
+      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
     });
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;

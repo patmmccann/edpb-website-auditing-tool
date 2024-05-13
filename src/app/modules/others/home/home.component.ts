@@ -39,6 +39,9 @@ export class HomeComponent implements OnInit {
       case 'en':
         fileTranslation = 'en';
         break;
+      case 'es':
+        fileTranslation = 'es';
+        break;        
       case 'fr':
         fileTranslation = 'fr';
         break;
