@@ -44,8 +44,12 @@
             {{ 'settings.testssl_configuration' | translate }}
         </button>
 
-        <app-modal *ngIf='testSSLResult !=""' (clickOnClose)='testSSLResult = ""'>
-            {{testSSLResult}}
+        <app-modal 
+        *ngIf='testSSLResult !=""' 
+        (clickOnClose)='testSSLResult = ""'
+        specialClass="info"
+        >
+        <div *ngFor="let line of testSSLResult">{{ line }}</div>
         </app-modal>
     </ng-container>
     <br><br>

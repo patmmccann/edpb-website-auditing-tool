@@ -17,6 +17,7 @@ export class TestSSLHandler {
 
     async testSSLLocation(event, settings: any) {
         const { exec } = require("child_process");
+        const ansiRegex = require('ansi-regex');
         
         if (!settings.testssl_type || settings.testssl_type ==""){
             return "Error : select a testssl type first.";
@@ -41,7 +42,8 @@ export class TestSSLHandler {
                 }
 
                 if(stdout){
-                    resolve(stdout);
+                    const clean_output = stdout.replace(ansiRegex(), '');
+                    resolve(clean_output);
                 }
 
                 if(stderr){
