@@ -87,13 +87,13 @@
                       [ngSwitch]="tag.evaluation.status"
                       >
                       <ng-container  *ngSwitchCase="'compliant'">
-                       <i style="color: green;">  {{ "analyses.edit.evaluation.compliant" | translate }}  </i>
+                       <i style="color: green;">  {{ "analyses.evaluation.compliant" | translate }}  </i>
                       </ng-container>
                       <ng-container  *ngSwitchCase="'not_compliant'">
-                      <i style="color: red;">{{ "analyses.edit.evaluation.not_compliant" | translate }} </i>
+                      <i style="color: red;">{{ "analyses.evaluation.not_compliant" | translate }} </i>
                       </ng-container>
                       <ng-container *ngSwitchCase="'TBD'">
-                       <i style="color: #004494;" > {{ "analyses.edit.evaluation.TBD" | translate }} </i>
+                       <i style="color: #004494;" > {{ "analyses.evaluation.TBD" | translate }} </i>
                       </ng-container>
                     </ng-container>
                     </td>

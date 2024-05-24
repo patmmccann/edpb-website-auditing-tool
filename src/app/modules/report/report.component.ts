@@ -171,9 +171,7 @@ export class ReportComponent implements OnInit, OnDestroy {
         .then(cards => {
           this.cards_options = cards.map(card => card.name);
         })
-    }
-
-    if (this.analysis) {
+    }else if (this.analysis) {
       this.analysisService.getAllTags(this.analysis)
         .then(tags => {
           this.tags_options = tags.map(tag => tag.name);
