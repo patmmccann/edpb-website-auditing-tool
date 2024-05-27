@@ -22,7 +22,9 @@ export class BeaconCardComponent implements OnInit {
 
   @Input() card: BeaconCard = new BeaconCard();
   @Input() context: viewContext = 'evaluate';
-
+  @Input() searchStatus :Status[]= [];
+  @Input() searchBeacon = {};
+  
   constructor(
     private cardService : CardService,
     private detailsService:DetailsService,

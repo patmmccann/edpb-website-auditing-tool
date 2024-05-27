@@ -5,9 +5,9 @@
  */
 import { Injectable } from '@angular/core';
 import { KnowledgesService } from '../knowledges.service';
-import { Indexes } from 'src/app/classes/application.db';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { Knowledge } from 'src/app/models/knowledge.model';
+import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 
 export interface CookieSearch {
   name_and_domain: CookieKnowledge[],

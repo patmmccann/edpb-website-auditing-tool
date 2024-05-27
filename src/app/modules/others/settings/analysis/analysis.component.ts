@@ -20,6 +20,8 @@ export class AnalysisComponent {
     ssl_location: new FormControl('', [])
   });
 
+  testSSLResult = "";
+
   constructor(
     private el: ElementRef,
     public settingService : SettingsService,
@@ -42,5 +44,15 @@ export class AnalysisComponent {
     } else {
       this.el.nativeElement.querySelector('#ssl_location').click();
     }
+  }
+
+  async testSSLLocation(){
+    const output = await this.browserService.testSSLLocation(window);
+    const lines = output.split('\n');
+    const htmlOutput = lines.map((line:string) => {
+      return line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    });
+
+    this.testSSLResult = htmlOutput;
   }
 }

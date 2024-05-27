@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-general',
@@ -11,5 +13,36 @@ import { Component } from '@angular/core';
   styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent {
+  remoteForm: UntypedFormGroup;
+  localStorage:any=null;
+  
+  constructor(
+    public settingService : SettingsService,
+    private fb: UntypedFormBuilder,
+  ) { 
+    this.localStorage =localStorage;
+    this.remoteForm = this.fb.group({
+      id: 1,
+      server_url: ['', Validators.required],
+      client_id: ['', Validators.required],
+      client_secret: ['', Validators.required]
+    });
 
+    this.remoteForm.patchValue({
+      server_url: settingService.settings.server_url,
+      client_id:  settingService.settings.client_id,
+      client_secret: settingService.settings.client_secret
+    });
+  }
+
+  onSubmit(): void {
+
+  }
+
+  purify(field : string, $event : any) {
+    this.remoteForm.controls[field].patchValue(
+      $event.target.value.replace(/\s/g, ''),
+      { emitEvent: false }
+    );
+  }
 }

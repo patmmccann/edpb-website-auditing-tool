@@ -56,12 +56,41 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
   body
       if tag
         h1=tag.name
-        i Data collection started at #{new Date(tag.created_at).toLocaleString()}
         br
-        i Data collection finished at #{new Date(tag.updated_at).toLocaleString()}
+
+      if info
+        h3  Browser information:
+          table(style="width: 50%;")
+                tbody
+                    tr
+                      td.notrunc Chrome version
+                      td.notrunc=info.values.chrome_version
+                    tr 
+                      td.notrunc Tool version
+                      td.notrunc=info.values.tool_version
+                    tr 
+                      td.notrunc User agent
+                      td.notrunc=info.values.user_agent
+                    tr 
+                      td.notrunc Data collection started at
+                      td.notrunc=new Date(info.values.start_time).toLocaleString()
+                    tr 
+                      td.notrunc Data collection finished at
+                      td.notrunc=new Date(info.values.end_time).toLocaleString()
+
+          <br>
+          table(style="width: 100%;")
+            thead
+              tr
+                th.notrunc Visited URLs
+            tbody
+              each visited_url,index in info.values.visited_urls
+                tr
+                  td.trunc= visited_url
+
 
       if cookies
-        h3  #{cookies.length} cookies have been stored in the browser :
+        h3  #{cookies.values.length} cookies have been stored in the browser :
         table(style="width: 100%;")
                 thead
                   tr
@@ -74,7 +103,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                     th.notrunc sameSite
                     th.notrunc Expiry in days
                 tbody
-                  each cookie,index in cookies
+                  each cookie,index in cookies.values
                     tr
                       td.notrunc: a(href=`http://${cookie.domain}`)= cookie.domain
                       td.notrunc: a(href=`http://${cookie.domain}${cookie.path}`)= cookie.path
@@ -89,8 +118,20 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                         else
                           = cookie.expiresDays
 
+        if cookies.evaluation
+          if cookies.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if cookies.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if cookies.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if cookies.evaluation.evaluation_comment
+            div.evaluation|!{cookies.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(cookies.evaluation.created_at).toLocaleString()}
+
       if localstorage
-        h3  #{localstorage.length} keys have been stored in the localstorage :
+        h3  #{localstorage.values.length} keys have been stored in the localstorage :
         table(style="width: 100%;")
                 thead
                   tr
@@ -98,28 +139,52 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                     th.notrunc key
                     th.trunc value
                 tbody
-                  each entry,index in localstorage
+                  each entry,index in localstorage.values
                     tr
                       td.trunc: a(href=entry.host target="_blank" title=entry.host)= entry.host.replace(/(^\w+:|^)\/\//, '')
                       td.trunc= entry.key
                       td.trunc.code: pre: code= JSON.stringify(entry.value, null, 2)
+        
+        if localstorage.evaluation
+          if localstorage.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if localstorage.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if localstorage.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if localstorage.evaluation.evaluation_comment
+            div.evaluation|!{localstorage.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(localstorage.evaluation.created_at).toLocaleString()}
 
       if beacons
-        h3  #{beacons.length} web bacons match the entries of the lists #[a(href='https://easylist.to/#easyprivacy' target="_blank") EasyPrivacy]  and #[a(href='https://easylist.to/#fanboy-s-annoyance-list' target="_blank") Fanboy's Annoyance] :
+        h3  #{beacons.values.length} web beacons match the entries of the lists #[a(href='https://easylist.to/#easyprivacy' target="_blank") EasyPrivacy]  and #[a(href='https://easylist.to/#fanboy-s-annoyance-list' target="_blank") Fanboy's Annoyance] :
         table(style="width: 100%;")
                 thead
                   tr
                     th.notrunc url
                     th.notrunc frequence
                 tbody
-                  each entry,index in beacons
+                  each entry,index in beacons.values
                     tr
                       td.trunc: a(href=entry.url target="_blank" title=entry.url)= entry.url.replace(/(^\w+:|^)\/\//, '')
                       td.trunc= entry.occurrances
+        
+        if beacons.evaluation
+          if beacons.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if beacons.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if beacons.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if beacons.evaluation.evaluation_comment
+            div.evaluation|!{beacons.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(beacons.evaluation.created_at).toLocaleString()}                      
 
       if unsafeForms
-        if unsafeForms.length > 0
-          h3  #{unsafeForms.length} forms has been found:
+        if unsafeForms.values.length > 0
+          h3  #{unsafeForms.values.length} forms has been found:
           table(style="width: 100%;")
                   thead
                     tr
@@ -127,24 +192,49 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                       th.notrunc Recipient URL
                       th.notrunc HTTP Method
                   tbody
-                    each entry,index in unsafeForms
+                    each entry,index in unsafeForms.values
                       tr
                         td= entry.id
                         td= entry.action
                         td= entry.method
         else
           h3 No unsafe forms has been found
+          
+        if unsafeForms.evaluation
+          if unsafeForms.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if unsafeForms.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if unsafeForms.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if unsafeForms.evaluation.evaluation_comment
+            div.evaluation|!{unsafeForms.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(unsafeForms.evaluation.created_at).toLocaleString()}
+
 
       if traffic
-        h3  #{traffic.length} hosts has been requested:
+        h3  #{traffic.values.length} hosts has been requested:
          table(style="width: 100%;")
                 thead
                   tr
                     th.notrunc domain
                 tbody
-                  each entry,index in traffic
+                  each entry,index in traffic.values
                     tr
                       td.trunc: a(href=entry.requested target="_blank" title=entry.requested)= entry.requested.replace(/(^\w+:|^)\/\//, '')
+
+        if traffic.evaluation
+          if traffic.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if traffic.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if traffic.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if traffic.evaluation.evaluation_comment
+            div.evaluation|!{traffic.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(traffic.evaluation.created_at).toLocaleString()}
 
 
       if secure_connection
@@ -153,14 +243,26 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                 tbody
                     tr
                       td.notrunc allows connection with HTTPS
-                      td.notrunc=secure_connection.https_support
+                      td.notrunc=secure_connection.values.https_support
                     tr 
                       td.notrunc HTTP redirect to HTTPS
-                      td.notrunc=secure_connection.https_redirect
+                      td.notrunc=secure_connection.values.https_redirect
                     tr 
                       td.notrunc HTTP redirect location
-                      td.notrunc=secure_connection.redirects
-      
+                      td.notrunc=secure_connection.values.redirects
+
+        if secure_connection.evaluation
+          if secure_connection.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if secure_connection.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if secure_connection.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if secure_connection.evaluation.evaluation_comment
+            div.evaluation|!{secure_connection.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(secure_connection.evaluation.created_at).toLocaleString()}
+
       if testSSL
         h3 TestSSL Scan
           h4 Protocols
@@ -171,7 +273,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                     th Finding
                     th Severity
               tbody
-                each protocol in testSSL.protocols
+                each protocol in testSSL.values.protocols
                   tr
                     td.notrunc= protocol.id
                     td= protocol.finding
@@ -186,7 +288,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                     th CVE
                     th Severity
               tbody
-                each vulnerability in testSSL.vulnerabilities
+                each vulnerability in testSSL.values.vulnerabilities
                   tr
                     td.notrunc= vulnerability.id
                     td.trunc(title=vulnerability.finding)= vulnerability.finding
@@ -197,26 +299,63 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
                           |
                     td.notrunc= vulnerability.severity
 
+        if testSSL.evaluation
+          if testSSL.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if testSSL.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if testSSL.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if testSSL.evaluation.evaluation_comment
+            div.evaluation|!{testSSL.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(testSSL.evaluation.created_at).toLocaleString()}                    
+
       if screenshot
         figure
-          h3=screenshot.name
-          img(src=screenshot.src alt=screenshot.name style="width:100.0%")
+          h3=screenshot.values.name
+          img(src=screenshot.values.src alt=screenshot.values.name style="width:100.0%")
+        
+        if screenshot.evaluation
+          if screenshot.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if screenshot.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if screenshot.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
 
-      if screenshots 
-        h3 All screenshots
-          each screenshot in screenshots
-            figure
-              img(src=screenshot.src alt=screenshot.name style="width:100.0%")
-              figcaption=screenshot.name
+          if screenshot.evaluation.evaluation_comment
+            div.evaluation|!{screenshot.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(screenshot.evaluation.created_at).toLocaleString()}                 
 
-      if evaluation
-        if evaluation.status == "not_compliant"
-          h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
-        else if evaluation.status == "compliant"
-          h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
-        else if evaluation.status == "TBD"
-          h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+      if screenshots
+        if screenshots.length > 0
+          h3 All screenshots
+            each screenshot in screenshots
+              figure
+                figcaption=screenshot.values.name
+                img(src=screenshot.values.src alt=screenshot.values.name style="width:100.0%")
 
-        if evaluation.evaluation_comment
-          div.evaluation|!{evaluation.evaluation_comment}
-        i Evaluation on #{new Date(evaluation.created_at).toLocaleString()}
+              if screenshot.evaluation
+                if screenshot.evaluation.status == "not_compliant"
+                  h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+                else if screenshot.evaluation.status == "compliant"
+                  h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+                else if screenshot.evaluation.status == "TBD"
+                  h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+                if screenshot.evaluation.evaluation_comment
+                  div.evaluation|!{screenshot.evaluation.evaluation_comment}
+                i Evaluation on #{new Date(screenshot.evaluation.created_at).toLocaleString()}  
+
+        if evaluation
+          if evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if evaluation.evaluation_comment
+            div.evaluation|!{evaluation.evaluation_comment}
+          i Evaluation on #{new Date(evaluation.created_at).toLocaleString()}

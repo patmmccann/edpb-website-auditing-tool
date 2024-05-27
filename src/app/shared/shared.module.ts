@@ -14,9 +14,16 @@ import { ModalComponent } from './components/modal/modal.component';
 
 
 import {
-  FilterForUser, SafeHtmlPipe, SafeImgPipe, SafeUrl, FilterForEval, FindPurpose, NbEntriesInKnowledge
-} from '../pipes/tools';
+  SafeHtmlPipe, SafeImgPipe, SafeUrl
+} from '../pipes/tools.pipe';
 
+import {
+  FilterForAnalysis, FilterForEval, FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge
+} from '../pipes/filters.pipe';
+
+import {
+  FindPurpose, NbEntriesInKnowledge, FilterCookieKnowledge, FilterLocalStorageKnowledge
+} from '../pipes/knowledges.pipe';
 
 import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-base.component';
 
@@ -57,6 +64,8 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { WATTranslateLoader } from './translate/wattranslate-loader';
+import { SearchComponent } from './components/search/search.component';
+import { InfoCardComponent } from './components/cards/info-card/info-card.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -67,13 +76,20 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     SideNavComponent,
     LanguagesComponent,
-    FilterForUser,
+    FilterForAnalysis,
     FilterForEval,
+    FilterForStatus,
+    FilterForCookie,
+    FilterForLocalStorage,
+    FilterForBeacon,
+    FilterForCookieKnowledge,
     ModalComponent,
     KnowledgeBaseComponent,
     SafeHtmlPipe,
     SafeImgPipe,
     FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
     NbEntriesInKnowledge,
     SafeUrl,
     KnowledgeBaseItemComponent,
@@ -99,7 +115,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BeaconCardComponent,
     BeaconDetailsComponent,
     LoadingOverlayComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    SearchComponent,
+    InfoCardComponent
     ],
   imports: [
     HttpClientModule,
@@ -120,7 +138,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   exports: [
     SideNavComponent,
     LanguagesComponent,
-    FilterForUser,
+    FilterForAnalysis,
     FilterForEval,
     FormsModule,
     ReactiveFormsModule,
@@ -130,6 +148,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafeImgPipe,
     SafeUrl,
     FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
     NbEntriesInKnowledge,
     CookieCardComponent,
     TestsslCardComponent,

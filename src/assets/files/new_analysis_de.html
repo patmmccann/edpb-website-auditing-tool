@@ -1,0 +1,267 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12 px-4 px-xl-5 order-0">
+        <div id="block-pagetitle" class="block block-core block-page-title-block">
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Bereitstellung neuer Analysen</h1>
+                </header>
+                <div class="view-header mb-4 w-100">
+                    <p>Eine <i>Analyse</i> sammelt Informationen, die in einem Browser gespeichert wurden, wenn Sie Websites durch eine Reihe von <i>Szenarien</i> durchsuchen.</p>
+                    <p>Es kann über den <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">neuen</span> </button> Abschnitt oder über die Schaltfläche <button class="analysis-plus">+</button> in der Symbolleiste des Abschnitts <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Durchsuchen</span> </button> initiiert werden.</p>
+
+                    <p>Beide Symbole zeigen die folgende Form:</p>
+                    <table border="2">
+                        <tr>
+                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Name der Website oder verantwortliche Stelle </label> <br> <input disabled /></div>
+                            </td>
+                            <td>Dieser Name ist nur informativ und hilft, diese Analyse aus der Liste wiederzufinden.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">URL der Website </label> <br> <input disabled /></div>
+                            </td>
+                            <td>Dies ist der Ausgangspunkt der Analyse. Beachten Sie, dass eine Analyse nicht an eine URL gebunden ist und andere URLs beim Surfen enthalten sein können.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Wählen Sie eine Quelle für dieses Szenario </label> aus <br> <input size="30" value="Internal Browser" disabled /><br> <input size="30" value="HTTP Archive format (HAR)" disabled /><br> <input size="30" value="Website Evidence Collector (WEC)" disabled /></div>
+                            </td>
+                            <td>Dies sind die Quellen, aus denen Datenerhebungsnachweise für die Durchführung ihrer rechtlichen Beurteilung entnommen werden können:<ul>
+                                    <li><i>Interner Browser</i>: Verwenden Sie den Chromium-Browser, der in dieses Tool integriert ist und auch über den Abschnitt <button> <span
+                                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Durchsuchen</span> </button> zugänglich ist.</li>
+                                    <li><i>HTTP-Archivformat (HAR)</i>: Verwenden Sie ein JSON-formatiertes Dateiformat, das Nachrichten speichert, die von einem Browser beim Surfen von Websites erzeugt werden. Diese Datei kann über den Inspektor aus allen allgemeinen öffentlichen Browsern generiert werden.</li>
+                                    <li><i>Website Evidence Collector (WEC)</i>: Verwenden Sie Berichte, die vom <a target="_blank"
+                                            href="https://edps.europa.eu/edps-inspection-software_en">Website Evidence Collector (WEC)</a> erstellt wurden, der vom Europäischen Datenschutzbeauftragten (EDPS) für die Durchführung einer rechtlichen Bewertung mit diesem Tool entwickelt wurde.</li>
+                                </ul>Die <strong> Verwendung des internen Browsers ist der empfohlene Weg, um eine Analyse durchzuführen</strong>, da er eine eingehende Analyse von Trackern auf einer Website erstellen kann, einschließlich Tracking-Funktionen oder Anfragen, die tatsächlich Informationen im Browser speichern.</td>
+                        </tr>
+                        <tr>
+                            <td><label class="questiontitle">Setzen Sie ein Tag für dieses Szenario </label> <input disabled /></td>
+                            <td>Fügen Sie dem Szenario, das Sie auf der Website bewerten möchten (z. B.<i>vor</i> Zustimmung, nach Zustimmung, Verwaltung von Optionen usw.) einen Namen für ihre spätere Identifizierung und Bewertung zu.</td>
+                        </tr>
+                        <tr>
+                            <td><button value="Start" class="form-submit btn btn-primary"
+                                    type="submit">Starten</button></td>
+                            <td>Sobald alle Informationen korrekt eingegeben sind, erscheint die Starttaste, um die Zuordnung der Informationen mit dem gegebenen Szenario in der Analyse zu initiieren.</td>
+                        </tr>
+                    </table>Wenn die interne Navigationsquelle ausgewählt ist, wird eine neue <button> <span
+                            class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sitzungsanalyse > Szenario</span> </button> in <strong
+                        style="color: rgba(0,0,0,.54);">Sitzungen in</strong> der linken Navigationsleiste angezeigt. Bis diese Sitzung abgeschlossen ist, wird das neu erstellte Szenario mit allen Informationen verknüpft, die durch diese Sitzung gesammelt werden.</div>
+            </div>
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Der interne Browser</h1>
+                </header>
+                <div class="view-header mb-4 w-100">
+                    <p>Der interne Browser des EDPB Website Auditing Tools verwendet Chrome Version 106.0.5249.103. Es wird angezeigt, wenn Sie einer Analyse ein neues Szenario zuordnen, oder wenn Sie auf die <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Durchsuchen</span> </button> oder auf eine bestehende Sitzung in der linken Navigationsleiste klicken.</p>
+
+                    <p>Die Browseroberfläche besteht aus den folgenden drei Hauptkomponenten:</p>
+                    <ul>
+                        <li>die <i>Symbolleiste</i> im oberen Teil der Browseroberfläche ermöglicht die Verwaltung von Szenarien, Browsern und Daten, die über den Browser gesammelt werden.</li>
+                        <li>die auf der linken Seite des Browsers angezeigten Informationen <i>(Rendern)</i> zeigen den sichtbaren Teil der Website an, wie Einzelpersonen sie sehen,</li>
+                        <li>der <i>Logger</i> auf der rechten Seite des Browsers zeigt den versteckten Teil der Website an, <i>d.</i> h. alle Kommunikation und Speicherung durch die angegebene Website mit diesem Browser.</li>
+                    </ul>Der interne Browser kann einer Sitzung zugeordnet werden (oder nicht). Wenn zugeordnet, werden alle erhobenen Daten automatisch im Tool gespeichert und können on-the-fly über die Analyseschnittstelle ausgewertet werden.</div>
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Die Symbolleiste</h2>
+                </header>
+                <div class="view-header mb-4 w-100">
+                    <p>Die Symbolleiste hilft, sowohl das Surfen, die Sitzungen als auch die vom Browser gesammelten Informationen zu verwalten:</p>
+                    <table border="2">
+                        <tr>
+                            <td><div style="display: inline-block;"><button> <i class="fa fa-arrow-left"></i> </button> <button> <i class="fa fa-arrow-right"></i> </button> <button> <i class="fa fa-refresh"></i> </button></div>
+                            </td>
+                            <td>Navigationsschaltflächen, die es ermöglichen, im Browserverlauf rückwärts und vorwärts zu navigieren oder die aktuelle Seite neu zu laden.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="header-search"><button> <i class="fa fa-play"></i> </button> <button> <i class="fa fa-pause"></i> </button></div>
+                            </td>
+                            <td>Informationen, die in Echtzeit über das Logger-Panel angezeigt werden, anhalten oder fortsetzen. Wenn sie angehalten werden, werden die Informationen immer noch von diesem Tool gesammelt, werden aber bis zur Wiederaufnahme nicht mehr aktualisiert.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="header-search"><input disabled placeholder="Suchen oder geben Sie eine URL ein"></div>
+                            </td>
+                            <td>Wenn nicht ausgewählt, zeigt diese Eingabe den aktuellen Uniform Resource Locator (URL) der im Renderbedienfeld angezeigten Webseite an. Wenn Sie ausgewählt sind, können Sie mit dieser Eingabe eine neue URL abrufen. Die http://protocol wird automatisch zu fehlerhaften URLs hinzugefügt. Nicht erreichbare URLs werden gelöscht.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="header-search">
+                                    <div class="analysis-name" style="font-size:14px"><button>Analyse > Szenario</button></div>
+                                </div>
+                            </td>
+                            <td>Session-Management-Schaltflächen, die die Anzeige des Szenarios und der Analyse dieser Sitzung ermöglichen, sind derzeit (falls vorhanden) verknüpft.<br> Ein Klick auf die aktuelle laufende Sitzung zeigt die Assesment-Ansicht des zugehörigen Szenarios an. Als solche können Informationen, die bereits im Logger gesammelt wurden, als konform/nicht konform markiert werden, während die aktuelle laufende Sitzung am Leben bleibt und über <strong
+                                    style="color: rgba(0,0,0,.54);">Sessions</strong> in der linken Navigationsleiste zugänglich ist.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="header-search" style="float: right;">
+
+                                    <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button> <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i> </button></div>
+                            </td>
+                            <td>Schaltflächen zur Datenerfassungsverwaltung, die es ermöglichen, eine Momentaufnahme der im Browser angezeigten Website zu machen, alle Informationen sowohl vom Renderer als auch vom Logger zu löschen und die für das aktuelle Szenario gesammelten Daten zu stoppen und zu speichern.</td>
+                        <tr>
+                            <td><div>
+
+                                    <div style="float: right;"><button> <i class="fa fa-chevron-left"></i> </button> <button> <i class="fa fa-chevron-right"></i> </button></div>
+                                </div>
+
+                            </td>
+                            <td>Das Logger-Panel ausblenden/zeigen.</td>
+                        </tr>
+                    </table>
+                    <header class="article-title" style="margin-top: 10px;">
+                        <h2 class="node__title mb-3 mt-0">Das Logger-Panel</h2>
+                    </header>
+
+                    <p>Das Logger-Panel zeigt in Echtzeit alle Kommunikations- und Informationsspeicher an, die während der Navigation im Browser stattfinden.</p>
+                    <p>Diese Informationen werden in eine Reihe von erweiterbaren Karten kategorisiert, die eine Liste von Informationen im Zusammenhang mit der gegebenen Analyse enthält.</p>
+                    <p>Die Kopfzeile dieser Tabellen in jeder Karte ist anklickbar, um identische Informationen für eine bestimmte Kategorie zu sortieren. Bei einigen Analysen können Zeilen der Tabelle individuell ausgewählt werden, um weitere Details zu den ausgewählten Informationen zu erhalten.</p>
+
+                    <header class="article-title" style="margin-top: 10px;">
+                        <h2 class="node__title mb-3 mt-0">Analysekarten</h2>
+                    </header>
+                    <p>Jede Karte ist eine Darstellung einer Analyse, die auf der aktuellen Website durchgeführt wurde. Kopfzeilen dieser Karten enthalten die Identifizierung der durchgeführten Analyse, ein Fragezeichen, das mehr Informationen über diese Analyse gibt, und einen Pfeil, um die enthaltenen Informationen zu erweitern oder zu kollabieren. Fragezeichen können über den Einstellungsbereich der linken Navigationsleiste ausgeblendet werden.</p>
+
+                    <p>Die folgende Tabelle enthält Informationen über jede durchgeführte Analyse:</p>
+                    <table border="2">
+                        <tr>
+                            <td>Screenshot</td>
+                            <td>Listen Sie alle Screenshots auf, die seit Beginn der Sitzung vom Renderer aufgezeichnet wurden. Der Titel jedes Screenshots kann durch den Edit-Button geändert werden, um seine spätere Identifizierung zu unterstützen.</td>
+                        </tr>
+                        <tr>
+                            <td>Kekse</td>
+                            <td>Führen Sie alle Cookies auf, die seit Beginn der Sitzung gespeichert wurden. Jedes Cookie wird als einzelne Zeile in der Tabelle dargestellt, die nach Domain, Name und potenziellem Zweck aus Wissensdatenbanken (falls vorhanden) klassifiziert ist. Ein Klick auf eine Zeile zeigt detaillierte Informationen zum Cookie an.</td>
+                        </tr>
+                        <tr>
+                            <td>Lokale Lagerung</td>
+                            <td>Führen Sie alle Schlüsselpaare/Wertpaare auf, die in jedem Frame auf der angezeigten Webseite gespeichert wurden. Jeder Schlüssel im lokalen Speicher wird als eine einzelne Zeile in der Tabelle dargestellt, die der URL des Frames zugeordnet ist, der den Speicher angefordert hat, den Schlüsselwert und den potenziellen Zweck aus Wissensdatenbanken (falls vorhanden). Ein Klick auf eine Zeile zeigt detaillierte Informationen über den lokalen Speicherzugriff an.</td>
+                        </tr>
+                        <tr>
+                            <td>Verwendung von HTTPS/SSL</td>
+                            <td>Prüfen Sie, ob die aktuelle Webseite eine sichere Kommunikation (SSL) nutzt. Es überprüft auch, ob ein unverschlüsselter Zugriff (HTTP) zu einem sicheren Zugriff (HTTPS) umleitet und den entsprechenden Speicherort angibt.</td>
+                        </tr>
+                        <tr>
+                            <td>Verkehrsanalyse</td>
+                            <td>Führen Sie alle Domains auf, die vom Renderer angefordert wurden, um die aktuelle Webseite anzuzeigen.</td>
+                        </tr>
+                        <tr>
+                            <td>Webformulare mit unverschlüsselter Übertragung</td>
+                            <td>Prüfen Sie, ob die gerenderte Seite ein Formular enthält, in dem Daten über eine ungesicherte Kommunikation (HTTP) übertragen werden. Jedes Formular wird als eine einzige Zeile in der Tabelle dargestellt, die mit seiner Identifizierung im Quellcode und der beim Absenden ausgeführten Aktion verknüpft ist.</td>
+                        </tr>
+                        <tr>
+                            <td>Beacons</td>
+                            <td>Listet alle bekannten Zählpixel (Web Beacons) auf, die in der gerenderten Seite gemäß <a target="_blank"
+                                    href="https://easylist.to/#easyprivacy">EasyPrivacy und Fanboy’</a> s <a target="_blank"
+                                    href="https://easylist.to/#fanboy-s-annoyance-list">Annoyance</a> -Liste enthalten sind. Diese Liste ist nur informativ, sie kann unvollständig sein oder falsche Positive aufgrund ungenauer oder veralteter Signaturen enthalten.</td>
+                        </tr>
+                        <tr>
+                            <td>Testsl-Scan</td>
+                            <td>Wenn Sie im Abschnitt Einstellungen konfiguriert sind, kann das Befehlszeilenwerkzeug testsl.sh <a
+                                    target="_blank" href="https://testssl.sh/">auf</a> der aktuellen URL durchgeführt werden, indem Sie auf die Wiedergabe-Schaltfläche klicken. Dieses Tool überprüft die Unterstützung von TLS/SSL-Chiffren, Protokollen sowie aktuellen kryptografischen Fehlern auf dem aktuellen URL-Server. Beachten Sie, dass dieser Test mehrere Minuten dauert.</td>
+                        </tr>
+                    </table>
+                    <header class="article-title" style="margin-top: 10px;">
+                        <h2 class="node__title mb-3 mt-0">Das Details Panel</h2>
+                    </header>
+                    <p>Detaillierte Informationen, die während der aktuellen Sitzungen über Cookies, lokale Speicherung und Web Beacons gespeichert oder übertragen werden, sind über ein Fenster zugänglich, das unten angezeigt wird, wenn eine Zeile in Tabellen ausgewählt wird.</p>
+                    <p>Diese detaillierten Informationen sind in drei Kategorien unterteilt:</p>
+                    <table border="2">
+                        <tr>
+                            <td>Details</td>
+                            <td>Liste vollständige Informationen über einen bestimmten Cookie, Schlüssel im lokalen Speicher oder ein Web Beacon.</td>
+                        </tr>
+                        <tr>
+                            <td>Protokolle</td>
+                            <td>Zeigen Sie den Call-Stack-Baum oder die Anforderung an, die zur Ablage des angegebenen Cookies, zum Eintrag des Schlüssels im lokalen Speicher oder zur Einleitung der Anfrage aus dem Webbeacon führt.</td>
+                        </tr>
+                        <tr>
+                            <td>Wissen</td>
+                            <td>Wenn der aktuelle Eintrag in mindestens einer Wissensdatenbank gefunden wurde, listet diese Registerkarte alle passenden Einträge in der Wissensdatenbank entsprechend ihrer Kategorie auf.<br> <br>Wenn es sich um ein Cookie handelt, werden diese Einträge wie folgt kategorisiert:<ul>
+                                    <li><i>Exakte Übereinstimmung</i>: mindestens ein Eintrag entspricht dem Namen und der Domain des Cookies,</li>
+                                    <li><i>Name</i> des Spiels: mindestens ein Eintrag entspricht dem Namen des Cookies mit einer Wildcard-Domain (<i>*</i>),</li>
+                                    <li><i>Match Domain</i>: mindestens ein Eintrag entspricht der Domain dieses Cookies.</li>
+                                </ul>Wenn es sich um einen Schlüssel im lokalen Speicher handelt, entspricht mindestens ein Eintrag dem Schlüssel oder dem Skript, das für diesen Eintrag verantwortlich ist.</td>
+                        </tr>
+                        <tr>
+                            <td><button mat-raised-button class="btn btn-block btn-primary">Details schließen</button></td>
+                            <td>Klicken Sie auf diesen Button, um das aktuelle Detailfenster zu schließen.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Treffen einer Entscheidung über Compliance/Nicht-Compliance</h1>
+                </header>
+                <p>Um die Einhaltung der Website-Compliance zu unterstützen, können Analysen, Szenarien und Karten als <span style="color:green">Compliant, <span
+                        style="color:red">Not Compliant</span> </span> oder <span
+                        style="color:#004494">To Be Defined</span> gekennzeichnet werden.</p>
+                <p>Diese Assesment-Oberfläche kann jederzeit erreicht werden, indem Sie während einer Sitzung auf die Symbolleistenschaltfläche <span class="analysis-name" style="font-size:14px"> <button> Analyse > Szenario </button> </span> durch den internen Browser oder nach der Erfassung von Beweisen durch die <button> Liste </button> in der linken Seitenleistennavigation klicken.</p>
+
+                <p>Diese Liste gibt einen Überblick über alle im Website-Auditing-Tool gespeicherten Analysen und deren aktuelle Bewertung.</p>
+                <p>Jeder Eintrag hat folgende Form:</p>
+                <table border="2">
+                    <tr>
+                        <td><h2><a>Analyse</a></h2>
+                            <mat-chip-listbox>
+                                <mat-chip><a style="color: green;">Konform</a></mat-chip>
+                                <mat-chip><a style="color: red;">Nicht konform</a></mat-chip>
+                                <mat-chip><a style="color: #004494;">Zu definieren</a></mat-chip>
+                            </mat-chip-listbox>
+                        </td>
+                        <td>Das Unternehmen, das mit dieser Analyse und seiner aktuellen Bewertung verbunden ist.</td>
+                    </tr>
+                    <tr>
+                        <td><button > <i class="fa fa-eye"></i> </button> <button > <i class="fa fa-download"></i> </button> <button > <i class="fa fa-trash"></i> </button></td>
+                        <td>Aktionsschaltflächen für die aktuelle Analyse, um diesen Eintrag anzuzeigen bzw. zu bewerten, einen Bericht über diese Analyse zu erstellen und den Eintrag zu löschen.</td>
+                    </tr>
+                    <tr>
+                        <td><button><a style="color: green;">Szenario 1</a> </button> <button> <a style="color: red;">Szenario 2</a> </button> <button> <a style="color:#004494;">Szenario 3</a> </button></td>
+                        <td>Die Szenarien, die für die gegebene Analyse aufgezeichnet wurden. Die Farbe entspricht ihrer jeweiligen aktuellen Bewertung (<strong style="color: green;">Beanstandung,</strong> <strong
+                                style="color: red;"> nicht Reklamation</strong> oder <strong
+                                style="color: #004494;"> zu definieren</strong>).</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-link"></i> www.(...).com <br> <i class="fa fa-calendar"></i> 10/01/2022</td>
+                        <td>Andere Metadaten, die mit dieser Analyse verbunden sind, d. h. der Link, der bei der Erstellung der Analyse und dem Datum dieser Erstellung angegeben wurde.</td>
+                    </tr>
+                </table>
+
+                <p>Das rechte Panel ermöglicht die Filterung dieser Analysen nach ihrer Identifikation oder ihrer aktuellen Bewertung.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Auswertung</h2>
+                </header>
+
+                <p>Die Auswahl des <button > <i class="fa fa-eye"></i> </button> Buttons durch eine Analyse, ein Szenario oder eine Karte ermöglicht das Navigieren im angegebenen Element und erhält detaillierte Informationen.</p>Jedes dieser Elemente kann markiert werden, um die globale Bewertung der Website wie folgt durchzuführen:<table border="2">
+                    <tr>
+                        <td><button class="btn btn-green" aria-hidden="true">Konform </button> <button class="btn btn-red" aria-hidden="true"> Nicht konform </button> <button class="btn-blue" aria-hidden="true"> Zu definieren </button></td>
+                        <td>Markieren Sie eine Analyse als konform, nicht konform und nach den gesetzlichen Anforderungen zu bewerten.</td>
+                    </tr>
+                    <tr>
+                        <td><button color="blue"><i class="fa fa-close" ></i> Close edition</button> <button color="blue"> <i class="fa fa-edit"></i> Schreibe einen Kommentar</button></td>
+                        <td>Öffnen und schließen Sie einen Texteditor, um einen Kommentar über die gegebene Bewertung zu schreiben.</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #ecedee;"><div style="float: right"><button> <i class="fa fa-check" style="color: green;"></i> </button> <button> <i class="fa fa-close" style="color: red;"></i> </button> <button> <i class="fa fa-search" style="color: #004494;"></i> </button></div>
+                        </td>
+                        <td>Einzelne Zeilen dieser Karten:<ul>
+                                <li><strong style="color:rgba(0,0,0,.54);">Kekse</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Lokale Lagerung</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Web Beacons</strong></li>und<li><strong style="color:rgba(0,0,0,.54);">Testsl</strong></li>
+                            </ul>kann auch als konform gekennzeichnet, nicht konform oder definiert werden, um die Bewertung zu unterstützen.</td>
+                    </tr>
+                    <tr>
+                        <td><i>Bewertung am 25. November 2022</i></td>
+                        <td>Datum der letzten Bewertung.</td>
+                    </tr>
+                </table>
+
+                <p>Die erste Karte der Analyse oder des Szenarios gibt einen Überblick über jedes Szenario oder jede Karte mit ihrer aktuellen Auswertung. Es ermöglicht auch eine globale Auswertung für die aktuelle Analyse oder das Szenario entsprechend diesen Elementen.</p>
+
+                <p>Jede einzelne Zeile in der Tabelle dieser Karten (Cookies<strong
+                        style="color:rgba(0,0,0,.54);">,</strong> <strong style="color:rgba(0,0,0,.54);">lokale Speicherung</strong> und <strong
+                        style="color:rgba(0,0,0,.54);">Web Beacons</strong>) kann ausgewählt werden, um detailliertere Informationen auf der rechten Seite zu erhalten <strong>Weitere Details</strong>. Auf Cookie- und lokalen Speicherlinien bietet der Wissens-Tab einfachen Zugriff auf passende Einträge aus der entsprechenden Wissensdatenbank oder um diesen Eintrag in eine Wissensdatenbank aufzunehmen. Klicken Sie auf <a href="#/helps/knowledge_base"> Wissensdatenbank</a>, um weitere Informationen über die Verwaltung zu erhalten.</p>
+
+                <p>Jederzeit kann ein neues Szenario an die Analyse angehängt werden, indem Sie auf <button class="add-button"> + </button> im linken <strong>Szenario</strong> -Panel klicken.</p>
+
+                <p>Nach der Auswertung der Analyse können Sie Berichte generieren, die gesammelte Daten, Auswertungen und Kommentare in einem übertragbaren Format enthalten. Klicken Sie auf <a href="#/helps/create_reports">Berichte erstellen</a>, um Anleitungen zu erhalten.</p>
+            </div>
+        </div>
+    </div>
+</div>

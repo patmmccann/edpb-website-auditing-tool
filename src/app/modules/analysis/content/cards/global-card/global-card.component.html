@@ -24,7 +24,7 @@
             </colgroup>
             <thead>
               <tr>
-                <th mat-sort-header="name">{{ "analyses.edits.name" | translate }} </th>
+                <th mat-sort-header="name">{{ "knowledge.name" | translate }} </th>
                 <th mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }} </th>
                 <th>{{ "analyses.edit.manage" | translate }} </th>
               </tr>
@@ -44,7 +44,7 @@
                       <i style="color: red;"> {{ "analyses.evaluation.not_compliant" | translate }} </i>
                       </ng-container>
                       <ng-container *ngSwitchCase="'TBD'">
-                       <i style="color: #004494;" > {{ "analyses.evaluation.to_be_defined" | translate }}</i>
+                       <i style="color: #004494;" > {{ "analyses.evaluation.TBD" | translate }}</i>
                       </ng-container>
                     </ng-container>
                     </td>
@@ -52,7 +52,7 @@
                       <a href="javascript:void(0)" (click)="scroll(card.card)">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
-                    <a [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
+                    <a *ngIf="browserService.use_electron" [routerLink]="['/report', analysis.id, 'tag', tag.id, 'card', card.card.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteCard(card.card)">
@@ -87,13 +87,13 @@
                       [ngSwitch]="tag.evaluation.status"
                       >
                       <ng-container  *ngSwitchCase="'compliant'">
-                       <i style="color: green;">  {{ "analyses.edit.evaluation.compliant" | translate }}  </i>
+                       <i style="color: green;">  {{ "analyses.evaluation.compliant" | translate }}  </i>
                       </ng-container>
                       <ng-container  *ngSwitchCase="'not_compliant'">
-                      <i style="color: red;">{{ "analyses.edit.evaluation.not_compliant" | translate }} </i>
+                      <i style="color: red;">{{ "analyses.evaluation.not_compliant" | translate }} </i>
                       </ng-container>
                       <ng-container *ngSwitchCase="'TBD'">
-                       <i style="color: #004494;" > {{ "analyses.edit.evaluation.to_be_defined" | translate }} </i>
+                       <i style="color: #004494;" > {{ "analyses.evaluation.TBD" | translate }} </i>
                       </ng-container>
                     </ng-container>
                     </td>
@@ -101,7 +101,7 @@
                       <a [routerLink]="['/analysis', analysis.id, 'tag', tag.tag.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">edit</mat-icon>
                       </a>
-                    <a [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
+                    <a *ngIf="browserService.use_electron" [routerLink]="['/report', analysis.id, 'tag', tag.tag.id]">
                         <mat-icon class="action-icon" aria-hidden="false" aria-label="report icon">description</mat-icon>
                     </a>
                     <a href="javascript:void(0)" (click)="deleteTag(tag.tag)">

@@ -171,9 +171,7 @@ export class ReportComponent implements OnInit, OnDestroy {
         .then(cards => {
           this.cards_options = cards.map(card => card.name);
         })
-    }
-
-    if (this.analysis) {
+    }else if (this.analysis) {
       this.analysisService.getAllTags(this.analysis)
         .then(tags => {
           this.tags_options = tags.map(tag => tag.name);
@@ -268,7 +266,7 @@ export class ReportComponent implements OnInit, OnDestroy {
       height: 600,
       selector: '#report_editor',
       toolbar:
-        'undo redo bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+        'copy cut paste undo redo | selectall  removeformat remove |  bold italic underline fontselect fontsizeselect formatselect styleselect forecolor backcolor |  lineheight  alignleft aligncenter alignright alignjustify alignnone | bullist numlist blockquote subscript superscript |  outdent indent',
       skin: false,
       setup: (editor: any) => {
         this.reportEditor = editor;

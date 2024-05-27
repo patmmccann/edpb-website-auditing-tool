@@ -36,7 +36,7 @@ export class GlobalCardComponent implements OnInit,OnChanges {
     private analysisService: AnalysisService,
     private tagService: TagService,
     private cardService: CardService,
-    private browserService:BrowserService
+    public browserService:BrowserService
   ) { }
 
   ngOnInit(): void {

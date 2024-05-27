@@ -89,7 +89,11 @@ export class BrowserCollector extends Collector {
     }
 
     override get contents() {
-        return this._view.webContents;
+        if (this.view){
+            return this.view.webContents;
+        }
+
+        return null;
     }
 
     getTopLevelUrl(details) {

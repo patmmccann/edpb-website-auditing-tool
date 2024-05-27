@@ -63,7 +63,7 @@ test.describe('HTTP Card', () => {
     expect(output.secure_connection.https_support).toBeTruthy();
     expect(output.secure_connection).toHaveProperty('https_support');
     expect(output.secure_connection.redirects).toHaveLength(1);
-    expect(output.secure_connection.redirects[0]).toBe("https://edpb.europa.eu/edpb_en");
+    expect(output.secure_connection.redirects[0]).toBe("https://www.edpb.europa.eu/edpb_en");
     await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 

@@ -1,1 +1,12 @@
-<img [src]="screenshotCard.image|safeIMG"  style="width:100.0%">
+<mat-form-field *ngIf="context == 'view'">
+    <mat-label>{{ "cards.screenshot.option" | translate }}</mat-label>
+    <mat-select 
+    [(value)]="screenshot_option"
+    (selectionChange)="updateScreenshot()"
+    >
+      <mat-option value="visible" selected>{{ "cards.screenshot.visible" | translate }}</mat-option>
+      <mat-option value="full">{{ "cards.screenshot.full_page" | translate }}</mat-option>
+    </mat-select>
+</mat-form-field>
+<img *ngIf="!loading" [src]="screenshotCard.image|safeIMG"  style="width:100.0%">
+<app-loading-overlay *ngIf="loading" [visibility]="true" [childMode]="true"></app-loading-overlay>

@@ -1,0 +1,154 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12 px-4 px-xl-5 order-0">
+        <div id="block-pagetitle" class="block block-core block-page-title-block">
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Base de conocimientos</h1>
+                </header>
+                <p>La información almacenada en los navegadores de un sitio web puede tener múltiples propósitos, ya sea para el correcto funcionamiento del sitio web o para fines subsidiarios, como el seguimiento de la navegación del usuario para entregar anuncios específicos. Como tal, algunos pueden requerir el consentimiento antes de su uso por parte del sitio web, o de terceros, para cumplir con los requisitos legales, mientras que otros podrían estar exentos.</p>
+                <p>Muchos de estos rastreadores se almacenan a través de SDK externos desarrollados por empresas de terceros, ya que comparten propiedades comunes entre sitios web, como el dominio, el nombre de la clave o los scripts.</p>
+
+                <p>Las bases de conocimiento pueden ayudar a identificar estos rastreadores, así como el caso consolidando el conocimiento a lo largo del tiempo durante el análisis caso por caso.</p>
+
+                <p>La identificación de rastreadores conocidos se produce durante la navegación seleccionando una cookie o una línea clave de almacenamiento local de las tarjetas correspondientes a través del panel del registrador del navegador interno.</p>
+                <p>Esta misma información también está disponible en <strong>Más detalles</strong> al evaluar el cumplimiento legal de un análisis. El panel de expansión <strong>Agregar este elemento a una base de conocimientos</strong> también permite agregar rastreadores aún desconocidos para su evaluación posterior.</p>
+
+                <p>Finalmente, el contenido completo del conocimiento es accesible a través de <button> <span class="text-uppercase is-active"> Knowledge Base</span> </button> en la categoría <strong style="color: rgba(0,0,0,.54);">Editor</strong> en la barra de navegación del lado izquierdo.<p><header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Edición de una base de conocimientos</h2>
+                </header>
+
+                <p>Cada base de conocimiento se identifica con un nombre y un autor. Se compone de un conjunto de entradas que pueden dirigirse a cookies o claves en el almacenamiento local.</p>
+
+                <p>La siguiente tabla detalla el propósito de cada elemento en la sección <button> <span class="text-uppercase is-active"> de la Base de Conocimientos:</span> </button></p>
+
+                <table border="2">
+                    <tr>
+                        <td><button  color="blue"><i class="fas fa-plus"></i> Nueva base de datos</button></td>
+                        <td>De forma predeterminada, la herramienta de auditoría del sitio web no contiene ninguna base de conocimientos. Los usuarios pueden crear uno nuevo, seleccionar un nombre y la categoría apropiada (Cookie<i></i> o <i>Almacenamiento local).</i></td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Importación </button></td>
+                        <td>También pueden importar bases de datos existentes en formato json que ya han sido creadas por otros a través de la herramienta de auditoría del sitio web.</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-export"></i> Exportar todo </button></td>
+                        <td>Finalmente, pueden exportar todas las bases de datos contenidas en esta herramienta a través de un archivo de formato json, para compartir o archivar.</td>
+                    </tr>
+                </table>
+                <p>Las entradas de la base de datos también pueden gestionarse individualmente mediante el conjunto de botones <a class="base-tooltip"> <i class="fa fa-eye" aria-hidden="true"></i> </a> <a class="base-tooltip"> <i class="fa fa-download" aria-hidden="true"></i> </a> <a href="javascript:;" class="base-tooltip"> <i class="fa fa-files-o" aria-hidden="true"></i> </a> <a href="javascript:;" class="base-tooltip"> <i class="fa fa-trash" aria-hidden="true"></i></a>, que permiten, respectivamente, visualizar, descargar, duplicar o eliminar la entrada seleccionada.<header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Entradas de cookies</h2>
+                </header>
+                <p>El <a class="base-tooltip"> <i class="fa fa-eye" aria-hidden="true"></i> </a> botón en una base de conocimiento de cookies proporciona un resumen completo de todas las entradas contenidas en ella, clasificadas por su dominio, nombre y categoría.</p>
+
+                <p>Un clic en una entrada de conocimiento de cookies proporciona información más detallada sobre esta entrada:</p>
+                <table border="2">
+                    <tr>
+                        <td><span style="color: #004494;">Categoría</span></td>
+                        <td>La finalidad identificada de la cookie. Las entradas posibles son: <i>Publicidad dirigida</i>, <i>Publicidad no dirigida</i>, <i>Técnica</i>, <i>Analítica (exenta)</i>, <i>Analítica (no exenta)</i>, <i>Redes sociales , Redes</i> <i>sociales ,</i> <i>Personalización de contenidos</i> o<i>? (Desconocido)</i>.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Dominio</label></td>
+                        <td>El dominio URL desde el que se han almacenado las cookies. Su sintaxis incluye comodines (*). Por lo tanto, si se deposita una cookie desde la URL de dominios de terceros, como &quot;server1.adcompany.com&quot; y &quot;server2.adcompany.com&quot;, la entrada esperada es &quot;*.adcompany.com&quot;. Si una cookie se deposita necesariamente desde la URL del sitio web visitado (primera<i>parte)</i>y el dominio no es información relevante, entonces la entrada esperada es &quot;*&quot;.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Nombre</label></td>
+                        <td>La clave de identificación utilizada por la cookie. También se acepta el uso de comodines (*). Como tal, si una cookie se llama &quot;RTB_1234&quot; y &quot;RTB_5678&quot;, la entrada esperada es &quot;RTB_*&quot;. Si un dominio está necesariamente asociado con un propósito y el nombre de la cookie no es relevante, entonces la entrada esperada es &quot;*&quot;.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Fuente</label></td>
+                        <td>El origen o la fuente de la identificación.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Controlador de datos</label></td>
+                        <td>El responsable del tratamiento de datos identificado para el tratamiento de datos identificado. Utilice “? si se desconoce.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Política de privacidad</label></td>
+                        <td>La URL de la política de privacidad si existe.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Tipo de referencia</label></td>
+                        <td>Si hay casos (por<i>ejemplo, sanciones existentes)</i> que se refieren a esta cookie.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Comentario</label></td>
+                        <td>Los comentarios se pueden utilizar para agregar información contextual sobre la cookie.</td>
+                    </tr>
+                </table>
+                <p>Cada entrada del formulario mostrado se puede editar con un clic. Por último, se pueden añadir nuevas entradas con <button 
+                        color="blue"><i class="fas fa-plus"></i> Nueva entrada de cookies.</button></p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Entradas de almacenamiento local</h2>
+                </header>
+                <p>Las entradas de almacenamiento local funcionan de manera similar a las cookies. Sin embargo, este depósito solo puede ocurrir a través de scripts.</p>
+                <p>Un clic en una clave de un almacenamiento local proporciona información más detallada sobre esta entrada:</p>
+                <table border="2">
+                    <tr>
+                        <td><span style="color: #004494;">Categoría</span></td>
+                        <td>La finalidad identificada de la cookie. Las entradas posibles son: <i>Publicidad dirigida</i>, <i>Publicidad no dirigida</i>, <i>Técnica</i>, <i>Analítica (exenta)</i>, <i>Analítica (no exenta)</i>, <i>Redes sociales , Redes</i> <i>sociales ,</i> <i>Personalización de contenidos</i> o<i>? (Desconocido)</i>.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Clave</label></td>
+                        <td>El valor clave de esta entrada. También se acepta el uso de comodines (*). Si una cookie se llama &quot;RTB_1234&quot; y &quot;RTB_5678&quot;, la entrada esperada es &quot;RTB_*&quot;.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Guión</label></td>
+                        <td>La URL del script que se utiliza para administrar esta clave seleccionada. El registro de la pila de llamadas en el origen del depósito de la clave dada se analizará para encontrar el script correspondiente.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Fuente</label></td>
+                        <td>El origen o la fuente de la identificación.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Controlador de datos</label></td>
+                        <td>El responsable del tratamiento de datos identificado para el tratamiento de datos identificado. Utilice “? si se desconoce.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Política de privacidad</label></td>
+                        <td>La URL de la política de privacidad si existe.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Tipo de referencia</label></td>
+                        <td>Si hay casos (por<i>ejemplo, sanciones existentes)</i> que se refieran a esta entrada.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Comentario</label></td>
+                        <td>Los comentarios se pueden utilizar para agregar información contextual sobre la cookie.</td>
+                    </tr>
+                </table>
+
+                <p>Cada entrada del formulario mostrado también se puede editar con un clic en la información. Pueden añadirse nuevas entradas con <button  color="blue"><i
+                            class="fas fa-plus"></i> Nueva entrada de almacenamiento local</button>.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Uso de la base de conocimientos</h2>
+                </header>
+
+                <p>Cada cookie o entrada en el almacenamiento local que se almacena durante una sesión de navegación se escanea automáticamente para encontrar entradas coincidentes en la base de conocimientos.</p>
+
+                <p>Los propósitos identificados de las entradas coincidentes están disponibles en la fila <i>Categoría</i> en las tablas de Cookie y Tarjetas de almacenamiento local, así como en la siguiente pestaña del panel de detalles al seleccionar una línea en las tablas Conocimiento.</p>
+
+
+
+                <p>Si la entrada actual se ha encontrado en al menos una base de conocimientos, esta pestaña enumera todas las entradas coincidentes en la base de conocimientos de acuerdo con su categoría.</p>
+                <p>Si se trata de una cookie, estas entradas se clasifican de la siguiente manera:</p>
+                <ul>
+                    <li><i>Coincidencia exacta:</i> al menos una entrada corresponde al nombre y al dominio de la cookie,</li>
+                    <li><i>Nombre del partido:</i> al menos una entrada corresponde al nombre de la cookie con un dominio comodín (<i>*</i>),</li>
+                    <li><i>Dominio de coincidencia:</i> al menos una entrada corresponde al dominio de esta cookie.</li>
+                </ul>
+                <p>Si se trata de una clave en el almacenamiento local, al menos una entrada coincide con la clave o el script responsable de esta entrada.</p>
+
+
+                <p>Puede consultar <a href="#/helps/new_analysis">Proporcionar nuevos análisis</a> para hacer uso de esa información con el fin de evaluar el cumplimiento / incumplimiento de los sitios web de acuerdo con los requisitos legales.</p>
+            </div>
+        </div>
+    </div>
+</div>

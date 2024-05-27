@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
@@ -14,23 +14,33 @@ import { Knowledge } from 'src/app/models/knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
 import { Sort } from '@angular/material/sort';
+import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
 
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
-  styleUrls: ['./base.component.scss']
+  styleUrls: ['./base.component.scss'],
+  providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge]
 })
 export class BaseComponent implements OnInit {
-  base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date());
+  base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);
   knowledges: Knowledge[] = [];
-  cookieKnowledges : CookieKnowledge[] = [];
-  localStorageKnowledges : LocalStorageKnowledge[] = [];
-  
+  cookieKnowledges: CookieKnowledge[] = [];
+  localStorageKnowledges: LocalStorageKnowledge[] = [];
+  searchCookieForm: FormGroup = new FormGroup({});
+  searchLocalStorageForm: FormGroup = new FormGroup({});
+  updateKnowledges: CookieKnowledge[] = [];
+  showModal = false;
+
+  updateForm: FormGroup = new FormGroup({
+    import_file: new FormControl('', [])
+  });
+
   entryForm: FormGroup = new FormGroup({
     category: new FormControl(),
     domain: new FormControl(),
-    key:new FormControl(),
-    script:new FormControl(),
+    key: new FormControl(),
+    script: new FormControl(),
     name: new FormControl(),
     source: new FormControl(),
     controller: new FormControl(),
@@ -44,16 +54,51 @@ export class BaseComponent implements OnInit {
   selectedKnowledgeId: number | null = 0;
   categories: string[] = ["Targeted advertising", "Non-Targeted advertising", "Technical", "Analytics (exempted)", "Analytics (non exempted)", "Social media", "Content customisation", "?"];
   itemsSelected: number[] = [];
-  KnowledgesService : CookieKnowledgesService | LocalstorageKnowledgesService;
+  KnowledgesService: CookieKnowledgesService | LocalstorageKnowledgesService;
 
   constructor(
     private cookieKnowledgesService: CookieKnowledgesService,
-    private localStorageKnowledgeService:LocalstorageKnowledgesService,
+    private localStorageKnowledgeService: LocalstorageKnowledgesService,
     private knowledgeBaseService: KnowledgeBaseService,
-    private route: ActivatedRoute
-  ) { 
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private filterCookieKnowledge: FilterCookieKnowledge,
+    private filterLocalStorageKnowledge: FilterLocalStorageKnowledge,
+    private el: ElementRef,
+  ) {
 
     this.KnowledgesService = this.cookieKnowledgesService;
+    this.searchCookieForm = this.formBuilder.group({
+      searchDomain: "",
+      searchName: "",
+      searchCategory: ""
+    });
+
+    this.searchCookieForm.valueChanges.subscribe((selectedValue: any) => {
+      this.refresh().then(() => {
+        this.cookieKnowledges = this.filterCookieKnowledge.transform(this.cookieKnowledges, selectedValue);
+      });
+    });
+
+    this.searchLocalStorageForm = this.formBuilder.group({
+      searchHost: "",
+      searchKey: "",
+      searchCategory: ""
+    });
+
+    this.searchLocalStorageForm.valueChanges.subscribe((selectedValue: any) => {
+      this.localStorageKnowledges = this.filterLocalStorageKnowledge.transform(this.localStorageKnowledges, selectedValue);
+    });
+  }
+
+  async refresh() {
+    const result = await this.KnowledgesService.getEntries(this.base.id);
+    this.knowledges = result;
+    if (this.base.category == 'cookie') {
+      this.cookieKnowledges = result as CookieKnowledge[];
+    } else if (this.base.category == 'localstorage') {
+      this.localStorageKnowledges = result as LocalStorageKnowledge[];
+    }
   }
 
   ngOnInit(): void {
@@ -63,23 +108,11 @@ export class BaseComponent implements OnInit {
       .get(sectionId)
       .then((base: KnowledgeBase) => {
         this.base = base;
-        this.KnowledgesService = base.category == 'cookie'? this.cookieKnowledgesService : this.localStorageKnowledgeService;
-
-        // GET Knowledges entries from selected base
-        this.KnowledgesService
-          .getEntries(this.base.id)
-          .then((result: Knowledge[]) => {
-            this.knowledges = result;
-            if (base.category == 'cookie'){
-              this.cookieKnowledges =result as CookieKnowledge[];
-            }else if (base.category == 'localstorage'){
-              this.localStorageKnowledges =result as LocalStorageKnowledge[];
-            }
-          });
+        this.KnowledgesService = base.category == 'cookie' ? this.cookieKnowledgesService : this.localStorageKnowledgeService;
+        this.refresh();
       })
       .catch((error: Error) => {
         console.log(error);
-
       });
 
   }
@@ -105,6 +138,7 @@ export class BaseComponent implements OnInit {
         }
       })
       .catch(() => {
+        console.log("Error! Can remove item from knowledge database.");
         return;
       });
   }
@@ -117,9 +151,9 @@ export class BaseComponent implements OnInit {
       this.KnowledgesService
         .find(this.selectedKnowledgeId)
         .then((res: Knowledge) => {
-          let entry : any;
-          
-          if (this.base.category == 'cookie'){
+          let entry: any;
+
+          if (this.base.category == 'cookie') {
             const cookieKnowledge = res as CookieKnowledge;
             cookieKnowledge.domain = this.entryForm.value.domain;
             cookieKnowledge.name = this.entryForm.value.name;
@@ -131,7 +165,7 @@ export class BaseComponent implements OnInit {
             cookieKnowledge.comment = this.entryForm.value.comment;
             cookieKnowledge.knowledge_base_id = this.base.id;
             entry = cookieKnowledge;
-          }else if (this.base.category == 'localstorage'){
+          } else if (this.base.category == 'localstorage') {
             const localStorageKnowledge = res as LocalStorageKnowledge;
             localStorageKnowledge.key = this.entryForm.value.key;
             localStorageKnowledge.script = this.entryForm.value.script;
@@ -143,7 +177,7 @@ export class BaseComponent implements OnInit {
             localStorageKnowledge.comment = this.entryForm.value.comment;
             localStorageKnowledge.knowledge_base_id = this.base.id;
             entry = localStorageKnowledge;
-          }else{
+          } else {
             throw new Error();
           }
 
@@ -171,8 +205,8 @@ export class BaseComponent implements OnInit {
    * Create a new Knowledge entry
    */
   onSubmit(): void {
-    let entry : any = null;
-    if (this.base.category == 'cookie'){
+    let entry: any = null;
+    if (this.base.category == 'cookie') {
       entry = new CookieKnowledge();
       entry.domain = this.entryForm.value.domain;
       entry.name = this.entryForm.value.name;
@@ -184,7 +218,7 @@ export class BaseComponent implements OnInit {
       entry.comment = this.entryForm.value.comment;
       entry.created_at = new Date();
       entry.updated_at = entry.created_at;
-    }else if (this.base.category == 'localstorage'){
+    } else if (this.base.category == 'localstorage') {
       entry = new LocalStorageKnowledge();
       entry.key = this.entryForm.value.key;
       entry.script = this.entryForm.value.script;
@@ -196,7 +230,7 @@ export class BaseComponent implements OnInit {
       entry.comment = this.entryForm.value.comment;
       entry.created_at = new Date();
       entry.updated_at = entry.created_at;
-    }else{
+    } else {
       throw new Error();
     }
 
@@ -221,12 +255,12 @@ export class BaseComponent implements OnInit {
       this.KnowledgesService
         .find(id)
         .then((result: CookieKnowledge | LocalStorageKnowledge) => {
-          
-          if (this.base.category=='cookie'){
+
+          if (this.base.category == 'cookie') {
             result = result as CookieKnowledge;
             this.entryForm.controls['domain'].setValue(result.domain);
             this.entryForm.controls['name'].setValue(result.name);
-          }else if (this.base.category=='localstorage'){
+          } else if (this.base.category == 'localstorage') {
             result = result as LocalStorageKnowledge;
             this.entryForm.controls['key'].setValue(result.key);
             this.entryForm.controls['script'].setValue(result.script);
@@ -250,8 +284,66 @@ export class BaseComponent implements OnInit {
     }
   }
 
-  sortBy(sort: Sort): void {
+  updateEntries(event?: any) {
+    if (event) {
+      this.updateKnowledges = [];
+      const reader = new FileReader();
+      reader.readAsText(event.target.files[0], 'UTF-8');
+      reader.onload = (event2: any) => {
+        try {
+          const data = JSON.parse(event2.target.result);
+          if ("knowledges" in data && data.knowledges.length > 0) {
+            this.updateKnowledges = data["knowledges"];
+          } else {
+            this.showModal = true;
+          }
+        } catch (error) {
+          this.showModal = true;
+        }
+        this.updateForm.reset();
+      };
+    } else {
+      this.el.nativeElement.querySelector('#import_file').click();
+    }
+  }
 
+  sortBy(sort: Sort): void {
+    const isAsc = sort.direction === 'asc';
+
+    function compare(a: number | string, b: number | string, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
+    switch (this.base.category) {
+      case 'cookie':
+        this.cookieKnowledges.sort((a, b) => {
+          switch (sort.active) {
+            case 'name':
+              return compare(a.name, b.name, isAsc);
+            case 'domain':
+              return compare(a.domain, b.domain, isAsc);
+            case 'category':
+              return compare(a.category, b.category, isAsc);
+            default:
+              return 0;
+          }
+        });
+        break;
+      case 'localstorage':
+        this.localStorageKnowledges.sort((a, b) => {
+          switch (sort.active) {
+            case 'script':
+              return compare(a.script, b.script, isAsc);
+            case 'key':
+              return compare(a.key, b.key, isAsc);
+            case 'category':
+              return compare(a.category, b.category, isAsc);
+            default:
+              return 0;
+          }
+        });
+        break;
+    }
   }
 
 }

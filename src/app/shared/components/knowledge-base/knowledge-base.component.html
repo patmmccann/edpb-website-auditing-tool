@@ -14,7 +14,7 @@
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <h3 class="mt-0">
-                    Add this item to a knowledge base
+                    {{ "knowledge.add_this_item" | translate }}
                 </h3>
             </mat-panel-title>
         </mat-expansion-panel-header>
@@ -22,16 +22,16 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="entryForm" class="base-knowledges_base-form">
             <h3>
                 <mat-form-field appearance="fill">
-                    <mat-label>Select a knowledge base</mat-label>
+                    <mat-label>{{ "knowledge.select_a_knowledge_base" | translate }}</mat-label>
                     <mat-select #selectedknowbase *ngIf="customKnowledgeBases" (change)="switch(selectedKnowledBase)"
                         >
                         <ng-container *ngFor="let base of customKnowledgeBases">
                             <mat-option
-                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind"
+                            *ngIf="base.category == knowledgeBaseService.knowledgeBaseKind && base.used == true"
                             [value]="base.id"
                             >{{
                                base.name
-                               }}</mat-option>
+                               }} ({{base.trustLevel}})</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>
@@ -39,7 +39,7 @@
             <div>
                 <div class="base-elementCategory-wrapper">
                     <select name="category" formControlName="category" required>
-                        <option value="null" disabled>Category</option>
+                        <option value="null" disabled>{{ "knowledge.category" | translate }}</option>
                         <option value="{{ category }}" *ngFor="let category of categories">{{category}}
                         </option>
                     </select>

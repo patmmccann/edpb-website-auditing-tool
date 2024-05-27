@@ -14,19 +14,20 @@
 <div class="top">
     <div class="options">
         <div class="sc-ae0wyr jXqoqg">
-            <!-- <div title="On startup" class="sc-19uuyq5 option-item">
+             <div title="On startup" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
                 <button mat-button (click)="option='general'">General</button>
-            </div> -->
-            <div title="Browser" class="sc-19uuyq5 option-item">
+                <mat-icon *ngIf="option == 'general'" >chevron_right</mat-icon>
+            </div>
+            <div *ngIf="browserService.use_electron" title="Browser" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
                 <button mat-button  (click)="option='browser'">{{ 'menu.browser' | translate }}
                 </button>
                 <mat-icon *ngIf="option == 'browser'" >chevron_right</mat-icon>
             </div>
-            <div title="Analysis" class="sc-19uuyq5 option-item">
+            <div *ngIf="browserService.use_electron" title="Analysis" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
                 <button mat-button (click)="option='analysis'">{{ 'menu.analysis' | translate }}
@@ -39,6 +40,6 @@
     <div class="content">
         <app-analysis *ngIf="option == 'analysis'"></app-analysis>
         <app-browser *ngIf="option == 'browser'"></app-browser>
-        <!-- <app-general *ngIf="option == 'general'"></app-general> -->
+        <app-general *ngIf="option == 'general'"></app-general>
     </div>
 </div>

@@ -1,36 +1,42 @@
-<mat-expansion-panel 
-[attr.id]="card.name"
-[expanded]="context == 'evaluate' ? true : false" class="example-headers-align">
+<mat-expansion-panel [attr.id]="card.name" [expanded]="context == 'evaluate' ? true : false"
+    class="example-headers-align">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <mat-panel-description *ngIf="!editing">
-            <h3 class="mt-0">
-                {{card.name}}             
-                <ng-container *ngIf="context != 'evaluate' && settingService.settings.help && card.help != ''">
-                    <mat-icon
-                    [matTooltip]="card.help"
-                    [matTooltipPosition]="'after'"
-                    >help_outline</mat-icon>
-                </ng-container>
-            </h3>
+                <h3 class="mt-0">
+                    {{card.name}}
+                    <ng-container *ngIf="context != 'evaluate' && settingService.settings.help">
+                        <mat-icon matTooltip="{{ 'cards.help.'+card.kind | translate }}"
+                            [matTooltipPosition]="'after'">help_outline</mat-icon>
+                    </ng-container>
+                </h3>
             </mat-panel-description>
             <mat-panel-description *ngIf="editing">
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <input matInput (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)" type="text" name="card_name" id="card_name" [(ngModel)]="card.name">
+                    <input matInput (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)" type="text"
+                        name="card_name" id="card_name" [(ngModel)]="card.name">
                 </mat-form-field>
             </mat-panel-description>
         </mat-panel-title>
-        <mat-panel-description *ngIf="context == 'view' && card.is_runnable">
+        <mat-panel-description *ngIf="context == 'view' && card.kind == 'testSSL'">
             <button (click)="runCard()">
                 <mat-icon>play_arrow</mat-icon>
             </button>
         </mat-panel-description>
-        <mat-panel-description *ngIf="card.is_name_editable">
+        <mat-panel-description *ngIf="card.kind == 'image'">
             <button (click)="edit($event)">
                 <mat-icon>edit</mat-icon>
             </button>
         </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <ng-container *ngIf="context == 'evaluate'  && 
+    ((card.kind == 'cookie') || (card.kind == 'localstorage')|| (card.kind == 'beacons'))">
+        <app-search [card]="card" (searchStatusEvent)="searchStatus = $event"
+            (searchCookieEvent)="searchCookie = $event" (searchLocalStorageEvent)="searchLocalStorage = $event"
+            (searchBeaconEvent)="searchBeacon = $event" (searchKnowledgeEvent)="searchKnowledge = $event">
+        </app-search>
+    </ng-container>
 
     <ng-container [ngSwitch]="card.kind">
         <ng-container *ngSwitchCase="'testSSL'">
@@ -38,7 +44,8 @@
             </app-testssl-card>
         </ng-container>
         <ng-container *ngSwitchCase="'cookie'">
-            <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)">
+            <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)"
+                [searchStatus]="searchStatus" [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
             </app-cookie-card>
         </ng-container>
         <ng-container *ngSwitchCase="'https'">
@@ -46,7 +53,9 @@
             </app-http-card>
         </ng-container>
         <ng-container *ngSwitchCase="'localstorage'">
-            <app-local-storage-card [context]="context" [card]="cardService.castToLocalStorageCard(card)">
+            <app-local-storage-card [context]="context" [card]="cardService.castToLocalStorageCard(card)"
+                [searchStatus]="searchStatus" [searchLocalStorage]="searchLocalStorage"
+                [searchKnowledge]="searchKnowledge">
             </app-local-storage-card>
         </ng-container>
         <ng-container *ngSwitchCase="'traffic'">
@@ -58,15 +67,20 @@
             </app-unsafe-form-card>
         </ng-container>
         <ng-container *ngSwitchCase="'beacons'">
-            <app-beacon-card [context]="context" [card]="cardService.castToBeaconCard(card)">
+            <app-beacon-card [context]="context" [card]="cardService.castToBeaconCard(card)"
+                [searchStatus]="searchStatus" [searchBeacon]="searchBeacon">
             </app-beacon-card>
         </ng-container>
         <ng-container *ngSwitchCase="'image'">
-            <app-screenshot-card [context]="context" [card]="card">
+            <app-screenshot-card [context]="context" [card]="card" [analysis]="analysis" [tag]="tag">
             </app-screenshot-card>
         </ng-container>
+        <ng-container *ngSwitchCase="'info'">
+            <app-info-card [context]="context" [card]="cardService.castToInfoCard(card)" [analysis]="analysis" [tag]="tag">
+            </app-info-card>
+        </ng-container>
     </ng-container>
-    <ng-container *ngIf="context == 'evaluate' &&  card.allow_evaluation">
+    <ng-container *ngIf="context == 'evaluate' &&  card.kind != 'global' && card.kind != 'info'">
         <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
         </app-evaluations>
     </ng-container>

@@ -24,6 +24,12 @@ export class CookieCardComponent implements OnInit {
   
   @Input() card: CookieCard = new CookieCard("");
   @Input() context: viewContext = 'evaluate';
+  @Input() searchStatus :Status[]= [];
+  @Input() searchCookie = {};
+  @Input() searchKnowledge = {
+    searchKnowledge : [],
+    searchCategory : []
+  };
   category:string[]= [];
 
   constructor(

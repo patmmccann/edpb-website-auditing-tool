@@ -29,7 +29,6 @@ export class BrowseComponent implements OnInit, OnDestroy {
   @ViewChild('navToolbar') navToolbarElement: ElementRef = new ElementRef({});
 
   cards: Card[] = [];
-  navigating = false;
   analysis: Analysis | null = null;
   tag: Tag | null = null;
   browserId: number = 0;
@@ -183,13 +182,13 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   screenshot(): void {
-    this.browserService.takeScreenshot(window, this.analysis, this.tag)
+    this.browserService.takeScreenshot(window, this.analysis, this.tag, false)
       .then(async (screenShotCard) => {
         if (this.tag) {
           screenShotCard = (await this.tagService.addCard(this.tag, screenShotCard)) as ScreenshotCard;
         }
         this.cards.unshift(screenShotCard);
-      })
+      });
   }
 
 

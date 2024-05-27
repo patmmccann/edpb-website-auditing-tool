@@ -36,6 +36,7 @@ export class BrowsersHandler {
         ipcMain.handle('launch', this.launchOnSession.bind(this));
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
+        ipcMain.handle('versions', this.versions);
     }
 
     unregisterHandlers() {
@@ -59,16 +60,17 @@ export class BrowsersHandler {
             ipcMain.removeHandler('screenshot');
             ipcMain.removeHandler('toogleDevTool');
             ipcMain.removeHandler('updateSettings');
+            ipcMain.removeHandler('versions');
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
             }
 
             this._sessions = [];
-        }catch{
+        } catch {
 
         }
-        
+
     }
 
     get(analysis_id: number, tag_id: number): BrowserSession {
@@ -96,10 +98,10 @@ export class BrowsersHandler {
         }
     }
 
-    updateSettings(event, settings){
+    updateSettings(event, settings) {
         for (const [name, session] of Object.entries(this.sessions)) {
             session.applySettings(settings);
-          }
+        }
     }
 
     getUrl(event, analysis_id, tag_id) {
@@ -143,9 +145,9 @@ export class BrowsersHandler {
         return session.canGoForward();
     }
 
-    async screenshot(event, analysis_id, tag_id) {
+    async screenshot(event, analysis_id, tag_id, full_screenshot) {
         const session = this.get(analysis_id, tag_id);
-        return await session.screenshot();
+        return await session.screenshot(full_screenshot);
     }
 
     toogleDevTool(event, analysis_id, tag_id) {
@@ -154,6 +156,7 @@ export class BrowsersHandler {
     }
 
     async createBrowserSession(event, analysis_id, tag_id, url, settings) {
+        const test = process.versions.electron;
         const session_name = analysis_id && tag_id ? 'session' + analysis_id + tag_id : 'main';
         const browserSession = new BrowserSession(this.mainWindow, session_name, settings);
         this._sessions[browserSession.name] = browserSession;
@@ -203,5 +206,12 @@ export class BrowsersHandler {
 
     get sessions() {
         return this._sessions;
+    }
+
+    versions() {
+        return {
+            "electron": process.versions.electron,
+            "chrome": process.versions.chrome
+        }
     }
 }

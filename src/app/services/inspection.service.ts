@@ -17,7 +17,7 @@ import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
 import { BeaconLine } from '../models/cards/beacon-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
-import { WebsiteCard } from '../models/cards/website-card.model';
+import { InfoCard } from '../models/cards/info-card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +69,10 @@ export class InspectionService {
     return new UnsafeFormsCard(value);
   }
 
+  inspectInfo(value:any) : InfoCard{
+    return new InfoCard(value);
+  }
+
   inspectBeacons(value:any) : BeaconCard{
     const beaconCard = new BeaconCard();
     if (!value) return beaconCard;
@@ -81,15 +85,31 @@ export class InspectionService {
 
   inspectionParser(json: { [key: string]: any }): Card[] {
     const cards: Card[] = [];
+    const info= new InfoCard(null);
+    cards.push(info);
 
     for (const key in json) {
       const value = json[key];
       if (!value) continue;
       switch (key) {
+        case "script":
+          info.tool_version = value.version.npm;
+          break;
+        case "browser":
+          info.user_agent = value.user_agent;
+          info.chrome_version = value.version;
+          break;
+        case "browsing_history":
+          info.visited_urls = value;
+          break;
         case "host":
-          const website = new WebsiteCard();
-          website.url = value;
-          cards.push(website);
+          info.url = value;
+          break;
+        case "start_time":
+          info.start_time = value;
+          break;
+        case "end_time":
+          info.end_time = value;
           break;
         case "hosts":
           const hosts = this.inspectTraffic(value);

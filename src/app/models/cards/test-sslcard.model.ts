@@ -43,7 +43,7 @@ export class TestSSLCard extends Card{
     
     constructor(testssl_result:any, testSSLError:string | null, testSSLErrorOutput:string|null){
         super("TestSSL Scan", "testSSL");
-        this.is_runnable = true;
+        
         if (testssl_result && testssl_result.scanResult && testssl_result.scanResult[0]){
             for (let protocol of testssl_result.scanResult[0].protocols){
                 this.protocols.push(new ProtocolLine(protocol.id, protocol.finding, protocol.severity));
@@ -56,8 +56,4 @@ export class TestSSLCard extends Card{
         this.testSSLError = testSSLError;
         this.testSSLErrorOutput = testSSLErrorOutput;
     }
-
-    override get help():string {
-        return "The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical."
-    } 
 }

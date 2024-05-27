@@ -1,0 +1,331 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12 px-4 px-xl-5 order-0">
+        <div id="block-pagetitle" class="block block-core block-page-title-block">
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Knowledge Base</h1>
+                </header>
+                <p>Information stored in browsers from a website can have multiple purposes,
+                    either for the proper functioning of the website or for subsidiary purposes
+                    such as tracking user browsing for delivering targeted advertisements. As
+                    such, some may require consent before their use by the website, or third
+                    parties, to be compliant with legal requirements, whereas others could be
+                    exempted. </p>
+                <p>Many of these trackers are stored through external SDK developed by
+                    third-party companies,
+                    as they share common properties between websites, such as
+                    the domain, the key name or scripts. </p>
+
+                <p>Knowledge bases can help identify these trackers, as well as the case
+                    consolidating knowledge over time during case-by-case analysis.</p>
+
+                <p>Identification of known trackers occurs while browsing by selecting a cookie
+                    or a local storage's key line from the corresponding cards through the
+                    logger panel of the internal browser.</p>
+                <p> This same information is also accessible in <strong>More details</strong>
+                    while assessing the legal compliance of an analysis. The expansion panel
+                    <strong>Add this item to a knowledge base</strong> also permits adding yet
+                    unknown trackers for their later assesment.
+                </p>
+
+                <p>Finally, the full content of knowledge is accessible through <button>
+                        <span class="text-uppercase is-active">
+                            Knowledge Base</span>
+                    </button> in the <strong style="color: rgba(0,0,0,.54);">Editor</strong>
+                    category on the left side navigation bar.
+                <p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Editing a knowledge base</h2>
+                </header>
+
+                <p>Each knowledge base is identified by a name and an author. It is composed of
+                    a set of entries which can target either cookies or key in local storage.
+                </p>
+
+                <p>The following table details the purpose of each element in the <button>
+                         <span class="text-uppercase is-active">
+                            Knowledge Base</span>
+                    </button> section :</p>
+
+                <table border="2">
+                    <tr>
+                        <td>
+                            <button  color="blue"> <i class="fas fa-plus"></i>
+                                New
+                                database</button>
+                        </td>
+                        <td>
+                            By default, the website auditing tool contains no knowledge base.
+                            Users can either create a new one, select a name and the appropriate
+                            category (<i>Cookie</i> or <i>Local Storage</i>).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button  color="blue"><i
+                                    class="fas fa-file-import"></i> Import </button>
+                        </td>
+                        <td>
+                            They can also import existing databases in json format that have
+                            been
+                            already created by others through the website auditing tool.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button  color="blue"><i
+                                    class="fas fa-file-export"></i> Export all </button>
+                        </td>
+                        <td>
+                            Finally, they can export all databases contained in this tool
+                            through a json-format file, for sharing or archiving purposes.
+                        </td>
+                    </tr>
+                </table>
+                <p> Database entries can also be individually managed through the set of buttons
+                    <a class="base-tooltip">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a class="base-tooltip">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:;" class="base-tooltip">
+                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:;" class="base-tooltip">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>, which respectively allow viewing, downloading, duplicating or removing
+                    the
+                    selected entry.
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Cookie entries</h2>
+                </header>
+                <p>The <a class="base-tooltip">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a> button on a cookie knowledge base gives a comprehensive of all entries
+                    contained in it, categorized by their domain, name and category. </p>
+
+                <p> A click on a cookie knowledge entry gives more detail information on this
+                    entry : </p>
+                <table border="2">
+                    <tr>
+                        <td>
+                            <span style="color: #004494;">Category</span>
+                        </td>
+                        <td>
+                            The identified purpose of the cookie. Possible entries are:
+                            <i>Targeted advertising</i>, <i>Non-Targeted advertising</i>,
+                            <i>Technical</i>, <i>Analytics (exempted)</i>, <i>Analytics (non
+                                exempted)</i>, <i>Social media</i>, <i>Social media</i>,
+                            <i>Content customisation</i> or <i>? (Unknown)</i>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Domain</label>
+                        </td>
+                        <td>
+                            The URL domain from which cookies have been stored. Its syntax
+                            includes wildcards (*). Thus, if a cookie is deposited from
+                            third party domains URL, such as "server1.adcompany.com" and
+                            "server2.adcompany.com", the expected entry is "*.adcompany.com". If
+                            a cookie is necessarily deposited from the visited website URL
+                            (<i>first party</i>) and the domain is not relevant information,
+                            then the expected entry is "*".
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Name</label>
+                        </td>
+                        <td>
+                            The identification key used by the cookie. Use of wildcards (*)
+                            is also accepted. As such, if a cookie is named "RTB_1234" and
+                            "RTB_5678", the expected input is "RTB_*". If a domain is
+                            necessarily associated with a purpose and the name of the cookie is
+                            not relevant, then the expected entry is "*".
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Source</label>
+                        </td>
+                        <td>
+                            The origin or the source of the identification.
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Data controler</label>
+                        </td>
+                        <td>
+                            The identified data controller for the identified data processing.
+                            Use “? if it is unknown.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Privacy policy</label>
+                        </td>
+                        <td>
+                            The URL of the privacy policy if it exists.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Reference type</label>
+                        </td>
+                        <td>
+                            If there are cases (<i>e.g.</i> existing sanctions) that refers to
+                            this cookie.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Comment</label>
+                        </td>
+                        <td>
+                            Comments can be used to add contextual information on the cookie.
+                        </td>
+                    </tr>
+                </table>
+                <p>Each entry of the displayed form can be edited with a click.
+                    Finally, new entries can be added with <button 
+                        color="blue"><i class="fas fa-plus"></i>
+                        New cookie entry</button>.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Local storage entries</h2>
+                </header>
+                <p>Local storage entries operate in a similar manner than cookies. However this
+                    deposit can only occur through scripts.</p>
+                <p> A click on a key of a local storage gives more detail information on this
+                    entry : </p>
+                <table border="2">
+                    <tr>
+                        <td>
+                            <span style="color: #004494;">Category</span>
+                        </td>
+                        <td>
+                            The identified purpose of the cookie. Possible entries are:
+                            <i>Targeted advertising</i>, <i>Non-Targeted advertising</i>,
+                            <i>Technical</i>, <i>Analytics (exempted)</i>, <i>Analytics (non
+                                exempted)</i>, <i>Social media</i>, <i>Social media</i>,
+                            <i>Content customisation</i> or <i>? (Unknown)</i>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Key</label>
+                        </td>
+                        <td>
+                            The key value of this entry. Use of wildcards (*)
+                            is also accepted. If a cookie is named "RTB_1234" and
+                            "RTB_5678", the expected input is "RTB_*".
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Script</label>
+                        </td>
+                        <td>
+                            The URL of the script which is used to manage this selected key. The
+                            call stack log at the origin of the deposit of the given key will be
+                            analyzed to find the matching script.
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Source</label>
+                        </td>
+                        <td>
+                            The origin or the source of the identification.
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Data controler</label>
+                        </td>
+                        <td>
+                            The identified data controller for the identified data processing.
+                            Use “? if it is unknown.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Privacy policy</label>
+                        </td>
+                        <td>
+                            The URL of the privacy policy if it exists.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Reference type</label>
+                        </td>
+                        <td>
+                            If there are cases (<i>e.g.</i> existing sanctions) that refers to
+                            this entry.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Comment</label>
+                        </td>
+                        <td>
+                            Comments can be used to add contextual information on the cookie.
+                        </td>
+                    </tr>
+                </table>
+
+                <p>Each entry of the displayed form can also be edited with a click on the
+                    information.
+                    New entries can be added with <button  color="blue"><i
+                            class="fas fa-plus"></i>
+                        New local storage entry</button>.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Knowledge base usage</h2>
+                </header>
+
+                <p>Each cookie or entry in local storage which is stored during a browsing
+                    session is automatically scanned for finding matching entries in the
+                    knowledge base. </p>
+
+                <p>Identified purposes of matching entries are available in the <i>Category</i>
+                    row in tables of Cookie and Local storage cards, as well as in the following
+                    tab from detail panel when selecting a line in tables Knowledge.
+                </p>
+
+
+
+                <p>If the current entry has been found in at least one knowledge
+                    base, this tab lists all matching entries in the knowledge base
+                    according to its category.</p>
+                <p>If it is a cookie, these entries are categorized as follows:</p>
+                <ul>
+                    <li><i>Exact match</i> : at least one entry corresponds to
+                        the name and the domain of the cookie,</li>
+                    <li><i>Match name</i> : at least one entry corresponds to
+                        the name of the cookie with a wildcard domain
+                        (<i>*</i>),</li>
+                    <li><i>Match domain</i> : at least one entry corresponds to
+                        the domain of this cookie.</li>
+                </ul>
+                <p>If it is a key in the local storage, at least one entry match
+                    the key or the script responsible for this entry.</p>
+
+
+                <p>You can refer to <a href="#/helps/new_analysis">Provide new analysis</a> for
+                    making use of that information in order to assess compliance /
+                    non-compliance of websites according to legal requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

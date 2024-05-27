@@ -37,7 +37,8 @@ In case of memory problem (JavaScript heap out of memory), you can try to increa
 
 For instance in Linux/macOS terminal : export NODE_OPTIONS=--max-old-space-size=8192
 
-## Build and run the project
+
+## Build and run the project (electron)
 
 Run `npm run start` to build the project. The build artifacts will be stored in the `dist/` directory. 
 
@@ -85,5 +86,6 @@ Run `npm run ng:test` to execute the unit tests via [Karma](https://karma-runner
 
 Run `npm run e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+## Build and deploy from a server  (SaaS version)
 
-
+Run `npm run ng:serve` to test the project on your local server. Run `npm run build:prod` to build the project and serve the build artifacts in the `dist/` directory from a webserver (Apache2 or Nginx) 

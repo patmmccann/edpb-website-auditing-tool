@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld(
     getURL: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('getURL', analysis_id, tag_id),
     get: (analysis_id : number, tag_id : number, kind) => ipcRenderer.invoke('get', analysis_id, tag_id, kind),
     launch: (analysis_id : number, tag_id : number, kind) => ipcRenderer.invoke('launch', analysis_id, tag_id, kind),
-    screenshot: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('screenshot', analysis_id, tag_id),
+    screenshot: (analysis_id : number, tag_id : number, full_screenshot:boolean) => ipcRenderer.invoke('screenshot', analysis_id, tag_id,full_screenshot),
     stop: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('stop', analysis_id, tag_id),
     refresh: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('refresh', analysis_id, tag_id),
     backward: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('backward', analysis_id, tag_id),
@@ -33,6 +33,8 @@ contextBridge.exposeInMainWorld(
     parseHar: (har, args : any) => ipcRenderer.invoke('parseHar', har, args),
     print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_docx', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     print_to_pdf: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_pdf', htmlString, headerHTMLString, documentOptions, footerHTMLString),
+    testSSLLocation: (settings) => ipcRenderer.invoke('testSSLLocation', settings),
+    versions: () => ipcRenderer.invoke('versions'),
     subscriveToBrowserEvent: (callback) => {
       ipcRenderer.on('browser-event', (event, ...args) => {
         callback([...args]);

@@ -23,7 +23,7 @@ import { BeaconCard } from '../models/cards/beacon-card.model';
 import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { ScreenshotCard } from '../models/cards/screenshot-card.model';
 import { SourceCard } from '../models/cards/source-card.model';
-import { WebsiteCard } from '../models/cards/website-card.model';
+import { InfoCard } from '../models/cards/info-card.model';
 import { Details } from '../models/details.model';
 
 const exportable_cards = ["cookie", "localstorage"];
@@ -216,7 +216,7 @@ export class ReportService {
             // Stringify log calls and values
             lines.forEach((line :any) => {
               if(line.log){
-                line.log = JSON.stringify(line.log.stacks)
+                line.log = line.log.stacks;
               }
 
               if(line.value && typeof(line.value)!="string"){
@@ -261,48 +261,57 @@ export class ReportService {
           switch (card.kind) {
             case 'cookie':
               const cookieCard = (card as CookieCard);
-              resolve({ cookies: filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation });
+              resolve({ cookies: {values : filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'localstorage':
               const localstorageCard = (card as LocalStorageCard);
-              resolve({ localstorage: filter_details(localstorageCard.localStorageLines, evaluations_opt), evaluation: evaluation });
+              resolve({ localstorage : {values : filter_details(localstorageCard.localStorageLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'https':
               const httpCard = (card as HTTPCard);
-              resolve({ secure_connection: {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation });
+              resolve({ secure_connection: {values : {"https_redirect": httpCard.https_redirect, "https_support":httpCard.https_support, "redirects":httpCard.redirects?(httpCard.redirects as any)[0]:null}, evaluation: evaluation }});
               break;
             case 'traffic':
               const trafficCard = (card as TrafficCard);
               const requests = trafficCard.requests;
-              resolve({ traffic: requests['thirdParty'].map(request =>({'requested':request})), evaluation: evaluation });
+              resolve({ traffic:  {values : requests['thirdParty'].map(request =>({'requested':request})), evaluation: evaluation }});
               break;
             case 'forms':
               const formCard = (card as UnsafeFormsCard);
-              resolve({ unsafeForms: formCard.unsafeForms, evaluation: evaluation });
+              resolve({ unsafeForms :  {values : formCard.unsafeForms, evaluation: evaluation }});
               break;
             case 'beacons':
               const beaconCard = (card as BeaconCard);
-              resolve({ beacons: filter_details(beaconCard.beaconLines, evaluations_opt), evaluation: evaluation });
+              resolve({ beacons: {values :filter_details(beaconCard.beaconLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'testSSL':
               const testsslCard = (card as TestSSLCard);
-              resolve({ testSSL: {protocols:filter_details(testsslCard.protocols, evaluations_opt), vulnerabilities:filter_details(testsslCard.vulnerabilities, evaluations_opt)}, evaluation: evaluation });
+              resolve({ testSSL: {values : {protocols:filter_details(testsslCard.protocols, evaluations_opt), vulnerabilities:filter_details(testsslCard.vulnerabilities, evaluations_opt)}, evaluation: evaluation }});
               break;
             case 'image':
               const screenshotCard = (card as ScreenshotCard);
               let reader = new FileReader();
               reader.readAsDataURL(screenshotCard.image);
               reader.onloadend = function() {
-                resolve({ screenshot: {src:reader.result, name:screenshotCard.name}, evaluation: evaluation });
+                resolve({ screenshot: {values : {src:reader.result, name:screenshotCard.name}, evaluation: evaluation }});
               }
               break;
             case 'html':
               const htmlCard = (card as SourceCard);
-              resolve({ source: htmlCard, evaluation: evaluation });
+              resolve({ source: {values :htmlCard, evaluation: evaluation }});
               break;
             case 'info':
-              const infoCard = (card as WebsiteCard);
-              resolve({ info: [{'name':infoCard.name, 'url':infoCard.url}], evaluation: evaluation });
+              const infoCard = (card as InfoCard);
+              resolve({ info: {
+                values : {
+                'chrome_version':infoCard.chrome_version, 
+                'tool_version':infoCard.tool_version,
+                'user_agent':infoCard.user_agent,
+                'start_time':infoCard.start_time,
+                'end_time':infoCard.end_time,
+                'visited_urls':infoCard.visited_urls
+              } 
+              }});
               break;
             default:
               resolve({});

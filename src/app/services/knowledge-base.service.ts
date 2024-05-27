@@ -5,7 +5,7 @@
  */
 import { Injectable } from '@angular/core';
 import { ApplicationDb } from '../classes/application.db';
-import { KnowledgeBase } from '../models/knowledgeBase.model';
+import { KnowledgeBase,allTrustLevel } from '../models/knowledgeBase.model';
 import { CookieKnowledgesService, CookieSearch } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';
 import { CookieLine } from '../models/cards/cookie-card.model';
@@ -21,7 +21,7 @@ import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowled
 export class KnowledgeBaseService extends ApplicationDb {
   knowledgeBaseData: any = null;
   knowledgeBaseKind: kindKnowledge = null;
-  knowledgeBaseSource:any={};
+  knowledgeBaseSource: any = {};
 
   q: string = "";
   filter: string = "";
@@ -30,12 +30,12 @@ export class KnowledgeBaseService extends ApplicationDb {
   placeholder: string | null = null;
   constructor(
     private cookieKnowledgesService: CookieKnowledgesService,
-    private localstorageKnowledgeService : LocalstorageKnowledgesService
+    private localstorageKnowledgeService: LocalstorageKnowledgesService
   ) {
     super(1, 'knowledgeBase');
   }
 
-  public getAll(): Promise<any> {
+  public getAll(): Promise<KnowledgeBase[]> {
     return new Promise((resolve, reject) => {
       this.findAll()
         .then((response: any) => {
@@ -49,7 +49,9 @@ export class KnowledgeBaseService extends ApplicationDb {
                   e.name,
                   e.author,
                   e.category,
-                  e.created_at
+                  e.created_at,
+                  e.trustLevel,
+                  e.used
                 )
               );
             });
@@ -102,6 +104,8 @@ export class KnowledgeBaseService extends ApplicationDb {
         entry.name = base.name;
         entry.author = base.author;
         entry.category = base.category;
+        entry.trustLevel = base.trustLevel;
+        entry.used = base.used;
         entry.updated_at = new Date();
 
         super
@@ -123,9 +127,9 @@ export class KnowledgeBaseService extends ApplicationDb {
   export(id: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.find(id).then((data: any) => {
-        const knowledgeService = data.category == 'cookie'? this.cookieKnowledgesService : this.localstorageKnowledgeService;
+        const knowledgeService = data.category == 'cookie' ? this.cookieKnowledgesService : this.localstorageKnowledgeService;
         knowledgeService.getEntries(id).then(knowledges => {
-          knowledges.forEach((knowledge:any) =>{
+          knowledges.forEach((knowledge: any) => {
             if (knowledge.knowledge_base_id) delete knowledge.knowledge_base_id;
             if (knowledge.id) delete knowledge.id;
           })
@@ -137,46 +141,48 @@ export class KnowledgeBaseService extends ApplicationDb {
     });
   }
 
-      /**
-   * Erase  delete method for an entry in the database.
-   * @param {any} id - The record id.
-   * @returns {Promise}
-   */
-     override async delete(id: number) {
-      return new Promise((resolve, reject) => {
-        this.find(id).then((data: KnowledgeBase) => {
-          const knowledgeService = data.category == 'cookie'? this.cookieKnowledgesService : this.localstorageKnowledgeService;
-          knowledgeService.getEntries(id).then(knowledges => {
-            const delete_promises = knowledges.map((knowledge :any) => knowledgeService.delete(knowledge.id));
-            delete_promises.push(super.delete(id));
-            Promise.all(delete_promises)
-            .then(()=>{
+  /**
+* Erase  delete method for an entry in the database.
+* @param {any} id - The record id.
+* @returns {Promise}
+*/
+  override async delete(id: number) {
+    return new Promise((resolve, reject) => {
+      this.find(id).then((data: KnowledgeBase) => {
+        const knowledgeService = data.category == 'cookie' ? this.cookieKnowledgesService : this.localstorageKnowledgeService;
+        knowledgeService.getEntries(id).then(knowledges => {
+          const delete_promises = knowledges.map((knowledge: any) => knowledgeService.delete(knowledge.id));
+          delete_promises.push(super.delete(id));
+          Promise.all(delete_promises)
+            .then(() => {
               resolve(id);
             })
-          });
         });
       });
+    });
   }
 
-  parseKnowledgeBase(data :any): Promise<KnowledgeBase>{
+  parseKnowledgeBase(data: any): Promise<KnowledgeBase> {
     return new Promise((resolve, reject) => {
       const newKnowledgeBase = new KnowledgeBase(
         0,
         data.name,
         data.author,
         data.category,
-        new Date()
+        new Date(),
+        data.trustLevel,
+        data.used
       );
 
       this.create(newKnowledgeBase)
         .then(async (resp: KnowledgeBase) => {
           let knowledgeService = null;
 
-          if (data.category == 'cookie'){
+          if (data.category == 'cookie') {
             knowledgeService = this.cookieKnowledgesService;
-          } else if (data.category == 'localstorage'){
+          } else if (data.category == 'localstorage') {
             knowledgeService = this.localstorageKnowledgeService;
-          }else {
+          } else {
             throw Error('unsupported category for knowledge base')
           }
 
@@ -205,18 +211,18 @@ export class KnowledgeBaseService extends ApplicationDb {
       reader.onload = (event2: any) => {
         const data = JSON.parse(event2.target.result);
 
-        if(Array.isArray(data)){
+        if (Array.isArray(data)) {
           const knowledge_promises = data.map(knowlege => this.parseKnowledgeBase(knowlege));
           Promise.all(knowledge_promises)
-          .then((all_knowledge)=>{
-            resolve(all_knowledge);
-          })
+            .then((all_knowledge) => {
+              resolve(all_knowledge);
+            })
 
-        }else{
+        } else {
           this.parseKnowledgeBase(data)
-          .then((knowledgeBase)=>{
-            resolve ([knowledgeBase]);
-          })
+            .then((knowledgeBase) => {
+              resolve([knowledgeBase]);
+            })
         }
       };
     });
@@ -235,67 +241,69 @@ export class KnowledgeBaseService extends ApplicationDb {
             data.name + ' (copy)',
             data.author,
             data.category,
-            new Date()
+            new Date(),
+            data.trustLevel,
+            data.used
           )
         )
           .then((newKnowledgeBase: KnowledgeBase) => {
 
-            if (data.category == 'cookie'){
-            // Duplicate entries
-            this.cookieKnowledgesService
-              .getEntries(id)
-              .then((knowledges: CookieKnowledge[]) => {
-                knowledges.forEach((entry: CookieKnowledge) => {
-                  const temp = new CookieKnowledge();
-                  temp.domain = entry.domain;
-                  temp.name = entry.name;
-                  temp.source = entry.source;
-                  temp.controller = entry.controller;
-                  temp.policy = entry.policy;
-                  temp.category = entry.category;
-                  temp.reference = entry.reference;
-                  temp.comment = entry.comment;
-                  temp.created_at = new Date(entry.created_at);
-                  temp.updated_at = new Date(entry.updated_at);
-                  this.cookieKnowledgesService
-                    .add(newKnowledgeBase.id, temp)
-                    .then(e => {
-                      console.log(e);
-                      resolve();
-                    })
-                    .catch(err => {
-                      reject(err);
-                    });
-                });
-              });
-            }else if (data.category == 'localstorage'){
-                          // Duplicate entries
-            this.localstorageKnowledgeService
-            .getEntries(id)
-            .then((knowledges: LocalStorageKnowledge[]) => {
-              knowledges.forEach((entry: LocalStorageKnowledge) => {
-                const temp = new LocalStorageKnowledge();
-                temp.key = entry.key;
-                temp.script = entry.script;
-                temp.source = entry.source;
-                temp.controller = entry.controller;
-                temp.policy = entry.policy;
-                temp.category = entry.category;
-                temp.reference = entry.reference;
-                temp.comment = entry.comment;
-                temp.created_at = new Date(entry.created_at);
-                temp.updated_at = new Date(entry.updated_at);
-                this.localstorageKnowledgeService
-                  .add(newKnowledgeBase.id, temp)
-                  .then(e => {
-                    console.log(e);
-                    resolve();
-                  })
-                  .catch(err => {
-                    reject(err);
+            if (data.category == 'cookie') {
+              // Duplicate entries
+              this.cookieKnowledgesService
+                .getEntries(id)
+                .then((knowledges: CookieKnowledge[]) => {
+                  knowledges.forEach((entry: CookieKnowledge) => {
+                    const temp = new CookieKnowledge();
+                    temp.domain = entry.domain;
+                    temp.name = entry.name;
+                    temp.source = entry.source;
+                    temp.controller = entry.controller;
+                    temp.policy = entry.policy;
+                    temp.category = entry.category;
+                    temp.reference = entry.reference;
+                    temp.comment = entry.comment;
+                    temp.created_at = new Date(entry.created_at);
+                    temp.updated_at = new Date(entry.updated_at);
+                    this.cookieKnowledgesService
+                      .add(newKnowledgeBase.id, temp)
+                      .then(e => {
+                        console.log(e);
+                        resolve();
+                      })
+                      .catch(err => {
+                        reject(err);
+                      });
                   });
-              });
-            });
+                });
+            } else if (data.category == 'localstorage') {
+              // Duplicate entries
+              this.localstorageKnowledgeService
+                .getEntries(id)
+                .then((knowledges: LocalStorageKnowledge[]) => {
+                  knowledges.forEach((entry: LocalStorageKnowledge) => {
+                    const temp = new LocalStorageKnowledge();
+                    temp.key = entry.key;
+                    temp.script = entry.script;
+                    temp.source = entry.source;
+                    temp.controller = entry.controller;
+                    temp.policy = entry.policy;
+                    temp.category = entry.category;
+                    temp.reference = entry.reference;
+                    temp.comment = entry.comment;
+                    temp.created_at = new Date(entry.created_at);
+                    temp.updated_at = new Date(entry.updated_at);
+                    this.localstorageKnowledgeService
+                      .add(newKnowledgeBase.id, temp)
+                      .then(e => {
+                        console.log(e);
+                        resolve();
+                      })
+                      .catch(err => {
+                        reject(err);
+                      });
+                  });
+                });
             }
 
           })
@@ -314,33 +322,51 @@ export class KnowledgeBaseService extends ApplicationDb {
    * @param filter - Text to search.
    * @param event - Any Event.
    */
-  search(value: CookieLine | LocalStorageLine, kind: string): void {
+  async search(value: CookieLine | LocalStorageLine, kind: string): Promise<void> {
+    // Only search in enabled databases
+    const bases = await this.getAll();
+    const used_bases = bases.filter(x => x.used == true);
+    const sorted_bases = used_bases.sort((a, b) => (allTrustLevel.indexOf(a.trustLevel) > allTrustLevel.indexOf(b.trustLevel)) ? 1 : ((allTrustLevel.indexOf(b.trustLevel) > allTrustLevel.indexOf(a.trustLevel)) ? -1 : 0));
 
     switch (kind) {
       case "cookie":
+        const cookiebases = sorted_bases.filter(x => x.category == "cookie");
         const cookeLine = value as CookieLine;
-        this.knowledgeBaseSource= {'domain':cookeLine.domain, 'name':cookeLine.name};
-        this.cookieKnowledgesService.getCookieEntries(cookeLine.domain, cookeLine.name).then(result => {
-          if (result.matched){
-            this.knowledgeBaseData = result;
-          }else{
-            this.knowledgeBaseData = null;
-          }
-          this.knowledgeBaseKind = 'cookie';
-        });
+        this.knowledgeBaseSource = { 'domain': cookeLine.domain, 'name': cookeLine.name };
+        const cookies = await this.cookieKnowledgesService.getCookieEntries(cookeLine.domain, cookeLine.name);
+
+        if (cookies.matched) {
+          cookiebases.map((cookiebase :any) => {
+            cookiebase.cookie_domain = cookies.domain.filter(x => x.knowledge_base_id == cookiebase.id);
+            cookiebase.cookie_name = cookies.name.filter(x => x.knowledge_base_id == cookiebase.id);
+            cookiebase.cookie_name_and_domain = cookies.name_and_domain.filter(x => x.knowledge_base_id == cookiebase.id);
+            cookiebase.all_cookies = cookiebase.cookie_domain.length + cookiebase.cookie_name.length + cookiebase.cookie_name_and_domain.length;
+          });
+          
+          this.knowledgeBaseData = cookiebases.filter((x:any) => x.all_cookies >0);;
+        } else {
+          this.knowledgeBaseData = null;
+        }
+        this.knowledgeBaseKind = 'cookie';   
+        
         break;
 
       case "localstorage":
+        const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
         const localstorageLine = value as LocalStorageLine;
-        this.knowledgeBaseSource= {'key':localstorageLine.key, 'script':localstorageLine.log.stacks[0]?.fileName};
-        this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log).then(result => {
-          if (result.length >0 ){
-            this.knowledgeBaseData = result;
-          }else{
-            this.knowledgeBaseData = null;
-          }
-          this.knowledgeBaseKind = 'localstorage';
-        });
+        this.knowledgeBaseSource = { 'key': localstorageLine.key, 'script': localstorageLine.log.stacks[0]?.fileName };
+        const localstorage = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log);
+        
+        if (localstorage.length >0) {
+          localstoragebase.map((localbase :any) => {
+            localbase.localstorage = localstorage.filter((x:any) => x.knowledge_base_id == localbase.id);
+          });
+          this.knowledgeBaseData = localstoragebase.filter((x:any) => x.localstorage.length >0);;
+        }else{
+          this.knowledgeBaseData = null;
+        }
+
+        this.knowledgeBaseKind = 'localstorage';
         break;
       default:
         this.knowledgeBaseData = null;

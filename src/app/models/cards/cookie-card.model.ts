@@ -67,8 +67,4 @@ export class CookieCard extends Card {
     contains(line: CookieLine) {
         return this.cookieLines.some(l => l.name == line.name && l.value == line.value && l.domain == line.domain)
     }
-
-    override get help():string  {
-        return "Persistent cookies stored in the browser during the browsing session with their potential purposes from the knowledge base. Click on header to sort cookies and on a line to get more detailed on a specific cookie."
-    } 
 }

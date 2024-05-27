@@ -21,8 +21,4 @@ export class TrafficCard extends Card{
         this.localStorage = value.localStorage;
         this.links = value.links;
     }
-
-    override get help():string {
-        return "List of hosts that received at least one request during the browsing session."
-    } 
 }

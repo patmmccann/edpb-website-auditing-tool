@@ -1,0 +1,161 @@
+<div class="card-evaluationBlock">
+
+  <div class="sectiontitle card-evaluationBlock-title">
+    <span> {{ "search.selectors" | translate }}</span>
+    <span class="icon-spacer"></span>
+
+  </div>
+</div>
+<div>
+  <mat-button-toggle-group #toolbargroup="matButtonToggleGroup" [(value)]="selector" multiple>
+    <mat-button-toggle (change)="!$event.source.checked?removeFilter('from_values'):null" class="btn-toogle-primary"
+      value="from_values">
+
+      <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon>  {{ "search.from_values" | translate }} </mat-button-toggle>
+    <mat-button-toggle
+      *ngIf="(card.kind == 'cookie' && cookieKnowledges.length >0) || (card.kind == 'localstorage' && localstorageKnowledges.length >0)"
+      (change)="!$event.source.checked?removeFilter('from_knowledge'):updateCategory(null)" class="btn-toogle-primary"
+      value="from_knowledge"><mat-icon aria-hidden="false" aria-label="knowledge icon">menu_book</mat-icon> {{ "search.from_knowledges" | translate }} </mat-button-toggle>
+    <mat-button-toggle class="btn-toogle-primary" value="mark_as"><mat-icon aria-hidden="false"
+        aria-label="mark icon">edit</mat-icon> {{ "search.mark_as" | translate }} </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+
+<mat-toolbar class="page-header" role="heading" *ngIf="selector.length >0">
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values')">
+    {{ "search.from_values" | translate }}
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('from_values')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='cookie'" [formGroup]="searchCookieForm">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ "knowledge.domain" | translate }}</mat-label>
+      <input formControlName="searchDomain" matInput />
+      <mat-icon *ngIf="!searchCookieForm.value.searchDomain" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchCookieForm.value.searchDomain && searchCookieForm.value.searchDomain.length>0"
+        (click)="searchCookieForm.patchValue({searchDomain:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ "knowledge.name" | translate }}</mat-label>
+      <input formControlName="searchName" matInput />
+      <mat-icon *ngIf="!searchCookieForm.value.searchName" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchCookieForm.value.searchName && searchCookieForm.value.searchName.length>0"
+        (click)="searchCookieForm.patchValue({searchName:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='localstorage'"
+    [formGroup]="searchLocalStorageForm">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ "knowledge.host" | translate }}</mat-label>
+      <input formControlName="searchHost" matInput />
+      <mat-icon *ngIf="!searchLocalStorageForm.value.searchHost" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchLocalStorageForm.value.searchHost && searchLocalStorageForm.value.searchHost.length>0"
+        (click)="searchLocalStorageForm.patchValue({searchHost:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ "knowledge.key" | translate }}</mat-label>
+      <input formControlName="searchKey" matInput />
+      <mat-icon *ngIf="!searchLocalStorageForm.value.searchKey" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchLocalStorageForm.value.searchKey && searchLocalStorageForm.value.searchKey.length>0"
+        (click)="searchLocalStorageForm.patchValue({searchKey:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values') && card.kind =='beacons'" [formGroup]="searchBeaconForm">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ "knowledge.url" | translate }}</mat-label>
+      <input formControlName="searchUrl" matInput />
+      <mat-icon *ngIf="!searchBeaconForm.value.searchUrl" matSuffix>search</mat-icon>
+      <mat-icon *ngIf="searchBeaconForm.value.searchUrl && searchBeaconForm.value.searchUrl.length>0"
+        (click)="searchBeaconForm.patchValue({searchUrl:''})" matSuffix>close
+      </mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_values')" [formGroup]="searchStatusForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "analyses.edit.evaluation" | translate }} </mat-label>
+      <mat-select formControlName="searchStatus" multiple>
+        <mat-option *ngFor="let status of allStatus" [value]="status">{{ "analyses.evaluation."+ status | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+
+
+
+
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
+    {{ "knowledge.from_knowledges" | translate }}
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('from_knowledge')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')" [formGroup]="searchKnowledgeForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "knowledge.select_a_knowledge_base" | translate }} </mat-label>
+      <mat-select (selectionChange)="updateCategory($event)" formControlName="searchKnowledge" multiple>
+        <mat-option *ngFor="let knowledgeBase of cookieKnowledges" [value]="knowledgeBase.id">{{ knowledgeBase.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('from_knowledge')" [formGroup]="searchKnowledgeForm">
+    <mat-form-field appearance="fill">
+      <mat-label> {{ "knowledge.select_a_category" | translate }} </mat-label>
+      <mat-select formControlName="searchCategory" multiple>
+        <mat-option *ngFor="let category of searchCategory" [value]="category">{{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="selector.includes('mark_as')">
+    {{ "search.mark_as" | translate }} 
+    <span class="spacer"></span>
+    <mat-button-toggle-group #mark_as_group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle 
+      matTooltip="{{ 'analyses.evaluation.compliant' | translate }}"
+      [matTooltipPosition]="'below'"
+      value="compliant"><mat-icon style="color: green;">done</mat-icon></mat-button-toggle>
+      <mat-button-toggle 
+      matTooltip="{{ 'analyses.evaluation.not_compliant' | translate }}"
+      [matTooltipPosition]="'below'"
+      value="not_compliant"><mat-icon style="color: red;">close</mat-icon></mat-button-toggle>
+      <mat-button-toggle 
+      matTooltip="{{ 'analyses.evaluation.TBD' | translate }}"
+      [matTooltipPosition]="'below'"
+      value="TBD"><mat-icon style="color: #004494;">search</mat-icon></mat-button-toggle>
+    </mat-button-toggle-group>
+    <button mat-raised-button (click)="mark_as(mark_as_group.value)" class="btn-toogle-primary">{{ "search.apply" | translate }}</button>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="removeFilter('mark_as')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>  
+</mat-toolbar>
+
+<div class="card-evaluationBlock">
+
+  <div class="sectiontitle card-evaluationBlock-title">
+    <span>{{ "search.content" | translate }}</span>
+    <span class="icon-spacer"></span>
+
+  </div>
+</div>

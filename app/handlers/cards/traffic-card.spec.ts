@@ -37,9 +37,10 @@ test.describe('Traffic Card', () => {
     expect(output).toHaveProperty('hosts');
     expect(output.hosts).toHaveProperty('requests');
     expect(output.hosts.requests).toHaveProperty('thirdParty');
-    expect(output.hosts.requests.thirdParty).toHaveLength(2);
+    expect(output.hosts.requests.thirdParty).toHaveLength(4);
     expect(output.hosts.requests.thirdParty[0]).toBe("edpb.europa.eu");
-    expect(output.hosts.requests.thirdParty[1]).toBe("europa.eu");
+    expect(output.hosts.requests.thirdParty[1]).toBe("www.edpb.europa.eu");
+    expect(output.hosts.requests.thirdParty[2]).toBe("europa.eu");
     await ipcMainInvokeHandler(app, 'deleteCollector');
   });
 

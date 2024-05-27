@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
+import { KnowledgeBase, allTrustLevel,TrustLevel } from 'src/app/models/knowledgeBase.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { Sort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-knowledgebase-table',
@@ -20,6 +21,7 @@ export class KnowledgebaseTableComponent implements OnInit {
   @Output() deleted = new EventEmitter<any>();
 
   @Input() entries:any[]=[];
+  allTrustLevel = allTrustLevel;
 
   constructor(
     private knowledgeBaseService: KnowledgeBaseService
@@ -83,6 +85,16 @@ export class KnowledgebaseTableComponent implements OnInit {
     this.duplicated.emit();
   }
 
+  updateTrust(base:KnowledgeBase, trustLevel : TrustLevel): void {
+    base.trustLevel = trustLevel;
+    this.knowledgeBaseService.update(base);
+  }
+
+  updateUsed(base:KnowledgeBase, used : boolean): void {
+    base.used = used;
+    this.knowledgeBaseService.update(base);
+  }
+
     /**
    * Asort items created on PIA.
    */
@@ -99,6 +111,10 @@ export class KnowledgebaseTableComponent implements OnInit {
             return compare(a.category, b.category, isAsc);
           case 'knowledges':
             return compare(a.knowledges, b.knowledges, isAsc);
+          case 'trust':
+            return compare(a.trust, b.trust, isAsc);
+          case 'used':
+            return compare(a.used, b.used, isAsc);
           default:
             return 0;
         }

@@ -59,7 +59,7 @@
                     <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.analysis' | translate }}</strong></span></div>
                 </div><br>
                 <app-analysis-line *ngFor="
-                let analysis of entries | filterForUser: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
+                let analysis of entries | filterForAnalysis: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
                 let i = index
               " (changed)="updateEntrie($event)" (deleted)="refreshContent()" [analysis]="analysis">
                 </app-analysis-line>
@@ -130,7 +130,7 @@
                     </mat-list-item>
                     <mat-list-item>
                         <mat-checkbox [(ngModel)]="tbd" style="color:#004494;" [color]="'primary'">
-                            {{ "analyses.evaluation.to_be_defined" | translate }}
+                            {{ "analyses.evaluation.TBD" | translate }}
                         </mat-checkbox>
                     </mat-list-item>
                 </mat-list>

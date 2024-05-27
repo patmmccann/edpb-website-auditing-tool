@@ -1,0 +1,211 @@
+<mat-card class="compare-card">
+    <mat-card-header>
+        <mat-card-subtitle>Database updates</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-accordion>
+            <app-modal *ngIf="showModal==true"
+                (clickOnClose)="showModal = false;closeEvent.emit()">
+                {{ "compare.no_modifications" | translate }}
+            </app-modal>
+
+            <mat-expansion-panel *ngIf="to_add.length >0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ "compare.new_elements" | translate }} ({{to_add.length}})
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ "compare.new_elements_expand" | translate }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table class="base-list-table">
+                    <thead>
+                        <tr>
+                            <th style="width:75px;">
+                                <a><span>{{ "compare.add" | translate }}</span></a>
+                            </th>
+                            <th colspan="2">
+                                <a><span>{{ "knowledge.domain" | translate }}</span></a>
+                            </th>
+                            <th style="width:75px;">
+                                <a><span>{{ "knowledge.name" | translate }}</span></a>
+                            </th>
+                            <th style="width:75px;text-align:center;">
+                                <a><span> {{ "knowledge.category" | translate }}</span></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of to_add; index as i" [ngClass]="{ noElementsDisplaying: showForm }">
+                            <td class="base-listsBlock-item">
+                                <a href="javascript:;" (click)="apply_add(i)" class="btn base-tooltip">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <span title="Add to current database" class="base-tooltip-text">
+                                        {{ "compare.add_to_database" | translate }}
+                                    </span>
+                                </a>
+                                <a (click)="delete_add(i)" class="btn base-tooltip">
+                                    <i class="fa fa-close" aria-hidden="true"></i>
+                                    <span title="Remove modification" class="base-tooltip-text">{{ "compare.remove_modification" | translate }}
+                                    </span>
+                                </a>
+                            </td>
+                            <td class="base-listsBlock-item-click" colspan="2">
+                                <ng-container>{{
+                                    item.domain
+                                    }}</ng-container>
+                            </td>
+                            <td class="base-listsBlock-item-click">
+                                {{item.name}}
+                            </td>
+                            <td class="base-listsBlock-item-click" style="text-align:center;">
+                                {{
+                                item.category
+                                }}
+                            </td>
+
+                            <!-- Display element data block in absolute -->
+                            <td class="base-knowledges_base-displayData">
+                                <h3>
+                                    {{item.category}}
+                                </h3>
+                                <div class="base-knowledges_base-displayData-category">
+                                    {{item.category}}
+                                </div>
+                                <div class="base-knowledges_base-displayData-description">
+                                    <ng-container>
+                                        {{ "knowledge.domain" | translate }} : {{item.domain}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.name" | translate }} : {{item.name}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.source" | translate }} : {{item.source}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.comments" | translate }} : <br>
+                                        <div [innerHTML]="item.comment"></div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="to_remove.length >0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ "compare.deleted_elements" | translate }}  ({{to_remove.length}})
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{ "compare.deleted_elements_expand" | translate }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table class="base-list-table">
+                    <thead>
+                        <tr>
+                            <th style="width:75px;">
+                                <a><span>{{ "compare.remove" | translate }}</span></a>
+                            </th>
+                            <th colspan="2">
+                                <a><span>{{ "knowledge.domain" | translate }}</span></a>
+                            </th>
+                            <th style="width:75px;">
+                                <a><span>{{ "knowledge.name" | translate }}</span></a>
+                            </th>
+                            <th style="width:75px;text-align:center;">
+                                <a><span> {{ "knowledge.category" | translate }}</span></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of to_remove; index as i" [ngClass]="{ noElementsDisplaying: showForm }">
+                            <td class="base-listsBlock-item">
+                                <a href="javascript:;" (click)="apply_remove(i, item.id)" class="btn base-tooltip">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    <span title="Delete from current database" class="base-tooltip-text">
+                                        {{ "knowledge.delete_from_database" | translate }}
+                                    </span>
+                                </a>
+                                <a (click)="delete_remove(item.id)" class="btn base-tooltip">
+                                    <i class="fa fa-close" aria-hidden="true"></i>
+                                    <span title="Remove modification" class="base-tooltip-text">Remove modification
+                                    </span>
+                                </a>
+                            </td>
+                            <td class="base-listsBlock-item-click" colspan="2">
+                                <ng-container>{{
+                                    item.value.domain
+                                    }}</ng-container>
+                            </td>
+                            <td class="base-listsBlock-item-click">
+                                {{item.value.name}}
+                            </td>
+                            <td class="base-listsBlock-item-click" style="text-align:center;">
+                                {{
+                                item.value.category
+                                }}
+                            </td>
+
+                            <!-- Display element data block in absolute -->
+                            <td class="base-knowledges_base-displayData">
+                                <h3>
+                                    {{item.value.category}}
+                                </h3>
+                                <div class="base-knowledges_base-displayData-category">
+                                    {{item.value.category}}
+                                </div>
+                                <div class="base-knowledges_base-displayData-description">
+                                    <ng-container>
+                                        {{ "knowledge.domain" | translate }} : {{item.value.domain}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.name" | translate }} : {{item.value.name}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.source" | translate }} : {{item.value.source}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.data_controller" | translate }} : {{item.value.controller}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.privacy_policy" | translate }} : {{item.value.policy}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.referenced_in" | translate }} : {{item.value.reference}} <br>
+                                    </ng-container>
+                                    <ng-container>
+                                        {{ "knowledge.comments" | translate }} : <br>
+                                        <div [innerHTML]="item.value.comment"></div>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions *ngIf="!showModal">
+        <span class="spacer"></span>
+        <button *ngIf="to_remove.length != 0 && to_add.length != 0" mat-button
+        (click)="applyAll()" > {{ "compare.apply_all" | translate }}
+        </button>
+        <button mat-button 
+        (click)="closeEvent.emit()">{{ "compare.dismiss" | translate }}</button>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="showProgress">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

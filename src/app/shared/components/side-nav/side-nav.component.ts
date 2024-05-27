@@ -17,7 +17,7 @@ export class SideNavComponent implements OnInit {
   sessions: BrowserSession[] = [];
 
   constructor(
-    private browserService: BrowserService
+    public browserService: BrowserService
   ) { }
 
   ngOnInit(): void {

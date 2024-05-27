@@ -18,8 +18,10 @@ import { TestSSLCard } from '../models/cards/test-sslcard.model';
 import { TrafficCard } from '../models/cards/traffic-card.model';
 import { UnsafeFormsCard } from '../models/cards/unsafe-forms-card.model';
 import { BeaconCard } from '../models/cards/beacon-card.model';
+import { InfoCard } from '../models/cards/info-card.model';
 import { SettingsService } from './settings.service';
-
+import { environment } from 'src/environments/environment';
+import { version } from 'os';
 
 export interface BrowserSession {
   event: 'new' | 'delete',
@@ -37,12 +39,17 @@ export class BrowserService {
   @Output() sessionEvent = new EventEmitter<BrowserSession>();
   @Output() loadEvent = new EventEmitter<any>();
   cards: Card[] = [];
+  use_electron = false;
 
   constructor(
     private inspectionService: InspectionService,
     private settingService: SettingsService
   ) {
-    if (!(window as any).electron) this.createFakeElectron(window);
+    if (!(window as any).electron) {
+      this.createFakeElectron(window);
+    } else {
+      this.use_electron = true;
+    }
 
     (window as any).electron.subscriveToBrowserEvent((args: any) => {
       this.loadEvent.emit(args);
@@ -59,13 +66,13 @@ export class BrowserService {
       showSession: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       getSessions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
       hideSession: (): Promise<void> => new Promise((resolve, reject) => resolve()),
-      updateSettings:(settings:any): Promise<void> => new Promise((resolve, reject) => resolve()),
+      updateSettings: (settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       resizeSession: (rect: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       loadURL: (analysis_id: number, tag_id: number, url: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       getURL: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       get: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
       launch: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
-      screenshot: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
+      screenshot: (analysis_id: number, tag_id: number, full_screenshot: boolean): Promise<void> => new Promise((resolve, reject) => resolve()),
       stop: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       refresh: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       backward: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
@@ -75,11 +82,14 @@ export class BrowserService {
       subscriveToBrowserEvent: (callback: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       renderPug: (template: string, data: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      versions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
+      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve(""))
     }
   }
 
   newSession(window: any, analysis: Analysis | null, tag: Tag | null): Promise<any[]> {
+
     return new Promise((resolve, reject) => {
       if (analysis && tag) {
         window.electron.createCollector(analysis.id, tag.id, analysis.url, this.settingService.settings).then(() => {
@@ -258,6 +268,19 @@ export class BrowserService {
                   }
                 }
                 break;
+              case 'info':
+                {
+                  const infoCard = (card as InfoCard);
+                  const new_card = this.inspectionService.inspectInfo(output.info);
+                  infoCard.chrome_version = new_card.chrome_version;
+                  infoCard.tool_version = new_card.tool_version;
+                  infoCard.user_agent = new_card.user_agent;
+                  infoCard.end_time = new Date().toString();
+                  if (new_card.visited_urls.length != infoCard.visited_urls.length) {
+                    infoCard.visited_urls = new_card.visited_urls;
+                  }
+                }
+                break;
             }
           }
           resolve();
@@ -272,10 +295,14 @@ export class BrowserService {
     window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['testSSL']);
   }
 
+  async testSSLLocation(window: any) {
+    return await window.electron.testSSLLocation(this.settingService.settings);
+  }
 
-  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null): Promise<ScreenshotCard> {
+
+  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null, fullpage: boolean): Promise<ScreenshotCard> {
     return new Promise((resolve, reject) => {
-      window.electron.screenshot(analysis?.id, tag?.id)
+      window.electron.screenshot(analysis?.id, tag?.id, fullpage)
         .then((result: any) => {
           const screenShotCard = new ScreenshotCard("New screenshot");
           screenShotCard.image = new Blob([result], { type: "image/png" });
@@ -303,5 +330,11 @@ export class BrowserService {
           resolve(cards);
         });
     });
+  }
+
+  async versions() {
+    const version = await (window as any).electron.versions();
+    version['appVersion'] = environment.version;
+    return version;
   }
 }

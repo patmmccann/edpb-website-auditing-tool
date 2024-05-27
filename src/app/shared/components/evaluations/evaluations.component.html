@@ -3,7 +3,7 @@
   <div 
   class="sectiontitle card-evaluationBlock-title"
   >
-    <span>Evaluate</span> 
+    <span>{{ 'analyses.evaluation.evaluate' | translate }}</span> 
     <span class="icon-spacer"></span>
     
   </div>
@@ -23,7 +23,7 @@
       <button class="btn-blue"  aria-hidden="true"
         [ngClass]="{ 'btn-active': evaluation.status === 'TBD' }" (click)="selectedButton($event, 'TBD')" name="tdb"
         type="submit">
-        {{ "analyses.evaluation.to_be_defined" | translate }}
+        {{ "analyses.evaluation.TBD" | translate }}
       </button>
     </div>
 
@@ -55,13 +55,13 @@
       }"
     ></div>
     <div class="commentsBlock-btn">
-      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> Close edition</button>  
+      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> {{ 'analyses.evaluation.close_edition' | translate }}</button>  
       <button *ngIf="!this.editorEvaluationComment"  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon>
         <ng-container *ngIf="evaluationForm.controls['evaluationComment'].value && evaluationForm.controls['evaluationComment'].value.length >0 else write_comment">
-          Edit comment
+          {{ 'analyses.evaluation.edit_comment' | translate }}
         </ng-container>
         <ng-template #write_comment>
-          Write a comment
+          {{ 'analyses.evaluation.write_comment' | translate }}
         </ng-template>
       
       </button>

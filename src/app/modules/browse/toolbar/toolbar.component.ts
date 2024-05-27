@@ -36,7 +36,6 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   
   @Input() analysis: Analysis | null = null;
   @Input() tag: Tag | null = null;
-  @Input() navigating = false;
   
   pause_state:boolean = false;
   log_opened:boolean =true;

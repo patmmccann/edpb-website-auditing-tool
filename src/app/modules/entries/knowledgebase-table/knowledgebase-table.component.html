@@ -14,9 +14,12 @@
       <th mat-sort-header="knowledges">
         <span>{{ "knowledge.number" | translate }}</span>
       </th>
-      <!-- <th mat-sort-header="trust">
-        <span>Level of trust</span>
-      </th> -->
+      <th mat-sort-header="trust">
+        <span>{{ "knowledge.trust_level" | translate }}</span>
+      </th>
+      <th mat-sort-header="used">
+        <span>{{ "knowledge.used_knowledge" | translate }}</span>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -37,10 +40,6 @@
           <a href="javascript:;" (click)="duplicate(base.id)" class="base-tooltip">
             <i class="fa fa-files-o" aria-hidden="true"></i>
             <span title="dupplicate" class="base-tooltip-text">{{ "entries.dupplicate" | translate }}</span>
-          </a>
-          <a href="javascript:;"  class="base-tooltip">
-            <i class="fa fa-ban" aria-hidden="true"></i>
-            <span title="dupplicate" class="base-tooltip-text">{{ "entries.disable" | translate }}</span>
           </a>
           <a href="javascript:;" (click)="remove(base.id)" class="base-tooltip">
             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -66,9 +65,34 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <!-- <td class="base-listsBlock-item" bgcolor="green">
-        <div>Trusted</div>
-      </td> -->
+      <td [ngClass]="{
+        'validated': base.trustLevel == 'validated',
+        'reliable':  base.trustLevel == 'reliable',
+        'informative':  base.trustLevel == 'informative',
+        'undefined':  base.trustLevel == 'undefined'
+      }">
+          <mat-select   class="base-listsBlock-item" 
+           [(value)]="base.trustLevel" (selectionChange)="updateTrust(base, $event.value)">
+              <mat-option 
+              [ngClass]="{
+                'validated_selection': trustLevel == 'validated',
+                'reliable_selection':  trustLevel == 'reliable',
+                'informative_selection':  trustLevel == 'informative',
+                'undefined_selection':  trustLevel == 'undefined'
+              }"
+              *ngFor="let trustLevel of allTrustLevel" 
+              [value]="trustLevel">{{ "knowledge."+trustLevel | translate }}</mat-option>
+          </mat-select>
+
+      </td>
+      <td class="base-listsBlock-item">
+        <mat-select   class="base-listsBlock-item"             
+         [(value)]="base.used" (selectionChange)="updateUsed(base, $event.value)">
+            <mat-option [value]="true" >Yes</mat-option>
+            <mat-option [value]="false" >No</mat-option>
+        </mat-select>
+
+    </td>
     </tr>
   </tbody>
 </table>

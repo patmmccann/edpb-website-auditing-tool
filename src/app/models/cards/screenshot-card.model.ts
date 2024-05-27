@@ -10,7 +10,6 @@ export class ScreenshotCard extends Card{
     
     constructor(name:string){
         super(name, "image");
-        this.is_name_editable = true;
     }
 
     static blobToBase64(blob:Blob) {

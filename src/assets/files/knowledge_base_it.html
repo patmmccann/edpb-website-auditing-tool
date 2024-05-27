@@ -1,0 +1,154 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-12 px-4 px-xl-5 order-0">
+        <div id="block-pagetitle" class="block block-core block-page-title-block">
+            <div class="content">
+                <header class="article-title" style="margin-top: 10px;">
+                    <h1 class="node__title mb-3 mt-0">Base di conoscenza</h1>
+                </header>
+                <p>Le informazioni memorizzate nei browser di un sito Web possono avere molteplici scopi, sia per il corretto funzionamento del sito Web sia per scopi sussidiari come il monitoraggio della navigazione dell&#39;utente per fornire annunci pubblicitari mirati. In quanto tali, alcuni potrebbero richiedere il consenso prima del loro utilizzo da parte del sito Web, o di terzi, per essere conformi ai requisiti legali, mentre altri potrebbero essere esentati.</p>
+                <p>Molti di questi tracker sono archiviati tramite SDK esterni sviluppati da società di terze parti, in quanto condividono proprietà comuni tra siti Web, come il dominio, il nome della chiave o gli script.</p>
+
+                <p>Le basi di conoscenza possono aiutare a identificare questi tracker, nonché a consolidare le conoscenze nel tempo durante l&#39;analisi caso per caso.</p>
+
+                <p>L&#39;identificazione dei tracker noti avviene durante la navigazione selezionando un cookie o una linea chiave di archiviazione locale dalle schede corrispondenti attraverso il pannello del logger del browser interno.</p>
+                <p>Queste stesse informazioni sono accessibili anche in <strong>Maggiori dettagli</strong> durante la valutazione della conformità giuridica di un&#39;analisi. Il pannello di espansione <strong>Aggiungere questo elemento a una base di conoscenze</strong> consente anche di aggiungere tracker ancora sconosciuti per la loro valutazione successiva.</p>
+
+                <p>Infine, il contenuto completo della conoscenza è accessibile attraverso <button> <span class="text-uppercase is-active"> la Knowledge Base</span> </button> nella categoria <strong style="color: rgba(0,0,0,.54);">Editor</strong> sulla barra di navigazione laterale sinistra.<p><header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Modifica di una base di conoscenze</h2>
+                </header>
+
+                <p>Ogni knowledge base è identificata da un nome e da un autore. È composto da una serie di voci che possono indirizzare i cookie o la chiave nell&#39;archiviazione locale.</p>
+
+                <p>La tabella seguente illustra in dettaglio lo scopo di ciascun elemento nella sezione <button> <span class="text-uppercase is-active"> della Knowledge Base:</span> </button></p>
+
+                <table border="2">
+                    <tr>
+                        <td><button  color="blue"><i class="fas fa-plus"></i> Nuova banca dati</button></td>
+                        <td>Per impostazione predefinita, lo strumento di auditing del sito Web non contiene alcuna base di conoscenze. Gli utenti possono crearne uno nuovo, selezionare un nome e la categoria appropriata (cookie<i></i> o <i>archiviazione locale).</i></td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-import"></i> Importazione </button></td>
+                        <td>Possono anche importare database esistenti in formato json che sono già stati creati da altri attraverso lo strumento di auditing del sito web.</td>
+                    </tr>
+                    <tr>
+                        <td><button  color="blue"><i
+                                    class="fas fa-file-export"></i> Esportare tutto </button></td>
+                        <td>Infine, possono esportare tutti i database contenuti in questo strumento attraverso un file in formato json, per scopi di condivisione o archiviazione.</td>
+                    </tr>
+                </table>
+                <p>Le voci del database possono anche essere gestite individualmente attraverso l&#39;insieme di pulsanti <a class="base-tooltip"> <i class="fa fa-eye" aria-hidden="true"></i> </a> <a class="base-tooltip"> <i class="fa fa-download" aria-hidden="true"></i> </a> <a href="javascript:;" class="base-tooltip"> <i class="fa fa-files-o" aria-hidden="true"></i> </a> <a href="javascript:;" class="base-tooltip"> <i class="fa fa-trash" aria-hidden="true"></i></a>, che consentono rispettivamente di visualizzare, scaricare, duplicare o rimuovere la voce selezionata.<header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Inserimenti di cookie</h2>
+                </header>
+                <p>Il <a class="base-tooltip"> <i class="fa fa-eye" aria-hidden="true"></i> </a> pulsante su una base di conoscenza dei cookie fornisce un elenco completo di tutte le voci in esso contenute, classificate in base al dominio, al nome e alla categoria.</p>
+
+                <p>Un clic su una voce relativa alla conoscenza dei cookie fornisce informazioni più dettagliate su questa voce:</p>
+                <table border="2">
+                    <tr>
+                        <td><span style="color: #004494;">Categoria</span></td>
+                        <td>Lo scopo identificato del cookie. Le voci possibili sono: <i>Pubblicità mirata</i>, <i>pubblicità non mirata</i>, <i>tecnica</i>, <i>analitica (esente)</i>, <i>analitica (non esentata)</i>, <i>social media</i>, <i>social media</i>, <i>personalizzazione dei contenuti</i> o<i>? (Sconosciuto)</i>.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Dominio</label></td>
+                        <td>Il dominio URL da cui sono stati memorizzati i cookie. La sua sintassi include caratteri jolly (*). Pertanto, se un cookie viene depositato dall&#39;URL di domini di terze parti, come &quot;server1.adcompany.com&quot; e &quot;server2.adcompany.com&quot;, la voce prevista è &quot;*.adcompany.com&quot;. Se un cookie viene necessariamente depositato dall&#39;URL del sito web visitato (di<i>prima parte)</i>e il dominio non è un&#39;informazione rilevante, la voce prevista è &quot;*&quot;.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Nome</label></td>
+                        <td>La chiave di identificazione utilizzata dal cookie. È ammesso anche l&#39;uso di caratteri jolly (*). Pertanto, se un cookie è denominato &quot;RTB_1234&quot; e &quot;RTB_5678&quot;, l&#39;input atteso è &quot;RTB_*&quot;. Se un dominio è necessariamente associato a uno scopo e il nome del cookie non è rilevante, la voce prevista è &quot;*&quot;.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Fonte</label></td>
+                        <td>L&#39;origine o la fonte dell&#39;identificazione.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Controllore dei dati</label></td>
+                        <td>Il titolare del trattamento dei dati identificato per il trattamento dei dati identificato. Utilizzare &quot;? se non è noto.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Informativa sulla privacy</label></td>
+                        <td>L&#39;URL della politica sulla privacy, se esiste.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Tipo di riferimento</label></td>
+                        <td>Se ci sono casi (ad<i>esempio sanzioni esistenti)</i> che si riferiscono a questo cookie.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Commento</label></td>
+                        <td>I commenti possono essere utilizzati per aggiungere informazioni contestuali sul cookie.</td>
+                    </tr>
+                </table>
+                <p>Ogni voce del modulo visualizzato può essere modificata con un clic. Infine, è possibile aggiungere nuove voci con <button 
+                        color="blue"><i class="fas fa-plus"></i> la voce Nuovo cookie.</button></p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Voci di archiviazione locale</h2>
+                </header>
+                <p>Le voci di archiviazione locale funzionano in modo simile ai cookie. Tuttavia questo deposito può avvenire solo attraverso script.</p>
+                <p>Un clic su una chiave di un archivio locale fornisce informazioni più dettagliate su questa voce:</p>
+                <table border="2">
+                    <tr>
+                        <td><span style="color: #004494;">Categoria</span></td>
+                        <td>Lo scopo identificato del cookie. Le voci possibili sono: <i>Pubblicità mirata</i>, <i>pubblicità non mirata</i>, <i>tecnica</i>, <i>analitica (esente)</i>, <i>analitica (non esentata)</i>, <i>social media</i>, <i>social media</i>, <i>personalizzazione dei contenuti</i> o<i>? (Sconosciuto)</i>.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Chiave</label></td>
+                        <td>Il valore chiave di questa voce. È ammesso anche l&#39;uso di caratteri jolly (*). Se un cookie è denominato &quot;RTB_1234&quot; e &quot;RTB_5678&quot;, l&#39;input atteso è &quot;RTB_*&quot;.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Script</label></td>
+                        <td>L&#39;URL dello script utilizzato per gestire questa chiave selezionata. Il registro dello stack di chiamate all&#39;origine del deposito della chiave data verrà analizzato per trovare lo script corrispondente.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Fonte</label></td>
+                        <td>L&#39;origine o la fonte dell&#39;identificazione.</td>
+
+                    </tr>
+                    <tr>
+                        <td><label>Controllore dei dati</label></td>
+                        <td>Il titolare del trattamento dei dati identificato per il trattamento dei dati identificato. Utilizzare &quot;? se non è noto.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Informativa sulla privacy</label></td>
+                        <td>L&#39;URL della politica sulla privacy, se esiste.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Tipo di riferimento</label></td>
+                        <td>Se vi sono casi (ad<i>esempio sanzioni esistenti)</i> che si riferiscono a questa voce.</td>
+                    </tr>
+                    <tr>
+                        <td><label>Commento</label></td>
+                        <td>I commenti possono essere utilizzati per aggiungere informazioni contestuali sul cookie.</td>
+                    </tr>
+                </table>
+
+                <p>Ogni voce del modulo visualizzato può anche essere modificata con un clic sulle informazioni. È possibile aggiungere nuove voci con <button  color="blue"><i
+                            class="fas fa-plus"></i> New local storage entry (Nuova voce di archiviazione locale).</button></p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Utilizzo della Knowledge Base</h2>
+                </header>
+
+                <p>Ogni cookie o voce nella memoria locale che viene memorizzata durante una sessione di navigazione viene automaticamente scansionata per trovare voci corrispondenti nella knowledge base.</p>
+
+                <p>Gli scopi identificati delle voci corrispondenti sono disponibili nella riga <i>Categoria</i> nelle tabelle Cookie e Schede di archiviazione locali, nonché nella scheda seguente dal pannello dei dettagli quando si seleziona una riga nelle tabelle Conoscenza.</p>
+
+
+
+                <p>Se la voce corrente è stata trovata in almeno una base di conoscenza, questa scheda elenca tutte le voci corrispondenti nella base di conoscenza in base alla sua categoria.</p>
+                <p>Se si tratta di un cookie, queste voci sono classificate come segue:</p>
+                <ul>
+                    <li><i>Corrispondenza esatta:</i> almeno una voce corrisponde al nome e al dominio del cookie,</li>
+                    <li><i>Nome della corrispondenza</i>: almeno una voce corrisponde al nome del cookie con un dominio jolly (<i>*</i>),</li>
+                    <li><i>Corrispondenza dominio</i>: almeno una voce corrisponde al dominio di questo cookie.</li>
+                </ul>
+                <p>Se si tratta di una chiave nella memoria locale, almeno una voce corrisponde alla chiave o allo script responsabile di questa voce.</p>
+
+
+                <p>È possibile fare riferimento a <a href="#/helps/new_analysis">Fornire nuove analisi</a> per l&#39;utilizzo di tali informazioni al fine di valutare la conformità / non conformità dei siti Web in base ai requisiti legali.</p>
+            </div>
+        </div>
+    </div>
+</div>

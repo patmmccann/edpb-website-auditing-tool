@@ -16,11 +16,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class KnowledgeCookieItemComponent implements OnInit, OnChanges {
 
-  @Input() knowledgeBaseData: any = {
-    name_and_domain: [],
-    name: [],
-    domain: []
-  };
+  @Input() knowledgeBaseData: any[] | null = null;
 
   public knowledgeBases: { [key: number]: KnowledgeBase } = {};
 

@@ -10,15 +10,18 @@
       <th mat-sort-header="domain">{{ "knowledge.domain" | translate }}</th>
       <th mat-sort-header="name">{{ "knowledge.name" | translate }}</th>
       <th mat-sort-header="category">{{ "knowledge.category" | translate }}</th>
-      <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">{{ "analyses.edit.evaluation" | translate }}</th>
+      <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">
+        {{ "analyses.edit.evaluation" | translate }}
+      </th>
     </tr>
   </thead>
   <tbody #tableContent>
-    <tr *ngFor="let line of this.card.cookieLines; index as idx">
+    <tr *ngFor="let line of this.card.cookieLines | filterForCookie:searchCookie| filterForStatus:searchStatus | filterForCookieKnowledgeBase:searchKnowledge |async; index as idx ">
       <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
       <td class="truncate" (click)="selected(line)">{{line.name}}</td>
-      <td class="truncate" (click)="selected(line)">
-        {{line | findInKnowlegeBase | async}}
+      <td class="truncate" (click)="selected(line)"
+      [innerHTML]="line | findPurpose | async | safeHtml"
+      >
       </td>
       <td *ngIf="context=='evaluate'">
        <button

@@ -10,11 +10,10 @@ package-lock.json
 /blob-report/
 /playwright/.cache/
 /e2e/tracing/
-/electron/*.js
-/electron/*.map
-/electron/handlers/**/*
+/electron/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /test
+.env
