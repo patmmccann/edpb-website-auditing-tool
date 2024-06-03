@@ -111,10 +111,12 @@ export class EntriesComponent implements OnInit {
           .then(() => {
             this.refreshContent();
             this.loading = false;
+            this.importForm.reset();
           })
           .catch(err => {
             console.log(err);
             this.loading = false;
+            this.importForm.reset();
           });
           break;
 

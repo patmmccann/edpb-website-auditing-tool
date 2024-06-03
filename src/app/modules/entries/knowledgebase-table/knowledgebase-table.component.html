@@ -1,3 +1,5 @@
+<ng-container *ngIf="!loading; else waitForComplete">
+
 <table matSort (matSortChange)="sortBy($event)" class="entries-list-table">
   <thead>
     <tr>
@@ -96,3 +98,12 @@
     </tr>
   </tbody>
 </table>
+</ng-container>
+
+<ng-template #waitForComplete>
+  <tbody>
+      <div class="entries-loading entries-loading-line">
+          <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
+      </div>
+  </tbody>
+</ng-template>
