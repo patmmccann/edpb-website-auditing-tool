@@ -30,7 +30,7 @@ export interface BrowserSession {
   link?: any[]
 }
 
-export type ScreenshotOptions = 'visible' | 'fullpage_from_dom' | 'fullpage_from_scroll';
+export type ScreenshotOptions = 'visible' | 'fullpage_from_dom' | 'fullpage_from_scroll' | 'fullpage_from_url';
 
 
 @Injectable({

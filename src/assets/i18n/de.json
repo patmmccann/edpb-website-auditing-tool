@@ -311,6 +311,7 @@
             "visible": "Sichtbar",
             "full_page_from_dom": "Ganze Seite aus DOM (ohne Bilder)",
             "full_page_from_scroll": "Ganze Seite vom Scrollen",
+            "fullpage_from_url": "Ganze Seite aus Roh-URL",
             "option": "Screenshot-Option"
         },
         "infos": {

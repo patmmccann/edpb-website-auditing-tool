@@ -149,39 +149,69 @@ export class BrowserSession {
     async screenshot(screenshot_option) {
         switch (screenshot_option) {
             case 'visible':
-                const capture = await this.contents.capturePage();
-                const toPNG = await capture.toPNG()
-                return toPNG;
-            case 'fullpage_from_dom':
-                return new Promise((resolve) => {
-                    ipcMain.removeHandler('full_screenshot_image');
-                    ipcMain.handleOnce('full_screenshot_image', ((event, img) => {
-                        resolve(img);
-                    }));
-                    this.contents.send('full_screenshot');
-                });
-
-            case 'fullpage_from_scroll':
-                const { width, height } = await this.contents.executeJavaScript(`
-                        new Promise((resolve) => {
-                        const width = document.documentElement.scrollWidth;
-                        const height = document.documentElement.scrollHeight;
-                        resolve({ width, height });
-                        });
-                    `);
-                const captures = [];
-                const captureHeight = this.view.getBounds().height;
-
-                for (let offset = 0; offset < height; offset += captureHeight) {
-                    await this.contents.executeJavaScript(`window.scrollTo(0, ${offset})`);
-                    await new Promise(resolve => setTimeout(resolve, 100)); // Attendre le défilement
-
-                    const image = await this.contents.capturePage();
-                    const toPng = await image.toPNG();
-                    captures.push(toPng);
+                {
+                    const capture = await this.contents.capturePage();
+                    const toPNG = await capture.toPNG();
+                    return toPNG;
                 }
+            case 'fullpage_from_dom':
+                {
+                    return new Promise((resolve) => {
+                        ipcMain.removeHandler('full_screenshot_image');
+                        ipcMain.handleOnce('full_screenshot_image', ((event, img) => {
+                            resolve(img);
+                        }));
+                        this.contents.send('full_screenshot');
+                    });
+                }
+            case 'fullpage_from_scroll':
+                {
+                    const { width, height } = await this.contents.executeJavaScript(`
+                    new Promise((resolve) => {
+                    const width = document.documentElement.scrollWidth;
+                    const height = document.documentElement.scrollHeight;
+                    resolve({ width, height });
+                    });
+                `);
+                    const captures = [];
+                    const captureHeight = this.view.getBounds().height;
 
-                return captures;
+                    for (let offset = 0; offset < height; offset += captureHeight) {
+                        await this.contents.executeJavaScript(`window.scrollTo(0, ${offset})`);
+                        await new Promise(resolve => setTimeout(resolve, 100)); // Attendre le défilement
+
+                        const image = await this.contents.capturePage();
+                        const toPng = await image.toPNG();
+                        captures.push(toPng);
+                    }
+
+                    return captures;
+                }
+            case 'fullpage_from_url':
+                {
+                    const max_size = 8000;
+                    const { width, height } = await this.contents.executeJavaScript(`
+                    new Promise((resolve) => {
+                    const width = document.documentElement.scrollWidth;
+                    const height = document.documentElement.scrollHeight;
+                    resolve({ width, height });
+                    });
+                `);
+            
+                    const offscreenRenderer = new BrowserWindow({
+                        enableLargerThanScreen: true,
+                        show: false,
+                        webPreferences: {
+                            offscreen: true
+                        }
+                    });
+                    
+                    offscreenRenderer.setContentSize(width> max_size ? max_size : width , height> max_size ? max_size : height);
+                    await offscreenRenderer.loadURL(this.url);
+                    const screenshot = await offscreenRenderer.webContents.capturePage();
+                    const size = screenshot.getSize();
+                    return screenshot.toPNG();
+                }
         }
     }
 

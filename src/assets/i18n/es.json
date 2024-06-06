@@ -311,6 +311,7 @@
             "visible": "Visible",
             "full_page_from_dom": "Página completa de DOM (sin imágenes)",
             "full_page_from_scroll": "Página completa desde el desplazamiento",
+            "fullpage_from_url": "Pagina intera dall'URL non elaborato",
             "option": "Opción de captura de pantalla"
         },
         "infos": {

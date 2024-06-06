@@ -311,6 +311,7 @@
             "visible": "Visibile",
             "full_page_from_dom": "Pagina intera dal DOM (senza immagini)",
             "full_page_from_scroll": "Pagina intera dallo scorrimento",
+            "fullpage_from_url": "Pagina intera dall'URL non elaborato",
             "option": "Opzione Schermo"
         },
         "infos": {
