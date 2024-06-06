@@ -145,9 +145,9 @@ export class BrowsersHandler {
         return session.canGoForward();
     }
 
-    async screenshot(event, analysis_id, tag_id, full_screenshot) {
+    async screenshot(event, analysis_id, tag_id, screenshot_option) {
         const session = this.get(analysis_id, tag_id);
-        return await session.screenshot(full_screenshot);
+        return await session.screenshot(screenshot_option);
     }
 
     toogleDevTool(event, analysis_id, tag_id) {
@@ -156,7 +156,6 @@ export class BrowsersHandler {
     }
 
     async createBrowserSession(event, analysis_id, tag_id, url, settings) {
-        const test = process.versions.electron;
         const session_name = analysis_id && tag_id ? 'session' + analysis_id + tag_id : 'main';
         const browserSession = new BrowserSession(this.mainWindow, session_name, settings);
         this._sessions[browserSession.name] = browserSession;

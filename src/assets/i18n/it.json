@@ -309,7 +309,8 @@
         },
         "screenshot": {
             "visible": "Visibile",
-            "full_page": "Pagina intera",
+            "full_page_from_dom": "Pagina intera dal DOM (senza immagini)",
+            "full_page_from_scroll": "Pagina intera dallo scorrimento",
             "option": "Opzione Schermo"
         },
         "infos": {

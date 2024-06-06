@@ -309,7 +309,8 @@
         },
         "screenshot": {
             "visible": "Ορατή",
-            "full_page": "Πλήρης σελίδα",
+            "full_page_from_dom": "Ολόκληρη η σελίδα από το DOM (χωρίς εικόνες)",
+            "full_page_from_scroll": "Πλήρης σελίδα από κύλιση",
             "option": "Επιλογή στιγμιότυπου οθόνης"
         },
         "infos": {

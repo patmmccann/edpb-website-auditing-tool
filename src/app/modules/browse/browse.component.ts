@@ -182,7 +182,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
   }
 
   screenshot(): void {
-    this.browserService.takeScreenshot(window, this.analysis, this.tag, false)
+    this.browserService.takeScreenshot(window, this.analysis, this.tag, 'visible')
       .then(async (screenShotCard) => {
         if (this.tag) {
           screenShotCard = (await this.tagService.addCard(this.tag, screenShotCard)) as ScreenshotCard;

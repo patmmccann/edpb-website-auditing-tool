@@ -309,7 +309,8 @@
         },
         "screenshot": {
             "visible": "Sichtbar",
-            "full_page": "Vollständige Seite",
+            "full_page_from_dom": "Ganze Seite aus DOM (ohne Bilder)",
+            "full_page_from_scroll": "Ganze Seite vom Scrollen",
             "option": "Screenshot-Option"
         },
         "infos": {

@@ -25,7 +25,7 @@ export class BrowserSession {
                 partition: this._session_name
             }
         });
-        
+
         this.applySettings(settings);
 
         this.view.webContents.on('did-start-loading', () => {
@@ -47,10 +47,10 @@ export class BrowserSession {
         });
     }
 
-    applySettings(settings){
+    applySettings(settings) {
         this.collector.settings = settings;
         const preloads = [];
-        if (settings && settings.logs){
+        if (settings && settings.logs) {
             //Set preloads
             const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
             preloads.push(path.join(__dirname, 'preload.js'));
@@ -69,7 +69,7 @@ export class BrowserSession {
         }
 
         this.view.webContents.on('dom-ready', async () => {
-            if (settings && settings.logs){
+            if (settings && settings.logs) {
                 this.contents.send('init', this._session_name);
             }
             this.collector.domReadyCallbacks.forEach(fn => fn());
@@ -88,7 +88,7 @@ export class BrowserSession {
         }
 
         if (settings && settings.use_proxy) {
-            ses.setProxy({proxyRules:settings.proxy_settings})
+            ses.setProxy({ proxyRules: settings.proxy_settings })
         }
     }
 
@@ -146,18 +146,42 @@ export class BrowserSession {
         return this.contents.getURL();
     }
 
-    async screenshot(full_screenshot) {
-        if (full_screenshot){
-            return new Promise((resolve) => {
-                ipcMain.removeHandler('full_screenshot_image');
-                ipcMain.handleOnce('full_screenshot_image', ((event, img)=>{
-                    resolve(img);
-                }));
-                this.contents.send('full_screenshot');
-            });
-        }else{
-            const capture = await this.contents.capturePage();
-            return await capture.toPNG();
+    async screenshot(screenshot_option) {
+        switch (screenshot_option) {
+            case 'visible':
+                const capture = await this.contents.capturePage();
+                const toPNG = await capture.toPNG()
+                return toPNG;
+            case 'fullpage_from_dom':
+                return new Promise((resolve) => {
+                    ipcMain.removeHandler('full_screenshot_image');
+                    ipcMain.handleOnce('full_screenshot_image', ((event, img) => {
+                        resolve(img);
+                    }));
+                    this.contents.send('full_screenshot');
+                });
+
+            case 'fullpage_from_scroll':
+                const { width, height } = await this.contents.executeJavaScript(`
+                        new Promise((resolve) => {
+                        const width = document.documentElement.scrollWidth;
+                        const height = document.documentElement.scrollHeight;
+                        resolve({ width, height });
+                        });
+                    `);
+                const captures = [];
+                const captureHeight = this.view.getBounds().height;
+
+                for (let offset = 0; offset < height; offset += captureHeight) {
+                    await this.contents.executeJavaScript(`window.scrollTo(0, ${offset})`);
+                    await new Promise(resolve => setTimeout(resolve, 100)); // Attendre le défilement
+
+                    const image = await this.contents.capturePage();
+                    const toPng = await image.toPNG();
+                    captures.push(toPng);
+                }
+
+                return captures;
         }
     }
 
@@ -197,11 +221,11 @@ export class BrowserSession {
         return this._session_name;
     }
 
-    get contents(){
+    get contents() {
         return this.view.webContents;
     }
 
-    get mainWindow(){
+    get mainWindow() {
         return this._mainWindow;
     }
 }
