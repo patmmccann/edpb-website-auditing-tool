@@ -53,8 +53,8 @@ export class BrowserSession {
         if (settings && settings.logs) {
             //Set preloads
             const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
-            preloads.push(path.join(__dirname, 'preload.js'));
             preloads.push(path.join(stacktracePath, '/dist/stacktrace.min.js'));
+            preloads.push(path.join(__dirname, 'preload.js'));
         }
         const htmlToImagePath = path.dirname(require.resolve("html2canvas/package.json"));
         preloads.push(path.join(htmlToImagePath, '/dist/html2canvas.min.js'));
@@ -69,6 +69,7 @@ export class BrowserSession {
         }
 
         this.view.webContents.on('dom-ready', async () => {
+            // In case of javascript in the DOM rewrite the cookie functions
             if (settings && settings.logs) {
                 this.contents.send('init', this._session_name);
             }

@@ -16,11 +16,11 @@ import { Log } from 'src/app/models/cards/log.model';
 }
 
 
-interface ExampleFlatNode {
+interface FlatNode {
   expandable: boolean;
   name: string;
   level: number;
-  link:boolean
+  link:boolean;
 }
 
 @Component({
@@ -32,7 +32,7 @@ export class CallstackDetailsComponent implements OnInit, OnChanges {
   @ViewChild('treeLog') treeLog: any = null;
 
   @Input() log:Log |  undefined = undefined;
-  dataSource : MatTreeFlatDataSource<LogNode, ExampleFlatNode>;
+  dataSource : MatTreeFlatDataSource<LogNode, FlatNode>;
 
   private _transformer = (node: LogNode, level: number) => {
     return {
@@ -43,12 +43,12 @@ export class CallstackDetailsComponent implements OnInit, OnChanges {
     };
   };
 
-  treeControl : FlatTreeControl<ExampleFlatNode>;
+  treeControl : FlatTreeControl<FlatNode>;
 
-  treeFlattener : MatTreeFlattener<LogNode, ExampleFlatNode>;
+  treeFlattener : MatTreeFlattener<LogNode, FlatNode>;
   
   constructor() {
-    this.treeControl = new FlatTreeControl<ExampleFlatNode>(
+    this.treeControl = new FlatTreeControl<FlatNode>(
       node => node.level,
       node => node.expandable,
     );
@@ -85,6 +85,18 @@ export class CallstackDetailsComponent implements OnInit, OnChanges {
       }
       if (stack.lineNumber){
         children.push({name:"And line : "+ stack.lineNumber.toString(),children:[], link:false})
+      }
+
+      if (stack.request){
+        children.push({name:`Request details :`, link:false});
+        children.push({name:`Creation :  ${stack.request.creation}`, link:false});
+        children.push({name:`Domain :  ${stack.request.domain}`, link:false});
+        children.push({name:`Expires :  ${stack.request.expires}`, link:false});
+        children.push({name:`httpOnly :  ${stack.request.httpOnly}`, link:false});
+        children.push({name:`Key :  ${stack.request.key}`, link:false});
+        children.push({name:`Path :  ${stack.request.path}`, link:false});
+        children.push({name:`Secure :  ${stack.request.secure}`, link:false});
+        children.push({name:`Value :  ${stack.request.value}`, link:false});
       }
 
       
@@ -133,6 +145,6 @@ export class CallstackDetailsComponent implements OnInit, OnChanges {
     //this.treeLog.treeControl.expand(this.treeLog.treeControl.dataNodes[0]);
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: FlatNode) => node.expandable;
   
 }

@@ -97,6 +97,18 @@ export class CookieCard extends Card {
             // else we add a nww entry to the output.cookies array
             if (matched_cookie) {
                 matched_cookie.log = event_cookie.log;
+
+                // Store raw request for HTTP cookie
+                if (event_cookie.log &&
+                    event_cookie.log.type == 'Cookie.HTTP' &&
+                    event_cookie.log.stack &&
+                    event_cookie.log.stack.length > 0
+                ) {
+                    event_cookie.log.stack.forEach((stack) => {
+                        delete event_cookie.log;
+                        stack.request = event_cookie;
+                    });
+                }
             } else {
                 const cookie = {
                     name: event_cookie.key,
@@ -134,7 +146,7 @@ export class CookieCard extends Card {
         const cookies = await this.collector.cookies();
         const log_cookies = this.collectCookies(cookies, 0);
         const final = this.inspectCookies(log_cookies);
-        output.cookies= final;
+        output.cookies = final;
     }
 
     add(details: Electron.OnHeadersReceivedListenerDetails) {
