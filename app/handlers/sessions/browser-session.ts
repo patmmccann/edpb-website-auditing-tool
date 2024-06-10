@@ -26,6 +26,7 @@ export class BrowserSession {
             }
         });
 
+
         this.applySettings(settings);
 
         this.view.webContents.on('did-start-loading', () => {
@@ -84,6 +85,13 @@ export class BrowserSession {
 
         if (settings && settings.use_proxy) {
             ses.setProxy({ proxyRules: settings.proxy_settings })
+        }
+
+        if (settings && settings.use_doh) {
+            app.configureHostResolver({
+                secureDnsMode: 'secure',
+                secureDnsServers: [ settings.doh ]
+            })
         }
     }
 

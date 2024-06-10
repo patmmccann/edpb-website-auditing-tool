@@ -244,7 +244,9 @@
         "client_id": "Client ID",
         "client_secret": "Segreto del cliente",
         "update": "Aggiornamento",
-        "infos": "Mostra le informazioni del browser"
+        "infos": "Mostra le informazioni del browser",
+        "use_doh": "Utilizza il server DoH",
+        "doh": "Server DoH da utilizzare (potrebbe essere necessario riavviare)"
     },
     "reports": {
         "creator": "Creatore",
