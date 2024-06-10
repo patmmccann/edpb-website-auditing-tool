@@ -46,27 +46,32 @@ export class ReportsHandler {
     );
   }
 
-  print_to_pdf(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
+  print_to_pdf(event, htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string) {
     return new Promise((resolve, reject) => {
-      const window_to_PDF = new BrowserWindow({ show: false });//to just open the browser in background
-      const html_content = 'data:text/html;charset=UTF-8,' + encodeURIComponent(htmlString);
-      window_to_PDF.loadURL(html_content); //give the file link you want to display
+      tmp.file({ postfix: '.html' }, (err, tempPath, fd, cleanupCallback) => {
+        if (err) reject(err);
+        // Write the dynamic content to the temporary file
+        fs.writeFile(tempPath, htmlString, (err) => {
+          if (err) reject(err);
+          const window_to_PDF = new BrowserWindow({ show: false });
+          window_to_PDF.loadFile(tempPath);
 
-      window_to_PDF.webContents.on("did-finish-load", () => {
-        window_to_PDF.webContents.printToPDF(documentOptions).then(data => {
-          resolve(data);
-          window_to_PDF.destroy();
-        }).catch(error => {
-          reject(`Failed to write PDF : ${error} `);
-        })
-      });
+          window_to_PDF.webContents.on("did-finish-load", () => {
+            window_to_PDF.webContents.printToPDF(documentOptions).then(data => {
+              resolve(data);
+              window_to_PDF.close();
+            }).catch(error => {
+              reject(`Failed to write PDF : ${error} `);
+            })
+          });
 
+          //window_to_PDF.on('closed', cleanupCallback);
+        });
+      })
     });
-
-
   }
 
-  async print_to_docx(event, htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) {
+  async print_to_docx(event, htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string) {
     const fileBuffer = await HTMLtoDOCX(htmlString, headerHTMLString, documentOptions, footerHTMLString);
     return fileBuffer;
   }

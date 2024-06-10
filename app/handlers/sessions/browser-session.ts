@@ -205,6 +205,7 @@ export class BrowserSession {
                     await offscreenRenderer.loadURL(this.url);
                     const screenshot = await offscreenRenderer.webContents.capturePage();
                     const size = screenshot.getSize();
+                    offscreenRenderer.close();
                     return screenshot.toPNG();
                 }
         }
