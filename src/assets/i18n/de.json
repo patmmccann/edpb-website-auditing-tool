@@ -202,7 +202,15 @@
             "close_details": "Details schließen",
             "logs": "Logs",
             "logs_tooltip": "Skript oder Anforderung die die ausgewählten Informationen gespeichert hat.",
-            "knowledge_tooltip": "Informationen aus der bekannten Basis, die mit der ausgewählten Zeile verknüpft werden könnten."
+            "knowledge_tooltip": "Informationen aus der bekannten Basis, die mit der ausgewählten Zeile verknüpft werden könnten.",
+            "log_cookie_js":"Javascript-Cookie aus folgenden Javascript-Dateien gesetzt",
+            "log_cookie_http":"Cookie, das von einem SetCookie auf die folgende Anfrage gesetzt wird",
+            "log_localstorage":"Der lokale Speicherwert wurde aus den folgenden Dateien geschrieben",
+            "log_beacon":"Aus der folgenden Liste",
+            "log_values":"Mit den folgenden Werten",
+            "by_function" : "durch die Funktion",
+            "at_column" : "in Spalte",
+            "and_line" : "und Linie"
         }
     },
     "settings": {

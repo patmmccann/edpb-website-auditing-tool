@@ -93,23 +93,10 @@ export class CookieCard extends Card {
                 );
             });
 
-            // if there is a match, we enrich with the log entry
-            // else we add a nww entry to the output.cookies array
             if (matched_cookie) {
-                matched_cookie.log = event_cookie.log;
-
-                // Store raw request for HTTP cookie
-                if (event_cookie.log &&
-                    event_cookie.log.type == 'Cookie.HTTP' &&
-                    event_cookie.log.stack &&
-                    event_cookie.log.stack.length > 0
-                ) {
-                    event_cookie.log.stack.forEach((stack) => {
-                        delete event_cookie.log;
-                        stack.request = event_cookie;
-                    });
-                }
+                matched_cookie.event = event_cookie;
             } else {
+                // In case of no matching entries 
                 const cookie = {
                     name: event_cookie.key,
                     value: event_cookie.value,
@@ -120,7 +107,7 @@ export class CookieCard extends Card {
                     secure: event_cookie.secure == null ? false : event_cookie.secure,
                     httpOnly: event_cookie.httpOnly == null ? false : event_cookie.httpOnly,
                     sameSite: event_cookie.sameSite == null ? "unspecified" : event_cookie.sameSite,
-                    log: event_cookie.log,
+                    event: event_cookie,
                     session: false,
                     expiresDays: 0,
                     expires: event_cookie.expires

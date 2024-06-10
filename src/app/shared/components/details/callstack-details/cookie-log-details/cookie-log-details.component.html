@@ -1,0 +1,139 @@
+<mat-tree #treeLogCall [dataSource]="dataSourceCall" [treeControl]="treeControl">
+
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+
+        <button mat-icon-button disabled></button>
+        <a *ngIf="node.link" target="_blank" href="{{node.name}}">
+            <mat-icon>open_in_new</mat-icon>
+        </a>
+        {{node.name}}
+        
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        <a *ngIf="node.link" target="_blank" href="{{node.name}}">
+            <mat-icon>open_in_new</mat-icon>
+        </a>
+        {{node.name}}
+    </mat-tree-node>
+</mat-tree>
+
+<mat-tree #treeLogCall [dataSource]="dataSourceValue" [treeControl]="treeControl">
+
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+
+        <button mat-icon-button disabled></button>
+
+
+
+        <div *ngIf="event">
+            <table>
+                <tbody>
+                    <tr *ngIf="event.domain != undefined">
+                        <td>
+                            {{ "knowledge.domain" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{event.domain}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.key != undefined">
+                        <td>
+                            {{ "knowledge.name" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{event.key}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.value != undefined">
+                        <td>
+                            {{ "knowledge.value" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{event.value}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.expires != undefined">
+                        <td>
+                            expires
+                        </td>
+                        <td class="truncate">
+                            {{event.expires}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.httpOnly != undefined">
+                        <td>
+                            httpOnly
+                        </td>
+                        <td>
+                            {{event.httpOnly}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.path != undefined">
+                        <td>
+                            path
+                        </td>
+                        <td>
+                            {{event.path}}
+                        </td>
+                    </tr>
+        
+                    <tr *ngIf="event.secure != undefined">
+                        <td>
+                            secure
+                        </td>
+                        <td>
+                            {{event.secure}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.maxAge != undefined">
+                        <td>
+                            maxAge
+                        </td>
+                        <td>
+                            {{event.maxAge}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.sameSite != undefined">
+                        <td>
+                            sameSite
+                        </td>
+                        <td>
+                            {{event.sameSite}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.hostOnly != undefined">
+                        <td>
+                            hostOnly
+                        </td>
+                        <td>
+                            {{event.hostOnly}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.pathIsDefault != undefined">
+                        <td>
+                            pathIsDefault
+                        </td>
+                        <td>
+                            {{event.pathIsDefault}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        {{node.name}}
+    </mat-tree-node>
+</mat-tree>

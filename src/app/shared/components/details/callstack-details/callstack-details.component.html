@@ -1,33 +1,10 @@
-
-<mat-tree #treeLog [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-      <!-- use a disabled button to provide padding for tree leaf -->
-      <button mat-icon-button disabled></button>
-      <a
-      *ngIf="node.link"
-      target="_blank"
-      href="{{node.name}}"
-      >
-      <mat-icon>open_in_new</mat-icon>
-      </a>
-      {{node.name}}
-    </mat-tree-node>
-    <!-- This is the tree node template for expandable nodes -->
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      <a
-      *ngIf="node.link"
-      target="_blank"
-      href="{{node.name}}"
-      >
-      <mat-icon>open_in_new</mat-icon>
-      </a>
-      {{node.name}}
-    </mat-tree-node>
-  </mat-tree>
+<container-element *ngIf="event" [ngSwitch]="event.type">
+  <app-cookie-log-details [event]="asCookieLogEvent(event)" *ngSwitchCase="'Cookie.HTTP'">
+  </app-cookie-log-details>
+  <app-cookie-log-details [event]="asCookieLogEvent(event)" *ngSwitchCase="'Cookie.JS'">
+  </app-cookie-log-details>
+  <app-request-tracking-details [event]="asRequestTrackingLogEvent(event)" *ngSwitchCase="'Request.Tracking'">
+  </app-request-tracking-details>
+  <app-storage-local-storage-details [event]="asStorageLocalStorageLogEvent(event)" *ngSwitchCase="'Storage.LocalStorage'">
+  </app-storage-local-storage-details>
+</container-element>

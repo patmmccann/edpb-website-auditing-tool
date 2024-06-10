@@ -5,14 +5,14 @@
  */
 import { Card } from "../card.model";
 import { Details } from "../details.model";
-import { Log } from "./log.model";
+import { StorageLocalStorageLogEvent } from "./log-event.model";
 
 export class LocalStorageLine extends Details{
     public host:string
     public key:string;
     public value:string;
     public firstPartyStorage : string[];
-    public log:Log;
+    public event:StorageLocalStorageLogEvent | null = null;
 
     constructor(host:string, key:string, value:any){
         super('localstorage');
@@ -20,7 +20,9 @@ export class LocalStorageLine extends Details{
         this.key = key;
         this.value = value.value;
         this.firstPartyStorage = value.firstPartyStorage;
-        this.log = new Log(value.log);
+        if (value.event){
+            this.event = new StorageLocalStorageLogEvent(value.event);
+        }
     }
 }
 

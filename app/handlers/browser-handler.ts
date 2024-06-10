@@ -5,10 +5,13 @@
  */
 import { ipcMain, BrowserWindow, BrowserView } from 'electron';
 import { BrowserSession } from './sessions/browser-session'
+import { BrowserCollector } from './collectors/browser-collector';
 
 export class BrowsersHandler {
     _mainWindow: BrowserWindow;
     _sessions: BrowserSession[] = [];
+    _collectors : {[key: number]: BrowserCollector} = {};
+
     currentView: BrowserView | null = null;
 
     constructor(mainWindow: BrowserWindow) {
@@ -37,6 +40,7 @@ export class BrowsersHandler {
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
         ipcMain.handle('versions', this.versions);
+        ipcMain.handle('reportEvent', this.reportEvent.bind(this));
     }
 
     unregisterHandlers() {
@@ -61,6 +65,7 @@ export class BrowsersHandler {
             ipcMain.removeHandler('toogleDevTool');
             ipcMain.removeHandler('updateSettings');
             ipcMain.removeHandler('versions');
+            ipcMain.removeHandler('reportEvent');
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
@@ -160,6 +165,7 @@ export class BrowsersHandler {
         const browserSession = new BrowserSession(this.mainWindow, session_name, settings);
         this._sessions[browserSession.name] = browserSession;
         await browserSession.create();
+        this._collectors[browserSession.contents.id] = browserSession.collector;
 
         if (url) {
             await browserSession.gotoPage(url);
@@ -169,7 +175,7 @@ export class BrowsersHandler {
     async deleteBrowserSession(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         if (!session) return;
-
+        this._collectors[session.contents.id];
         const current_view = this.mainWindow.getBrowserView();
 
         if (session.view == current_view) {
@@ -205,6 +211,19 @@ export class BrowsersHandler {
 
     get sessions() {
         return this._sessions;
+    }
+
+    collector(id : number) {
+        return this._collectors[id];
+    }
+
+    reportEvent(reportEvent, type, stack, data, location){
+        const collector = this.collector(reportEvent.sender.id);
+        if (collector){
+            collector.reportEvent(type, stack, data, location);
+        }else{
+            console.log("No collector has been found for this session");
+        }
     }
 
     versions() {

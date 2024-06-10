@@ -65,17 +65,20 @@ export class FindPurpose implements PipeTransform {
       const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
       const localstorageline = line as LocalStorageLine;
       const purposes = new Set();
-      const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.log);
-      if (result.length > 0) {
-        result.forEach((el: any) => {
-          const base = localstoragebase.find(x => x.id == el.knowledge_base_id);
-          if (base) {
-            purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
-          }
-        });
+      if (localstorageline.event) {
+        const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.event.log);
+        if (result.length > 0) {
+          result.forEach((el: any) => {
+            const base = localstoragebase.find(x => x.id == el.knowledge_base_id);
+            if (base) {
+              purposes.add("<span style='color:" + color[base.trustLevel] + "'>" + el.category + "</span>");
+            }
+          });
+        }
+        return Array.from(purposes).join(" ");
       }
-      return Array.from(purposes).join(" ");
     }
+
     return "";
   }
 }
@@ -109,20 +112,20 @@ export class FilterCookieKnowledge implements PipeTransform {
   transform(items: CookieKnowledge[],
     filter: any): any[] {
 
-      if (filter.searchName != ''){
-        items = items.filter(x => x.name.includes(filter.searchName))
-      }
-
-      if (filter.searchDomain != ''){
-        items = items.filter(x => x.domain.includes(filter.searchDomain))
-      }
-
-      if (filter.searchCategory != '' && filter.searchCategory != undefined){
-        items = items.filter(x => x.category.includes(filter.searchCategory))
-      }
-
-      return items;
+    if (filter.searchName != '') {
+      items = items.filter(x => x.name.includes(filter.searchName))
     }
+
+    if (filter.searchDomain != '') {
+      items = items.filter(x => x.domain.includes(filter.searchDomain))
+    }
+
+    if (filter.searchCategory != '' && filter.searchCategory != undefined) {
+      items = items.filter(x => x.category.includes(filter.searchCategory))
+    }
+
+    return items;
+  }
 }
 
 @Pipe({ name: 'filterLocalStorageKnowledge' })
@@ -130,18 +133,18 @@ export class FilterLocalStorageKnowledge implements PipeTransform {
   transform(items: LocalStorageKnowledge[],
     filter: any): any[] {
 
-      if (filter.searchHost != ''){
-        items = items.filter(x => x.script.includes(filter.searchHost))
-      }
-
-      if (filter.searchKey != ''){
-        items = items.filter(x => x.key.includes(filter.searchKey))
-      }
-
-      if (filter.searchCategory != ''){
-        items = items.filter(x => x.category.includes(filter.searchCategory))
-      }
-
-      return items;
+    if (filter.searchHost != '') {
+      items = items.filter(x => x.script.includes(filter.searchHost))
     }
+
+    if (filter.searchKey != '') {
+      items = items.filter(x => x.key.includes(filter.searchKey))
+    }
+
+    if (filter.searchCategory != '') {
+      items = items.filter(x => x.category.includes(filter.searchCategory))
+    }
+
+    return items;
+  }
 }

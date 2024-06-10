@@ -202,7 +202,15 @@
             "close_details": "Close details",
             "logs": "Logs",
             "logs_tooltip": "Script or request that stored the selected information.",
-            "knowledge_tooltip": "Information from the knownledge base that could be linked to the selected line."
+            "knowledge_tooltip": "Information from the knownledge base that could be linked to the selected line.",
+            "log_cookie_js":"Javascript cookie set from the following javascript files",
+            "log_cookie_http":"Cookie set by a SetCookie on the following request",
+            "log_localstorage":"Local Storage value written from the following files",
+            "log_beacon":"From the following list",
+            "log_values":"With the following values",
+            "by_function" : "by the function",
+            "at_column" : "at column",
+            "and_line" : "and line"
         }
     },
     "settings": {

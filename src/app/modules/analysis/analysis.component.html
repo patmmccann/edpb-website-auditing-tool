@@ -112,9 +112,9 @@
                         [detailsData]="detailsService.detailsData">
                         </app-details>
                         <span style="margin-left: 10px;"
-                        *ngIf="detailsService.detailsData?.log != null">
+                        *ngIf="detailsService.detailsData.event != null">
                             <h2 >{{ "analyses.panel.callstack_details" | translate }}</h2>
-                            <app-callstack-details [log]="detailsService.detailsData.log">
+                            <app-callstack-details [event]="detailsService.detailsData.event">
                             </app-callstack-details>
                         </span>
                     </mat-tab>

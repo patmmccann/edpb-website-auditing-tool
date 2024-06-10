@@ -5,7 +5,7 @@
  */
 
 import { BrowserView, WebContents, ipcMain } from 'electron';
-import {Collector} from "./collector";
+import { Collector } from "./collector";
 import { Card } from '../cards/card';
 
 
@@ -13,8 +13,8 @@ export class BrowserCollector extends Collector {
     _session_name: string;
     _view: BrowserView;
     _contents: WebContents;
-    _cards : Card[] = [];
-    
+    _cards: Card[] = [];
+
 
     constructor(session_name, settings) {
         super(settings);
@@ -25,43 +25,9 @@ export class BrowserCollector extends Collector {
     async createCollector(view: BrowserView) {
         this._view = view;
         this._contents = view.webContents;
-        const event_logger = this.event_logger;
-
-        if (this.settings && this.settings.logs){
-            ipcMain.removeHandler('reportEvent' + this._session_name);
-            ipcMain.handle('reportEvent' + this._session_name, async (reportEvent, type, stack, data, location) => {
-                const json_location = JSON.parse(location);
-    
-                // determine actual browsed page
-                let browsedLocation = json_location.href;
-                if (json_location.ancestorOrigins && json_location.ancestorOrigins[0]) {
-                    // apparently, this is a chrome-specific API
-                    browsedLocation = json_location.ancestorOrigins[0];
-                }
-    
-                // construct the event object to log
-                // include the stack
-                let event = {
-                    type: type,
-                    stack: stack.slice(1,stack.length), // remove reference to Document.set (0)
-                    origin: json_location.origin,
-                    location: browsedLocation,
-                    raw: data,
-                    data:data
-                };
-    
-                let message = "";
-                if (type in event_logger){
-                    message = event_logger[type](event, json_location);
-                }
-    
-                if (this.logger.writable == false) return;
-                this.logger.log("warn", message, event);
-            });
-        }
 
         // forward logs from the browser console
-        this._contents.on("console-message", (event, level, msg, line, sourceId) =>{
+        this._contents.on("console-message", (event, level, msg, line, sourceId) => {
             if (this.logger.writable == false) return;
             this.logger.log("debug", msg, { type: "Browser.Console" })
         });
@@ -73,7 +39,6 @@ export class BrowserCollector extends Collector {
         this._contents.session.webRequest.onBeforeRequest(null, null);
         this._contents.session.webRequest.onHeadersReceived(null, null);
         this._cards.forEach(card => card.disable());
-        ipcMain.removeHandler('reportEvent' + this._session_name);
 
         this._end_date = new Date();
         return super.end();
@@ -89,7 +54,7 @@ export class BrowserCollector extends Collector {
     }
 
     override get contents() {
-        if (this.view){
+        if (this.view) {
             return this.view.webContents;
         }
 
@@ -121,9 +86,9 @@ export class BrowserCollector extends Collector {
 
         for (let kind of kinds) {
             const card = this._cards.find(x => x.name == kind);
-            if (!card){
+            if (!card) {
                 this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
-            }else{
+            } else {
                 await card.inspect(output);
             }
         }
@@ -135,35 +100,65 @@ export class BrowserCollector extends Collector {
     async launch(kinds) {
         for (let kind of kinds) {
             const card = this._cards.find(x => x.name == kind);
-            if (!card){
+            if (!card) {
                 this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
-            }else{
+            } else {
                 return await card.launch();
             }
         }
     }
 
-    override get isElectron(){
+    override get isElectron() {
         return true;
     }
 
-    findInHeaders(details, header){
+    findInHeaders(details, header) {
         const cookieHTTPHeader = Object.keys(details.responseHeaders).find(key => key.toLowerCase() === "set-cookie");
 
         if (cookieHTTPHeader) {
             return details.responseHeaders[cookieHTTPHeader];
         }
-        return [];    
+        return [];
     }
-    getUrlFromResponse(details : any){
+    getUrlFromResponse(details: any) {
         return details.url;
     }
 
-    override get mainUrl(){
+    override get mainUrl() {
         return this.contents.mainFrame.url;
     }
 
-    override  async cookies(){
+    override  async cookies() {
         return await this.contents.session.cookies.get({});
+    }
+
+    reportEvent(type, stack, data, location) {
+        const json_location = JSON.parse(location);
+
+        // determine actual browsed page
+        let browsedLocation = json_location.href;
+        if (json_location.ancestorOrigins && json_location.ancestorOrigins[0]) {
+            // apparently, this is a chrome-specific API
+            browsedLocation = json_location.ancestorOrigins[0];
+        }
+
+        // construct the event object to log
+        // include the stack
+        let event = {
+            type: type,
+            stack: stack.slice(1, stack.length), // remove reference to Document.set (0)
+            origin: json_location.origin,
+            location: browsedLocation,
+            raw: data,
+            data: data
+        };
+
+        let message = "";
+        if (type in this.event_logger) {
+            message = this.event_logger[type](event, json_location);
+        }
+
+        if (this.logger.writable == false) return;
+        this.logger.log("warn", message, event);
     }
 }

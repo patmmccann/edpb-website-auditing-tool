@@ -206,7 +206,12 @@ export class FilterForLocalStorageKnowledge implements PipeTransform {
     (!knowledgeBasesAndCategories.searchCategory || knowledgeBasesAndCategories.searchCategory.length ==0))
       return items;
 
-      const search = items.map(localstorageline => this.localstorageKnowledgesService.getLocalStorageEntries(localstorageline.key, localstorageline.log));
+      const search = items.map(localstorageline => {
+        if(localstorageline.event){
+          return this.localstorageKnowledgesService.getLocalStorageEntries(localstorageline.key, localstorageline.event.log);
+        }
+        return ;
+      });
       const results = await Promise.all(search);
 
       return items.filter((item, idx) => this.matchKnowledgeBasesAndCategories(results[idx], knowledgeBasesAndCategories));

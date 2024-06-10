@@ -202,7 +202,15 @@
             "close_details": "Chiudere i dettagli",
             "logs": "Log",
             "logs_tooltip": "Script o richiesta che memorizza le informazioni selezionate.",
-            "knowledge_tooltip": "Informazioni provenienti dalla base nota che potrebbero essere collegate alla linea selezionata."
+            "knowledge_tooltip": "Informazioni provenienti dalla base nota che potrebbero essere collegate alla linea selezionata.",
+            "log_cookie_js":"Cookie Javascript impostato dai seguenti file Javascript",
+            "log_cookie_http":"Cookie impostato da un SetCookie alla seguente richiesta",
+            "log_localstorage":"Valore di archiviazione locale scritto dai seguenti file",
+            "log_beacon":"Dal seguente elenco",
+            "log_values":"Con i seguenti valori",
+            "by_function" : "dalla funzione",
+            "at_column" : "alla colonna",
+            "and_line" : "e linea"
         }
     },
     "settings": {

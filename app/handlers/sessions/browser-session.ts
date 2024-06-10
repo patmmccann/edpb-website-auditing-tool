@@ -62,17 +62,11 @@ export class BrowserSession {
         const ses = this._view.webContents.session;
         ses.setPreloads(preloads);
 
-        this.contents.send('init', this._session_name);
-
         if (settings && settings.useragent) {
             this.view.webContents.setUserAgent(settings.useragent);
         }
 
         this.view.webContents.on('dom-ready', async () => {
-            // In case of javascript in the DOM rewrite the cookie functions
-            if (settings && settings.logs) {
-                this.contents.send('init', this._session_name);
-            }
             this.collector.domReadyCallbacks.forEach(fn => fn());
         });
 

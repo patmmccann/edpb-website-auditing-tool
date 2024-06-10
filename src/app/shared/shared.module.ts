@@ -66,6 +66,9 @@ import { HttpClient } from '@angular/common/http';
 import { WATTranslateLoader } from './translate/wattranslate-loader';
 import { SearchComponent } from './components/search/search.component';
 import { InfoCardComponent } from './components/cards/info-card/info-card.component';
+import { RequestTrackingDetailsComponent } from './components/details/callstack-details/request-tracking-details/request-tracking-details.component';
+import { StorageLocalStorageDetailsComponent } from './components/details/callstack-details/storage-local-storage-details/storage-local-storage-details.component';
+import { CookieLogDetailsComponent } from './components/details/callstack-details/cookie-log-details/cookie-log-details.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -117,7 +120,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingOverlayComponent,
     LanguagesComponent,
     SearchComponent,
-    InfoCardComponent
+    InfoCardComponent,
+    RequestTrackingDetailsComponent,
+    StorageLocalStorageDetailsComponent,
+    CookieLogDetailsComponent
     ],
   imports: [
     HttpClientModule,

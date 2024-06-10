@@ -202,7 +202,15 @@
             "close_details": "Fermer les details",
             "logs": "Journal",
             "logs_tooltip": "Script or requête ayant écrit l'information sélectionnée.",
-            "knowledge_tooltip": "Information depuis la base de connaissances liée à la ligne sélectionnée."
+            "knowledge_tooltip": "Information depuis la base de connaissances liée à la ligne sélectionnée.",
+            "log_cookie_js":"Cookie Javascript défini à partir des fichiers javascript suivants",
+            "log_cookie_http":"Cookie posé par un SetCookie sur la requête suivante",
+            "log_localstorage":"Valeur de stockage local écrite à partir des fichiers suivants",
+            "log_beacon":"De la liste suivante",
+            "log_values":"Avec les valeurs suivantes",
+            "by_function" : "par la fonction",
+            "at_column" : "à la colonne",
+            "and_line" : "et ligne"
         }
     },
     "settings": {
