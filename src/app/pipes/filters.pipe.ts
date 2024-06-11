@@ -207,8 +207,8 @@ export class FilterForLocalStorageKnowledge implements PipeTransform {
       return items;
 
       const search = items.map(localstorageline => {
-        if(localstorageline.event){
-          return this.localstorageKnowledgesService.getLocalStorageEntries(localstorageline.key, localstorageline.event.log);
+        if(localstorageline.log){
+          return this.localstorageKnowledgesService.getLocalStorageEntries(localstorageline.key, localstorageline.log);
         }
         return ;
       });

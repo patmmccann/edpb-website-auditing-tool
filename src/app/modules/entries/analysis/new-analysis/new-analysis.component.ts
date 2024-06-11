@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AnalysisAndTag, AnalysisService } from 'src/app/services/analysis.service';
@@ -56,10 +56,10 @@ export class NewAnalysisComponent implements OnInit {
   analysisForm: FormGroup = new FormGroup({});
 
   constructor(private analysisService: AnalysisService,
-    private el: ElementRef,
+    @Inject(ElementRef) private el: ElementRef,
     private inspectionService: InspectionService,
-    private router: Router,
-    private route: ActivatedRoute,
+    @Inject(Router) private router: Router,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
     private browserService: BrowserService,
     public settingService : SettingsService,
     private cardService : CardService

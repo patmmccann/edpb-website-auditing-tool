@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { CookieLogEvent } from 'src/app/models/cards/log-event.model';
+import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
 import { TranslateService } from '@ngx-translate/core';
+import { CookieEvent, CookieLog } from 'src/app/models/cards/cookie-log.model';
 
 interface LogNode {
   name: string;
@@ -14,7 +14,7 @@ interface LogNode {
 interface ValueNode {
   name?: string;
   children?: ValueNode[];
-  event?: CookieLogEvent;
+  event?: CookieEvent;
 }
 
 
@@ -31,7 +31,8 @@ interface FlatNode {
   styleUrls: ['./cookie-log-details.component.scss']
 })
 export class CookieLogDetailsComponent implements OnInit , OnChanges {
-  @Input() event : CookieLogEvent | undefined;
+  @Input() log : CookieLog | undefined;
+  event : CookieEvent | null = null;
 
   @ViewChild('treeLogCall') treeLogCall: any = null;
   dataSourceCall : MatTreeFlatDataSource<LogNode, FlatNode>;
@@ -52,7 +53,7 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
   treeFlattener : MatTreeFlattener<LogNode, FlatNode>;
   
   constructor(
-    private translateService: TranslateService
+    @Inject(TranslateService) private translateService: TranslateService
   ) {
     this.treeControl = new FlatTreeControl<FlatNode>(
       node => node.level,
@@ -72,11 +73,6 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
 
   createNewTreeLogCall(log:Log) : LogNode[]{
     const logNodes:LogNode[] = [];
-
-    if ((log as any).stack){
-      // Fix for Wec
-      log.stacks = (log as any).stack;
-    }
 
     for (let stack of log.stacks){
 
@@ -104,8 +100,8 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
     
     let name = "";
 
-    if (this.event){
-      switch(this.event.type){
+    if (this.log){
+      switch(this.log.type){
         case "Cookie.HTTP":
           name = this.translateService.instant("browse.log_details.log_cookie_http");
           break;
@@ -124,8 +120,7 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
     return [logNode];
   }
 
-  createNewTreeLogValue(event:CookieLogEvent) : ValueNode[]{
-    const eventNodes:ValueNode[] = [];
+  createNewTreeLogValue(event:CookieEvent) : ValueNode[]{
     
     const valueNodes = {
       name: this.translateService.instant("browse.log_details.log_values"),
@@ -139,9 +134,13 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.event && this.event.log){
-      this.dataSourceCall.data = this.createNewTreeLogCall(this.event.log);
-      this.dataSourceValue.data = this.createNewTreeLogValue(this.event);
+    if (this.log ){
+      this.dataSourceCall.data = this.createNewTreeLogCall(this.log);
+      if (this.log.event){
+        this.event = this.log.event;
+        this.dataSourceValue.data = this.createNewTreeLogValue(this.log.event);
+      }
+      
     }
   }
 

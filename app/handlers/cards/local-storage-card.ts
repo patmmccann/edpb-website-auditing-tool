@@ -69,7 +69,7 @@ export class LocalStorageCard extends Card {
           let originStorage = local_storage[origin];
           Object.keys(originStorage).forEach((key) => {
             // find log for a given key
-            originStorage[key].event = storage_from_events.find((event) => {
+            originStorage[key].log = storage_from_events.find((event) => {
               return (
                 origin == event.origin && Object.keys(event.data).includes(key)
               );

@@ -30,7 +30,7 @@ import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-ba
 import { CookieKnowledgesService } from '../services/knowledges/cookie-knowledges.service';
 import { KnowledgeBaseService } from '../services/knowledge-base.service';
 import { KnowledgeBaseItemComponent } from './components/knowledge-base/knowledge-base-item/knowledge-base-item.component';
-import{KnowledgeCookieItemComponent} from './components/knowledge-base/knowledge-cookie-item/knowledge-cookie-item.component';
+import { KnowledgeCookieItemComponent } from './components/knowledge-base/knowledge-cookie-item/knowledge-cookie-item.component';
 
 import { CookieCardComponent } from './components/cards/cookie-card/cookie-card.component';
 import { LocalStorageCardComponent } from './components/cards/local-storage-card/local-storage-card.component';
@@ -60,8 +60,8 @@ import { BeaconDetailsComponent } from './components/details/beacon-details/beac
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LanguagesComponent } from './components/languages/languages.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { WATTranslateLoader } from './translate/wattranslate-loader';
 import { SearchComponent } from './components/search/search.component';
@@ -75,110 +75,115 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-@NgModule({ declarations: [
-        SideNavComponent,
-        LanguagesComponent,
-        FilterForAnalysis,
-        FilterForEval,
-        FilterForStatus,
-        FilterForCookie,
-        FilterForLocalStorage,
-        FilterForBeacon,
-        FilterForCookieKnowledge,
-        ModalComponent,
-        KnowledgeBaseComponent,
-        SafeHtmlPipe,
-        SafeImgPipe,
-        FindPurpose,
-        FilterCookieKnowledge,
-        FilterLocalStorageKnowledge,
-        NbEntriesInKnowledge,
-        SafeUrl,
-        KnowledgeBaseItemComponent,
-        KnowledgeCookieItemComponent,
-        CookieCardComponent,
-        TestsslCardComponent,
-        HttpCardComponent,
-        LocalStorageCardComponent,
-        ScreenshotCardComponent,
-        CookieDetailsComponent,
-        CallstackDetailsComponent,
-        LocalstorageDetailsComponent,
-        DetailsComponent,
-        KnowledgeLocalstorageItemComponent,
-        HttpCardComponent,
-        TestsslCardComponent,
-        CardsComponent,
-        EvaluationsComponent,
-        CommentsComponent,
-        CommentItemComponent,
-        TrafficCardComponent,
-        UnsafeFormCardComponent,
-        BeaconCardComponent,
-        BeaconDetailsComponent,
-        LoadingOverlayComponent,
-        LanguagesComponent,
-        SearchComponent,
-        InfoCardComponent,
-        RequestTrackingDetailsComponent,
-        StorageLocalStorageDetailsComponent,
-        CookieLogDetailsComponent
-    ],
-    exports: [
-        SideNavComponent,
-        LanguagesComponent,
-        FilterForAnalysis,
-        FilterForEval,
-        FormsModule,
-        ReactiveFormsModule,
-        ModalComponent,
-        KnowledgeBaseComponent,
-        SafeHtmlPipe,
-        SafeImgPipe,
-        SafeUrl,
-        FindPurpose,
-        FilterCookieKnowledge,
-        FilterLocalStorageKnowledge,
-        NbEntriesInKnowledge,
-        CookieCardComponent,
-        TestsslCardComponent,
-        HttpCardComponent,
-        LocalStorageCardComponent,
-        ScreenshotCardComponent,
-        CookieDetailsComponent,
-        DetailsComponent,
-        MatToolbarModule,
-        MatIconModule,
-        CallstackDetailsComponent,
-        KnowledgeCookieItemComponent,
-        MatTreeModule,
-        MatTableModule,
-        LocalstorageDetailsComponent,
-        MatChipsModule,
-        CardsComponent,
-        EvaluationsComponent,
-        CommentsComponent,
-        LoadingOverlayComponent,
-        TranslateModule,
-    ], imports: [CommonModule,
-        RouterModule,
-        BrowserAnimationsModule,
-        MaterialAllModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: WATTranslateLoader,
-                deps: [HttpClient]
-            }
-        })], providers: [
-        KnowledgeBaseService,
-        CookieKnowledgesService,
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
-export class SharedModule {  static forRoot(): ModuleWithProviders<SharedModule> {
-  return {
-    ngModule: SharedModule
-  };
-} }
+@NgModule({
+  declarations: [
+    SideNavComponent,
+    LanguagesComponent,
+    FilterForAnalysis,
+    FilterForEval,
+    FilterForStatus,
+    FilterForCookie,
+    FilterForLocalStorage,
+    FilterForBeacon,
+    FilterForCookieKnowledge,
+    ModalComponent,
+    KnowledgeBaseComponent,
+    SafeHtmlPipe,
+    SafeImgPipe,
+    FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
+    NbEntriesInKnowledge,
+    SafeUrl,
+    KnowledgeBaseItemComponent,
+    KnowledgeCookieItemComponent,
+    CookieCardComponent,
+    TestsslCardComponent,
+    HttpCardComponent,
+    LocalStorageCardComponent,
+    ScreenshotCardComponent,
+    CookieDetailsComponent,
+    CallstackDetailsComponent,
+    LocalstorageDetailsComponent,
+    DetailsComponent,
+    KnowledgeLocalstorageItemComponent,
+    HttpCardComponent,
+    TestsslCardComponent,
+    CardsComponent,
+    EvaluationsComponent,
+    CommentsComponent,
+    CommentItemComponent,
+    TrafficCardComponent,
+    UnsafeFormCardComponent,
+    BeaconCardComponent,
+    BeaconDetailsComponent,
+    LoadingOverlayComponent,
+    LanguagesComponent,
+    SearchComponent,
+    InfoCardComponent,
+    RequestTrackingDetailsComponent,
+    StorageLocalStorageDetailsComponent,
+    CookieLogDetailsComponent
+  ],
+  exports: [
+    SideNavComponent,
+    LanguagesComponent,
+    FilterForAnalysis,
+    FilterForEval,
+    FormsModule,
+    ReactiveFormsModule,
+    ModalComponent,
+    KnowledgeBaseComponent,
+    SafeHtmlPipe,
+    SafeImgPipe,
+    SafeUrl,
+    FindPurpose,
+    FilterCookieKnowledge,
+    FilterLocalStorageKnowledge,
+    NbEntriesInKnowledge,
+    CookieCardComponent,
+    TestsslCardComponent,
+    HttpCardComponent,
+    LocalStorageCardComponent,
+    ScreenshotCardComponent,
+    CookieDetailsComponent,
+    DetailsComponent,
+    MatToolbarModule,
+    MatIconModule,
+    CallstackDetailsComponent,
+    KnowledgeCookieItemComponent,
+    MatTreeModule,
+    MatTableModule,
+    LocalstorageDetailsComponent,
+    MatChipsModule,
+    CardsComponent,
+    EvaluationsComponent,
+    CommentsComponent,
+    LoadingOverlayComponent,
+    TranslateModule,
+  ], imports: [
+    CommonModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    MaterialAllModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: WATTranslateLoader,
+        deps: [HttpClient]
+      }
+    })], providers: [
+      KnowledgeBaseService,
+      CookieKnowledgesService,
+      provideHttpClient(withInterceptorsFromDi())
+    ]
+})
+export class SharedModule {
+    static forRoot(): ModuleWithProviders<SharedModule> {
+      return {
+        ngModule: SharedModule
+      };
+    }
+}

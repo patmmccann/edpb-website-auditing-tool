@@ -93,8 +93,17 @@ export class CookieCard extends Card {
                 );
             });
 
+            let log = {};
+
+            if (event_cookie && event_cookie.log){
+                //Retrieve raw value of log
+                log = event_cookie.log;
+                delete event_cookie.log;
+                log["event"] = event_cookie;
+            }
+
             if (matched_cookie) {
-                matched_cookie.event = event_cookie;
+                matched_cookie.log = log;
             } else {
                 // In case of no matching entries 
                 const cookie = {
@@ -108,10 +117,12 @@ export class CookieCard extends Card {
                     httpOnly: event_cookie.httpOnly == null ? false : event_cookie.httpOnly,
                     sameSite: event_cookie.sameSite == null ? "unspecified" : event_cookie.sameSite,
                     event: event_cookie,
+                    log : log,
                     session: false,
                     expiresDays: 0,
                     expires: event_cookie.expires
                 };
+
                 if (!event_cookie.expires) {
                     cookie.expires = -1;
                     cookie.session = true;

@@ -5,14 +5,15 @@
  */
 import { Card } from "../card.model";
 import { Details } from "../details.model";
-import { RequestTrackingLogEvent } from "./log-event.model";
+import { Log } from "./log.model";
+import { RequestTrackingLog } from "./request-tracking-log.model";
 
 export class BeaconLine extends Details{
     public filter :string;
     public listName : string;
     public query : any;
     public url : string;
-    public event : RequestTrackingLogEvent | null = null;
+    public log : Log | null = null;
     public occurrances : number;
 
     constructor(beacon:any){
@@ -21,7 +22,9 @@ export class BeaconLine extends Details{
         this.listName = beacon.listName;
         this.query = beacon.query;
         this.url = beacon.url;
-        this.event = new RequestTrackingLogEvent(beacon);
+        if (beacon.log){
+            this.log = new RequestTrackingLog(beacon.log);
+        }
         this.occurrances = beacon.occurrances;
     }
 }

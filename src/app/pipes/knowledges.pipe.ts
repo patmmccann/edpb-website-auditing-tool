@@ -65,8 +65,8 @@ export class FindPurpose implements PipeTransform {
       const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
       const localstorageline = line as LocalStorageLine;
       const purposes = new Set();
-      if (localstorageline.event) {
-        const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.event.log);
+      if (localstorageline.log) {
+        const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.log);
         if (result.length > 0) {
           result.forEach((el: any) => {
             const base = localstoragebase.find(x => x.id == el.knowledge_base_id);

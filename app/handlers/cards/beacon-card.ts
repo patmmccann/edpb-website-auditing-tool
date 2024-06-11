@@ -86,8 +86,9 @@ export class BeaconCard extends Card {
                     return Object.assign({}, event.data, {
                         log: {
                             stacks: event.stack,
-                            // type: event.type,
+                            type: event.type,
                             timestamp: event.timestamp,
+                            event :event.data
                         },
                     });
                 })

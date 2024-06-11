@@ -4,7 +4,9 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input, OnChanges, OnInit,SimpleChanges } from '@angular/core';
-import { CookieLogEvent, LogEvent, LogModels, RequestTrackingLogEvent, StorageLocalStorageLogEvent } from 'src/app/models/cards/log-event.model';
+import { CookieLog } from 'src/app/models/cards/cookie-log.model';
+import { Log } from 'src/app/models/cards/log.model';
+import { RequestTrackingLog } from 'src/app/models/cards/request-tracking-log.model';
 
 
 @Component({
@@ -14,9 +16,9 @@ import { CookieLogEvent, LogEvent, LogModels, RequestTrackingLogEvent, StorageLo
 })
 
 
-export class CallstackDetailsComponent implements OnInit, OnChanges {
+export class CallstackDetailsComponent implements OnInit {
   
-  @Input() event : LogModels | null = null;
+  @Input() log : Log | null = null;
   
   
   constructor() {
@@ -25,19 +27,11 @@ export class CallstackDetailsComponent implements OnInit, OnChanges {
     
   }
 
-  asCookieLogEvent(event : LogEvent){
-    return event as CookieLogEvent;
+  asRequestTrackingLog(log:Log){
+    return log as RequestTrackingLog;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
-
-  asRequestTrackingLogEvent(event : LogEvent){
-    return event as RequestTrackingLogEvent;
-  }
-
-  asStorageLocalStorageLogEvent(event : LogEvent){
-    return event as StorageLocalStorageLogEvent;
+  asCookieLog(log:Log){
+    return log as CookieLog;
   }
 }

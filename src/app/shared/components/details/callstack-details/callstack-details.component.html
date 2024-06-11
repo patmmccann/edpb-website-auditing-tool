@@ -1,10 +1,10 @@
-<container-element *ngIf="event" [ngSwitch]="event.type">
-  <app-cookie-log-details [event]="asCookieLogEvent(event)" *ngSwitchCase="'Cookie.HTTP'">
+<container-element *ngIf="log" [ngSwitch]="log.type">
+  <app-cookie-log-details [log]="asCookieLog(log)" *ngSwitchCase="'Cookie.HTTP'">
   </app-cookie-log-details>
-  <app-cookie-log-details [event]="asCookieLogEvent(event)" *ngSwitchCase="'Cookie.JS'">
+  <app-cookie-log-details [log]="asCookieLog(log)" *ngSwitchCase="'Cookie.JS'">
   </app-cookie-log-details>
-  <app-request-tracking-details [event]="asRequestTrackingLogEvent(event)" *ngSwitchCase="'Request.Tracking'">
+  <app-request-tracking-details [log]="asRequestTrackingLog(log)" *ngSwitchCase="'Request.Tracking'">
   </app-request-tracking-details>
-  <app-storage-local-storage-details [event]="asStorageLocalStorageLogEvent(event)" *ngSwitchCase="'Storage.LocalStorage'">
+  <app-storage-local-storage-details [log]="log" *ngSwitchCase="'Storage.LocalStorage'">
   </app-storage-local-storage-details>
 </container-element>

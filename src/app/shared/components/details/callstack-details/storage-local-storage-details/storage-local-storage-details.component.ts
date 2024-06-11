@@ -1,5 +1,4 @@
-import { StorageLocalStorageLogEvent } from 'src/app/models/cards/log-event.model';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
@@ -25,7 +24,7 @@ interface FlatNode {
   styleUrls: ['./storage-local-storage-details.component.scss']
 })
 export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
-  @Input() event : StorageLocalStorageLogEvent | undefined;
+  @Input() log : Log | undefined;
 
   @ViewChild('treeLogCall') treeLogCall: any = null;
   dataSourceCall : MatTreeFlatDataSource<LogNode, FlatNode>;
@@ -45,7 +44,7 @@ export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
   treeFlattener : MatTreeFlattener<LogNode, FlatNode>;
   
   constructor(
-    private translateService: TranslateService
+    @Inject(TranslateService) private translateService: TranslateService
   ) {
     this.treeControl = new FlatTreeControl<FlatNode>(
       node => node.level,
@@ -64,11 +63,6 @@ export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
 
   createNewTreeLogCall(log:Log) : LogNode[]{
     const logNodes:LogNode[] = [];
-
-    if ((log as any).stack){
-      // Fix for Wec
-      log.stacks = (log as any).stack;
-    }
 
     for (let stack of log.stacks){
 
@@ -109,8 +103,8 @@ export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     
-    if (this.event && this.event.log){
-      this.dataSourceCall.data = this.createNewTreeLogCall(this.event.log);
+    if (this.log){
+      this.dataSourceCall.data = this.createNewTreeLogCall(this.log);
     }
   }
 
