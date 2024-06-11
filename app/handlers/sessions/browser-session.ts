@@ -95,10 +95,15 @@ export class BrowserSession {
         }
 
         if (settings && settings.use_doh && settings.doh != '') {
-            app.configureHostResolver({
-                secureDnsMode: 'secure',
-                secureDnsServers: [ settings.doh ]
-            })
+            try {
+                app.configureHostResolver({
+                    secureDnsMode: 'secure',
+                    secureDnsServers: [ settings.doh ]
+                })
+            }catch(e){
+                console.log("Use DoH server : " + e.message);
+            }
+            
         }
     }
 
