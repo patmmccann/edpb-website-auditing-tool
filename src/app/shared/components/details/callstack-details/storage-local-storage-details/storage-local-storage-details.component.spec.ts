@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StorageLocalStorageDetailsComponent } from './storage-local-storage-details.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('StorageLocalStorageDetailsComponent', () => {
   let component: StorageLocalStorageDetailsComponent;
@@ -8,7 +10,8 @@ describe('StorageLocalStorageDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StorageLocalStorageDetailsComponent]
+      declarations: [StorageLocalStorageDetailsComponent],
+      imports:      [MaterialAllModule,  SharedModule ]
     });
     fixture = TestBed.createComponent(StorageLocalStorageDetailsComponent);
     component = fixture.componentInstance;

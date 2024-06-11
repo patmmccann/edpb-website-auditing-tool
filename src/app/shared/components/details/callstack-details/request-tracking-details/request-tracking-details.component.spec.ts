@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RequestTrackingDetailsComponent } from './request-tracking-details.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('RequestTrackingDetailsComponent', () => {
   let component: RequestTrackingDetailsComponent;
@@ -8,7 +10,8 @@ describe('RequestTrackingDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RequestTrackingDetailsComponent]
+      declarations: [RequestTrackingDetailsComponent],
+      imports:      [MaterialAllModule,  SharedModule ]
     });
     fixture = TestBed.createComponent(RequestTrackingDetailsComponent);
     component = fixture.componentInstance;

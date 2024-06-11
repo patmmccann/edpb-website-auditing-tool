@@ -1,6 +1,5 @@
 import { RequestTrackingLogEvent } from 'src/app/models/cards/log-event.model';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { CookieLogEvent } from 'src/app/models/cards/log-event.model';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
@@ -31,7 +30,7 @@ interface FlatNode {
   templateUrl: './request-tracking-details.component.html',
   styleUrls: ['./request-tracking-details.component.scss']
 })
-export class RequestTrackingDetailsComponent {
+export class RequestTrackingDetailsComponent implements OnInit , OnChanges {
   @Input() event : RequestTrackingLogEvent | undefined;
 
   dataSourceValue : MatTreeFlatDataSource<ValueNode, FlatNode>;

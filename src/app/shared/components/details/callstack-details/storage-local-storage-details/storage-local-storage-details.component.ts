@@ -24,7 +24,7 @@ interface FlatNode {
   templateUrl: './storage-local-storage-details.component.html',
   styleUrls: ['./storage-local-storage-details.component.scss']
 })
-export class StorageLocalStorageDetailsComponent {
+export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
   @Input() event : StorageLocalStorageLogEvent | undefined;
 
   @ViewChild('treeLogCall') treeLogCall: any = null;

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CookieLogDetailsComponent } from './cookie-log-details.component';
+import { MaterialAllModule } from 'src/app/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('CookieLogDetailsComponent', () => {
   let component: CookieLogDetailsComponent;
@@ -8,7 +10,8 @@ describe('CookieLogDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CookieLogDetailsComponent]
+      declarations: [CookieLogDetailsComponent],
+      imports:      [MaterialAllModule,  SharedModule ]
     });
     fixture = TestBed.createComponent(CookieLogDetailsComponent);
     component = fixture.componentInstance;
