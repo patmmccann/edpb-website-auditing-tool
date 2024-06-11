@@ -194,7 +194,9 @@
             "clear": "Cancellare tutte le informazioni memorizzate nel browser",
             "developer": "Mostra strumento di sviluppo per la pagina corrente",
             "stop": "Fermate e salvate l'analisi",
-            "show": "Mostra/nascondi la barra delle prove"
+            "show": "Mostra/nascondi la barra delle prove",
+            "zoomOut":"Riduce la dimensione del testo",
+            "zoomIn":"Aumenta la dimensione del testo"
         },
         "log_details": {
             "details": "Dettagli",

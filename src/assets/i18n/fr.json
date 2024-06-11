@@ -194,7 +194,9 @@
             "clear": "Effacer les informations du navigateur",
             "developer": "Affichier les outils de développement",
             "stop": "Stopper et enregistrer l'analyse",
-            "show": "Afficher/cacher la barre d'analyse"
+            "show": "Afficher/cacher la barre d'analyse",
+            "zoomOut":"Réduit la taille du texte",
+            "zoomIn":"Augmente la taille du texte"
         },
         "log_details": {
             "details": "Details",

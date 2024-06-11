@@ -134,6 +134,38 @@
                 <mat-icon>stop</mat-icon>
             </button>
         </div>
+
+
+        <div *ngIf="zoomFactor != 100"
+        class="zoom-factor">
+        <span 
+             class="header-search-right-button">
+             {{zoomFactor}} %
+            </span>
+        </div>
+
+        <div class="header-search-right">
+            <button 
+            matTooltip="{{ 'browse.toolbar.zoomOut' | translate }}"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="zoomFactor = zoomFactor > 10 ? zoomFactor - 10 : zoomFactor" size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>zoom_out</mat-icon>
+            </button>
+        </div>
+
+        <div class="header-search-right">
+            <button 
+            matTooltip="{{ 'browse.toolbar.zoomIn' | translate }}"
+            matTooltipPosition="after"
+            matTooltipShowDelay="3000"
+
+            (click)="zoomFactor = zoomFactor < 500 ? zoomFactor + 10 : zoomFactor" size="16" opacity="0.87" class="header-search-right-button">
+                <mat-icon>zoom_in</mat-icon>
+            </button>
+        </div>
+
     </div>
     <div class="header-option">
         <div class="header-option-div">

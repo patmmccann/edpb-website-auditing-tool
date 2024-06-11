@@ -41,6 +41,8 @@ export class BrowsersHandler {
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
         ipcMain.handle('versions', this.versions);
         ipcMain.handle('reportEvent', this.reportEvent.bind(this));
+        ipcMain.handle('setZoomFactor', this.setZoomFactor.bind(this));
+        ipcMain.handle('getZoomFactor', this.getZoomFactor.bind(this));
     }
 
     unregisterHandlers() {
@@ -66,6 +68,8 @@ export class BrowsersHandler {
             ipcMain.removeHandler('updateSettings');
             ipcMain.removeHandler('versions');
             ipcMain.removeHandler('reportEvent');
+            ipcMain.removeHandler('setZoomFactor');
+            ipcMain.removeHandler('getZoomFactor');
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
@@ -170,6 +174,17 @@ export class BrowsersHandler {
         if (url) {
             await browserSession.gotoPage(url);
         }
+    }
+
+    setZoomFactor(event, analysis_id, tag_id, factor
+    ) {
+        const session = this.get(analysis_id, tag_id);
+        session.zoomFactor = factor;
+    }
+    
+    getZoomFactor(event, analysis_id, tag_id) {
+        const session = this.get(analysis_id, tag_id);
+        return session.zoomFactor;
     }
 
     async deleteBrowserSession(event, analysis_id, tag_id) {

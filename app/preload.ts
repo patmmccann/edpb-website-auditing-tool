@@ -35,6 +35,8 @@ contextBridge.exposeInMainWorld(
     print_to_pdf: (htmlString: string, headerHTMLString: string, documentOptions:any, footerHTMLString:string) => ipcRenderer.invoke('print_to_pdf', htmlString, headerHTMLString, documentOptions, footerHTMLString),
     testSSLLocation: (settings) => ipcRenderer.invoke('testSSLLocation', settings),
     versions: () => ipcRenderer.invoke('versions'),
+    setZoomFactor: (analysis_id : number, tag_id : number, factor:number) => ipcRenderer.invoke('setZoomFactor', analysis_id, tag_id, factor),
+    getZoomFactor: (analysis_id : number, tag_id : number, factor:number) => ipcRenderer.invoke('getZoomFactor', analysis_id, tag_id),
     subscriveToBrowserEvent: (callback) => {
       ipcRenderer.on('browser-event', (event, ...args) => {
         callback([...args]);

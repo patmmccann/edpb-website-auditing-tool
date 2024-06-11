@@ -194,7 +194,9 @@
             "clear": "Clear all information stored in the browser",
             "developer": "Show developer tool for the current page",
             "stop": "Stop and save the analysis",
-            "show": "Show/hide the evidence bar"
+            "show": "Show/hide the evidence bar",
+            "zoomOut":"Reduces text size",
+            "zoomIn":"Increases text size"
         },
         "log_details": {
             "details": "Details",

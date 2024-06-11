@@ -194,7 +194,9 @@
             "clear": "Borrar toda la información almacenada en el navegador",
             "developer": "Mostrar la herramienta de desarrollo para la página actual ",
             "stop": "Detener y guardar el análisis",
-            "show": "Mostrar/ocultar la barra de evidencia"
+            "show": "Mostrar/ocultar la barra de evidencia",
+            "zoomOut":"Reduce el tamaño del texto",
+            "zoomIn":"Aumenta el tamaño del texto"
         },
         "log_details": {
             "details": "Detalles",

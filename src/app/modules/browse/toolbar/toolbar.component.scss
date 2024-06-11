@@ -67,6 +67,20 @@ button {
     background: $base-green-light;
 }
 
+.zoom-factor{
+    border-radius: 60px;
+    background: $base-gray-light;
+    padding: 10px;
+    &.-item{
+        float: none;
+        display: inline-block;
+        color: #fff;
+        content: "\f054";
+        font-family: "Font Awesome 5 Free";
+        font-size: 0.75rem;
+    }
+}
+
 .header-option{
     display: flex;
     -webkit-box-align: center;

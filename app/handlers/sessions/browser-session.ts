@@ -90,6 +90,13 @@ export class BrowserSession {
         if (settings && settings.use_doh) {
             app.configureHostResolver({
                 secureDnsMode: 'secure',
+                secureDnsServers: [settings.doh]
+            })
+        }
+
+        if (settings && settings.use_doh && settings.doh != '') {
+            app.configureHostResolver({
+                secureDnsMode: 'secure',
                 secureDnsServers: [ settings.doh ]
             })
         }
@@ -200,7 +207,7 @@ export class BrowserSession {
                     resolve({ width, height });
                     });
                 `);
-            
+
                     const offscreenRenderer = new BrowserWindow({
                         enableLargerThanScreen: true,
                         show: false,
@@ -208,8 +215,8 @@ export class BrowserSession {
                             offscreen: true
                         }
                     });
-                    
-                    offscreenRenderer.setContentSize(width> max_size ? max_size : width , height> max_size ? max_size : height);
+
+                    offscreenRenderer.setContentSize(width > max_size ? max_size : width, height > max_size ? max_size : height);
                     await offscreenRenderer.loadURL(this.url);
                     const screenshot = await offscreenRenderer.webContents.capturePage();
                     const size = screenshot.getSize();
@@ -217,6 +224,14 @@ export class BrowserSession {
                     return screenshot.toPNG();
                 }
         }
+    }
+
+    set zoomFactor(factor: number) {
+        this.contents.setZoomFactor(factor);
+    }
+
+    get zoomFactor() {
+        return this.contents.getZoomFactor();
     }
 
     toogleDevTool() {

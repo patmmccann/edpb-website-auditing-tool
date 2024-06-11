@@ -194,7 +194,9 @@
             "clear": "Alle im Browser gespeicherten Informationen löschen",
             "developer": "Entwicklertool für die aktuelle Seite anzeigen",
             "stop": "Stoppen und speichern Sie die Analyse",
-            "show": "Die Beweisleiste zeigen/verstecken"
+            "show": "Die Beweisleiste zeigen/verstecken",
+            "zoomOut":"Reduziert die Textgröße",
+            "zoomIn":"Vergrößert die Textgröße"
         },
         "log_details": {
             "details": "Details",

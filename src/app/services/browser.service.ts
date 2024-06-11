@@ -86,7 +86,9 @@ export class BrowserService {
       parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       versions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
-      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve(""))
+      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve("")),
+      setZoomFactor:(factor:number): Promise<void>=> new Promise((resolve, reject) => resolve()),
+      getZoomFactor:(): Promise<number>=> new Promise((resolve, reject) => resolve(0)),
     }
   }
 
@@ -176,6 +178,14 @@ export class BrowserService {
 
   refresh(window: any, analysis: Analysis | null, tag: Tag | null) {
     return window.electron.refresh(analysis ? analysis.id : null, tag ? tag.id : null);
+  }
+
+  setZoomFactor(window: any, analysis: Analysis | null, tag: Tag | null, factor:number) {
+    return window.electron.setZoomFactor(analysis ? analysis.id : null, tag ? tag.id : null, factor);
+  }
+
+  getZoomFactor(window: any, analysis: Analysis | null, tag: Tag | null) {
+    return window.electron.getZoomFactor(analysis ? analysis.id : null, tag ? tag.id : null);
   }
 
   updateSettings() {
