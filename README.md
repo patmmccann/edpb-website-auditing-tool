@@ -50,7 +50,7 @@ Run `npm run electron:mac` or `npm run electron:win` or `npm run electron:linux`
 
 ### Mac:
 
-You must set the ENV variables `APPLEID` and `APPLEPIAPASSWORD` inside a `.env` file at the root of the project.
+You must set the ENV variables `APPLEID`, `APPLEPIAPASSWORD` and `TEAMID` inside a `.env` file at the root of the project.
 
 ```
 npm run electron:mac
