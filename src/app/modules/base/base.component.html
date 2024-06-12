@@ -215,7 +215,7 @@
                     </table>
                 </ng-container>
                 <ng-container *ngSwitchCase="'localstorage'">
-                    <table class="base-list-table">
+                    <table matSort (matSortChange)="sortBy($event)"  class="base-list-table">
                         <thead>
                             <tr>
                                 <th style="width:75px;"></th>
