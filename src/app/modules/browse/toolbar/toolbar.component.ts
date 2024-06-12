@@ -4,14 +4,11 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output, Input, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Tag } from 'src/app/models/tag.model';
-import { AnalysisService } from 'src/app/services/analysis.service';
 import { BrowserService } from 'src/app/services/browser.service';
 import { CookieCard } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageCard } from 'src/app/models/cards/local-storage-card.model';
-import { TagService } from 'src/app/services/tag.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
@@ -66,7 +63,7 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
     });
 
     this.browserService.getZoomFactor(window, this.analysis, this.tag).then((zoomFactor:number) =>{
-      this._zoomFactor = zoomFactor * 100;
+      this._zoomFactor = Math.round(zoomFactor * 100);
     });
   }
 
