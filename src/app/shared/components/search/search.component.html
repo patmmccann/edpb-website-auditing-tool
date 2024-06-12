@@ -129,7 +129,9 @@
   <mat-toolbar-row *ngIf="selector.includes('mark_as')">
     {{ "search.mark_as" | translate }} 
     <span class="spacer"></span>
-    <mat-button-toggle-group #mark_as_group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle-group 
+    [hideSingleSelectionIndicator]="true"
+    #mark_as_group="matButtonToggleGroup" name="fontStyle" aria-label="Font Style">
       <mat-button-toggle 
       matTooltip="{{ 'analyses.evaluation.compliant' | translate }}"
       [matTooltipPosition]="'below'"
