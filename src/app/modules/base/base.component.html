@@ -93,7 +93,7 @@
                     </mat-form-field>
                 </ng-container>
                 <ng-container *ngSwitchCase="'localstorage'">
-                    <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchLocalStorageForm">
+                    <ng-container [formGroup]="searchLocalStorageForm">
                         <mat-form-field appearance="fill">
                             <mat-label>{{ "knowledge.host" | translate }}</mat-label>
                             <input formControlName="searchHost" matInput />
