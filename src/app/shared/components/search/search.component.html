@@ -25,7 +25,7 @@
 <mat-toolbar class="page-header" role="heading" *ngIf="selector.length >0">
 
   <mat-toolbar-row *ngIf="selector.includes('from_values')">
-    {{ "search.from_values" | translate }}
+    <mat-icon aria-hidden="false" aria-label="columns icon">search</mat-icon> {{ "search.from_values" | translate }}
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('from_values')">
       <mat-icon>close</mat-icon>
@@ -99,7 +99,7 @@
 
 
   <mat-toolbar-row *ngIf="selector.includes('from_knowledge')">
-    {{ "knowledge.from_knowledges" | translate }}
+    <mat-icon aria-hidden="false" aria-label="knowledge icon">menu_book</mat-icon> {{ "knowledge.from_knowledges" | translate }}
     <span class="spacer"></span>
     <button mat-icon-button (click)="removeFilter('from_knowledge')">
       <mat-icon>close</mat-icon>
@@ -127,7 +127,8 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="selector.includes('mark_as')">
-    {{ "search.mark_as" | translate }} 
+    <mat-icon aria-hidden="false"
+        aria-label="mark icon">edit</mat-icon> {{ "search.mark_as" | translate }} 
     <span class="spacer"></span>
     <mat-button-toggle-group 
     [hideSingleSelectionIndicator]="true"
