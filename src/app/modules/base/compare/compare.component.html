@@ -134,12 +134,12 @@
                                 <a href="javascript:;" (click)="apply_remove(i, item.id)" class="btn base-tooltip">
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                     <span title="Delete from current database" class="base-tooltip-text">
-                                        {{ "knowledge.delete_from_database" | translate }}
+                                        {{ "compare.delete_from_database" | translate }}
                                     </span>
                                 </a>
                                 <a (click)="delete_remove(item.id)" class="btn base-tooltip">
                                     <i class="fa fa-close" aria-hidden="true"></i>
-                                    <span title="Remove modification" class="base-tooltip-text">Remove modification
+                                    <span title="Remove modification" class="base-tooltip-text">{{ "compare.remove_modification" | translate }}
                                     </span>
                                 </a>
                             </td>
