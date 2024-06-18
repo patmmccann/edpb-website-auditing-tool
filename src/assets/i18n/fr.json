@@ -90,8 +90,14 @@
             "new_database": "Nouvelle base de connaissances"
         },
         "template": {
-            "new_template": "Nouveau modèle"
+            "new_template": "Nouveau modèle",
+            "new_annex": "Nouvelle annexe",
+            "annex":"Annexe",
+            "template":"Modèle",
+            "template_name": "Nom du modèle",
+            "annex_name": "Nom de l'annexe"
         },
+        "type":"Type",
         "create": "Créer",
         "cancel": "Annuler",
         "view": "Voir",
@@ -103,8 +109,7 @@
         "remove": "Supprimer",
         "disable": "Désactiver",
         "cookie": "Cookie",
-        "local_storage": "Local Storage",
-        "template_name": "Nom du modèle"
+        "local_storage": "Local Storage"
     },
     "analyses": {
         "edit": {
@@ -268,9 +273,10 @@
         "save": "Enregistrer",
         "save_as": "Enregistrer sous",
         "select_template": "Selectionner un modèle",
-        "select_tags": "Sélectionner tags to report",
-        "select_cards": "Sélectionner cards to report",
-        "select_evaluations": "Sélectionner evaluations to report",
+        "select_tags": "Sélectionner un scénario",
+        "select_cards": "Sélectionner une carte",
+        "select_evaluations": "Sélectionner une evaluations",
+        "select_annex": "Sélectionnez une annexe",
         "all_tags": "Tous les scénarios",
         "all_cards": "Toutes les cartes",
         "versions": "Versions",

@@ -359,3 +359,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
           if evaluation.evaluation_comment
             div.evaluation|!{evaluation.evaluation_comment}
           i Evaluation on #{new Date(evaluation.created_at).toLocaleString()}
+  
+  if annex
+    h3  Annex
+    div|!{annex}

@@ -22,6 +22,7 @@ import { InfoCard } from '../models/cards/info-card.model';
 import { SettingsService } from './settings.service';
 import { environment } from 'src/environments/environment';
 import { version } from 'os';
+import { Template } from '../models/template.model';
 
 export interface BrowserSession {
   event: 'new' | 'delete',

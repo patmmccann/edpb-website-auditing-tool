@@ -13,6 +13,9 @@
       <th mat-sort-header="author">
         <span>{{ "knowledge.author" | translate }}</span>
       </th>
+      <th mat-sort-header="type">
+        <span>{{ "entries.type" | translate }}</span>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -41,6 +44,9 @@
         <div contenteditable (focusout)="onFocusOut(template, 'author', $event)">
           {{ template.author }}
         </div>
+      </td>
+      <td class="base-listsBlock-item">
+        {{ "entries.template."+template.type | translate }}
       </td>
     </tr>
   </tbody>

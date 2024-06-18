@@ -90,8 +90,14 @@
             "new_database": "Neue Datenbank"
         },
         "template": {
-            "new_template": "Neue Vorlage"
+            "new_template": "Neue Vorlage",
+            "new_annex": "Neuer Anhang",
+            "annex":"Anhang",
+            "template":"Vorlage",
+            "template_name": "Vorlagenname",
+            "annex_name": "Name des Anhangs"
         },
+        "type":"Typ",
         "create": "Erschaffen",
         "cancel": "Abbrechen",
         "view": "Ansicht",
@@ -103,8 +109,7 @@
         "remove": "Entfernen",
         "disable": "Deaktivierung",
         "cookie": "Cookies",
-        "local_storage": "Lokale Speicherung",
-        "template_name": "Template-Name"
+        "local_storage": "Lokale Speicherung"
     },
     "analyses": {
         "edit": {
@@ -271,6 +276,7 @@
         "select_tags": "Tags auswählen, um zu berichten",
         "select_cards": "Karten auswählen, um zu melden",
         "select_evaluations": "Bewertungen auswählen, um Bericht zu erstatten",
+        "select_annex": "Wählen Sie einen Anhang aus",
         "all_tags": "Alle Tags",
         "all_cards": "Alle Karten",
         "versions": "Versionen",

@@ -6,11 +6,14 @@
 import { Component, Inject,ElementRef } from '@angular/core';
 import { FormControl,FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { TemplateType } from 'src/app/models/template.model';
+
 export interface TemplateData {
   name: string,
   author: string,
-  pug : string
+  pug : string,
+  html : string,
+  type: TemplateType
 }
 
 @Component({
@@ -43,7 +46,12 @@ export class NewTemplateComponent {
       const reader = new FileReader();
       reader.readAsText(event.target.files[0], 'UTF-8');
       reader.onload = (event2: any) => {
-        this.data.pug = event2.target.result;
+        if (this.data.type == 'annex'){
+          this.data.html = event2.target.result;
+        }else{
+          this.data.pug = event2.target.result;
+        }
+        
       };
     } else {
       this.el.nativeElement.querySelector('#import_template').click();

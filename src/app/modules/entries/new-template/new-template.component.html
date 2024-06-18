@@ -1,8 +1,16 @@
-<h1 mat-dialog-title>{{ "entries.template.new_template" | translate }}</h1>
+<h1 *ngIf="data.type == 'template'" mat-dialog-title>
+    {{ "entries.template.new_template" | translate }}
+</h1>
+
+<h1 *ngIf="data.type == 'annex'" mat-dialog-title>
+    {{ "entries.template.new_annex" | translate }}
+</h1>
+
 <div mat-dialog-content>
 
     <mat-form-field appearance="fill">
-        <mat-label>{{ "entries.template_name" | translate }}</mat-label>
+        <mat-label *ngIf="data.type == 'template'">{{ "entries.template.template_name" | translate }}</mat-label>
+        <mat-label *ngIf="data.type == 'annex'">{{ "entries.template.annex_name" | translate }}</mat-label>
 
         <input matInput [(ngModel)]="data.name">
     </mat-form-field>
@@ -22,5 +30,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">{{ "entries.cancel" | translate }}</button>
-    <button mat-button [disabled]="data.name == '' || data.author == '' || data.pug == null" [mat-dialog-close]="data" cdkFocusInitial>{{ "entries.create" | translate }}</button>
+    <button mat-button [disabled]="data.name == '' || data.author == '' || (data.pug == null && data.html == null)" [mat-dialog-close]="data" cdkFocusInitial>{{ "entries.create" | translate }}</button>
 </div>

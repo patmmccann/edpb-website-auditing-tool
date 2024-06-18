@@ -45,7 +45,8 @@
 
 <mat-toolbar *ngIf="type_entries=='template'">
     <div style="margin-left: 30px;">
-        <button (click)="openNewTemplateDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_template' | translate }}</button>
+        <button (click)="openNewTemplateDialog('template')" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_template' | translate }}</button>
+        <button (click)="openNewTemplateDialog('annex')" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_annex' | translate }}</button>
     </div>
 </mat-toolbar>
 

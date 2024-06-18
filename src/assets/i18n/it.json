@@ -90,8 +90,14 @@
             "new_database": "Nuova banca dati"
         },
         "template": {
-            "new_template": "Nuovo modello"
+            "new_template": "Nuovo modello",
+            "new_annex": "Nuovo allegato",
+            "annex":"Allegato",
+            "template":"Modello",
+            "template_name": "Nome modello",
+            "annex_name": "Nome dell'allegato"
         },
+        "type":"Tipo",
         "create": "Creare",
         "cancel": "Annullare",
         "view": "Vista",
@@ -103,8 +109,7 @@
         "remove": "Rimuovere",
         "disable": "Disabilitare",
         "cookie": "Cookie",
-        "local_storage": "Stoccaggio locale",
-        "template_name": "Nome del modello"
+        "local_storage": "Stoccaggio locale"
     },
     "analyses": {
         "edit": {
@@ -271,6 +276,7 @@
         "select_tags": "Selezionare i tag da segnalare",
         "select_cards": "Selezionare le schede da segnalare",
         "select_evaluations": "Selezionare le valutazioni da segnalare",
+        "select_annex": "Seleziona un allegato",
         "all_tags": "Tutti i tag",
         "all_cards": "Tutte le carte",
         "versions": "Versioni",

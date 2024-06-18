@@ -90,8 +90,14 @@
             "new_database": "Nueva base de datos"
         },
         "template": {
-            "new_template": "Nueva plantilla"
+            "new_template": "Nueva plantilla",
+            "new_annex": "Nuevo anexo",
+            "annex":"anexo",
+            "template":"Plantilla",
+            "template_name": "Nombre de la plantilla",
+            "annex_name": "Nombre del anexo"
         },
+        "type":"Tipo",
         "create": "Crear",
         "cancel": "Cancelar",
         "view": "Ver",
@@ -103,8 +109,7 @@
         "remove": "Quitar",
         "disable": "Deshabilitar",
         "cookie": "Cookie",
-        "local_storage": "Almacenamiento local",
-        "template_name": "Nombre de la plantilla"
+        "local_storage": "Almacenamiento local"
     },
     "analyses": {
         "edit": {
@@ -271,6 +276,7 @@
         "select_tags": "Seleccionar etiquetas para reportar",
         "select_cards": "Seleccionar tarjetas para reportar",
         "select_evaluations": "Seleccionar evaluaciones para informar",
+        "select_annex": "Seleccione un anexo",
         "all_tags": "Todas las etiquetas",
         "all_cards": "Todas las cartas",
         "versions": "Versiones",

@@ -90,8 +90,14 @@
             "new_database": "Νέα βάση δεδομένων"
         },
         "template": {
-            "new_template": "Νέο υπόδειγμα"
+            "new_template": "Νέο πρότυπο",
+            "new_annex": "Νέο παράρτημα",
+            "annex":"Παράρτημα",
+            "template":"Πρότυπο",
+            "template_name": "Όνομα προτύπου",
+            "annex_name": "Όνομα παραρτήματος"
         },
+        "type":"Τύπος",
         "create": "Δημιουργία",
         "cancel": "Ακύρωση",
         "view": "Προβολή",
@@ -103,8 +109,7 @@
         "remove": "Κατάργηση",
         "disable": "Απενεργοποίηση",
         "cookie": "Cookie",
-        "local_storage": "Τοπική αποθήκευση",
-        "template_name": "Υπόδειγμα ονόματος"
+        "local_storage": "Τοπική αποθήκευση"
     },
     "analyses": {
         "edit": {
@@ -271,6 +276,7 @@
         "select_tags": "Επιλογή ετικετών για αναφορά",
         "select_cards": "Επιλέξτε κάρτες για αναφορά",
         "select_evaluations": "Επιλογή αξιολογήσεων για την υποβολή εκθέσεων",
+        "select_annex": "Επιλέξτε ένα παράρτημα",
         "all_tags": "Όλες οι ετικέτες",
         "all_cards": "Όλες οι κάρτες",
         "versions": "Εκδόσεις",

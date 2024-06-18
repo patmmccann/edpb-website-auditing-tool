@@ -14,8 +14,8 @@ import { NewBaseComponent } from './new-base/new-base.component';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { Sort } from '@angular/material/sort';
 import { TemplateService } from 'src/app/services/template.service';
-import { NewTemplateComponent } from './new-template/new-template.component';
-import { Template } from 'src/app/models/template.model';
+import { NewTemplateComponent} from './new-template/new-template.component';
+import { Template, TemplateType } from 'src/app/models/template.model';
 
 @Component({
   selector: 'app-entries',
@@ -217,10 +217,10 @@ export class EntriesComponent implements OnInit {
     });
   }
 
-  openNewTemplateDialog(): void {
+  openNewTemplateDialog(type:TemplateType): void {
     const dialogRef = this.dialog.open(NewTemplateComponent, {
       width: '300px',
-      data: {name:'',author:'', pug:null},
+      data: {name:'',author:'', pug:null, html : null, type :type},
     });
 
     dialogRef.afterClosed().subscribe(result => {

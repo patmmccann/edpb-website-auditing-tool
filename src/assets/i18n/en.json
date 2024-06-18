@@ -90,8 +90,14 @@
             "new_database": "New database"
         },
         "template": {
-            "new_template": "New template"
+            "new_template": "New template",
+            "new_annex": "New annex",
+            "annex":"Annex",
+            "template":"Template",
+            "template_name": "Template name",
+            "annex_name": "Annex name"
         },
+        "type":"Type",
         "create": "Create",
         "cancel": "Cancel",
         "view": "View",
@@ -103,8 +109,7 @@
         "remove": "Remove",
         "disable": "Disable",
         "cookie": "Cookie",
-        "local_storage": "Local Storage",
-        "template_name": "Template name"
+        "local_storage": "Local Storage"
     },
     "analyses": {
         "edit": {
@@ -271,6 +276,7 @@
         "select_tags": "Select tags to report",
         "select_cards": "Select cards to report",
         "select_evaluations": "Select evaluations to report",
+        "select_annex": "Select an annex",
         "all_tags": "All tags",
         "all_cards": "All cards",
         "versions": "Versions",
