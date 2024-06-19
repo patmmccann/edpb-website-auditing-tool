@@ -23716,7 +23716,6 @@ li.dropdown-item a::after {
 
 @media(min-width:1440px) {
     #hero {
-        height: 10rem
     }
 
     #navbar-search-form {
