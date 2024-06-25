@@ -156,6 +156,14 @@
                             beacons and testssl.
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            Select an annex
+                        </td>
+                        <td>
+                            When reporting an analysis, a scenario or a card, it allows to add an investigation annex, for instance to explain how the investigation has been made.
+                        </td>
+                    </tr>
                 </table>
 
                 <p>Template and filtering options are mutually inclusive. As such, templates can
@@ -165,6 +173,9 @@
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Editing New Templates</h2>
                 </header>
+                <p>
+                    New template can be added in the template section with <button>New template</button> button.
+                </p>
                 <p>Yet, the only supported syntax for template is <a target="_blank"
                         href="https://github.com/pugjs/pug">PUG</a>. The generated reports from
                     a template corresponds to the data object object contained in the json of an
@@ -213,6 +224,15 @@
                 <p>Many online Online Pug Testing Tool allows copy/pasting PUG template and JSON
                     information to render the final HTML. <i>Default template</i> can also be
                     exported as a reference.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Adding New Annex</h2>
+                    <p>
+                        Annex can also be added in the template section with <button> New annex</button> button. The only supported syntax for annex is HTML.
+                    </p>
+
+                    <p>Many software supports exporting one format (e.g., DOCx or PDF) to HTML. This annex is automatically added to the pug template at the !{annex} location in the pug syntax. In the default pug template, this annex is appended as is in the end of the report. </p>
+                </header>
             </div>
         </div>
     </div>

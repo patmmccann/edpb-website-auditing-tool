@@ -96,6 +96,32 @@
                                     <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button> <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i> </button></div>
                             </td>
                             <td>Schaltflächen zur Datenerfassungsverwaltung, die es ermöglichen, eine Momentaufnahme der im Browser angezeigten Website zu machen, alle Informationen sowohl vom Renderer als auch vom Logger zu löschen und die für das aktuelle Szenario gesammelten Daten zu stoppen und zu speichern.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+
+                                    <div style="float: right;">
+                                        <button>
+                                            <i class="fa fa-bug"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-minus"></i>
+                                        </button>
+                                        <button>
+                                            <i>110%</i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                Schaltflächen zur Browserverwaltung, die jeweils Entwicklertools für den aktuellen Inhalt öffnen, um die Textgröße des Inhalts zu reduzieren oder zu erhöhen
+                            </td>
+                        </tr>
                         <tr>
                             <td><div>
 
@@ -155,6 +181,16 @@
                             <td>Testsl-Scan</td>
                             <td>Wenn Sie im Abschnitt Einstellungen konfiguriert sind, kann das Befehlszeilenwerkzeug testsl.sh <a
                                     target="_blank" href="https://testssl.sh/">auf</a> der aktuellen URL durchgeführt werden, indem Sie auf die Wiedergabe-Schaltfläche klicken. Dieses Tool überprüft die Unterstützung von TLS/SSL-Chiffren, Protokollen sowie aktuellen kryptografischen Fehlern auf dem aktuellen URL-Server. Beachten Sie, dass dieser Test mehrere Minuten dauert.</td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                Browser-Informationen
+
+                            </td>
+                            <td>
+                                Alle Informationen zum Kontext der Analyse anzeigen: die Version des Tools und des Browsers, der User Agent und der Startzeitpunkt der Datenerfassung. 
+                            </td>
                         </tr>
                     </table>
                     <header class="article-title" style="margin-top: 10px;">
@@ -261,6 +297,20 @@
                 <p>Jederzeit kann ein neues Szenario an die Analyse angehängt werden, indem Sie auf <button class="add-button"> + </button> im linken <strong>Szenario</strong> -Panel klicken.</p>
 
                 <p>Nach der Auswertung der Analyse können Sie Berichte generieren, die gesammelte Daten, Auswertungen und Kommentare in einem übertragbaren Format enthalten. Klicken Sie auf <a href="#/helps/create_reports">Berichte erstellen</a>, um Anleitungen zu erhalten.</p>
+            
+            
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">5.3	Selektoren</h2>
+                </header>
+                <p>
+                    Die Karten Cookies, Local Storage und Web Beacons  bieten eine Reihe von Selektoren, die eine Reihe gemeinsamer Attribute zwischen den Kartenzeilen auswählen und markieren:
+                    <button> <i class="material-icons">search</i> From values</button>,
+                    <button><i class="material-icons">menu_book</i>From knowledges</button> and
+                    <button><i class="material-icons">edit</i>Mark as</button>.
+                </p>
+                <p>
+                    Die Auswahl kann auf einer Kombination der Attribute der Zeile (z. B. Domain und Name des Cookies), ihrer aktuellen Bewertung (kompliant, nicht konform, zu definieren) oder Übereinstimmungen in Wissensdatenbanken basieren, einschließlich ihrer Kategorisierung unter allen Wissensdatenbanken. Das Ergebnis wird im Inhaltsbereich dynamisch aktualisiert.  Schließlich ermöglicht die Funktion „mark as“ die Auswertung der resultierenden Auswahl. 
+                </p>
             </div>
         </div>
     </div>

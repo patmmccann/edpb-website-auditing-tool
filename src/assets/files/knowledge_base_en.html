@@ -44,14 +44,14 @@
                 </p>
 
                 <p>The following table details the purpose of each element in the <button>
-                         <span class="text-uppercase is-active">
+                        <span class="text-uppercase is-active">
                             Knowledge Base</span>
                     </button> section :</p>
 
                 <table border="2">
                     <tr>
                         <td>
-                            <button  color="blue"> <i class="fas fa-plus"></i>
+                            <button color="blue"> <i class="fas fa-plus"></i>
                                 New
                                 database</button>
                         </td>
@@ -63,8 +63,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button  color="blue"><i
-                                    class="fas fa-file-import"></i> Import </button>
+                            <button color="blue"><i class="fas fa-file-import"></i> Import </button>
                         </td>
                         <td>
                             They can also import existing databases in json format that have
@@ -74,8 +73,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button  color="blue"><i
-                                    class="fas fa-file-export"></i> Export all </button>
+                            <button color="blue"><i class="fas fa-file-export"></i> Export all </button>
                         </td>
                         <td>
                             Finally, they can export all databases contained in this tool
@@ -98,6 +96,11 @@
                     </a>, which respectively allow viewing, downloading, duplicating or removing
                     the
                     selected entry.
+                </p>
+                <p>
+                    Databases are associated to a level of certainty (Validated/reliable/informative) and a colour, that
+                    can help conducting assessment for each tracker.
+                </p>
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Cookie entries</h2>
                 </header>
@@ -193,15 +196,18 @@
                     </tr>
                 </table>
                 <p>Each entry of the displayed form can be edited with a click.
-                    Finally, new entries can be added with <button 
-                        color="blue"><i class="fas fa-plus"></i>
+                    Finally, new entries can be added with <button color="blue"><i class="fas fa-plus"></i>
                         New cookie entry</button>.</p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Local storage entries</h2>
                 </header>
-                <p>Local storage entries operate in a similar manner than cookies. However this
-                    deposit can only occur through scripts.</p>
+                <p>The <a class="base-tooltip">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a> button on a local storage knowledge base gives a complete view of all entries contained in it.
+                    These entries operate in a similar manner than cookies. However, this deposit can only occur through
+                    scripts. </p>
+
                 <p> A click on a key of a local storage gives more detail information on this
                     entry : </p>
                 <table border="2">
@@ -285,9 +291,73 @@
 
                 <p>Each entry of the displayed form can also be edited with a click on the
                     information.
-                    New entries can be added with <button  color="blue"><i
-                            class="fas fa-plus"></i>
+                    New entries can be added with <button color="blue"><i class="fas fa-plus"></i>
                         New local storage entry</button>.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Updating a Database </h2>
+                </header>
+                <p>
+                    Each single database can be merged with other exported database using the update database function
+                    in the view interface. By selecting a .json file from an exported database, the tool can identify
+                    new or missing entries in the current database through the following interface :
+                    <table border="2">
+                        <tr>
+                           <td>Database updates</td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <span style="color: #004494;">New elements (10)</span>
+                            </td>
+                            <td>
+                                Indicate the number (10) of new entries  in the current database.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span style="color: #004494;">Deleted elements (20)</span>
+                            </td>
+                            <td>
+                                Indicate the number (20) of missing entries in the current database.
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+                <p>
+                    Each modification can be individually accepted or rejected by extending the new or deleted elements
+                    panels :
+                    <table border="2">
+                        <tr>
+                           <td>Add?</td> 
+                           <td>Domain</td> 
+                           <td>Name</td> 
+                           <td>Category</td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <button>
+                                    <i class="fa fa-check" style="color: green;"></i>
+                                </button>
+                                <button>
+                                    <i class="fa fa-close" style="color: red;"></i>
+                                </button>
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+                <p>
+                    They can be all accepted with the “Apply all” button and stopped at any time with the dismiss
+                    button.
+                </p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Knowledge base usage</h2>
@@ -319,7 +389,9 @@
                 </ul>
                 <p>If it is a key in the local storage, at least one entry match
                     the key or the script responsible for this entry.</p>
-
+                <p>
+                    All databases are associated to a level of trust (Validated/reliable/informative) and a colour, that helps identifying cases where assessment of purposes differs between knowledge bases.
+                </p>
 
                 <p>You can refer to <a href="#/helps/new_analysis">Provide new analysis</a> for
                     making use of that information in order to assess compliance /
