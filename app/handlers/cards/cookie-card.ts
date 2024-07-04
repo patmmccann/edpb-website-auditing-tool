@@ -123,7 +123,7 @@ export class CookieCard extends Card {
                     expires: event_cookie.expires
                 };
 
-                if (!event_cookie.expires) {
+                if (!event_cookie.expires || event_cookie.expires == 'Infinity') {
                     cookie.expires = -1;
                     cookie.session = true;
                 } else {
@@ -228,7 +228,7 @@ export class CookieCard extends Card {
 
         event.data = [cookie];
 
-        return `${event.data[0].expires ? "Persistant" : "Session"
+        return `${event.data[0].expires == 'Infinity' ? "Session" : "Persistant"
             } Cookie (JS) set for host ${event.data[0].domain} with key ${event.data[0].key
             }.`;
     }
