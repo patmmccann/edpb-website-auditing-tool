@@ -30,7 +30,7 @@ import { KnowledgeBaseComponent } from './components/knowledge-base/knowledge-ba
 import { CookieKnowledgesService } from '../services/knowledges/cookie-knowledges.service';
 import { KnowledgeBaseService } from '../services/knowledge-base.service';
 import { KnowledgeBaseItemComponent } from './components/knowledge-base/knowledge-base-item/knowledge-base-item.component';
-import{KnowledgeCookieItemComponent} from './components/knowledge-base/knowledge-cookie-item/knowledge-cookie-item.component';
+import { KnowledgeCookieItemComponent } from './components/knowledge-base/knowledge-cookie-item/knowledge-cookie-item.component';
 
 import { CookieCardComponent } from './components/cards/cookie-card/cookie-card.component';
 import { LocalStorageCardComponent } from './components/cards/local-storage-card/local-storage-card.component';
@@ -58,14 +58,17 @@ import { UnsafeFormCardComponent } from './components/cards/unsafe-form-card/uns
 import { BeaconCardComponent } from './components/cards/beacon-card/beacon-card.component';
 import { BeaconDetailsComponent } from './components/details/beacon-details/beacon-details.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LanguagesComponent } from './components/languages/languages.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { WATTranslateLoader } from './translate/wattranslate-loader';
 import { SearchComponent } from './components/search/search.component';
 import { InfoCardComponent } from './components/cards/info-card/info-card.component';
+import { RequestTrackingDetailsComponent } from './components/details/callstack-details/request-tracking-details/request-tracking-details.component';
+import { StorageLocalStorageDetailsComponent } from './components/details/callstack-details/storage-local-storage-details/storage-local-storage-details.component';
+import { CookieLogDetailsComponent } from './components/details/callstack-details/cookie-log-details/cookie-log-details.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -117,23 +120,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoadingOverlayComponent,
     LanguagesComponent,
     SearchComponent,
-    InfoCardComponent
-    ],
-  imports: [
-    HttpClientModule,
-    CommonModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    MaterialAllModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule.forRoot({
-      loader: {
-          provide: TranslateLoader,
-          useClass: WATTranslateLoader,
-          deps: [HttpClient]
-      }
-  })
+    InfoCardComponent,
+    RequestTrackingDetailsComponent,
+    StorageLocalStorageDetailsComponent,
+    CookieLogDetailsComponent
   ],
   exports: [
     SideNavComponent,
@@ -171,14 +161,29 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommentsComponent,
     LoadingOverlayComponent,
     TranslateModule,
-  ],
-  providers: [
-    KnowledgeBaseService,
-    CookieKnowledgesService
-  ]
+  ], imports: [
+    CommonModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    MaterialAllModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: WATTranslateLoader,
+        deps: [HttpClient]
+      }
+    })], providers: [
+      KnowledgeBaseService,
+      CookieKnowledgesService,
+      provideHttpClient(withInterceptorsFromDi())
+    ]
 })
-export class SharedModule {  static forRoot(): ModuleWithProviders<SharedModule> {
-  return {
-    ngModule: SharedModule
-  };
-} }
+export class SharedModule {
+    static forRoot(): ModuleWithProviders<SharedModule> {
+      return {
+        ngModule: SharedModule
+      };
+    }
+}

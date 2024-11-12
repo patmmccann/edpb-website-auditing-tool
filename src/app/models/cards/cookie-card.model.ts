@@ -5,7 +5,7 @@
  */
 import { Card } from "../card.model";
 import { Details } from "../details.model";
-import { Log } from "./log.model";
+import { CookieLog } from "./cookie-log.model";
 
 export class CookieLine extends Details{
     public name: string;
@@ -25,7 +25,7 @@ export class CookieLine extends Details{
     public expiresUTC: string;
     public expiresDays: number;
     public firstPartyStorage:boolean;
-    public log: Log;
+    public log: CookieLog | null = null;
 
     constructor(cookie:any){
         super('cookie');
@@ -46,7 +46,10 @@ export class CookieLine extends Details{
         this.expiresUTC= cookie.expiresUTC;
         this.expiresDays= cookie.expiresDays;
         this.firstPartyStorage = cookie.firstPartyStorage;
-        this.log = new Log(cookie.log);
+        if (cookie.log){
+            this.log = new CookieLog(cookie.log);
+        }
+        
     }
 }
 

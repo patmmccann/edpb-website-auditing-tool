@@ -74,6 +74,14 @@
                         <td>Selezionare le valutazioni da segnalare</td>
                         <td>Quando si riporta un&#39;analisi, uno scenario o una scheda, consente di selezionare valutazioni o commenti da includere nel rapporto. Si noti che questa opzione si applica anche alle linee in cookie, archiviazione locale, beacon e testsl.</td>
                     </tr>
+                    <tr>
+                        <td>
+                            Selezionare un allegato
+                        </td>
+                        <td>
+                            Quando segnala un'analisi, uno scenario o una carta, consente di aggiungere un allegato di indagine, ad esempio per spiegare come è stata effettuata l'indagine.
+                        </td>
+                    </tr>
                 </table>
 
                 <p>I modelli e le opzioni di filtraggio sono reciprocamente inclusivi. In quanto tali, i modelli possono essere informazioni complete su analisi, scenari e schede che potrebbero essere successivamente selezionate attraverso le opzioni di filtraggio.</p>
@@ -81,6 +89,9 @@
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Modifica di nuovi modelli</h2>
                 </header>
+                <p>
+                    Un nuovo modello può essere aggiunto nella sezione template con il pulsante  <button>Nuovo modello</button>.
+                </p>
                 <p>Tuttavia, l&#39;unica sintassi supportata per il modello è <a target="_blank"
                         href="https://github.com/pugjs/pug">PUG.</a> I report generati da un modello corrispondono all&#39;oggetto dati contenuto nel json di un&#39;analisi, uno scenario o una scheda ai locali corrispondenti <i>nella</i> sintassi del carlino.</p>
                 <p>Puoi fare riferimento alla sezione <i>Language Reference</i> del suo <a
@@ -103,6 +114,16 @@
 
                 <p>Come prima introduzione per la generazione di nuovi modelli, si consiglia di scaricare un&#39;analisi, uno scenario o un tag dalla <i>barra degli strumenti Modifica / esportazione</i> in formato raw JSON per trovare le voci corrispondenti.</p>
                 <p>Molti Online Pug Testing Tool consentono di copiare / incollare il modello PUG e le informazioni JSON per rendere l&#39;HTML finale. <i>Il modello predefinito</i> può anche essere esportato come riferimento.</p>
+            
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Aggiunta di un nuovo allegato</h2>
+                    <p>
+                        L'allegato può essere aggiunto anche nella sezione modello con il pulsante  <button> Nuovo allegato</button>.
+                    </p>
+
+                    <p>L'unica sintassi supportata per l'allegato è HTML. Molti software supportano l'esportazione di un formato (ad esempio DOCx o PDF) in HTML. Questo allegato viene automaticamente aggiunto al modello di pug nella posizione!{annex} nella sintassi del pug. Nel modello predefinito di pug, il presente allegato è allegato come alla fine della relazione. </p>
+                </header>
+
             </div>
         </div>
     </div>

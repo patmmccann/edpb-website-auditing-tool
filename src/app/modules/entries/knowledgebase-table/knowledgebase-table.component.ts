@@ -15,6 +15,7 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./knowledgebase-table.component.scss']
 })
 export class KnowledgebaseTableComponent implements OnInit {
+  public loading:boolean = false;
 
   @Output() changed = new EventEmitter<any>();
   @Output() duplicated = new EventEmitter<any>();
@@ -45,12 +46,15 @@ export class KnowledgebaseTableComponent implements OnInit {
   }
 
   remove(id:number): void {
+    this.loading = true;
     this.knowledgeBaseService
     .delete(id)
     .then(() => {
       this.deleted.emit();
+      this.loading = false;
     })
     .catch(() => {
+      this.loading = false;
       return;
     });
   }

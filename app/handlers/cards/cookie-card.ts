@@ -93,11 +93,19 @@ export class CookieCard extends Card {
                 );
             });
 
-            // if there is a match, we enrich with the log entry
-            // else we add a nww entry to the output.cookies array
+            let log = {};
+
+            if (event_cookie && event_cookie.log){
+                //Retrieve raw value of log
+                log = event_cookie.log;
+                delete event_cookie.log;
+                log["event"] = event_cookie;
+            }
+
             if (matched_cookie) {
-                matched_cookie.log = event_cookie.log;
+                matched_cookie.log = log;
             } else {
+                // In case of no matching entries 
                 const cookie = {
                     name: event_cookie.key,
                     value: event_cookie.value,
@@ -108,12 +116,14 @@ export class CookieCard extends Card {
                     secure: event_cookie.secure == null ? false : event_cookie.secure,
                     httpOnly: event_cookie.httpOnly == null ? false : event_cookie.httpOnly,
                     sameSite: event_cookie.sameSite == null ? "unspecified" : event_cookie.sameSite,
-                    log: event_cookie.log,
+                    event: event_cookie,
+                    log : log,
                     session: false,
                     expiresDays: 0,
                     expires: event_cookie.expires
                 };
-                if (!event_cookie.expires) {
+
+                if (!event_cookie.expires || event_cookie.expires == 'Infinity') {
                     cookie.expires = -1;
                     cookie.session = true;
                 } else {
@@ -134,7 +144,7 @@ export class CookieCard extends Card {
         const cookies = await this.collector.cookies();
         const log_cookies = this.collectCookies(cookies, 0);
         const final = this.inspectCookies(log_cookies);
-        output.cookies= final;
+        output.cookies = final;
     }
 
     add(details: Electron.OnHeadersReceivedListenerDetails) {
@@ -218,7 +228,7 @@ export class CookieCard extends Card {
 
         event.data = [cookie];
 
-        return `${event.data[0].expires ? "Persistant" : "Session"
+        return `${event.data[0].expires == 'Infinity' ? "Session" : "Persistant"
             } Cookie (JS) set for host ${event.data[0].domain} with key ${event.data[0].key
             }.`;
     }

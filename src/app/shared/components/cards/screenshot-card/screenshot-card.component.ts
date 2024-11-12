@@ -8,7 +8,7 @@ import { Analysis } from 'src/app/models/analysis.model';
 import { Card, viewContext } from 'src/app/models/card.model';
 import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
 import { Tag } from 'src/app/models/tag.model';
-import { BrowserService } from 'src/app/services/browser.service';
+import { BrowserService, ScreenshotOptions } from 'src/app/services/browser.service';
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ScreenshotCardComponent implements OnInit {
   @Input() analysis: Analysis | null = null;
   @Input() tag: Tag | null = null;
   
-  screenshot_option : 'visible' | 'full' = 'visible';
+  screenshot_option : ScreenshotOptions = 'visible';
   loading :boolean = false;
   constructor(
     private browserService: BrowserService,
@@ -39,7 +39,7 @@ export class ScreenshotCardComponent implements OnInit {
   updateScreenshot(){
     if (this.analysis && this.tag){
       this.loading = true;
-      this.browserService.takeScreenshot(window, this.analysis, this.tag, this.screenshot_option == 'visible'? false: true)
+      this.browserService.takeScreenshot(window, this.analysis, this.tag, this.screenshot_option)
       .then(async (screenShotCard) => {
         if (this.tag){
           this.tagService.removeCard(this.tag, this.screenshotCard);

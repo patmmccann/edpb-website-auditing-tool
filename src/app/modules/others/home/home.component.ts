@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LanguagesService } from 'src/app/services/languages.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,10 +20,10 @@ export class HomeComponent implements OnInit {
   content = "";
 
   constructor(
-    private route: ActivatedRoute,
-    public translateService: TranslateService,
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    @Inject(TranslateService) public translateService: TranslateService,
     public languagesService: LanguagesService,
-    private httpClient: HttpClient
+    @Inject(HttpClient) private httpClient: HttpClient
   ) { }
 
   ngOnInit(): void {

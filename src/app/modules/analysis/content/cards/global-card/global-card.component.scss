@@ -32,6 +32,12 @@ table {
             &:nth-child(odd) {
                 background-color: $base-gray-light;
             }
+            &:focus,
+            &:hover,
+            &:active {
+                background-color: #9ec8ed;
+                color: #fff;
+            }
         }
     }
 }

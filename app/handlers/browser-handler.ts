@@ -5,10 +5,13 @@
  */
 import { ipcMain, BrowserWindow, BrowserView } from 'electron';
 import { BrowserSession } from './sessions/browser-session'
+import { BrowserCollector } from './collectors/browser-collector';
 
 export class BrowsersHandler {
     _mainWindow: BrowserWindow;
     _sessions: BrowserSession[] = [];
+    _collectors : {[key: number]: BrowserCollector} = {};
+
     currentView: BrowserView | null = null;
 
     constructor(mainWindow: BrowserWindow) {
@@ -37,6 +40,9 @@ export class BrowsersHandler {
         ipcMain.handle('screenshot', this.screenshot.bind(this));
         ipcMain.handle('toogleDevTool', this.toogleDevTool.bind(this));
         ipcMain.handle('versions', this.versions);
+        ipcMain.handle('reportEvent', this.reportEvent.bind(this));
+        ipcMain.handle('setZoomFactor', this.setZoomFactor.bind(this));
+        ipcMain.handle('getZoomFactor', this.getZoomFactor.bind(this));
     }
 
     unregisterHandlers() {
@@ -61,6 +67,9 @@ export class BrowsersHandler {
             ipcMain.removeHandler('toogleDevTool');
             ipcMain.removeHandler('updateSettings');
             ipcMain.removeHandler('versions');
+            ipcMain.removeHandler('reportEvent');
+            ipcMain.removeHandler('setZoomFactor');
+            ipcMain.removeHandler('getZoomFactor');
 
             for (const [name, session] of Object.entries(this.sessions)) {
                 session.delete();
@@ -145,9 +154,9 @@ export class BrowsersHandler {
         return session.canGoForward();
     }
 
-    async screenshot(event, analysis_id, tag_id, full_screenshot) {
+    async screenshot(event, analysis_id, tag_id, screenshot_option) {
         const session = this.get(analysis_id, tag_id);
-        return await session.screenshot(full_screenshot);
+        return await session.screenshot(screenshot_option);
     }
 
     toogleDevTool(event, analysis_id, tag_id) {
@@ -156,21 +165,32 @@ export class BrowsersHandler {
     }
 
     async createBrowserSession(event, analysis_id, tag_id, url, settings) {
-        const test = process.versions.electron;
         const session_name = analysis_id && tag_id ? 'session' + analysis_id + tag_id : 'main';
         const browserSession = new BrowserSession(this.mainWindow, session_name, settings);
         this._sessions[browserSession.name] = browserSession;
         await browserSession.create();
+        this._collectors[browserSession.contents.id] = browserSession.collector;
 
         if (url) {
             await browserSession.gotoPage(url);
         }
     }
 
+    setZoomFactor(event, analysis_id, tag_id, factor
+    ) {
+        const session = this.get(analysis_id, tag_id);
+        session.zoomFactor = factor;
+    }
+    
+    getZoomFactor(event, analysis_id, tag_id) {
+        const session = this.get(analysis_id, tag_id);
+        return session.zoomFactor;
+    }
+
     async deleteBrowserSession(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         if (!session) return;
-
+        this._collectors[session.contents.id];
         const current_view = this.mainWindow.getBrowserView();
 
         if (session.view == current_view) {
@@ -206,6 +226,19 @@ export class BrowsersHandler {
 
     get sessions() {
         return this._sessions;
+    }
+
+    collector(id : number) {
+        return this._collectors[id];
+    }
+
+    reportEvent(reportEvent, type, stack, data, location){
+        const collector = this.collector(reportEvent.sender.id);
+        if (collector){
+            collector.reportEvent(type, stack, data, location);
+        }else{
+            console.log("No collector has been found for this session");
+        }
     }
 
     versions() {

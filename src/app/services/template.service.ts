@@ -36,6 +36,8 @@ export class TemplateService extends ApplicationDb {
             newStructure.name = element.name;
             newStructure.author = element.author;
             newStructure.pug = element.pug;
+            newStructure.html = element.html;
+            newStructure.type = element.type? element.type : 'template';
             newStructure.created_at = new Date(element.created_at);
             newStructure.updated_at = new Date(element.updated_at);
             items.push(newStructure);
@@ -50,6 +52,7 @@ export class TemplateService extends ApplicationDb {
             defaultTemplate.name = "Default";
             defaultTemplate.author = "EDPB";
             defaultTemplate.pug = data;
+            defaultTemplate.type = 'template';
             this.default_pug = data;
             items.unshift(defaultTemplate);
             resolve(items);
@@ -85,6 +88,8 @@ export class TemplateService extends ApplicationDb {
       name: template.name,
       author: template.author,
       pug: template.pug,
+      html: template.html,
+      type: template.type,
       created_at: new Date(),
       updated_at: new Date()
     };
@@ -102,7 +107,7 @@ export class TemplateService extends ApplicationDb {
   }
   
   export(id: number): void {
-    function export_result(data: string) {
+    function export_result(data: string, ext:string) {
       const date = new Date().getTime();
 
       const a = document.getElementById('base-exportBlock');
@@ -113,7 +118,7 @@ export class TemplateService extends ApplicationDb {
         a.setAttribute('href', url);
         a.setAttribute(
           'download',
-          date + '_export_template_' + id + '.pug'
+          date + '_export_template_' + id + ext
         );
         const event = new MouseEvent('click', {
           view: window
@@ -122,12 +127,13 @@ export class TemplateService extends ApplicationDb {
       }
     }
 
-
     if (id == 0) {
-      export_result(this.default_pug);
+      export_result(this.default_pug, ".pug");
     } else {
       this.find(id).then((template: Template) => {
-        export_result(template.pug);
+        const ext = template.type == 'annex'? '.html' : '.pug';
+        const content = template.type == 'annex'? template.html : template.pug;
+        export_result(content, ext);
       });
     }
   }
@@ -144,6 +150,7 @@ export class TemplateService extends ApplicationDb {
 
         entry.name = template.name;
         entry.author = template.author;
+        entry.type = template.type;
         entry.updated_at = new Date();
 
         super

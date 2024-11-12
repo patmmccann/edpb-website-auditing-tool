@@ -9,12 +9,14 @@ export class Stack {
     public lineNumber: number =0;
     public source: string="";
     public functionName:string | null= null;
+    public request: any= null;
 
     constructor(stack:any){
         this.columnNumber= stack.columnNumber;
         this.fileName= stack.fileName;
         this.lineNumber= stack.lineNumber;
         this.functionName = stack.functionName;
+        this.request = stack.request;
         this.source= stack.source;
     }
 }

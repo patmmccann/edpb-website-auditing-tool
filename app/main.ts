@@ -103,15 +103,6 @@ function createWindow() {
     const parserHandler = new ParserHandler();
     const testSSLHandler = new TestSSLHandler();
 
-    async function parseHar() {
-        var fs = require('fs');
-        var har = JSON.parse(fs.readFileSync('./test/firefox.har', 'utf8'));
-        const output = await parserHandler.parseHar(null, har, null);
-        console.log(output);
-    }
-
-    //parseHar();
-
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
         browserHandlers.unregisterHandlers();
@@ -125,18 +116,10 @@ function createWindow() {
         mainWindow = null;
     });
 
-    /*app.on("web-contents-created", (webContentsCreatedEvent, contents)=>{
-        contents.on("will-navigate", function(e, url) {
-            e.preventDefault();
-            require("electron").shell.openExternal(url);
-        });
-    });*/
-
-    /*
-    mainWindow.webContents.on('new-window', function (e, url) {
-        e.preventDefault();
+    mainWindow.webContents.setWindowOpenHandler(({ url }) => {
         require("electron").shell.openExternal(url);
-    });*/
+        return { action: 'deny' }
+    })
 }
 
 if (!gotTheLock) {

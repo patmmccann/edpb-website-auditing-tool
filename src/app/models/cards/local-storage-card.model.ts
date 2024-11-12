@@ -12,7 +12,7 @@ export class LocalStorageLine extends Details{
     public key:string;
     public value:string;
     public firstPartyStorage : string[];
-    public log:Log;
+    public log:Log | null = null;
 
     constructor(host:string, key:string, value:any){
         super('localstorage');
@@ -20,7 +20,9 @@ export class LocalStorageLine extends Details{
         this.key = key;
         this.value = value.value;
         this.firstPartyStorage = value.firstPartyStorage;
-        this.log = new Log(value.log);
+        if (value.log){
+            this.log = new Log(value.log);
+        }
     }
 }
 

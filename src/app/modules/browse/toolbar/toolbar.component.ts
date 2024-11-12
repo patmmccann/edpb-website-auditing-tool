@@ -4,14 +4,11 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output, Input, OnDestroy, OnChanges, SimpleChanges} from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Tag } from 'src/app/models/tag.model';
-import { AnalysisService } from 'src/app/services/analysis.service';
 import { BrowserService } from 'src/app/services/browser.service';
 import { CookieCard } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageCard } from 'src/app/models/cards/local-storage-card.model';
-import { TagService } from 'src/app/services/tag.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
@@ -26,6 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   canGoBackward: boolean = false;
   canGoForward: boolean = false;
   
+  
   @Output() save = new EventEmitter();
   @Output() erase = new EventEmitter();
   @Output() screenshot = new EventEmitter();
@@ -36,6 +34,7 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   
   @Input() analysis: Analysis | null = null;
   @Input() tag: Tag | null = null;
+  @Input() _zoomFactor = 100;
   
   pause_state:boolean = false;
   log_opened:boolean =true;
@@ -53,7 +52,7 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   }
 
   ngOnInit(): void {
-
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,6 +60,10 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
     .getURL(window, this.analysis, this.tag)
     .then((url:string)=>{
       this.addressbarValue = url;
+    });
+
+    this.browserService.getZoomFactor(window, this.analysis, this.tag).then((zoomFactor:number) =>{
+      this._zoomFactor = Math.round(zoomFactor * 100);
     });
   }
 
@@ -154,5 +157,14 @@ export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   onMouseDown(e: any) {
     this.searchElement.nativeElement.select();
   };
+
+  set zoomFactor(factor : number){
+    this._zoomFactor = factor;
+    this.browserService.setZoomFactor(window, this.analysis, this.tag, factor/100);
+  }
+
+  get zoomFactor(){
+    return this._zoomFactor;
+  }
 
 }

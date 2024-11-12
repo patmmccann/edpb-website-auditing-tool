@@ -8,7 +8,6 @@
  */
 import { Logger, createLogger, format, transports } from 'winston';
 
-import * as isDev from 'electron-is-dev';
 import * as tmp from 'tmp';
 import { BeaconCard } from '../cards/beacon-card';
 import { HTTPCard } from '../cards/http-card';

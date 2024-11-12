@@ -10,14 +10,12 @@
                         when browsing websites through
                         a set of <i>scenarios</i>.</p>
                     <p>It can be initiated from the <button>
-                            <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">New</span>
+                            <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">New</span>
                         </button> section or
                         from the <button class="analysis-plus">+</button> button in the toolbar
                         of
                         the <button>
-                            <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Browse</span>
+                            <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Browse</span>
                         </button> section.</p>
 
                     <p>Both of these icons reveal the following form : </p>
@@ -61,10 +59,8 @@
                                     </label>
                                     <br>
                                     <input size="30" value="Internal Browser" disabled /><br>
-                                    <input size="30" value="HTTP Archive format (HAR)"
-                                        disabled /><br>
-                                    <input size="30" value="Website Evidence Collector (WEC)"
-                                        disabled />
+                                    <input size="30" value="HTTP Archive format (HAR)" disabled /><br>
+                                    <input size="30" value="Website Evidence Collector (WEC)" disabled />
                                 </div>
                             </td>
                             <td>
@@ -115,8 +111,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button value="Start" class="form-submit btn btn-primary"
-                                    type="submit">Start</button>
+                                <button value="Start" class="form-submit btn btn-primary" type="submit">Start</button>
                             </td>
                             <td>
                                 Once all the information is correctly entered, the start button
@@ -127,11 +122,10 @@
                     </table>
 
                     If the internal browse source is selected, a new session <button>
-                        <span
-                            class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Analysis
+                        <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Analysis
                             > Scenario</span>
-                    </button> appears in <strong
-                        style="color: rgba(0,0,0,.54);">Sessions</strong> on the left navigation
+                    </button> appears in <strong style="color: rgba(0,0,0,.54);">Sessions</strong> on the left
+                    navigation
                     bar. Until this session is closed, the newly created scenario is associated
                     with all the information collected through this session.
                 </div>
@@ -141,12 +135,11 @@
                     <h1 class="node__title mb-3 mt-0">The Internal Browser</h1>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>The internal browser of the EDPB website auditing tool uses Chrome
-                        Version 106.0.5249.103. It appears whenever you associate a new scenario
+                    <p>The internal browser appears whenever you associate a new scenario
                         to an analysis, or when clicking on the <button>
-                           <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Browse</span>
-                        </button> or on an existing session in the left navigation bar. </p>
+                            <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Browse</span>
+                        </button> or on an existing session in the left navigation bar. It is based on a Chrome Version
+                        indicated in the card Browser information.</p>
 
                     <p> The browser interface is composed of the following three main components
                         : </p>
@@ -246,8 +239,7 @@
                                 assesment view on the associated scenario. As such, information
                                 already collected in the logger can be tagged as compliant/not
                                 compliant whilst keeping the current running session alive and
-                                accessible through <strong
-                                    style="color: rgba(0,0,0,.54);">Sessions</strong> on the
+                                accessible through <strong style="color: rgba(0,0,0,.54);">Sessions</strong> on the
                                 left side navigation bar.
                             </td>
                         </tr>
@@ -274,6 +266,33 @@
                                 both the renderer and the logger, and to stop and save data
                                 collected for the current scenario.
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+
+                                    <div style="float: right;">
+                                        <button>
+                                            <i class="fa fa-bug"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-minus"></i>
+                                        </button>
+                                        <button>
+                                            <i>110%</i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                Browser management buttons that respectively open developer tools on the current
+                                content, to reduce or increase the content’s text size.
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <div>
@@ -325,7 +344,7 @@
                     <table border="2">
                         <tr>
                             <td>
-                                            Screenshot
+                                Screenshot
                             </td>
                             <td>
                                 List all screenshots that have been recorded from the renderer
@@ -337,7 +356,7 @@
                         </tr>
                         <tr>
                             <td>
-                                            Cookies
+                                Cookies
 
                             </td>
                             <td>
@@ -352,7 +371,7 @@
                         </tr>
                         <tr>
                             <td>
-                                            Local Storage
+                                Local Storage
 
                             </td>
                             <td>
@@ -370,7 +389,7 @@
                         <tr>
                             <td>
 
-                                            Use of HTTPS/SSL
+                                Use of HTTPS/SSL
 
                             </td>
                             <td>
@@ -383,7 +402,7 @@
                         <tr>
                             <td>
 
-                                            Traffic Analysis
+                                Traffic Analysis
 
                             </td>
                             <td>
@@ -395,7 +414,7 @@
                         <tr>
                             <td>
 
-                                            Web Forms with non-encrypted Transmission
+                                Web Forms with non-encrypted Transmission
 
                             </td>
                             <td>
@@ -409,15 +428,14 @@
                         <tr>
                             <td>
 
-                                            Beacons
+                                Beacons
 
                             </td>
                             <td>
                                 List all known tracking pixels (Web Beacons) contained in the
                                 rendered page according to <a target="_blank"
                                     href="https://easylist.to/#easyprivacy">EasyPrivacy</a> and
-                                <a target="_blank"
-                                    href="https://easylist.to/#fanboy-s-annoyance-list">Fanboy's
+                                <a target="_blank" href="https://easylist.to/#fanboy-s-annoyance-list">Fanboy's
                                     Annoyance</a> list.
                                 This list is only informational, it may be incomplete or
                                 includes false positives due to inaccurate or outdated
@@ -427,16 +445,27 @@
                         <tr>
                             <td>
 
-                                            TestSSL scan 
+                                TestSSL scan
 
                             </td>
                             <td>
-                                If configured in the settings section, the command-line tool <a
-                                    target="_blank" href="https://testssl.sh/">testssl.sh</a>
+                                If configured in the settings section, the command-line tool <a target="_blank"
+                                    href="https://testssl.sh/">testssl.sh</a>
                                 can be performed on the current URL by clicking on the play
                                 button. This tool checks supports of TLS/SSL ciphers, protocols
                                 as well as recent cryptographic flaws on the current URL server.
                                 Note that this test takes several minutes to be performed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                Browser information
+
+                            </td>
+                            <td>
+                                Display all information about the context of the analysis: the version of the tool and
+                                the browser, the user agent and starting time of the data collection.
                             </td>
                         </tr>
                     </table>
@@ -494,8 +523,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button mat-raised-button
-                                    class="btn btn-block btn-primary">Close details
+                                <button mat-raised-button class="btn btn-block btn-primary">Close details
                                 </button>
                             </td>
                             <td>
@@ -511,11 +539,10 @@
                     <h1 class="node__title mb-3 mt-0">Making a decision of compliance / non
                         compliance </h1>
                 </header>
-                <p>In order to assist in the assesment of website compliance, analysis,
+                <p>To assist in the assesment of website compliance, analysis,
                     scenarios and cards can be
-                    marked as <span style="color:green">Compliant</span>, <span
-                        style="color:red">Not Compliant</span>, or <span
-                        style="color:#004494">To Be Defined</span>.</p>
+                    marked as <span style="color:green">Compliant</span>, <span style="color:red">Not Compliant</span>,
+                    or <span style="color:#004494">To Be Defined</span>.</p>
                 <p>This assesment interface can be reached at any time, by clicking on the
                     toolbar button <span class="analysis-name" style="font-size:14px">
                         <button>
@@ -554,13 +581,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <button >
+                            <button>
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button >
+                            <button>
                                 <i class="fa fa-download"></i>
                             </button>
-                            <button >
+                            <button>
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -585,16 +612,15 @@
                         <td>
                             The scenarios that have been recorded for the given analysis. The
                             color corresponds to their respective current assesment if any
-                            (<strong style="color: green;"> complaint</strong>, <strong
-                                style="color: red;"> not complaint</strong> or <strong
-                                style="color: #004494;"> to be defined </strong>).
+                            (<strong style="color: green;"> complaint</strong>, <strong style="color: red;"> not
+                                complaint</strong> or <strong style="color: #004494;"> to be defined </strong>).
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <i class="fa fa-link"></i> 
+                            <i class="fa fa-link"></i>
                             www.(...).com <br>
-                            <i class="fa fa-calendar"></i> 
+                            <i class="fa fa-calendar"></i>
                             10/01/2022
                         </td>
                         <td>
@@ -612,8 +638,8 @@
                     <h2 class="node__title mb-3 mt-0">Evaluation</h2>
                 </header>
 
-                <p>Selecting the <button >
-                    <i class="fa fa-eye"></i>
+                <p>Selecting the <button>
+                        <i class="fa fa-eye"></i>
                     </button> button through an analysis, a scenario or a card allows
                     navigating in the given element and gets detailed information.</p>
 
@@ -639,9 +665,9 @@
                     </tr>
                     <tr>
                         <td>
-                            <button color="blue"> <i class="fa fa-close" ></i> 
+                            <button color="blue"> <i class="fa fa-close"></i>
                                 Close edition</button>
-                            <button color="blue"> <i class="fa fa-edit"></i> 
+                            <button color="blue"> <i class="fa fa-edit"></i>
                                 Write a comment</button>
                         </td>
                         <td>
@@ -654,13 +680,13 @@
 
                             <div style="float: right">
                                 <button>
-                                    <i class="fa fa-check" style="color: green;"></i> 
+                                    <i class="fa fa-check" style="color: green;"></i>
                                 </button>
                                 <button>
-                                    <i class="fa fa-close" style="color: red;"></i> 
+                                    <i class="fa fa-close" style="color: red;"></i>
                                 </button>
                                 <button>
-                                    <i class="fa fa-search" style="color: #004494;"></i> 
+                                    <i class="fa fa-search" style="color: #004494;"></i>
                                 </button>
                             </div>
                         </td>
@@ -716,6 +742,25 @@
                     collected data, evaluations and comments in a communicable
                     format. Click on <a href="#/helps/create_reports">Create reports </a> to get
                     guidances.</p>
+
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Selectors</h2>
+                </header>
+                <p>
+                    The Cookies, Local Storage and Web beacons cards provide a set of selectors that select and mark a
+                    set of common attributes amongst the card lines:
+                    <button> <i class="material-icons">search</i> From values</button>,
+                    <button><i class="material-icons">menu_book</i>From knowledges</button> and
+                    <button><i class="material-icons">edit</i>Mark as</button>.
+                </p>
+                <p>
+                    The selection can be based on a combination of the attributes of the line (e.g. domain and name of
+                    the cookie), its current evaluation (Compliant, Not compliant, To be defined) or matches into
+                    knowledge bases, including its categorization amongst all knowledge bases. The result is dynamically
+                    updated in the content section. Finally, the “mark as” functionality allows to evaluate the
+                    resulting selection.
+                </p>
             </div>
         </div>
     </div>

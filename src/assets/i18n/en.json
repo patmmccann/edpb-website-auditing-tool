@@ -52,9 +52,9 @@
         "create_reports": "Create reports",
         "about_tool": "About the Tool",
         "welcome": "Welcome to the EDPB Website Auditing Tool",
-        "overview": "<p>The <strong>EDPB Website Auditing Tool</strong> is developed by Jérôme GORIN for the <a target='_blank' href='https://edpb.europa.eu/edpb_en'>European Data Protection Board <a/> under an <a target='_blank' href='https://edpb.europa.eu/support-pool-experts-spe-programme_en'>SPE project</a> contract. It is a Free Software project, aiming to provide a tool to collect evidence, analyse them and generate reports regarding trackers that are being used by websites. It is intended to be used to facilitate website inspections.</p><p>Click on How the tool works to get a first introduction. At any time, you can come back to this page by clicking on the help button on the left sidebar.</p><p>The EDPB WAT is licensed under the European Union Public License (EUPL) 1.2+. The source code is available at <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool</a>.</p><p>The software is built upon the work of several open-source projects, namely <a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'>Project WEC</a>, <a target='_blank' href='https://easylist.to/'>EasyList</a> and <a target='_blank' href='https://www.electronjs.org/'>Electron</a>. Click on About the tool to get more information on these projects.</p><p><strong>All languages noted (MT) have been translated automatically with eTranslation by Directorate-General for Translation. Please report any error on our <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'>GitLab <a/>. </strong></p>",
-        "open_source": "<h2>Based on Open-Source Projects</h2><p>This software builds upon the work of several open-source projects, integrating, adapting or calling features for enhanced functionality:<ul><li><a target='_blank' href='https://edps.europa.eu/edps-inspection-software_en'> Project WEC </a> : This EDPS command-line tool allows gathering evidence on personal data processing operations of websites using a reproducible, reliable, and fast method. The EDPB WAT project started thanks to the main WEC components, it stays greatly inspired by the WEC. The EDPB WAT allows to visualize audits made with WEC and wish to stay compliant with this project in the future.</li><li><a target='_blank' href='https://easylist.to/'> EasyList</a>: The EasyList project proposes sets of rules originally designed for <a target='_blank' href='http://adblock.mozdev.org/'> Adblock </a> (adblock.mozdev.org on WayBackMachine (archive.org)) that automatically remove unwanted content from the internet, including annoying adverts, bothersome banners and troublesome tracking. The EDPB WAT uses the EasyPrivacy list and the Fanboy’s Annoyance list.</li><li><a target='_blank' href='https://www.electronjs.org/'> Electron </a> : Electron is a free and open-source software framework developed and maintained by OpenJS Foundation. It allows to build cross-platform desktop apps. The EDPB WAT is written with the Electron framework.</li></p>",
-        "contributions": "<h2>Contributions and Feedback</h2><p>The EDPB WAT has been enriched by the feedbacks and contributions from the members of the EDPB, and in particular by the officers participating in the 2023 website auditing Bootcamp. Thank you!</p><p>To report issues or suggest improvements, please visit <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool. </a> </p>",
+        "overview": "<p>The <strong>EDPB Website Auditing Tool</strong> is developed by Jérôme GORIN for the <a target='_blank' href='https://edpb.europa.eu/edpb_en'>European Data Protection Board <a/> under an <a target='_blank' href='https://edpb.europa.eu/support-pool-experts-spe-programme_en'>SPE project</a> contract. It is a Free Software project, aiming to provide a tool to collect evidence, analyse them and generate reports regarding trackers that are being used by websites. It is intended to be used to facilitate website inspections.</p><p>Click on How the tool works to get a first introduction. At any time, you can come back to this page by clicking on the help button on the left sidebar.</p><p>The EDPB WAT is licensed under the <em>European Union Public License</em> (EUPL) 1.2+. The source code is available at <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'> https://code.europa.eu/edpb/website-auditing-tool</a>.</p><p>The software is built upon the work of several open-source projects, namely <a target='_blank' href='https://code.europa.eu/EDPS/website-evidence-collector'>Project WEC</a>, <a target='_blank' href='https://easylist.to/'>EasyList</a> and <a target='_blank' href='https://www.electronjs.org/'>Electron</a>. Click on About the tool to get more information on these projects.</p><p><strong>All languages noted (MT) have initially been translated automatically with eTranslation by Directorate-General for Translation. Please report any error on our <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'>GitLab <a/>.</strong></p>",
+        "open_source": "<h2>Based on Open-Source Projects</h2><p>This software builds upon the work of several open-source projects, integrating, adapting or calling features for enhanced functionality:<ul><li><a target='_blank' href='https://code.europa.eu/EDPS/website-evidence-collector'>Project WEC</a>: This EDPS command-line tool allows gathering evidence on personal data processing operations of websites using a reproducible, reliable, and fast method. The EDPB WAT project started thanks to the main WEC components, it stays greatly inspired by the WEC. The EDPB WAT allows to visualize audits made with WEC and wish to stay compliant with this project in the future.</li><li><a target='_blank' href='https://easylist.to/'> EasyList</a>: The EasyList project proposes sets of rules originally designed for <a target='_blank' href='http://adblock.mozdev.org/'>Adblock</a> (adblock.mozdev.org on WayBackMachine (archive.org)) that automatically remove unwanted content from the internet, including annoying adverts, bothersome banners and troublesome tracking. The EDPB WAT uses the EasyPrivacy list and the Fanboy’s Annoyance list.</li><li><a target='_blank' href='https://www.electronjs.org/'>Electron</a>: Electron is a free and open-source software framework developed and maintained by OpenJS Foundation. It allows to build cross-platform desktop apps. The EDPB WAT is written with the Electron framework.</li></p>",
+        "contributions": "<h2>Contributions and Feedback</h2><p>The EDPB WAT has been enriched by the feedbacks and contributions from the members of the EDPB, and in particular by the officers participating in the 2023 website auditing Bootcamp. Thank you!</p><p>To report issues or suggest improvements, please visit <a target='_blank' href='https://code.europa.eu/edpb/website-auditing-tool'>https://code.europa.eu/edpb/website-auditing-tool</a>.</p>",
         "copyright": "<i>© 2022, European Data Protection Board (EDPB). All rights reserved.</i>"
     },
     "entries": {
@@ -90,8 +90,14 @@
             "new_database": "New database"
         },
         "template": {
-            "new_template": "New template"
+            "new_template": "New template",
+            "new_annex": "New annex",
+            "annex":"Annex",
+            "template":"Template",
+            "template_name": "Template name",
+            "annex_name": "Annex name"
         },
+        "type":"Type",
         "create": "Create",
         "cancel": "Cancel",
         "view": "View",
@@ -103,8 +109,7 @@
         "remove": "Remove",
         "disable": "Disable",
         "cookie": "Cookie",
-        "local_storage": "Local Storage",
-        "template_name": "Template name"
+        "local_storage": "Local Storage"
     },
     "analyses": {
         "edit": {
@@ -194,7 +199,9 @@
             "clear": "Clear all information stored in the browser",
             "developer": "Show developer tool for the current page",
             "stop": "Stop and save the analysis",
-            "show": "Show/hide the evidence bar"
+            "show": "Show/hide the evidence bar",
+            "zoomOut":"Reduces text size",
+            "zoomIn":"Increases text size"
         },
         "log_details": {
             "details": "Details",
@@ -202,7 +209,15 @@
             "close_details": "Close details",
             "logs": "Logs",
             "logs_tooltip": "Script or request that stored the selected information.",
-            "knowledge_tooltip": "Information from the knownledge base that could be linked to the selected line."
+            "knowledge_tooltip": "Information from the knownledge base that could be linked to the selected line.",
+            "log_cookie_js":"Javascript cookie set from the following javascript files",
+            "log_cookie_http":"Cookie set by a SetCookie on the following request",
+            "log_localstorage":"Local Storage value written from the following files",
+            "log_beacon":"From the following list",
+            "log_values":"With the following values",
+            "by_function" : "by the function",
+            "at_column" : "at column",
+            "and_line" : "and line"
         }
     },
     "settings": {
@@ -236,7 +251,9 @@
         "client_id": "Client ID",
         "client_secret": "Client Secret",
         "update": "Update",
-        "infos": "Show browser informations"
+        "infos": "Show browser informations",
+        "use_doh": "Use DoH server",
+        "doh": "DOH server to use (restart may be required)"
     },
     "reports": {
         "creator": "Creator",
@@ -259,6 +276,7 @@
         "select_tags": "Select tags to report",
         "select_cards": "Select cards to report",
         "select_evaluations": "Select evaluations to report",
+        "select_annex": "Select an annex",
         "all_tags": "All tags",
         "all_cards": "All cards",
         "versions": "Versions",
@@ -309,7 +327,9 @@
         },
         "screenshot": {
             "visible": "Visible",
-            "full_page": "Full page",
+            "full_page_from_dom": "Full page from DOM (without images)",
+            "full_page_from_scroll": "Full page from scroll",
+            "fullpage_from_url": "Full page from raw url",
             "option": "Screenshot option"
         },
         "infos": {

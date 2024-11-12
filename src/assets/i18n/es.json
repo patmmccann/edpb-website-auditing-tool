@@ -90,8 +90,14 @@
             "new_database": "Nueva base de datos"
         },
         "template": {
-            "new_template": "Nueva plantilla"
+            "new_template": "Nueva plantilla",
+            "new_annex": "Nuevo anexo",
+            "annex":"anexo",
+            "template":"Plantilla",
+            "template_name": "Nombre de la plantilla",
+            "annex_name": "Nombre del anexo"
         },
+        "type":"Tipo",
         "create": "Crear",
         "cancel": "Cancelar",
         "view": "Ver",
@@ -103,8 +109,7 @@
         "remove": "Quitar",
         "disable": "Deshabilitar",
         "cookie": "Cookie",
-        "local_storage": "Almacenamiento local",
-        "template_name": "Nombre de la plantilla"
+        "local_storage": "Almacenamiento local"
     },
     "analyses": {
         "edit": {
@@ -194,7 +199,9 @@
             "clear": "Borrar toda la información almacenada en el navegador",
             "developer": "Mostrar la herramienta de desarrollo para la página actual ",
             "stop": "Detener y guardar el análisis",
-            "show": "Mostrar/ocultar la barra de evidencia"
+            "show": "Mostrar/ocultar la barra de evidencia",
+            "zoomOut":"Reduce el tamaño del texto",
+            "zoomIn":"Aumenta el tamaño del texto"
         },
         "log_details": {
             "details": "Detalles",
@@ -202,7 +209,15 @@
             "close_details": "Cerrar detalles",
             "logs": "Registros",
             "logs_tooltip": "Guión o solicitud que almacenó la información seleccionada.",
-            "knowledge_tooltip": "Información de la base de conocimiento que podría estar vinculada a la línea seleccionada."
+            "knowledge_tooltip": "Información de la base de conocimiento que podría estar vinculada a la línea seleccionada.",
+            "log_cookie_js":"Cookie de JavaScript configurada a partir de los siguientes archivos de JavaScript",
+            "log_cookie_http":"Cookie establecida por un SetCookie en la siguiente solicitud",
+            "log_localstorage":"Valor de almacenamiento local escrito desde los siguientes archivos",
+            "log_beacon":"De la siguiente lista",
+            "log_values":"Con los siguientes valores",
+            "by_function" : "por la función",
+            "at_column" : "en la columna",
+            "and_line" : "y linea"
         }
     },
     "settings": {
@@ -236,7 +251,9 @@
         "client_id": "ID de cliente",
         "client_secret": "Secreto del cliente",
         "update": "Actualización",
-        "infos": "Mostrar información del navegador"
+        "infos": "Mostrar información del navegador",
+        "use_doh": "Usar servidor DoH",
+        "doh": "Servidor DoH a utilizar (puede ser necesario reiniciar)"
     },
     "reports": {
         "creator": "Creador",
@@ -259,6 +276,7 @@
         "select_tags": "Seleccionar etiquetas para reportar",
         "select_cards": "Seleccionar tarjetas para reportar",
         "select_evaluations": "Seleccionar evaluaciones para informar",
+        "select_annex": "Seleccione un anexo",
         "all_tags": "Todas las etiquetas",
         "all_cards": "Todas las cartas",
         "versions": "Versiones",
@@ -309,7 +327,9 @@
         },
         "screenshot": {
             "visible": "Visible",
-            "full_page": "Página completa ",
+            "full_page_from_dom": "Página completa de DOM (sin imágenes)",
+            "full_page_from_scroll": "Página completa desde el desplazamiento",
+            "fullpage_from_url": "Pagina intera dall'URL non elaborato",
             "option": "Opción de captura de pantalla"
         },
         "infos": {

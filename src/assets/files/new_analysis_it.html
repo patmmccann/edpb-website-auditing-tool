@@ -6,100 +6,201 @@
                     <h1 class="node__title mb-3 mt-0">Fornire nuove analisi</h1>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>Un&#39;analisi <i></i> raccoglie informazioni che sono state memorizzate in un browser durante la navigazione nei siti web attraverso una serie di <i>scenari.</i></p>
+                    <p>Un&#39;analisi <i></i> raccoglie informazioni che sono state memorizzate in un browser durante la
+                        navigazione nei siti web attraverso una serie di <i>scenari.</i></p>
                     <p>Può essere avviato dalla sezione <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Nuova</span> </button> o dal pulsante <button class="analysis-plus">+</button> nella barra degli strumenti della sezione <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia.</span> </button></p>
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Nuova</span> </button> o
+                        dal pulsante <button class="analysis-plus">+</button> nella barra degli strumenti della sezione
+                        <button> <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia.</span>
+                        </button></p>
 
                     <p>Entrambe queste icone rivelano la seguente forma:</p>
                     <table border="2">
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Nome del sito web o dell&#39;entità responsabile </label> <br> <input disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Nome
+                                        del sito web o dell&#39;entità responsabile </label> <br> <input disabled />
+                                </div>
                             </td>
                             <td>Questo nome è solo informativo e aiuta a reidentificare questa analisi dalla lista.</td>
                         </tr>
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">URL del sito web </label> <br> <input disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">URL
+                                        del sito web </label> <br> <input disabled /></div>
                             </td>
-                            <td>Questo è il punto di partenza dell&#39;analisi. Si noti che un&#39;analisi non è legata a un URL e altri URL possono essere inclusi durante la navigazione.</td>
+                            <td>Questo è il punto di partenza dell&#39;analisi. Si noti che un&#39;analisi non è legata
+                                a un URL e altri URL possono essere inclusi durante la navigazione.</td>
                         </tr>
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Selezionare una fonte per questo scenario </label> <br> <input size="30" value="Internal Browser" disabled /><br> <input size="30" value="HTTP Archive format (HAR)" disabled /><br> <input size="30" value="Website Evidence Collector (WEC)" disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label
+                                        class="questiontitle">Selezionare una fonte per questo scenario </label> <br>
+                                    <input size="30" value="Internal Browser" disabled /><br> <input size="30"
+                                        value="HTTP Archive format (HAR)" disabled /><br> <input size="30"
+                                        value="Website Evidence Collector (WEC)" disabled /></div>
                             </td>
-                            <td>Queste sono le fonti da cui è possibile estrarre le prove della raccolta dei dati per condurre la sua valutazione giuridica:<ul>
-                                    <li><i>Browser interno</i>: Utilizzare il browser Chromium integrato in questo strumento e accessibile anche attraverso la sezione <button> <span
-                                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia.</span> </button></li>
-                                    <li><i>Formato di archivio HTTP (HAR):</i> Utilizzare un formato di file JSON che memorizza le comunicazioni generate da un browser durante la navigazione dei siti Web. Questo file può essere generato tramite l&#39;ispettore da tutti i browser pubblici generali.</li>
-                                    <li><i>Raccolta di prove sul sito web (WEC):</i> Utilizzare le relazioni generate dal <a target="_blank"
-                                            href="https://edps.europa.eu/edps-inspection-software_en">Website Evidence Collector (WEC)</a> sviluppato dal Garante europeo della protezione dei dati (GEPD) per condurre una valutazione giuridica con questo strumento.</li>
-                                </ul>L&#39;uso <strong> del browser interno è il modo consigliato per condurre un&#39;analisi </strong> in quanto può produrre un&#39;analisi approfondita dei tracker su un sito Web, comprese le funzioni di tracciamento o le richieste che memorizzano effettivamente le informazioni nel browser.</td>
+                            <td>Queste sono le fonti da cui è possibile estrarre le prove della raccolta dei dati per
+                                condurre la sua valutazione giuridica:<ul>
+                                    <li><i>Browser interno</i>: Utilizzare il browser Chromium integrato in questo
+                                        strumento e accessibile anche attraverso la sezione <button> <span
+                                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia.</span>
+                                        </button></li>
+                                    <li><i>Formato di archivio HTTP (HAR):</i> Utilizzare un formato di file JSON che
+                                        memorizza le comunicazioni generate da un browser durante la navigazione dei
+                                        siti Web. Questo file può essere generato tramite l&#39;ispettore da tutti i
+                                        browser pubblici generali.</li>
+                                    <li><i>Raccolta di prove sul sito web (WEC):</i> Utilizzare le relazioni generate
+                                        dal <a target="_blank"
+                                            href="https://edps.europa.eu/edps-inspection-software_en">Website Evidence
+                                            Collector (WEC)</a> sviluppato dal Garante europeo della protezione dei dati
+                                        (GEPD) per condurre una valutazione giuridica con questo strumento.</li>
+                                </ul>L&#39;uso <strong> del browser interno è il modo consigliato per condurre
+                                    un&#39;analisi </strong> in quanto può produrre un&#39;analisi approfondita dei
+                                tracker su un sito Web, comprese le funzioni di tracciamento o le richieste che
+                                memorizzano effettivamente le informazioni nel browser.</td>
                         </tr>
                         <tr>
-                            <td><label class="questiontitle">Impostare un tag per questo scenario </label> <input disabled /></td>
-                            <td>Associare un nome allo scenario che si prevede di valutare sul sito Web (ad<i>esempio prima del</i> consenso, dopo il consenso, gestire le opzioni, ecc.) Per la sua successiva identificazione e valutazione.</td>
+                            <td><label class="questiontitle">Impostare un tag per questo scenario </label> <input
+                                    disabled /></td>
+                            <td>Associare un nome allo scenario che si prevede di valutare sul sito Web (ad<i>esempio
+                                    prima del</i> consenso, dopo il consenso, gestire le opzioni, ecc.) Per la sua
+                                successiva identificazione e valutazione.</td>
                         </tr>
                         <tr>
-                            <td><button value="Start" class="form-submit btn btn-primary"
-                                    type="submit">Inizio</button></td>
-                            <td>Una volta inserite correttamente tutte le informazioni, il pulsante di avvio appare per avviare l&#39;associazione delle informazioni allo scenario specificato nell&#39;analisi.</td>
+                            <td><button value="Start" class="form-submit btn btn-primary" type="submit">Inizio</button>
+                            </td>
+                            <td>Una volta inserite correttamente tutte le informazioni, il pulsante di avvio appare per
+                                avviare l&#39;associazione delle informazioni allo scenario specificato
+                                nell&#39;analisi.</td>
                         </tr>
-                    </table>Se è selezionata l&#39;origine di navigazione interna, viene visualizzata una nuova sessione <button> <span
-                            class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Analisi > Scenario</span> </button> in <strong
-                        style="color: rgba(0,0,0,.54);">Sessioni</strong> nella barra di navigazione a sinistra. Fino alla chiusura di questa sessione, lo scenario appena creato è associato a tutte le informazioni raccolte attraverso questa sessione.</div>
+                    </table>Se è selezionata l&#39;origine di navigazione interna, viene visualizzata una nuova sessione
+                    <button> <span class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Analisi >
+                            Scenario</span> </button> in <strong style="color: rgba(0,0,0,.54);">Sessioni</strong> nella
+                    barra di navigazione a sinistra. Fino alla chiusura di questa sessione, lo scenario appena creato è
+                    associato a tutte le informazioni raccolte attraverso questa sessione.
+                </div>
             </div>
             <div class="content">
                 <header class="article-title" style="margin-top: 10px;">
                     <h1 class="node__title mb-3 mt-0">Il browser interno</h1>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>Il browser interno dello strumento di audit del sito web dell&#39;EDPB utilizza Chrome versione 106.0.5249.103. Viene visualizzato ogni volta che si associa un nuovo scenario a un&#39;analisi o quando si fa clic su <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia</span> </button> o su una sessione esistente nella barra di navigazione di sinistra.</p>
+                    <p>Il browser interno dello strumento di audit del sito web dell&#39;EDPB utilizza Chrome versione
+                        106.0.5249.103. Viene visualizzato ogni volta che si associa un nuovo scenario a un&#39;analisi
+                        o quando si fa clic su <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Sfoglia</span> </button>
+                        o su una sessione esistente nella barra di navigazione di sinistra.</p>
 
                     <p>L&#39;interfaccia del browser è composta dai seguenti tre componenti principali:</p>
                     <ul>
-                        <li>la <i>barra degli strumenti</i> nella parte superiore dell&#39;interfaccia del browser consente di gestire entrambi gli scenari, il browser e i dati raccolti tramite il browser,</li>
-                        <li>le informazioni visualizzate <i>(render)</i> sul lato sinistro del browser mostrano la parte visibile del sito web come la vedono gli individui,</li>
-                        <li>il <i>logger</i> sul lato destro del browser mostra la parte nascosta del sito Web, <i>ovvero tutte le comunicazioni e la</i> memorizzazione eseguite dal sito Web in questione con questo browser.</li>
-                    </ul>Il browser interno può essere associato (o meno) a una sessione. Se associati, tutti i dati raccolti vengono automaticamente memorizzati nello strumento e possono essere valutati al volo attraverso l&#39;interfaccia di analisi.</div>
+                        <li>la <i>barra degli strumenti</i> nella parte superiore dell&#39;interfaccia del browser
+                            consente di gestire entrambi gli scenari, il browser e i dati raccolti tramite il browser,
+                        </li>
+                        <li>le informazioni visualizzate <i>(render)</i> sul lato sinistro del browser mostrano la parte
+                            visibile del sito web come la vedono gli individui,</li>
+                        <li>il <i>logger</i> sul lato destro del browser mostra la parte nascosta del sito Web,
+                            <i>ovvero tutte le comunicazioni e la</i> memorizzazione eseguite dal sito Web in questione
+                            con questo browser.</li>
+                    </ul>Il browser interno può essere associato (o meno) a una sessione. Se associati, tutti i dati
+                    raccolti vengono automaticamente memorizzati nello strumento e possono essere valutati al volo
+                    attraverso l&#39;interfaccia di analisi.
+                </div>
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">La barra degli strumenti</h2>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>La barra degli strumenti aiuta a gestire sia la navigazione, le sessioni e le informazioni raccolte dal browser:</p>
+                    <p>La barra degli strumenti aiuta a gestire sia la navigazione, le sessioni e le informazioni
+                        raccolte dal browser:</p>
                     <table border="2">
                         <tr>
-                            <td><div style="display: inline-block;"><button> <i class="fa fa-arrow-left"></i> </button> <button> <i class="fa fa-arrow-right"></i> </button> <button> <i class="fa fa-refresh"></i> </button></div>
+                            <td>
+                                <div style="display: inline-block;"><button> <i class="fa fa-arrow-left"></i> </button>
+                                    <button> <i class="fa fa-arrow-right"></i> </button> <button> <i
+                                            class="fa fa-refresh"></i> </button></div>
                             </td>
-                            <td>Pulsanti di navigazione che consentono rispettivamente di navigare all&#39;indietro e in avanti nella cronologia di navigazione o di ricaricare la pagina corrente.</td>
+                            <td>Pulsanti di navigazione che consentono rispettivamente di navigare all&#39;indietro e in
+                                avanti nella cronologia di navigazione o di ricaricare la pagina corrente.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search"><button> <i class="fa fa-play"></i> </button> <button> <i class="fa fa-pause"></i> </button></div>
+                            <td>
+                                <div class="header-search"><button> <i class="fa fa-play"></i> </button> <button> <i
+                                            class="fa fa-pause"></i> </button></div>
                             </td>
-                            <td>Mettere in pausa o riprendere le informazioni visualizzate in tempo reale attraverso il pannello del logger. Se messo in pausa, le informazioni vengono ancora raccolte da questo strumento ma non vengono più aggiornate fino alla ripresa.</td>
+                            <td>Mettere in pausa o riprendere le informazioni visualizzate in tempo reale attraverso il
+                                pannello del logger. Se messo in pausa, le informazioni vengono ancora raccolte da
+                                questo strumento ma non vengono più aggiornate fino alla ripresa.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search"><input disabled placeholder="Cerca o digita un URL"></div>
+                            <td>
+                                <div class="header-search"><input disabled placeholder="Cerca o digita un URL"></div>
                             </td>
-                            <td>Se non selezionato, questo input mostra l&#39;URL (Uniform Resource Locator) corrente della pagina Web visualizzata nel pannello di rendering. Se selezionato, questo input consente di recuperare un nuovo URL da visualizzare. Il protocollo http:// viene aggiunto automaticamente agli URL malformati. Gli URL irraggiungibili vengono respinti.</td>
+                            <td>Se non selezionato, questo input mostra l&#39;URL (Uniform Resource Locator) corrente
+                                della pagina Web visualizzata nel pannello di rendering. Se selezionato, questo input
+                                consente di recuperare un nuovo URL da visualizzare. Il protocollo http:// viene
+                                aggiunto automaticamente agli URL malformati. Gli URL irraggiungibili vengono respinti.
+                            </td>
                         </tr>
                         <tr>
-                            <td><div class="header-search">
-                                    <div class="analysis-name" style="font-size:14px"><button>Analisi > Scenario</button></div>
+                            <td>
+                                <div class="header-search">
+                                    <div class="analysis-name" style="font-size:14px"><button>Analisi >
+                                            Scenario</button></div>
                                 </div>
                             </td>
-                            <td>Pulsanti di gestione della sessione che consentono rispettivamente di visualizzare lo scenario e l&#39;analisi a cui questa sessione è attualmente associata (se presente).<br> Un clic sulla sessione corrente in esecuzione visualizzerà la vista di valutazione sullo scenario associato. Come tale, le informazioni già raccolte nel logger possono essere etichettate come conformi / non conformi mantenendo la sessione corrente attiva e accessibile tramite <strong
-                                    style="color: rgba(0,0,0,.54);">Sessioni</strong> sulla barra di navigazione laterale sinistra.</td>
+                            <td>Pulsanti di gestione della sessione che consentono rispettivamente di visualizzare lo
+                                scenario e l&#39;analisi a cui questa sessione è attualmente associata (se
+                                presente).<br> Un clic sulla sessione corrente in esecuzione visualizzerà la vista di
+                                valutazione sullo scenario associato. Come tale, le informazioni già raccolte nel logger
+                                possono essere etichettate come conformi / non conformi mantenendo la sessione corrente
+                                attiva e accessibile tramite <strong style="color: rgba(0,0,0,.54);">Sessioni</strong>
+                                sulla barra di navigazione laterale sinistra.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search" style="float: right;">
+                            <td>
+                                <div class="header-search" style="float: right;">
 
-                                    <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button> <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i> </button></div>
+                                    <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button>
+                                    <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i>
+                                    </button>
+                                </div>
                             </td>
-                            <td>Pulsanti di gestione della raccolta dati che consentono rispettivamente di scattare un&#39;istantanea del sito Web visualizzato nel browser, di cancellare tutte le informazioni sia dal renderer che dal logger e di arrestare e salvare i dati raccolti per lo scenario corrente.</td>
+                            <td>Pulsanti di gestione della raccolta dati che consentono rispettivamente di scattare
+                                un&#39;istantanea del sito Web visualizzato nel browser, di cancellare tutte le
+                                informazioni sia dal renderer che dal logger e di arrestare e salvare i dati raccolti
+                                per lo scenario corrente.</td>
+                        </tr>
                         <tr>
-                            <td><div>
+                            <td>
+                                <div>
 
-                                    <div style="float: right;"><button> <i class="fa fa-chevron-left"></i> </button> <button> <i class="fa fa-chevron-right"></i> </button></div>
+                                    <div style="float: right;">
+                                        <button>
+                                            <i class="fa fa-bug"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-minus"></i>
+                                        </button>
+                                        <button>
+                                            <i>110%</i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                Pulsanti di gestione del browser che aprono rispettivamente strumenti per sviluppatori sul contenuto corrente, per ridurre o aumentare le dimensioni del testo del contenuto
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+
+                                    <div style="float: right;"><button> <i class="fa fa-chevron-left"></i> </button>
+                                        <button> <i class="fa fa-chevron-right"></i> </button></div>
                                 </div>
 
                             </td>
@@ -110,77 +211,131 @@
                         <h2 class="node__title mb-3 mt-0">Il pannello logger</h2>
                     </header>
 
-                    <p>Il pannello del logger visualizza in tempo reale tutte le comunicazioni e l&#39;archiviazione delle informazioni che si verificano nel browser durante la navigazione.</p>
-                    <p>Queste informazioni sono categorizzate in un insieme di schede espandibili che contiene un elenco di informazioni relative all&#39;analisi data.</p>
-                    <p>L&#39;intestazione di queste tabelle in ogni scheda è cliccabile per ordinare informazioni identiche per una determinata categoria. In alcune analisi, le linee della tabella possono essere selezionate individualmente per ottenere maggiori dettagli sulle informazioni selezionate.</p>
+                    <p>Il pannello del logger visualizza in tempo reale tutte le comunicazioni e l&#39;archiviazione
+                        delle informazioni che si verificano nel browser durante la navigazione.</p>
+                    <p>Queste informazioni sono categorizzate in un insieme di schede espandibili che contiene un elenco
+                        di informazioni relative all&#39;analisi data.</p>
+                    <p>L&#39;intestazione di queste tabelle in ogni scheda è cliccabile per ordinare informazioni
+                        identiche per una determinata categoria. In alcune analisi, le linee della tabella possono
+                        essere selezionate individualmente per ottenere maggiori dettagli sulle informazioni
+                        selezionate.</p>
 
                     <header class="article-title" style="margin-top: 10px;">
                         <h2 class="node__title mb-3 mt-0">Schede di analisi</h2>
                     </header>
-                    <p>Ogni scheda è una rappresentazione di un&#39;analisi che è stata eseguita sul sito web corrente. Le intestazioni di queste schede contengono l&#39;identificazione dell&#39;analisi eseguita, un punto interrogativo che fornisce ulteriori informazioni su questa analisi e una freccia per espandere o comprimere le informazioni contenute. I punti interrogativi possono essere nascosti attraverso la sezione delle impostazioni della barra di navigazione a sinistra.</p>
+                    <p>Ogni scheda è una rappresentazione di un&#39;analisi che è stata eseguita sul sito web corrente.
+                        Le intestazioni di queste schede contengono l&#39;identificazione dell&#39;analisi eseguita, un
+                        punto interrogativo che fornisce ulteriori informazioni su questa analisi e una freccia per
+                        espandere o comprimere le informazioni contenute. I punti interrogativi possono essere nascosti
+                        attraverso la sezione delle impostazioni della barra di navigazione a sinistra.</p>
 
                     <p>La tabella seguente fornisce informazioni su ciascuna analisi effettuata:</p>
                     <table border="2">
                         <tr>
                             <td>Schermata</td>
-                            <td>Elenca tutti gli screenshot che sono stati registrati dal renderizzatore dall&#39;inizio della sessione. Il titolo di ogni screenshot può essere modificato tramite il pulsante di modifica per aiutarne l&#39;identificazione successiva.</td>
+                            <td>Elenca tutti gli screenshot che sono stati registrati dal renderizzatore dall&#39;inizio
+                                della sessione. Il titolo di ogni screenshot può essere modificato tramite il pulsante
+                                di modifica per aiutarne l&#39;identificazione successiva.</td>
                         </tr>
                         <tr>
                             <td>Cookie</td>
-                            <td>Elenca tutti i cookie che sono stati memorizzati dall&#39;inizio della sessione. Ogni cookie è rappresentato come una singola riga nella tabella classificata per dominio, nome e scopo potenziale dalle basi di conoscenza (se presenti). Un clic su una riga visualizza informazioni dettagliate sul cookie.</td>
+                            <td>Elenca tutti i cookie che sono stati memorizzati dall&#39;inizio della sessione. Ogni
+                                cookie è rappresentato come una singola riga nella tabella classificata per dominio,
+                                nome e scopo potenziale dalle basi di conoscenza (se presenti). Un clic su una riga
+                                visualizza informazioni dettagliate sul cookie.</td>
                         </tr>
                         <tr>
                             <td>Stoccaggio locale</td>
-                            <td>Elenca tutte le coppie di chiave/valore che sono state memorizzate in ogni fotogramma contenuto nella pagina web visualizzata. Ogni chiave nell&#39;archiviazione locale è rappresentata come una singola riga nella tabella, associata all&#39;url del frame che ha richiesto l&#39;archiviazione, al valore della chiave e allo scopo potenziale delle basi di conoscenza (se presenti). Un clic su una linea visualizza informazioni dettagliate sull&#39;accesso allo storage locale.</td>
+                            <td>Elenca tutte le coppie di chiave/valore che sono state memorizzate in ogni fotogramma
+                                contenuto nella pagina web visualizzata. Ogni chiave nell&#39;archiviazione locale è
+                                rappresentata come una singola riga nella tabella, associata all&#39;url del frame che
+                                ha richiesto l&#39;archiviazione, al valore della chiave e allo scopo potenziale delle
+                                basi di conoscenza (se presenti). Un clic su una linea visualizza informazioni
+                                dettagliate sull&#39;accesso allo storage locale.</td>
                         </tr>
                         <tr>
                             <td>Utilizzo di HTTPS/SSL</td>
-                            <td>Verificare se la pagina Web corrente utilizza una comunicazione sicura (SSL). Controlla anche se un accesso non crittografato (HTTP) reindirizza a un accesso sicuro (HTTPS) e fornisce la posizione corrispondente.</td>
+                            <td>Verificare se la pagina Web corrente utilizza una comunicazione sicura (SSL). Controlla
+                                anche se un accesso non crittografato (HTTP) reindirizza a un accesso sicuro (HTTPS) e
+                                fornisce la posizione corrispondente.</td>
                         </tr>
                         <tr>
                             <td>Analisi del traffico</td>
-                            <td>Elenca tutti i domini che sono stati richiesti dal riproduttore per visualizzare la pagina Web corrente.</td>
+                            <td>Elenca tutti i domini che sono stati richiesti dal riproduttore per visualizzare la
+                                pagina Web corrente.</td>
                         </tr>
                         <tr>
                             <td>Moduli Web con trasmissione non crittografata</td>
-                            <td>Verificare se la pagina visualizzata contiene un modulo in cui i dati vengono trasmessi tramite una comunicazione non protetta (HTTP). Ogni modulo è rappresentato come una singola riga nella tabella, associata alla sua identificazione nel codice sorgente e all&#39;azione eseguita durante l&#39;invio.</td>
+                            <td>Verificare se la pagina visualizzata contiene un modulo in cui i dati vengono trasmessi
+                                tramite una comunicazione non protetta (HTTP). Ogni modulo è rappresentato come una
+                                singola riga nella tabella, associata alla sua identificazione nel codice sorgente e
+                                all&#39;azione eseguita durante l&#39;invio.</td>
                         </tr>
                         <tr>
                             <td>Beacons</td>
-                            <td>Elenca tutti i pixel di tracciamento noti (Web Beacon) contenuti nella pagina renderizzata in base all&#39;elenco <a target="_blank"
+                            <td>Elenca tutti i pixel di tracciamento noti (Web Beacon) contenuti nella pagina
+                                renderizzata in base all&#39;elenco <a target="_blank"
                                     href="https://easylist.to/#fanboy-s-annoyance-list"> <a target="_blank"
-                                    href="https://easylist.to/#easyprivacy">EasyPrivacy</a> e Fanboy&#39;s Annoyance.</a> Questo elenco è solo informativo, potrebbe essere incompleto o includere falsi positivi a causa di firme imprecise o obsolete.</td>
+                                        href="https://easylist.to/#easyprivacy">EasyPrivacy</a> e Fanboy&#39;s
+                                    Annoyance.</a> Questo elenco è solo informativo, potrebbe essere incompleto o
+                                includere falsi positivi a causa di firme imprecise o obsolete.</td>
                         </tr>
                         <tr>
                             <td>Scansione TestSSL</td>
                             <td>Se configurato nella sezione impostazioni, lo strumento della riga di comando <a
-                                    target="_blank" href="https://testssl.sh/">testssl.sh</a> può essere eseguito sull&#39;URL corrente facendo clic sul pulsante play. Questo strumento controlla i supporti di cifrari TLS / SSL, protocolli e recenti difetti crittografici sul server URL corrente. Si noti che questo test richiede diversi minuti per essere eseguito.</td>
+                                    target="_blank" href="https://testssl.sh/">testssl.sh</a> può essere eseguito
+                                sull&#39;URL corrente facendo clic sul pulsante play. Questo strumento controlla i
+                                supporti di cifrari TLS / SSL, protocolli e recenti difetti crittografici sul server URL
+                                corrente. Si noti che questo test richiede diversi minuti per essere eseguito.</td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                Informazioni del browser
+
+                            </td>
+                            <td>
+                                Visualizzare tutte le informazioni sul contesto dell'analisi: la versione dello strumento e del browser, l'agente utente e l'orario di inizio della raccolta dei dati. 
+                            </td>
                         </tr>
                     </table>
                     <header class="article-title" style="margin-top: 10px;">
                         <h2 class="node__title mb-3 mt-0">Il pannello dei dettagli</h2>
                     </header>
-                    <p>Informazioni dettagliate memorizzate o trasmesse durante le sessioni correnti tramite cookie, archiviazione locale e web beacon sono accessibili attraverso una finestra che appare in basso quando viene selezionata una riga nelle tabelle.</p>
+                    <p>Informazioni dettagliate memorizzate o trasmesse durante le sessioni correnti tramite cookie,
+                        archiviazione locale e web beacon sono accessibili attraverso una finestra che appare in basso
+                        quando viene selezionata una riga nelle tabelle.</p>
                     <p>Queste informazioni dettagliate sono suddivise in tre categorie:</p>
                     <table border="2">
                         <tr>
                             <td>Dettagli</td>
-                            <td>Elenca le informazioni complete su un determinato cookie, la chiave nella memoria locale o un web beacon.</td>
+                            <td>Elenca le informazioni complete su un determinato cookie, la chiave nella memoria locale
+                                o un web beacon.</td>
                         </tr>
                         <tr>
                             <td>Tronchi</td>
-                            <td>Mostra l&#39;albero dello stack di chiamate o la richiesta che comporta il deposito del cookie specificato, l&#39;immissione della chiave nell&#39;archiviazione locale o che avvia la richiesta dal web beacon.</td>
+                            <td>Mostra l&#39;albero dello stack di chiamate o la richiesta che comporta il deposito del
+                                cookie specificato, l&#39;immissione della chiave nell&#39;archiviazione locale o che
+                                avvia la richiesta dal web beacon.</td>
                         </tr>
                         <tr>
                             <td>Conoscenza</td>
-                            <td>Se la voce corrente è stata trovata in almeno una base di conoscenza, questa scheda elenca tutte le voci corrispondenti nella base di conoscenza in base alla sua categoria.<br> <br>Se si tratta di un cookie, queste voci sono classificate come segue:<ul>
-                                    <li><i>Corrispondenza esatta:</i> almeno una voce corrisponde al nome e al dominio del cookie,</li>
-                                    <li><i>Nome della corrispondenza</i>: almeno una voce corrisponde al nome del cookie con un dominio jolly (<i>*</i>),</li>
-                                    <li><i>Corrispondenza dominio</i>: almeno una voce corrisponde al dominio di questo cookie.</li>
-                                </ul>Se si tratta di una chiave nella memoria locale, almeno una voce corrisponde alla chiave o allo script responsabile di questa voce.</td>
+                            <td>Se la voce corrente è stata trovata in almeno una base di conoscenza, questa scheda
+                                elenca tutte le voci corrispondenti nella base di conoscenza in base alla sua
+                                categoria.<br> <br>Se si tratta di un cookie, queste voci sono classificate come segue:
+                                <ul>
+                                    <li><i>Corrispondenza esatta:</i> almeno una voce corrisponde al nome e al dominio
+                                        del cookie,</li>
+                                    <li><i>Nome della corrispondenza</i>: almeno una voce corrisponde al nome del cookie
+                                        con un dominio jolly (<i>*</i>),</li>
+                                    <li><i>Corrispondenza dominio</i>: almeno una voce corrisponde al dominio di questo
+                                        cookie.</li>
+                                </ul>Se si tratta di una chiave nella memoria locale, almeno una voce corrisponde alla
+                                chiave o allo script responsabile di questa voce.</td>
                         </tr>
                         <tr>
-                            <td><button mat-raised-button class="btn btn-block btn-primary">Chiudi dettagli</button></td>
+                            <td><button mat-raised-button class="btn btn-block btn-primary">Chiudi dettagli</button>
+                            </td>
                             <td>Fare clic su questo pulsante per chiudere la finestra di dettaglio corrente.</td>
                         </tr>
                     </table>
@@ -190,16 +345,22 @@
                 <header class="article-title" style="margin-top: 10px;">
                     <h1 class="node__title mb-3 mt-0">Prendere una decisione di conformità / non conformità</h1>
                 </header>
-                <p>Al fine di contribuire alla valutazione della conformità del sito web, l&#39;analisi, gli scenari e le schede possono essere contrassegnati come <span style="color:green">conformi,</span> <span
-                        style="color:red">non conformi o</span> <span
-                        style="color:#004494">da definire.</span></p>
-                <p>Questa interfaccia di valutazione può essere raggiunta in qualsiasi momento, facendo clic sul pulsante <span class="analysis-name" style="font-size:14px"> <button> della barra degli strumenti Analisi > Scenario </button> </span> attraverso il browser interno durante una sessione, o dopo la raccolta di prove attraverso l&#39;elenco <button> </button> nella barra di navigazione laterale sinistra.</p>
+                <p>Al fine di contribuire alla valutazione della conformità del sito web, l&#39;analisi, gli scenari e
+                    le schede possono essere contrassegnati come <span style="color:green">conformi,</span> <span
+                        style="color:red">non conformi o</span> <span style="color:#004494">da definire.</span></p>
+                <p>Questa interfaccia di valutazione può essere raggiunta in qualsiasi momento, facendo clic sul
+                    pulsante <span class="analysis-name" style="font-size:14px"> <button> della barra degli strumenti
+                            Analisi > Scenario </button> </span> attraverso il browser interno durante una sessione, o
+                    dopo la raccolta di prove attraverso l&#39;elenco <button> </button> nella barra di navigazione
+                    laterale sinistra.</p>
 
-                <p>Questo elenco fornisce una panoramica di tutte le analisi memorizzate nello strumento di auditing del sito Web e della loro valutazione attuale.</p>
+                <p>Questo elenco fornisce una panoramica di tutte le analisi memorizzate nello strumento di auditing del
+                    sito Web e della loro valutazione attuale.</p>
                 <p>Ogni voce assume la seguente forma:</p>
                 <table border="2">
                     <tr>
-                        <td><h2><a>analisi</a></h2>
+                        <td>
+                            <h2><a>analisi</a></h2>
                             <mat-chip-listbox>
                                 <mat-chip><a style="color: green;">Conforme</a></mat-chip>
                                 <mat-chip><a style="color: red;">Non conforme</a></mat-chip>
@@ -209,42 +370,64 @@
                         <td>L&#39;entità associata a questa analisi e alla sua attuale valutazione.</td>
                     </tr>
                     <tr>
-                        <td><button > <i class="fa fa-eye"></i> </button> <button > <i class="fa fa-download"></i> </button> <button > <i class="fa fa-trash"></i> </button></td>
-                        <td>Pulsanti di azioni sull&#39;analisi corrente per visualizzare e valutare rispettivamente questa voce, generare un rapporto di questa analisi e cancellare la voce.</td>
+                        <td><button> <i class="fa fa-eye"></i> </button> <button> <i class="fa fa-download"></i>
+                            </button> <button> <i class="fa fa-trash"></i> </button></td>
+                        <td>Pulsanti di azioni sull&#39;analisi corrente per visualizzare e valutare rispettivamente
+                            questa voce, generare un rapporto di questa analisi e cancellare la voce.</td>
                     </tr>
                     <tr>
-                        <td><button><a style="color: green;">Scenario 1</a> </button> <button> <a style="color: red;">Scenario 2</a> </button> <button> <a style="color:#004494;">Scenario 3</a> </button></td>
-                        <td>Gli scenari che sono stati registrati per l&#39;analisi data. Il colore corrisponde all&#39;eventuale valutazione corrente (denuncia<strong style="color: green;"></strong>, <strong
-                                style="color: red;"> non denuncia</strong> o <strong
-                                style="color: #004494;"> da definire</strong>).</td>
+                        <td><button><a style="color: green;">Scenario 1</a> </button> <button> <a
+                                    style="color: red;">Scenario 2</a> </button> <button> <a
+                                    style="color:#004494;">Scenario 3</a> </button></td>
+                        <td>Gli scenari che sono stati registrati per l&#39;analisi data. Il colore corrisponde
+                            all&#39;eventuale valutazione corrente (denuncia<strong style="color: green;"></strong>,
+                            <strong style="color: red;"> non denuncia</strong> o <strong style="color: #004494;"> da
+                                definire</strong>).</td>
                     </tr>
                     <tr>
                         <td><i class="fa fa-link"></i> www.(...).com <br> <i class="fa fa-calendar"></i> 10/01/2022</td>
-                        <td>Altri metadati associati a questa analisi, che è il collegamento che è stato indicato alla creazione dell&#39;analisi e alla data di questa creazione.</td>
+                        <td>Altri metadati associati a questa analisi, che è il collegamento che è stato indicato alla
+                            creazione dell&#39;analisi e alla data di questa creazione.</td>
                     </tr>
                 </table>
 
-                <p>Il pannello di destra consente di filtrare queste analisi in base alla loro identificazione o alla loro valutazione attuale.</p>
+                <p>Il pannello di destra consente di filtrare queste analisi in base alla loro identificazione o alla
+                    loro valutazione attuale.</p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Valutazione</h2>
                 </header>
 
-                <p>La selezione del <button > <i class="fa fa-eye"></i> </button> pulsante attraverso un&#39;analisi, uno scenario o una scheda consente di navigare nell&#39;elemento dato e ottiene informazioni dettagliate.</p>Ciascuno di questi elementi può essere taggato per contribuire a condurre la valutazione globale del sito web come segue:<table border="2">
+                <p>La selezione del <button> <i class="fa fa-eye"></i> </button> pulsante attraverso un&#39;analisi, uno
+                    scenario o una scheda consente di navigare nell&#39;elemento dato e ottiene informazioni
+                    dettagliate.</p>Ciascuno di questi elementi può essere taggato per contribuire a condurre la
+                valutazione globale del sito web come segue:<table border="2">
                     <tr>
-                        <td><button class="btn btn-green" aria-hidden="true">Non conforme </button> <button class="btn btn-red" aria-hidden="true"> Non conforme </button> <button class="btn-blue" aria-hidden="true"> Da definire </button></td>
-                        <td>Contrassegnare un&#39;analisi come conforme, non conforme e da valutare in base ai requisiti di legge.</td>
+                        <td><button class="btn btn-green" aria-hidden="true">Non conforme </button> <button
+                                class="btn btn-red" aria-hidden="true"> Non conforme </button> <button class="btn-blue"
+                                aria-hidden="true"> Da definire </button></td>
+                        <td>Contrassegnare un&#39;analisi come conforme, non conforme e da valutare in base ai requisiti
+                            di legge.</td>
                     </tr>
                     <tr>
-                        <td><button color="blue"><i class="fa fa-close" ></i> Chiudi edizione</button> <button color="blue"> <i class="fa fa-edit"></i> Scrivi un commento</button></td>
-                        <td>Aprire e chiudere un editor di testo per scrivere qualche commento sulla valutazione data.</td>
+                        <td><button color="blue"><i class="fa fa-close"></i> Chiudi edizione</button> <button
+                                color="blue"> <i class="fa fa-edit"></i> Scrivi un commento</button></td>
+                        <td>Aprire e chiudere un editor di testo per scrivere qualche commento sulla valutazione data.
+                        </td>
                     </tr>
                     <tr>
-                        <td style="background-color: #ecedee;"><div style="float: right"><button> <i class="fa fa-check" style="color: green;"></i> </button> <button> <i class="fa fa-close" style="color: red;"></i> </button> <button> <i class="fa fa-search" style="color: #004494;"></i> </button></div>
+                        <td style="background-color: #ecedee;">
+                            <div style="float: right"><button> <i class="fa fa-check" style="color: green;"></i>
+                                </button> <button> <i class="fa fa-close" style="color: red;"></i> </button> <button> <i
+                                        class="fa fa-search" style="color: #004494;"></i> </button></div>
                         </td>
                         <td>Singole righe di queste carte:<ul>
-                                <li><strong style="color:rgba(0,0,0,.54);">Cookie</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Stoccaggio locale</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Web beacon</strong></li>e<li><strong style="color:rgba(0,0,0,.54);">TestSSL</strong></li>
-                            </ul>può anche essere contrassegnato come conforme, non conforme o da definire per facilitare la valutazione.</td>
+                                <li><strong style="color:rgba(0,0,0,.54);">Cookie</strong></li>,<li><strong
+                                        style="color:rgba(0,0,0,.54);">Stoccaggio locale</strong></li>,<li><strong
+                                        style="color:rgba(0,0,0,.54);">Web beacon</strong></li>e<li><strong
+                                        style="color:rgba(0,0,0,.54);">TestSSL</strong></li>
+                            </ul>può anche essere contrassegnato come conforme, non conforme o da definire per
+                            facilitare la valutazione.</td>
                     </tr>
                     <tr>
                         <td><i>Valutazione del 25 novembre 2022</i></td>
@@ -252,15 +435,39 @@
                     </tr>
                 </table>
 
-                <p>La prima scheda dell&#39;analisi o dello scenario fornisce una panoramica di ogni scenario o di ogni scheda con la loro valutazione attuale. Consente inoltre una valutazione globale per l&#39;analisi o lo scenario corrente in base a questi elementi.</p>
+                <p>La prima scheda dell&#39;analisi o dello scenario fornisce una panoramica di ogni scenario o di ogni
+                    scheda con la loro valutazione attuale. Consente inoltre una valutazione globale per l&#39;analisi o
+                    lo scenario corrente in base a questi elementi.</p>
 
                 <p>Ogni singola riga nella tabella di queste schede (cookie,<strong
-                        style="color:rgba(0,0,0,.54);"></strong> <strong style="color:rgba(0,0,0,.54);">archiviazione locale</strong> e <strong
-                        style="color:rgba(0,0,0,.54);">web beacon)</strong>può essere selezionata per ottenere informazioni più dettagliate sul pannello di destra <strong>Maggiori dettagli</strong>. Nelle righe relative ai cookie e all&#39;archiviazione locale, la scheda Conoscenze consente di accedere facilmente all&#39;elenco delle voci corrispondenti dalla corrispondente base di conoscenze o di aggiungere questa voce in una base di conoscenze. Clicca su <a href="#/helps/knowledge_base"> Knowledge base</a> per avere maggiori informazioni sulla sua gestione.</p>
+                        style="color:rgba(0,0,0,.54);"></strong> <strong style="color:rgba(0,0,0,.54);">archiviazione
+                        locale</strong> e <strong style="color:rgba(0,0,0,.54);">web beacon)</strong>può essere
+                    selezionata per ottenere informazioni più dettagliate sul pannello di destra <strong>Maggiori
+                        dettagli</strong>. Nelle righe relative ai cookie e all&#39;archiviazione locale, la scheda
+                    Conoscenze consente di accedere facilmente all&#39;elenco delle voci corrispondenti dalla
+                    corrispondente base di conoscenze o di aggiungere questa voce in una base di conoscenze. Clicca su
+                    <a href="#/helps/knowledge_base"> Knowledge base</a> per avere maggiori informazioni sulla sua
+                    gestione.</p>
 
-                <p>In qualsiasi momento, un nuovo scenario può essere allegato all&#39;analisi facendo clic su <button class="add-button"> + </button> sul pannello <strong>Scenario</strong> a sinistra.</p>
+                <p>In qualsiasi momento, un nuovo scenario può essere allegato all&#39;analisi facendo clic su <button
+                        class="add-button"> + </button> sul pannello <strong>Scenario</strong> a sinistra.</p>
 
-                <p>Una volta effettuata la valutazione dell&#39;analisi, è possibile generare report che includono dati raccolti, valutazioni e commenti in un formato comunicabile. Fare clic su <a href="#/helps/create_reports">Crea report </a> per ottenere indicazioni.</p>
+                <p>Una volta effettuata la valutazione dell&#39;analisi, è possibile generare report che includono dati
+                    raccolti, valutazioni e commenti in un formato comunicabile. Fare clic su <a
+                        href="#/helps/create_reports">Crea report </a> per ottenere indicazioni.</p>
+
+                <header class="article-title" style="margin-top: 10px;">
+                    <h2 class="node__title mb-3 mt-0">Selettori</h2>
+                </header>
+                <p>
+                    Leschede Cookies, Local Storage e Web beacons  forniscono una serie di selettori che selezionano e contrassegnano una serie di attributi comuni tra le linee di carte:
+                    <button> <i class="material-icons">search</i> From values</button>,
+                    <button><i class="material-icons">menu_book</i>From knowledges</button> and
+                    <button><i class="material-icons">edit</i>Mark as</button>.
+                </p>
+                <p>
+                    La selezione può essere basata su una combinazione degli attributi della riga (ad esempio dominio e nome del cookie), la sua valutazione corrente (Compliant, Non conforme, Da definire) o corrisponde alle basi di conoscenza, compresa la sua categorizzazione tra tutte le basi di conoscenza. Il risultato viene aggiornato dinamicamente nella sezione contenuti.  Infine, la funzionalità "mark as" permette di valutare la selezione risultante. 
+                </p>
             </div>
         </div>
     </div>

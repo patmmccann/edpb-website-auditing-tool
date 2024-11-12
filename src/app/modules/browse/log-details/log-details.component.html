@@ -13,7 +13,7 @@
     [detailsData]= "detailsService.detailsData"
     ></app-details>
   </mat-tab>
-  <mat-tab *ngIf="detailsService.detailsData?.log?.stacks?.length">
+  <mat-tab *ngIf="detailsService.detailsData && detailsService.detailsData.log">
     <ng-template mat-tab-label>
       {{ 'browse.log_details.logs' | translate }}
       <ng-container *ngIf="settingService.settings.help">
@@ -25,7 +25,7 @@
 
     </ng-template>
 
-    <app-callstack-details [log]="detailsService.detailsData?.log">
+    <app-callstack-details [log]="detailsService.detailsData.log">
     </app-callstack-details>
   </mat-tab>
   <mat-tab 

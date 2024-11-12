@@ -6,100 +6,200 @@
                     <h1 class="node__title mb-3 mt-0">Fournir une nouvelle analyse</h1>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>Une <i>analyse</i> recueille des informations qui ont été stockées dans un navigateur lors de la navigation sur des sites Web à travers un ensemble de <i>scénarios</i>.</p>
+                    <p>Une <i>analyse</i> recueille des informations qui ont été stockées dans un navigateur lors de la
+                        navigation sur des sites Web à travers un ensemble de <i>scénarios</i>.</p>
                     <p>Il peut être initié à partir de la <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">nouvelle</span> </button> section ou à partir du bouton <button class="analysis-plus">+</button> dans la barre d’outils de la section <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span></button>.</p>
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">nouvelle</span>
+                        </button> section ou à partir du bouton <button class="analysis-plus">+</button> dans la barre
+                        d’outils de la section <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span></button>.
+                    </p>
 
                     <p>Ces deux icônes révèlent la forme suivante:</p>
                     <table border="2">
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Nom du site web ou de l’entité responsable </label> <br> <input disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Nom
+                                        du site web ou de l’entité responsable </label> <br> <input disabled /></div>
                             </td>
                             <td>Ce nom est seulement informatif et aide à réidentifier cette analyse de la liste.</td>
                         </tr>
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">URL du site web </label> <br> <input disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">URL
+                                        du site web </label> <br> <input disabled /></div>
                             </td>
-                            <td>C’est le point de départ de l’analyse. Notez qu’une analyse n’est pas liée à une URL et que d’autres URL peuvent être incluses lors de la navigation.</td>
+                            <td>C’est le point de départ de l’analyse. Notez qu’une analyse n’est pas liée à une URL et
+                                que d’autres URL peuvent être incluses lors de la navigation.</td>
                         </tr>
                         <tr>
-                            <td><div class="survey-element 5 freetextitem forprogress"><label class="questiontitle">Sélectionnez une source pour ce scénario </label> <br> <input size="30" value="Internal Browser" disabled /><br> <input size="30" value="HTTP Archive format (HAR)" disabled /><br> <input size="30" value="Website Evidence Collector (WEC)" disabled /></div>
+                            <td>
+                                <div class="survey-element 5 freetextitem forprogress"><label
+                                        class="questiontitle">Sélectionnez une source pour ce scénario </label> <br>
+                                    <input size="30" value="Internal Browser" disabled /><br> <input size="30"
+                                        value="HTTP Archive format (HAR)" disabled /><br> <input size="30"
+                                        value="Website Evidence Collector (WEC)" disabled /></div>
                             </td>
-                            <td>Voici les sources à partir desquelles les preuves de la collecte de données peuvent être extraites pour la réalisation de son évaluation juridique:<ul>
-                                    <li><i>Navigateur interne</i>: Utilisez le navigateur Chromium intégré à cet outil et accessible via la section <button> <span
-                                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span></button>.</li>
-                                    <li><i>Format d’archive HTTP (HAR)</i>: Utilisez un format de fichier au format JSON qui stocke les communications générées par un navigateur lors de la navigation sur des sites Web. Ce fichier peut être généré par l’inspecteur à partir de tous les navigateurs publics en général.</li>
-                                    <li><i>Collecteur de preuves sur le site Web (WEC)</i>: Utiliser les rapports générés par le <a target="_blank"
-                                            href="https://edps.europa.eu/edps-inspection-software_en">Website Evidence Collector (WEC)</a> mis au point par le Contrôleur européen de la protection des données (CEPD) pour effectuer une évaluation juridique avec cet outil.</li>
-                                </ul>L’ <strong> utilisation du navigateur interne est le moyen recommandé d’effectuer une analyse puisqu’ </strong> il peut produire une analyse approfondie des trackers sur un site Web, y compris des fonctions de suivi ou des demandes qui stockent effectivement des informations dans le navigateur.</td>
+                            <td>Voici les sources à partir desquelles les preuves de la collecte de données peuvent être
+                                extraites pour la réalisation de son évaluation juridique:<ul>
+                                    <li><i>Navigateur interne</i>: Utilisez le navigateur Chromium intégré à cet outil
+                                        et accessible via la section <button> <span
+                                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span></button>.
+                                    </li>
+                                    <li><i>Format d’archive HTTP (HAR)</i>: Utilisez un format de fichier au format JSON
+                                        qui stocke les communications générées par un navigateur lors de la navigation
+                                        sur des sites Web. Ce fichier peut être généré par l’inspecteur à partir de tous
+                                        les navigateurs publics en général.</li>
+                                    <li><i>Collecteur de preuves sur le site Web (WEC)</i>: Utiliser les rapports
+                                        générés par le <a target="_blank"
+                                            href="https://edps.europa.eu/edps-inspection-software_en">Website Evidence
+                                            Collector (WEC)</a> mis au point par le Contrôleur européen de la protection
+                                        des données (CEPD) pour effectuer une évaluation juridique avec cet outil.</li>
+                                </ul>L’ <strong> utilisation du navigateur interne est le moyen recommandé d’effectuer
+                                    une analyse puisqu’ </strong> il peut produire une analyse approfondie des trackers
+                                sur un site Web, y compris des fonctions de suivi ou des demandes qui stockent
+                                effectivement des informations dans le navigateur.</td>
                         </tr>
                         <tr>
-                            <td><label class="questiontitle">Définir une balise pour ce scénario </label> <input disabled /></td>
-                            <td>Associez un nom au scénario que vous envisagez d’évaluer sur le site Web (par exemple<i>avant</i> le consentement, après le consentement, gérer les options, etc.) pour son identification et son évaluation ultérieures.</td>
+                            <td><label class="questiontitle">Définir une balise pour ce scénario </label> <input
+                                    disabled /></td>
+                            <td>Associez un nom au scénario que vous envisagez d’évaluer sur le site Web (par
+                                exemple<i>avant</i> le consentement, après le consentement, gérer les options, etc.)
+                                pour son identification et son évaluation ultérieures.</td>
                         </tr>
                         <tr>
-                            <td><button value="Start" class="form-submit btn btn-primary"
-                                    type="submit">Début</button></td>
-                            <td>Une fois que toutes les informations sont correctement saisies, le bouton de démarrage semble initier l’association des informations au scénario donné dans l’analyse.</td>
+                            <td><button value="Start" class="form-submit btn btn-primary" type="submit">Début</button>
+                            </td>
+                            <td>Une fois que toutes les informations sont correctement saisies, le bouton de démarrage
+                                semble initier l’association des informations au scénario donné dans l’analyse.</td>
                         </tr>
                     </table>Si la source de navigation interne est sélectionnée, une nouvelle analyse de <button> <span
-                            class="mat-list-item nav-item px-xl-3 text-uppercase is-active">session > Scénario</span> </button> apparaît dans <strong
-                        style="color: rgba(0,0,0,.54);">Sessions</strong> dans la barre de navigation de gauche. Jusqu’à la clôture de cette session, le scénario nouvellement créé est associé à toutes les informations recueillies au cours de cette session.</div>
+                            class="mat-list-item nav-item px-xl-3 text-uppercase is-active">session > Scénario</span>
+                    </button> apparaît dans <strong style="color: rgba(0,0,0,.54);">Sessions</strong> dans la barre de
+                    navigation de gauche. Jusqu’à la clôture de cette session, le scénario nouvellement créé est associé
+                    à toutes les informations recueillies au cours de cette session.
+                </div>
             </div>
             <div class="content">
                 <header class="article-title" style="margin-top: 10px;">
                     <h1 class="node__title mb-3 mt-0">Le navigateur interne</h1>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>Le navigateur interne de l’outil d’audit du site web de l’EDPB utilise Chrome Version 106.0.5249.103. Il apparaît chaque fois que vous associez un nouveau scénario à une analyse, ou lorsque vous cliquez sur <button> <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span> </button> ou sur une session existante dans la barre de navigation de gauche.</p>
+                    <p>Le navigateur interne de l’outil d’audit du site web de l’EDPB utilise Chrome Version
+                        106.0.5249.103. Il apparaît chaque fois que vous associez un nouveau scénario à une analyse, ou
+                        lorsque vous cliquez sur <button> <span
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Parcourir</span>
+                        </button> ou sur une session existante dans la barre de navigation de gauche.</p>
 
                     <p>L’interface du navigateur est composée des trois principaux composants suivants:</p>
                     <ul>
-                        <li>la <i>barre d’outils</i> située dans la partie supérieure de l’interface du navigateur permet de gérer les deux scénarios, le navigateur et les données collectées via le navigateur,</li>
-                        <li>les informations affichées <i>(remises)</i> sur le côté gauche du navigateur montrent la partie visible du site Web telle que les individus le voient,</li>
-                        <li>L’ <i>enregistreur</i> sur le côté droit du navigateur affiche la partie cachée du site Web, c’est-à- <i>dire</i> toute la communication et le stockage effectués par le site Web donné avec ce navigateur.</li>
-                    </ul>Le navigateur interne peut être associé (ou non) à une session. Si elles sont associées, toutes les données collectées sont automatiquement stockées dans l’outil et peuvent être évaluées à la volée via l’interface d’analyse.</div>
+                        <li>la <i>barre d’outils</i> située dans la partie supérieure de l’interface du navigateur
+                            permet de gérer les deux scénarios, le navigateur et les données collectées via le
+                            navigateur,</li>
+                        <li>les informations affichées <i>(remises)</i> sur le côté gauche du navigateur montrent la
+                            partie visible du site Web telle que les individus le voient,</li>
+                        <li>L’ <i>enregistreur</i> sur le côté droit du navigateur affiche la partie cachée du site Web,
+                            c’est-à- <i>dire</i> toute la communication et le stockage effectués par le site Web donné
+                            avec ce navigateur.</li>
+                    </ul>Le navigateur interne peut être associé (ou non) à une session. Si elles sont associées, toutes
+                    les données collectées sont automatiquement stockées dans l’outil et peuvent être évaluées à la
+                    volée via l’interface d’analyse.
+                </div>
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">La barre d’outils</h2>
                 </header>
                 <div class="view-header mb-4 w-100">
-                    <p>La barre d’outils permet de gérer à la fois la navigation, les sessions et les informations collectées par le navigateur:</p>
+                    <p>La barre d’outils permet de gérer à la fois la navigation, les sessions et les informations
+                        collectées par le navigateur:</p>
                     <table border="2">
                         <tr>
-                            <td><div style="display: inline-block;"><button> <i class="fa fa-arrow-left"></i> </button> <button> <i class="fa fa-arrow-right"></i> </button> <button> <i class="fa fa-refresh"></i> </button></div>
+                            <td>
+                                <div style="display: inline-block;"><button> <i class="fa fa-arrow-left"></i> </button>
+                                    <button> <i class="fa fa-arrow-right"></i> </button> <button> <i
+                                            class="fa fa-refresh"></i> </button></div>
                             </td>
-                            <td>Boutons de navigation qui permettent respectivement de naviguer vers l’arrière et vers l’avant dans l’historique de navigation ou de recharger la page en cours.</td>
+                            <td>Boutons de navigation qui permettent respectivement de naviguer vers l’arrière et vers
+                                l’avant dans l’historique de navigation ou de recharger la page en cours.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search"><button> <i class="fa fa-play"></i> </button> <button> <i class="fa fa-pause"></i> </button></div>
+                            <td>
+                                <div class="header-search"><button> <i class="fa fa-play"></i> </button> <button> <i
+                                            class="fa fa-pause"></i> </button></div>
                             </td>
-                            <td>Mettre en pause ou reprendre les informations affichées en temps réel via le panneau enregistreur. En cas de pause, les informations sont toujours collectées par cet outil mais ne sont plus actualisées jusqu’à la reprise.</td>
+                            <td>Mettre en pause ou reprendre les informations affichées en temps réel via le panneau
+                                enregistreur. En cas de pause, les informations sont toujours collectées par cet outil
+                                mais ne sont plus actualisées jusqu’à la reprise.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search"><input disabled placeholder="Rechercher ou saisir une URL"></div>
-                            </td>
-                            <td>Si elle n’est pas sélectionnée, cette entrée affiche le localisateur de ressources uniformes (URL) actuel de la page Web affichée dans le panneau de rendu. Si elle est sélectionnée, cette entrée permet d’afficher une nouvelle URL. Le http://protocol est automatiquement ajouté aux URL mal formées. Les URL inaccessibles sont rejetées.</td>
-                        </tr>
-                        <tr>
-                            <td><div class="header-search">
-                                    <div class="analysis-name" style="font-size:14px"><button>Analyse > Scénario</button></div>
+                            <td>
+                                <div class="header-search"><input disabled placeholder="Rechercher ou saisir une URL">
                                 </div>
                             </td>
-                            <td>Boutons de gestion de session qui permettent respectivement de visualiser le scénario et l’analyse de cette session est actuellement associé (le cas échéant).<br> Un clic sur la session en cours d’exécution affichera la vue d’évaluation sur le scénario associé. En tant que tel, les informations déjà collectées dans l’enregistreur peuvent être étiquetées comme conformes/non conformes tout en gardant la session en cours d’exécution vivante et accessible via <strong
-                                    style="color: rgba(0,0,0,.54);">Sessions</strong> sur la barre de navigation du côté gauche.</td>
+                            <td>Si elle n’est pas sélectionnée, cette entrée affiche le localisateur de ressources
+                                uniformes (URL) actuel de la page Web affichée dans le panneau de rendu. Si elle est
+                                sélectionnée, cette entrée permet d’afficher une nouvelle URL. Le http://protocol est
+                                automatiquement ajouté aux URL mal formées. Les URL inaccessibles sont rejetées.</td>
                         </tr>
                         <tr>
-                            <td><div class="header-search" style="float: right;">
-
-                                    <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button> <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i> </button></div>
+                            <td>
+                                <div class="header-search">
+                                    <div class="analysis-name" style="font-size:14px"><button>Analyse >
+                                            Scénario</button></div>
+                                </div>
                             </td>
-                            <td>Boutons de gestion de la collecte de données qui permettent respectivement de prendre un instantané du site Web affiché dans le navigateur, d’effacer toutes les informations du moteur de rendu et de l’enregistreur, et d’arrêter et de sauvegarder les données collectées pour le scénario actuel.</td>
+                            <td>Boutons de gestion de session qui permettent respectivement de visualiser le scénario et
+                                l’analyse de cette session est actuellement associé (le cas échéant).<br> Un clic sur la
+                                session en cours d’exécution affichera la vue d’évaluation sur le scénario associé. En
+                                tant que tel, les informations déjà collectées dans l’enregistreur peuvent être
+                                étiquetées comme conformes/non conformes tout en gardant la session en cours d’exécution
+                                vivante et accessible via <strong style="color: rgba(0,0,0,.54);">Sessions</strong> sur
+                                la barre de navigation du côté gauche.</td>
+                        </tr>
                         <tr>
-                            <td><div>
+                            <td>
+                                <div class="header-search" style="float: right;">
 
-                                    <div style="float: right;"><button> <i class="fa fa-chevron-left"></i> </button> <button> <i class="fa fa-chevron-right"></i> </button></div>
+                                    <div style="width:100px"></div><button> <i class="fa fa-camera"></i> </button>
+                                    <button> <i class="fa fa-trash"></i> </button> <button> <i class="fa fa-stop"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>Boutons de gestion de la collecte de données qui permettent respectivement de prendre un
+                                instantané du site Web affiché dans le navigateur, d’effacer toutes les informations du
+                                moteur de rendu et de l’enregistreur, et d’arrêter et de sauvegarder les données
+                                collectées pour le scénario actuel.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+
+                                    <div style="float: right;">
+                                        <button>
+                                            <i class="fa fa-bug"></i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-minus"></i>
+                                        </button>
+                                        <button>
+                                            <i>110%</i>
+                                        </button>
+                                        <button>
+                                            <i class="fa fa-search-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                Boutons de gestion du navigateur qui ouvrent respectivement les outils de développeur sur le contenu actuel, pour réduire ou augmenter la taille du texte du contenu.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+
+                                    <div style="float: right;"><button> <i class="fa fa-chevron-left"></i> </button>
+                                        <button> <i class="fa fa-chevron-right"></i> </button></div>
                                 </div>
 
                             </td>
@@ -110,77 +210,129 @@
                         <h2 class="node__title mb-3 mt-0">Le panneau de l’enregistreur</h2>
                     </header>
 
-                    <p>Le panneau enregistreur affiche en temps réel toute la communication et le stockage d’informations qui se produisent dans le navigateur pendant la navigation.</p>
-                    <p>Cette information est classée dans un ensemble de cartes extensibles qui contient une liste d’informations liées à l’analyse donnée.</p>
-                    <p>L’en-tête de ces tables dans chaque carte est cliquable afin de trier des informations identiques pour une catégorie donnée. Sur certaines analyses, les lignes du tableau peuvent être sélectionnées individuellement pour obtenir plus de détails sur les informations sélectionnées.</p>
+                    <p>Le panneau enregistreur affiche en temps réel toute la communication et le stockage
+                        d’informations qui se produisent dans le navigateur pendant la navigation.</p>
+                    <p>Cette information est classée dans un ensemble de cartes extensibles qui contient une liste
+                        d’informations liées à l’analyse donnée.</p>
+                    <p>L’en-tête de ces tables dans chaque carte est cliquable afin de trier des informations identiques
+                        pour une catégorie donnée. Sur certaines analyses, les lignes du tableau peuvent être
+                        sélectionnées individuellement pour obtenir plus de détails sur les informations sélectionnées.
+                    </p>
 
                     <header class="article-title" style="margin-top: 10px;">
                         <h2 class="node__title mb-3 mt-0">Cartes d’analyse</h2>
                     </header>
-                    <p>Chaque carte est une représentation d’une analyse qui a été effectuée sur le site Web actuel. Les en-têtes de ces cartes contiennent l’identification de l’analyse effectuée, un point d’interrogation qui donne plus d’informations sur cette analyse, et une flèche pour étendre ou effondrer l’information contenue. Les points d’interrogation peuvent être masqués dans la section de réglage de la barre de navigation gauche.</p>
+                    <p>Chaque carte est une représentation d’une analyse qui a été effectuée sur le site Web actuel. Les
+                        en-têtes de ces cartes contiennent l’identification de l’analyse effectuée, un point
+                        d’interrogation qui donne plus d’informations sur cette analyse, et une flèche pour étendre ou
+                        effondrer l’information contenue. Les points d’interrogation peuvent être masqués dans la
+                        section de réglage de la barre de navigation gauche.</p>
 
                     <p>Le tableau suivant donne des informations sur chaque analyse effectuée:</p>
                     <table border="2">
                         <tr>
                             <td>Capture</td>
-                            <td>Répertoriez toutes les captures d’écran qui ont été enregistrées à partir du moteur de rendu depuis le début de la session. Le titre de chaque capture d’écran peut être modifié via le bouton d’édition pour faciliter son identification ultérieure.</td>
+                            <td>Répertoriez toutes les captures d’écran qui ont été enregistrées à partir du moteur de
+                                rendu depuis le début de la session. Le titre de chaque capture d’écran peut être
+                                modifié via le bouton d’édition pour faciliter son identification ultérieure.</td>
                         </tr>
                         <tr>
                             <td>Cookies</td>
-                            <td>Répertoriez tous les cookies qui ont été stockés depuis le début de la session. Chaque cookie est représenté comme une seule ligne dans le tableau classé par domaine, nom et objectif potentiel à partir des bases de connaissances (le cas échéant). Un clic sur une ligne affiche des informations détaillées sur le cookie.</td>
+                            <td>Répertoriez tous les cookies qui ont été stockés depuis le début de la session. Chaque
+                                cookie est représenté comme une seule ligne dans le tableau classé par domaine, nom et
+                                objectif potentiel à partir des bases de connaissances (le cas échéant). Un clic sur une
+                                ligne affiche des informations détaillées sur le cookie.</td>
                         </tr>
                         <tr>
                             <td>Stockage local</td>
-                            <td>Répertorier toutes les paires de clés/valeurs qui ont été stockées dans chaque image contenue dans la page Web affichée. Chaque clé du stockage local est représentée comme une seule ligne dans le tableau, associée à l’url de la trame qui a demandé le stockage, la valeur de la clé et l’objectif potentiel des bases de connaissances (le cas échéant). Un clic sur une ligne affiche des informations détaillées sur l’accès au stockage local.</td>
+                            <td>Répertorier toutes les paires de clés/valeurs qui ont été stockées dans chaque image
+                                contenue dans la page Web affichée. Chaque clé du stockage local est représentée comme
+                                une seule ligne dans le tableau, associée à l’url de la trame qui a demandé le stockage,
+                                la valeur de la clé et l’objectif potentiel des bases de connaissances (le cas échéant).
+                                Un clic sur une ligne affiche des informations détaillées sur l’accès au stockage local.
+                            </td>
                         </tr>
                         <tr>
                             <td>Utilisation de HTTPS/SSL</td>
-                            <td>Vérifiez si la page Web actuelle utilise une communication sécurisée (SSL). Il vérifie également si un accès non crypté (HTTP) redirige vers un accès sécurisé (HTTPS) et donne l’emplacement correspondant.</td>
+                            <td>Vérifiez si la page Web actuelle utilise une communication sécurisée (SSL). Il vérifie
+                                également si un accès non crypté (HTTP) redirige vers un accès sécurisé (HTTPS) et donne
+                                l’emplacement correspondant.</td>
                         </tr>
                         <tr>
                             <td>Analyse du trafic</td>
-                            <td>Répertoriez tous les domaines qui ont été demandés par le moteur de rendu pour afficher la page Web actuelle.</td>
+                            <td>Répertoriez tous les domaines qui ont été demandés par le moteur de rendu pour afficher
+                                la page Web actuelle.</td>
                         </tr>
                         <tr>
                             <td>Formulaires Web avec transmission non cryptée</td>
-                            <td>Vérifiez si la page rendue contient un formulaire où les données sont transmises via une communication non sécurisée (HTTP). Chaque formulaire est représenté comme une seule ligne dans le tableau, associée à son identification dans le code source et à l’action effectuée lors de la soumission.</td>
+                            <td>Vérifiez si la page rendue contient un formulaire où les données sont transmises via une
+                                communication non sécurisée (HTTP). Chaque formulaire est représenté comme une seule
+                                ligne dans le tableau, associée à son identification dans le code source et à l’action
+                                effectuée lors de la soumission.</td>
                         </tr>
                         <tr>
                             <td>Balises</td>
-                            <td>Listez tous les pixels de suivi connus (Web Beacons) contenus dans la page rendue selon <a target="_blank"
-                                    href="https://easylist.to/#easyprivacy">la</a> liste EasyPrivacy <a target="_blank"
-                                    href="https://easylist.to/#fanboy-s-annoyance-list">et Fanboy’s Annoyance</a>. Cette liste est uniquement informative, elle peut être incomplète ou inclure de faux positifs en raison de signatures inexactes ou obsolètes.</td>
+                            <td>Listez tous les pixels de suivi connus (Web Beacons) contenus dans la page rendue selon
+                                <a target="_blank" href="https://easylist.to/#easyprivacy">la</a> liste EasyPrivacy <a
+                                    target="_blank" href="https://easylist.to/#fanboy-s-annoyance-list">et Fanboy’s
+                                    Annoyance</a>. Cette liste est uniquement informative, elle peut être incomplète ou
+                                inclure de faux positifs en raison de signatures inexactes ou obsolètes.</td>
                         </tr>
                         <tr>
                             <td>Testsl scan</td>
-                            <td>S’il est configuré dans la section Paramètres, l’outil en ligne de <a
-                                    target="_blank" href="https://testssl.sh/">commande</a> testsl.sh peut être exécuté sur l’URL actuelle en cliquant sur le bouton de lecture. Cet outil vérifie les prises en charge des chiffrements TLS/SSL, des protocoles ainsi que des failles cryptographiques récentes sur le serveur URL actuel. Notez que ce test prend plusieurs minutes à effectuer.</td>
+                            <td>S’il est configuré dans la section Paramètres, l’outil en ligne de <a target="_blank"
+                                    href="https://testssl.sh/">commande</a> testsl.sh peut être exécuté sur l’URL
+                                actuelle en cliquant sur le bouton de lecture. Cet outil vérifie les prises en charge
+                                des chiffrements TLS/SSL, des protocoles ainsi que des failles cryptographiques récentes
+                                sur le serveur URL actuel. Notez que ce test prend plusieurs minutes à effectuer.</td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                Informations sur le navigateur
+
+                            </td>
+                            <td>
+                                Afficher toutes les informations sur le contexte de l’analyse: la version de l’outil et du navigateur, l’agent utilisateur et l’heure de début de la collecte de données. 
+                            </td>
                         </tr>
                     </table>
                     <header class="article-title" style="margin-top: 10px;">
                         <h2 class="node__title mb-3 mt-0">Le panel de détails</h2>
                     </header>
-                    <p>Les informations détaillées stockées ou transmises au cours des sessions en cours au moyen de cookies, de stockage local et de balises Web sont accessibles via une fenêtre qui apparaît en bas lorsqu’une ligne est sélectionnée dans les tableaux.</p>
+                    <p>Les informations détaillées stockées ou transmises au cours des sessions en cours au moyen de
+                        cookies, de stockage local et de balises Web sont accessibles via une fenêtre qui apparaît en
+                        bas lorsqu’une ligne est sélectionnée dans les tableaux.</p>
                     <p>Ces informations détaillées sont divisées en trois catégories:</p>
                     <table border="2">
                         <tr>
                             <td>Détails</td>
-                            <td>Listez des informations complètes sur un cookie donné, une clé dans le stockage local ou une balise Web.</td>
+                            <td>Listez des informations complètes sur un cookie donné, une clé dans le stockage local ou
+                                une balise Web.</td>
                         </tr>
                         <tr>
                             <td>Grumes</td>
-                            <td>Afficher l’arborescence de la pile d’appels ou la demande qui entraîne le dépôt du cookie donné, l’entrée de la clé dans le stockage local ou qui lance la demande à partir de la balise Web.</td>
+                            <td>Afficher l’arborescence de la pile d’appels ou la demande qui entraîne le dépôt du
+                                cookie donné, l’entrée de la clé dans le stockage local ou qui lance la demande à partir
+                                de la balise Web.</td>
                         </tr>
                         <tr>
                             <td>Connaissances</td>
-                            <td>Si l’entrée actuelle a été trouvée dans au moins une base de connaissances, cet onglet répertorie toutes les entrées correspondantes dans la base de connaissances selon sa catégorie.<br> <br>S’il s’agit d’un cookie, ces entrées sont classées comme suit:<ul>
-                                    <li><i>Correspondance exacte</i>: au moins une entrée correspond au nom et au domaine du cookie,</li>
-                                    <li><i>Nom de la correspondance:</i> au moins une entrée correspond au nom du cookie avec un domaine wildcard (<i>*</i>),</li>
-                                    <li><i>Domaine</i> de correspondance: au moins une entrée correspond au domaine de ce cookie.</li>
-                                </ul>S’il s’agit d’une clé dans le stockage local, au moins une entrée correspond à la clé ou au script responsable de cette entrée.</td>
+                            <td>Si l’entrée actuelle a été trouvée dans au moins une base de connaissances, cet onglet
+                                répertorie toutes les entrées correspondantes dans la base de connaissances selon sa
+                                catégorie.<br> <br>S’il s’agit d’un cookie, ces entrées sont classées comme suit:<ul>
+                                    <li><i>Correspondance exacte</i>: au moins une entrée correspond au nom et au
+                                        domaine du cookie,</li>
+                                    <li><i>Nom de la correspondance:</i> au moins une entrée correspond au nom du cookie
+                                        avec un domaine wildcard (<i>*</i>),</li>
+                                    <li><i>Domaine</i> de correspondance: au moins une entrée correspond au domaine de
+                                        ce cookie.</li>
+                                </ul>S’il s’agit d’une clé dans le stockage local, au moins une entrée correspond à la
+                                clé ou au script responsable de cette entrée.</td>
                         </tr>
                         <tr>
-                            <td><button mat-raised-button class="btn btn-block btn-primary">Fermer les détails</button></td>
+                            <td><button mat-raised-button class="btn btn-block btn-primary">Fermer les détails</button>
+                            </td>
                             <td>Cliquez sur ce bouton pour fermer la fenêtre de détail actuelle.</td>
                         </tr>
                     </table>
@@ -190,16 +342,21 @@
                 <header class="article-title" style="margin-top: 10px;">
                     <h1 class="node__title mb-3 mt-0">Prendre une décision de conformité/non-conformité</h1>
                 </header>
-                <p>Afin d’aider à l’évaluation de la conformité du site web, l’analyse, les scénarios et les cartes peuvent être <span style="color:green">marqués</span> comme <span
-                        style="color:red">conformes, non conformes</span>, ou <span
-                        style="color:#004494">à définir</span>.</p>
-                <p>Cette interface d’évaluation peut être atteinte à tout moment, en cliquant sur le bouton <span class="analysis-name" style="font-size:14px"> <button> Analyse > Scénario </button> </span> de la barre d’outils via le navigateur interne au cours d’une session, ou après la collecte de preuves à travers <button> la liste </button> dans la barre latérale gauche.</p>
+                <p>Afin d’aider à l’évaluation de la conformité du site web, l’analyse, les scénarios et les cartes
+                    peuvent être <span style="color:green">marqués</span> comme <span style="color:red">conformes, non
+                        conformes</span>, ou <span style="color:#004494">à définir</span>.</p>
+                <p>Cette interface d’évaluation peut être atteinte à tout moment, en cliquant sur le bouton <span
+                        class="analysis-name" style="font-size:14px"> <button> Analyse > Scénario </button> </span> de
+                    la barre d’outils via le navigateur interne au cours d’une session, ou après la collecte de preuves
+                    à travers <button> la liste </button> dans la barre latérale gauche.</p>
 
-                <p>Cette liste donne un aperçu de toutes les analyses stockées dans l’outil d’audit du site Web et de leur évaluation actuelle.</p>
+                <p>Cette liste donne un aperçu de toutes les analyses stockées dans l’outil d’audit du site Web et de
+                    leur évaluation actuelle.</p>
                 <p>Chaque entrée prend la forme suivante:</p>
                 <table border="2">
                     <tr>
-                        <td><h2><a>analyse</a></h2>
+                        <td>
+                            <h2><a>analyse</a></h2>
                             <mat-chip-listbox>
                                 <mat-chip><a style="color: green;">Conforme</a></mat-chip>
                                 <mat-chip><a style="color: red;">Non conforme</a></mat-chip>
@@ -209,42 +366,64 @@
                         <td>L’entité associée à cette analyse et à son évaluation actuelle.</td>
                     </tr>
                     <tr>
-                        <td><button > <i class="fa fa-eye"></i> </button> <button > <i class="fa fa-download"></i> </button> <button > <i class="fa fa-trash"></i> </button></td>
-                        <td>Des boutons d’actions sur l’analyse en cours afin de visualiser et d’évaluer respectivement cette entrée, de générer un rapport de cette analyse et de supprimer l’entrée.</td>
+                        <td><button> <i class="fa fa-eye"></i> </button> <button> <i class="fa fa-download"></i>
+                            </button> <button> <i class="fa fa-trash"></i> </button></td>
+                        <td>Des boutons d’actions sur l’analyse en cours afin de visualiser et d’évaluer respectivement
+                            cette entrée, de générer un rapport de cette analyse et de supprimer l’entrée.</td>
                     </tr>
                     <tr>
-                        <td><button><a style="color: green;">Scénario 1</a> </button> <button> <a style="color: red;">Scénario 2</a> </button> <button> <a style="color:#004494;">Scénario 3</a> </button></td>
-                        <td>Les scénarios qui ont été enregistrés pour l’analyse donnée. La couleur correspond à leur évaluation actuelle respective le cas échéant (<strong style="color: green;">plainte</strong><strong
-                                style="color: red;">, non plainte</strong> ou <strong
-                                style="color: #004494;"> à définir</strong>).</td>
+                        <td><button><a style="color: green;">Scénario 1</a> </button> <button> <a
+                                    style="color: red;">Scénario 2</a> </button> <button> <a
+                                    style="color:#004494;">Scénario 3</a> </button></td>
+                        <td>Les scénarios qui ont été enregistrés pour l’analyse donnée. La couleur correspond à leur
+                            évaluation actuelle respective le cas échéant (<strong
+                                style="color: green;">plainte</strong><strong style="color: red;">, non plainte</strong>
+                            ou <strong style="color: #004494;"> à définir</strong>).</td>
                     </tr>
                     <tr>
                         <td><i class="fa fa-link"></i> www.(...).com <br> <i class="fa fa-calendar"></i> 10/01/2022</td>
-                        <td>Autres métadonnées associées à cette analyse, qui est le lien qui a été indiqué lors de la création de l’analyse et la date de cette création.</td>
+                        <td>Autres métadonnées associées à cette analyse, qui est le lien qui a été indiqué lors de la
+                            création de l’analyse et la date de cette création.</td>
                     </tr>
                 </table>
 
-                <p>Le panneau de droite permet de filtrer ces analyses en fonction de leur identification ou de leur évaluation actuelle.</p>
+                <p>Le panneau de droite permet de filtrer ces analyses en fonction de leur identification ou de leur
+                    évaluation actuelle.</p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Évaluation</h2>
                 </header>
 
-                <p>La sélection du <button > <i class="fa fa-eye"></i> </button> bouton à travers une analyse, un scénario ou une carte permet de naviguer dans l’élément donné et d’obtenir des informations détaillées.</p>Chacun de ces éléments peut être étiqueté pour aider à mener l’évaluation globale du site Web comme suit:<table border="2">
+                <p>La sélection du <button> <i class="fa fa-eye"></i> </button> bouton à travers une analyse, un
+                    scénario ou une carte permet de naviguer dans l’élément donné et d’obtenir des informations
+                    détaillées.</p>Chacun de ces éléments peut être étiqueté pour aider à mener l’évaluation globale du
+                site Web comme suit:<table border="2">
                     <tr>
-                        <td><button class="btn btn-green" aria-hidden="true">Conforme </button> <button class="btn btn-red" aria-hidden="true"> Non conforme </button> <button class="btn-blue" aria-hidden="true"> À définir </button></td>
-                        <td>Marquer une analyse comme conforme, non conforme et à évaluer selon les exigences légales.</td>
+                        <td><button class="btn btn-green" aria-hidden="true">Conforme </button> <button
+                                class="btn btn-red" aria-hidden="true"> Non conforme </button> <button class="btn-blue"
+                                aria-hidden="true"> À définir </button></td>
+                        <td>Marquer une analyse comme conforme, non conforme et à évaluer selon les exigences légales.
+                        </td>
                     </tr>
                     <tr>
-                        <td><button color="blue"><i class="fa fa-close" ></i> Fermer l’édition</button> <button color="blue"> <i class="fa fa-edit"></i> Écrire un commentaire</button></td>
-                        <td>Ouvrez et fermez un éditeur de texte pour écrire un commentaire sur l’évaluation donnée.</td>
+                        <td><button color="blue"><i class="fa fa-close"></i> Fermer l’édition</button> <button
+                                color="blue"> <i class="fa fa-edit"></i> Écrire un commentaire</button></td>
+                        <td>Ouvrez et fermez un éditeur de texte pour écrire un commentaire sur l’évaluation donnée.
+                        </td>
                     </tr>
                     <tr>
-                        <td style="background-color: #ecedee;"><div style="float: right"><button> <i class="fa fa-check" style="color: green;"></i> </button> <button> <i class="fa fa-close" style="color: red;"></i> </button> <button> <i class="fa fa-search" style="color: #004494;"></i> </button></div>
+                        <td style="background-color: #ecedee;">
+                            <div style="float: right"><button> <i class="fa fa-check" style="color: green;"></i>
+                                </button> <button> <i class="fa fa-close" style="color: red;"></i> </button> <button> <i
+                                        class="fa fa-search" style="color: #004494;"></i> </button></div>
                         </td>
                         <td>Lignes uniques de ces cartes:<ul>
-                                <li><strong style="color:rgba(0,0,0,.54);">Cookies</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Stockage local</strong></li>,<li><strong style="color:rgba(0,0,0,.54);">Balises web</strong></li>et<li><strong style="color:rgba(0,0,0,.54);">Testsl</strong></li>
-                            </ul>peuvent également être marqués comme conformes, non conformes ou à définir afin de faciliter l’évaluation.</td>
+                                <li><strong style="color:rgba(0,0,0,.54);">Cookies</strong></li>,<li><strong
+                                        style="color:rgba(0,0,0,.54);">Stockage local</strong></li>,<li><strong
+                                        style="color:rgba(0,0,0,.54);">Balises web</strong></li>et<li><strong
+                                        style="color:rgba(0,0,0,.54);">Testsl</strong></li>
+                            </ul>peuvent également être marqués comme conformes, non conformes ou à définir afin de
+                            faciliter l’évaluation.</td>
                     </tr>
                     <tr>
                         <td><i>Évaluation du 25 novembre 2022</i></td>
@@ -252,16 +431,41 @@
                     </tr>
                 </table>
 
-                <p>La première carte de l’analyse ou du scénario donne un aperçu de chaque scénario ou de chaque carte avec leur évaluation actuelle. Il permet également une évaluation globale de l’analyse ou du scénario actuel en fonction de ces éléments.</p>
+                <p>La première carte de l’analyse ou du scénario donne un aperçu de chaque scénario ou de chaque carte
+                    avec leur évaluation actuelle. Il permet également une évaluation globale de l’analyse ou du
+                    scénario actuel en fonction de ces éléments.</p>
 
-                <p>Chaque ligne du tableau de ces cartes (cookies<strong
-                        style="color:rgba(0,0,0,.54);">,</strong> <strong style="color:rgba(0,0,0,.54);">stockage local</strong> et <strong
-                        style="color:rgba(0,0,0,.54);">balises Web</strong>) peut être sélectionnée pour obtenir des informations plus détaillées sur le panneau <strong>de droite</strong>. Sur les lignes de stockage de cookies et de stockage local, l’onglet Connaissances permet d’accéder facilement aux entrées de liste correspondant à partir de la base de connaissances correspondante ou d’ajouter cette entrée dans une base de connaissances. Cliquez sur <a href="#/helps/knowledge_base"> Base de connaissances</a> pour obtenir plus d’informations sur sa gestion.</p>
+                <p>Chaque ligne du tableau de ces cartes (cookies<strong style="color:rgba(0,0,0,.54);">,</strong>
+                    <strong style="color:rgba(0,0,0,.54);">stockage local</strong> et <strong
+                        style="color:rgba(0,0,0,.54);">balises Web</strong>) peut être sélectionnée pour obtenir des
+                    informations plus détaillées sur le panneau <strong>de droite</strong>. Sur les lignes de stockage
+                    de cookies et de stockage local, l’onglet Connaissances permet d’accéder facilement aux entrées de
+                    liste correspondant à partir de la base de connaissances correspondante ou d’ajouter cette entrée
+                    dans une base de connaissances. Cliquez sur <a href="#/helps/knowledge_base"> Base de
+                        connaissances</a> pour obtenir plus d’informations sur sa gestion.</p>
 
-                <p>A tout moment, un nouveau scénario peut être attaché à l’analyse en cliquant sur <button class="add-button"> + </button> dans le panneau <strong>Scénario</strong> de gauche.</p>
+                <p>A tout moment, un nouveau scénario peut être attaché à l’analyse en cliquant sur <button
+                        class="add-button"> + </button> dans le panneau <strong>Scénario</strong> de gauche.</p>
 
-                <p>Une fois l’évaluation de l’analyse, vous pouvez générer des rapports qui incluent les données recueillies, les évaluations et les commentaires dans un format communicable. Cliquez sur <a href="#/helps/create_reports">Créer des rapports </a> pour obtenir des conseils.</p>
-            </div>
+                <p>Une fois l’évaluation de l’analyse, vous pouvez générer des rapports qui incluent les données
+                    recueillies, les évaluations et les commentaires dans un format communicable. Cliquez sur <a
+                        href="#/helps/create_reports">Créer des rapports </a> pour obtenir des conseils.</p>
+            
+            
+                        <header class="article-title" style="margin-top: 10px;">
+                            <h2 class="node__title mb-3 mt-0">Sélecteurs</h2>
+                        </header>
+                        <p>
+                            Les cartes Cookies, Local Storage et Web beacons  fournissent un ensemble de sélecteurs qui sélectionnent et marquent un ensemble d’attributs communs parmi les lignes de cartes:
+
+                            <button> <i class="material-icons">search</i> From values</button>,
+                            <button><i class="material-icons">menu_book</i>From knowledges</button> and
+                            <button><i class="material-icons">edit</i>Mark as</button>.
+                        </p>
+                        <p>
+                            La sélection peut être basée sur une combinaison des attributs de la ligne (par exemple, domaine et nom du cookie), son évaluation actuelle (Conforme, Non conforme, À définir) ou correspond à des bases de connaissances, y compris sa catégorisation parmi toutes les bases de connaissances. Le résultat est mis à jour dynamiquement dans la section contenu.  Enfin, la fonctionnalité «mark as» permet d’évaluer la sélection résultante. 
+                        </p>
+                    </div>
         </div>
     </div>
 </div>

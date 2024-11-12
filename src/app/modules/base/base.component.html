@@ -93,7 +93,7 @@
                     </mat-form-field>
                 </ng-container>
                 <ng-container *ngSwitchCase="'localstorage'">
-                    <ng-container *ngSwitchCase="'cookie'" [formGroup]="searchLocalStorageForm">
+                    <ng-container [formGroup]="searchLocalStorageForm">
                         <mat-form-field appearance="fill">
                             <mat-label>{{ "knowledge.host" | translate }}</mat-label>
                             <input formControlName="searchHost" matInput />
@@ -215,7 +215,7 @@
                     </table>
                 </ng-container>
                 <ng-container *ngSwitchCase="'localstorage'">
-                    <table class="base-list-table">
+                    <table matSort (matSortChange)="sortBy($event)"  class="base-list-table">
                         <thead>
                             <tr>
                                 <th style="width:75px;"></th>

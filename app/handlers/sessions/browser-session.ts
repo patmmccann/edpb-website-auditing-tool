@@ -25,7 +25,8 @@ export class BrowserSession {
                 partition: this._session_name
             }
         });
-        
+
+
         this.applySettings(settings);
 
         this.view.webContents.on('did-start-loading', () => {
@@ -47,14 +48,14 @@ export class BrowserSession {
         });
     }
 
-    applySettings(settings){
+    applySettings(settings) {
         this.collector.settings = settings;
         const preloads = [];
-        if (settings && settings.logs){
+        if (settings && settings.logs) {
             //Set preloads
             const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
-            preloads.push(path.join(__dirname, 'preload.js'));
             preloads.push(path.join(stacktracePath, '/dist/stacktrace.min.js'));
+            preloads.push(path.join(__dirname, 'preload.js'));
         }
         const htmlToImagePath = path.dirname(require.resolve("html2canvas/package.json"));
         preloads.push(path.join(htmlToImagePath, '/dist/html2canvas.min.js'));
@@ -62,16 +63,11 @@ export class BrowserSession {
         const ses = this._view.webContents.session;
         ses.setPreloads(preloads);
 
-        this.contents.send('init', this._session_name);
-
         if (settings && settings.useragent) {
             this.view.webContents.setUserAgent(settings.useragent);
         }
 
         this.view.webContents.on('dom-ready', async () => {
-            if (settings && settings.logs){
-                this.contents.send('init', this._session_name);
-            }
             this.collector.domReadyCallbacks.forEach(fn => fn());
         });
 
@@ -88,7 +84,26 @@ export class BrowserSession {
         }
 
         if (settings && settings.use_proxy) {
-            ses.setProxy({proxyRules:settings.proxy_settings})
+            ses.setProxy({ proxyRules: settings.proxy_settings })
+        }
+
+        if (settings && settings.use_doh) {
+            app.configureHostResolver({
+                secureDnsMode: 'secure',
+                secureDnsServers: [settings.doh]
+            })
+        }
+
+        if (settings && settings.use_doh && settings.doh != '') {
+            try {
+                app.configureHostResolver({
+                    secureDnsMode: 'secure',
+                    secureDnsServers: [ settings.doh ]
+                })
+            }catch(e){
+                console.log("Use DoH server : " + e.message);
+            }
+            
         }
     }
 
@@ -146,19 +161,82 @@ export class BrowserSession {
         return this.contents.getURL();
     }
 
-    async screenshot(full_screenshot) {
-        if (full_screenshot){
-            return new Promise((resolve) => {
-                ipcMain.removeHandler('full_screenshot_image');
-                ipcMain.handleOnce('full_screenshot_image', ((event, img)=>{
-                    resolve(img);
-                }));
-                this.contents.send('full_screenshot');
-            });
-        }else{
-            const capture = await this.contents.capturePage();
-            return await capture.toPNG();
+    async screenshot(screenshot_option) {
+        switch (screenshot_option) {
+            case 'visible':
+                {
+                    const capture = await this.contents.capturePage();
+                    const toPNG = await capture.toPNG();
+                    return toPNG;
+                }
+            case 'fullpage_from_dom':
+                {
+                    return new Promise((resolve) => {
+                        ipcMain.removeHandler('full_screenshot_image');
+                        ipcMain.handleOnce('full_screenshot_image', ((event, img) => {
+                            resolve(img);
+                        }));
+                        this.contents.send('full_screenshot');
+                    });
+                }
+            case 'fullpage_from_scroll':
+                {
+                    const { width, height } = await this.contents.executeJavaScript(`
+                    new Promise((resolve) => {
+                    const width = document.documentElement.scrollWidth;
+                    const height = document.documentElement.scrollHeight;
+                    resolve({ width, height });
+                    });
+                `);
+                    const captures = [];
+                    const captureHeight = this.view.getBounds().height;
+
+                    for (let offset = 0; offset < height; offset += captureHeight) {
+                        await this.contents.executeJavaScript(`window.scrollTo(0, ${offset})`);
+                        await new Promise(resolve => setTimeout(resolve, 100)); // Attendre le défilement
+
+                        const image = await this.contents.capturePage();
+                        const toPng = await image.toPNG();
+                        captures.push(toPng);
+                    }
+
+                    return captures;
+                }
+            case 'fullpage_from_url':
+                {
+                    const max_size = 8000;
+                    const { width, height } = await this.contents.executeJavaScript(`
+                    new Promise((resolve) => {
+                    const width = document.documentElement.scrollWidth;
+                    const height = document.documentElement.scrollHeight;
+                    resolve({ width, height });
+                    });
+                `);
+
+                    const offscreenRenderer = new BrowserWindow({
+                        enableLargerThanScreen: true,
+                        show: false,
+                        webPreferences: {
+                            offscreen: true
+                        }
+                    });
+
+                    offscreenRenderer.setContentSize(width > max_size ? max_size : width, height > max_size ? max_size : height);
+                    await offscreenRenderer.loadURL(this.url);
+                    const screenshot = await offscreenRenderer.webContents.capturePage();
+                    const size = screenshot.getSize();
+                    offscreenRenderer.close();
+                    return screenshot.toPNG();
+                }
         }
+    }
+
+    set zoomFactor(factor: number) {
+        this.contents.setZoomFactor(factor);
+    }
+
+    get zoomFactor() {
+        return this.contents.getZoomFactor();
     }
 
     toogleDevTool() {
@@ -197,11 +275,11 @@ export class BrowserSession {
         return this._session_name;
     }
 
-    get contents(){
+    get contents() {
         return this.view.webContents;
     }
 
-    get mainWindow(){
+    get mainWindow() {
         return this._mainWindow;
     }
 }

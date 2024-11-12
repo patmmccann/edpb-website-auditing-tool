@@ -60,7 +60,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
 
       if info
         h3  Browser information:
-          table(style="width: 50%;")
+          table(style="width: 80%;")
                 tbody
                     tr
                       td.notrunc Chrome version
@@ -94,25 +94,25 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
         table(style="width: 100%;")
                 thead
                   tr
-                    th.notrunc Domain
-                    th.notrunc Path
-                    th.notrunc Name
+                    th.trunc Domain
+                    th.trunc Path
+                    th.trunc Name
                     th.trunc Value
-                    th.notrunc httpOnly
-                    th.notrunc secure
-                    th.notrunc sameSite
-                    th.notrunc Expiry in days
+                    th.trunc httpOnly
+                    th.trunc secure
+                    th.trunc sameSite
+                    th.trunc Expiry in days
                 tbody
                   each cookie,index in cookies.values
                     tr
-                      td.notrunc: a(href=`http://${cookie.domain}`)= cookie.domain
-                      td.notrunc: a(href=`http://${cookie.domain}${cookie.path}`)= cookie.path
-                      td.notrunc= cookie.name
+                      td.trunc: a(href=`http://${cookie.domain}`)= cookie.domain
+                      td.trunc: a(href=`http://${cookie.domain}${cookie.path}`)= cookie.path
+                      td.trunc= cookie.name
                       td.trunc= cookie.value
-                      td.notrunc= cookie.httpOnly
-                      td.notrunc= cookie.secure
-                      td.notrunc= cookie.sameSite
-                      td.notrunc
+                      td.trunc= cookie.httpOnly
+                      td.trunc= cookie.secure
+                      td.trunc= cookie.sameSite
+                      td.trunc
                         if cookie.session
                           em session
                         else
@@ -359,3 +359,7 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
           if evaluation.evaluation_comment
             div.evaluation|!{evaluation.evaluation_comment}
           i Evaluation on #{new Date(evaluation.created_at).toLocaleString()}
+  
+  if annex
+    h3  Annex
+    div|!{annex}

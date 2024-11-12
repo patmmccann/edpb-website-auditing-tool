@@ -22,6 +22,7 @@ import { InfoCard } from '../models/cards/info-card.model';
 import { SettingsService } from './settings.service';
 import { environment } from 'src/environments/environment';
 import { version } from 'os';
+import { Template } from '../models/template.model';
 
 export interface BrowserSession {
   event: 'new' | 'delete',
@@ -29,6 +30,8 @@ export interface BrowserSession {
   tag: Tag,
   link?: any[]
 }
+
+export type ScreenshotOptions = 'visible' | 'fullpage_from_dom' | 'fullpage_from_scroll' | 'fullpage_from_url';
 
 
 @Injectable({
@@ -72,7 +75,7 @@ export class BrowserService {
       getURL: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       get: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
       launch: (analysis_id: number, tag_id: number, url: string): Promise<any> => new Promise((resolve, reject) => resolve([])),
-      screenshot: (analysis_id: number, tag_id: number, full_screenshot: boolean): Promise<void> => new Promise((resolve, reject) => resolve()),
+      screenshot: (analysis_id: number, tag_id: number, screenshot_option: ScreenshotOptions): Promise<void> => new Promise((resolve, reject) => resolve()),
       stop: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       refresh: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       backward: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
@@ -84,7 +87,9 @@ export class BrowserService {
       parseHar: (har: any, settings: any): Promise<void> => new Promise((resolve, reject) => resolve()),
       print_to_docx: (htmlString: string, headerHTMLString: string, documentOptions: any, footerHTMLString: string): Promise<void> => new Promise((resolve, reject) => resolve()),
       versions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
-      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve(""))
+      testSSLLocation:(settings:any): Promise<string>=> new Promise((resolve, reject) => resolve("")),
+      setZoomFactor:(factor:number): Promise<void>=> new Promise((resolve, reject) => resolve()),
+      getZoomFactor:(): Promise<number>=> new Promise((resolve, reject) => resolve(0)),
     }
   }
 
@@ -174,6 +179,14 @@ export class BrowserService {
 
   refresh(window: any, analysis: Analysis | null, tag: Tag | null) {
     return window.electron.refresh(analysis ? analysis.id : null, tag ? tag.id : null);
+  }
+
+  setZoomFactor(window: any, analysis: Analysis | null, tag: Tag | null, factor:number) {
+    return window.electron.setZoomFactor(analysis ? analysis.id : null, tag ? tag.id : null, factor);
+  }
+
+  getZoomFactor(window: any, analysis: Analysis | null, tag: Tag | null) {
+    return window.electron.getZoomFactor(analysis ? analysis.id : null, tag ? tag.id : null);
   }
 
   updateSettings() {
@@ -300,12 +313,41 @@ export class BrowserService {
   }
 
 
-  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null, fullpage: boolean): Promise<ScreenshotCard> {
+  takeScreenshot(window: any, analysis: Analysis | null, tag: Tag | null, screenshot_option: ScreenshotOptions): Promise<ScreenshotCard> {
     return new Promise((resolve, reject) => {
-      window.electron.screenshot(analysis?.id, tag?.id, fullpage)
-        .then((result: any) => {
+      window.electron.screenshot(analysis?.id, tag?.id, screenshot_option)
+        .then(async (result: any) => {
           const screenShotCard = new ScreenshotCard("New screenshot");
-          screenShotCard.image = new Blob([result], { type: "image/png" });
+
+          if (screenshot_option == 'fullpage_from_scroll'){
+            function loadImage(url:string) : Promise<HTMLImageElement>{
+              return new Promise((resolve, reject) => {
+                  const img = new Image();
+                  img.onload = () => resolve(img);
+                  img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+                  img.src = url;
+              });
+            }
+
+            const blobs = result.map((img:Buffer) => new Blob([img], { type: "image/png" }));
+            const urls = blobs.map((blob:Blob) => URL.createObjectURL(blob));
+            const images = await Promise.all(urls.map((url:string) => loadImage(url)));
+            const totalHeight = images.reduce((sum, img) => sum + img.height, 0);
+            const maxWidth = Math.max(...images.map(img => img.width));
+            const offscreenCanvas = new OffscreenCanvas(maxWidth, totalHeight);
+            const context = offscreenCanvas.getContext('2d');
+            if (context){
+              let currentY = 0;
+              for (const img of images) {
+                  context.drawImage(img, 0, currentY);
+                  currentY += img.height;
+              }
+            }
+            screenShotCard.image = await offscreenCanvas.convertToBlob();
+
+          }else{
+            screenShotCard.image = new Blob([result], { type: "image/png" });
+          }
 
           resolve(screenShotCard);
         });

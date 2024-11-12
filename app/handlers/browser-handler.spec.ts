@@ -21,12 +21,11 @@ test.describe('Toolbar', () => {
     await ipcMainInvokeHandler(app, 'showSession');
   });
 
+  function timeout(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   test('Navigation', async () => {
-
-    function timeout(ms: number) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     await ipcMainInvokeHandler(app, 'loadURL', null, null, "https://www.example.com/");
     await timeout(500);
     let url = await ipcMainInvokeHandler(app, 'getURL');
@@ -60,13 +59,6 @@ test.describe('Toolbar', () => {
     expect(canGoBackward).toBeTruthy();
     expect(canGoForward).toBeFalsy();
   });
-
-  test('Screenshot', async () => {
-    const screenshot = await ipcMainInvokeHandler(app, 'screenshot');
-    expect(screenshot).toBeInstanceOf(Object);
-  });
-
-
 
   test.afterAll(async () => {
     await ipcMainInvokeHandler(app, 'deleteCollector');

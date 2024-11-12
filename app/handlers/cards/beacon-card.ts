@@ -8,15 +8,17 @@
  * https://github.com/EU-EDPS/website-evidence-collector/blob/master/lib/setup-beacon-recording.js
  * from the Website Evidence Collector (https://github.com/EU-EDPS/website-evidence-collector)
  */
+/// <reference types="chrome"/>
+/// <reference types="firefox-webext-browser"/>
+
+
 import { Collector } from "../collectors/collector";
 import { Card } from "./card";
-import { PuppeteerBlocker } from '@cliqz/adblocker-puppeteer';
-import { Request } from '@cliqz/adblocker';
-
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import * as lodash from 'lodash';
+import { Request, FiltersEngine } from '@cliqz/adblocker';
 import { HarCollector } from "../collectors/har-collector";
 import { BrowserCollector } from "../collectors/browser-collector";
 
@@ -45,11 +47,11 @@ const blockerOptions = {
 // setup easyprivacy matching
 // https://github.com/cliqz-oss/adblocker/issues/123
 let blockers = {
-    "easyprivacy.txt": PuppeteerBlocker.parse(
+    "easyprivacy.txt": FiltersEngine.parse(
         fs.readFileSync(path.join(__dirname, "../../../assets/easyprivacy.txt"), "utf8"),
         blockerOptions
     ),
-    "fanboy-annoyance.txt": PuppeteerBlocker.parse(
+    "fanboy-annoyance.txt": FiltersEngine.parse(
         fs.readFileSync(
             path.join(__dirname, "../../../assets/fanboy-annoyance.txt"),
             "utf8"
@@ -86,8 +88,9 @@ export class BeaconCard extends Card {
                     return Object.assign({}, event.data, {
                         log: {
                             stacks: event.stack,
-                            // type: event.type,
+                            type: event.type,
                             timestamp: event.timestamp,
+                            event :event.data
                         },
                     });
                 })

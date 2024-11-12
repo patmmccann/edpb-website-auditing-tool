@@ -21074,7 +21074,7 @@ h4 {
 .container-xl,
 .container-xxl,
 #globan {
-    max-width: 1800px
+    
 }
 
 #globan {
@@ -23716,7 +23716,6 @@ li.dropdown-item a::after {
 
 @media(min-width:1440px) {
     #hero {
-        height: 10rem
     }
 
     #navbar-search-form {

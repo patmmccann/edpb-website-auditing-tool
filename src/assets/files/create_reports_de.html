@@ -5,104 +5,157 @@
                 <header class="article-title" style="margin-top: 10px;">
                     <h1 class="node__title mb-3 mt-0">Berichte erstellen</h1>
                 </header>
-                <p>Berichte sind formatierte Dokumente nach einer bestimmten <i>Informationsvorlage</i>, die in einer <i>Analyse</i>, einem <i>Szenario</i> oder einer gegebenen <i>Karte</i> enthalten ist.</p>
+                <p>Berichte sind formatierte Dokumente nach einer bestimmten <i>Informationsvorlage</i>, die in einer
+                    <i>Analyse</i>, einem <i>Szenario</i> oder einer gegebenen <i>Karte</i> enthalten ist.</p>
 
-                <p>Die Schnittstellenbearbeitungsberichte sind in jeder Zeile der Tabelle <strong> Zusammenfassung der Auswertungen </strong> in einer bestimmten Analyse oder einem Szenario zugänglich.</p>
+                <p>Die Schnittstellenbearbeitungsberichte sind in jeder Zeile der Tabelle <strong> Zusammenfassung der
+                        Auswertungen </strong> in einer bestimmten Analyse oder einem Szenario zugänglich.</p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Berichtsschnittstelle</h2>
                 </header>
                 <p>Die Berichtsschnittstelle besteht aus den folgenden drei Hauptkomponenten:</p>
                 <ul>
-                    <li>die <i>Werkzeugleiste Bearbeiten/Export</i> im oberen Teil der Schnittstelle ermöglicht die Bearbeitung des Berichts und die Auswahl eines Formats für seine Exporte (<i>json</i>, <i>XLSX</i>, <i>PDF</i> oder <i>DOCX</i>),</li>
-                    <li>die <i>Symbolleiste zur Informationsfilterung</i> ermöglicht die Auswahl von Informationen, die gemäß ihrer Identifizierung oder Bewertung gemeldet werden können.</li>
-                    <li>der <i>Vorschaurahmen</i> gibt einen Überblick über die in den Abschlussberichten enthaltenen Informationen. Es bietet auch einen einfachen Editor zum Hinzufügen oder Entfernen von Informationen im Bericht. Beachten Sie, dass sich das endgültige Rendering je nach ausgewähltem Exportformat unterscheiden kann.</li>
+                    <li>die <i>Werkzeugleiste Bearbeiten/Export</i> im oberen Teil der Schnittstelle ermöglicht die
+                        Bearbeitung des Berichts und die Auswahl eines Formats für seine Exporte (<i>json</i>,
+                        <i>XLSX</i>, <i>PDF</i> oder <i>DOCX</i>),</li>
+                    <li>die <i>Symbolleiste zur Informationsfilterung</i> ermöglicht die Auswahl von Informationen, die
+                        gemäß ihrer Identifizierung oder Bewertung gemeldet werden können.</li>
+                    <li>der <i>Vorschaurahmen</i> gibt einen Überblick über die in den Abschlussberichten enthaltenen
+                        Informationen. Es bietet auch einen einfachen Editor zum Hinzufügen oder Entfernen von
+                        Informationen im Bericht. Beachten Sie, dass sich das endgültige Rendering je nach ausgewähltem
+                        Exportformat unterscheiden kann.</li>
                 </ul>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h3 class="node__title mb-3 mt-0">Werkzeugleiste bearbeiten/exportieren</h3>
                 </header>
-                <p>Die Werkzeugleiste Bearbeiten/Export zum Bearbeiten von Informationen der Berichte und zum Exportieren in einem bestimmten Format:</p>
+                <p>Die Werkzeugleiste Bearbeiten/Export zum Bearbeiten von Informationen der Berichte und zum
+                    Exportieren in einem bestimmten Format:</p>
                 <table border="2">
                     <tr>
-                        <td><button  color="blue"><i class="fas fa-pen"></i> Bearbeiten</button></td>
-                        <td>Öffnen Sie einen einfachen Editor im Vorschaurahmen zum Hinzufügen oder Entfernen von Informationen im generierten Bericht. Beachten Sie, dass geänderte Informationen nur beim Export in pdf oder docx sichtbar sind. Wenn Sie neue Filter aus der <i>Symbolleiste „Informationsfilter“</i> auswählen, löschen Sie alle aktuellen Änderungen.</td>
+                        <td><button color="blue"><i class="fas fa-pen"></i> Bearbeiten</button></td>
+                        <td>Öffnen Sie einen einfachen Editor im Vorschaurahmen zum Hinzufügen oder Entfernen von
+                            Informationen im generierten Bericht. Beachten Sie, dass geänderte Informationen nur beim
+                            Export in pdf oder docx sichtbar sind. Wenn Sie neue Filter aus der <i>Symbolleiste
+                                „Informationsfilter“</i> auswählen, löschen Sie alle aktuellen Änderungen.</td>
                     </tr>
                     <tr>
-                        <td><button  color="blue"><i
-                                    class="fas fa-file-import"></i> Speichern als JSON</button></td>
-                        <td>Exportieren Sie Rohinformationen einer bestimmten <i>Analyse</i>, <i>Szenario</i> oder <i>Karte</i> mit dem JavaScript Object Notation (JSON) Format.</td>
+                        <td><button color="blue"><i class="fas fa-file-import"></i> Speichern als JSON</button></td>
+                        <td>Exportieren Sie Rohinformationen einer bestimmten <i>Analyse</i>, <i>Szenario</i> oder
+                            <i>Karte</i> mit dem JavaScript Object Notation (JSON) Format.</td>
                     </tr>
                     <tr>
-                        <td><button  color="blue"><i
-                                    class="fas fa-file-import"></i> Speichern als XLSX</button></td>
-                        <td>Exportieren Sie Rohinformationen einer bestimmten <i>Analyse</i>, <i>Szenario</i> oder <i>Karte</i> in Tabellenkalkulationen mit Office Open XML (XLXS) Format.</td>
+                        <td><button color="blue"><i class="fas fa-file-import"></i> Speichern als XLSX</button></td>
+                        <td>Exportieren Sie Rohinformationen einer bestimmten <i>Analyse</i>, <i>Szenario</i> oder
+                            <i>Karte</i> in Tabellenkalkulationen mit Office Open XML (XLXS) Format.</td>
                     </tr>
                     <tr>
-                        <td>Als<button  color="blue">PDF<i
-                                    class="fas fa-file-import"></i> speichern </button></td>
-                        <td>Exportieren Sie formatierte Informationen einer bestimmten <i>Analyse</i>, eines <i>Szenarios</i> oder einer <i>Karte</i> im Portable Document Format (PDF).</td>
+                        <td>Als<button color="blue">PDF<i class="fas fa-file-import"></i> speichern </button></td>
+                        <td>Exportieren Sie formatierte Informationen einer bestimmten <i>Analyse</i>, eines
+                            <i>Szenarios</i> oder einer <i>Karte</i> im Portable Document Format (PDF).</td>
                     </tr>
                     <tr>
-                        <td><button  color="blue"><i
-                                    class="fas fa-file-import"></i> Speichern als Docx </button></td>
-                        <td>Exportieren Sie formatierte Informationen einer bestimmten <i>Analyse</i>, eines <i>Szenarios</i> oder einer <i>Karte</i> in einem bearbeitbaren Office Open XML (DOCX).</td>
+                        <td><button color="blue"><i class="fas fa-file-import"></i> Speichern als Docx </button></td>
+                        <td>Exportieren Sie formatierte Informationen einer bestimmten <i>Analyse</i>, eines
+                            <i>Szenarios</i> oder einer <i>Karte</i> in einem bearbeitbaren Office Open XML (DOCX).</td>
                     </tr>
                 </table>
 
-                <p>Formatierte Informationen entsprechen der Generierung von HTML-Darstellung eines Berichts basierend auf einer Vorlage im PUG-Format. Neue Vorlagen können im Bereich <span
-                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Vorlage</span> in der linken Navigationsleiste importiert und in der <i>Symbolleiste „Informationsfilter“</i> ausgewählt werden.</p>
+                <p>Formatierte Informationen entsprechen der Generierung von HTML-Darstellung eines Berichts basierend
+                    auf einer Vorlage im PUG-Format. Neue Vorlagen können im Bereich <span
+                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Vorlage</span> in der linken
+                    Navigationsleiste importiert und in der <i>Symbolleiste „Informationsfilter“</i> ausgewählt werden.
+                </p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h3 class="node__title mb-3 mt-0">Werkzeugleiste zur Informationsfilterung</h3>
                 </header>
-                <p>Die Werkzeugleiste zur Informationsfilterung ermöglicht die Auswahl von Analysen, Szenarien und Karten je nach ihrer Identifikation oder ihrer jeweiligen Bewertung nach Optionen oder einer Vorlage:<p><table border="2">
+                <p>Die Werkzeugleiste zur Informationsfilterung ermöglicht die Auswahl von Analysen, Szenarien und
+                    Karten je nach ihrer Identifikation oder ihrer jeweiligen Bewertung nach Optionen oder einer
+                    Vorlage:
+                <p>
+                <table border="2">
                     <tr>
                         <td>Wählen Sie eine Vorlage aus</td>
                         <td>Verwenden Sie eine PUG-Vorlage wurde aus dem Bereich <span
-                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Vorlage</span> in der linken Navigationsleiste importiert.</td>
+                                class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Vorlage</span> in der
+                            linken Navigationsleiste importiert.</td>
                     </tr>
                     <tr>
                         <td>Tags auswählen, um zu melden</td>
-                        <td>Wenn Sie eine vollständige Analyse melden, können Sie eine Reihe von Szenarien oder alle Szenarien auswählen, die in den Bericht aufgenommen werden sollen.</td>
+                        <td>Wenn Sie eine vollständige Analyse melden, können Sie eine Reihe von Szenarien oder alle
+                            Szenarien auswählen, die in den Bericht aufgenommen werden sollen.</td>
                     </tr>
                     <tr>
                         <td>Wählen Sie Karten aus, um zu melden</td>
-                        <td>Wenn Sie eine Analyse oder ein Szenario melden, können Sie einen Satz von Karten oder alle Karten auswählen, die in den Bericht aufgenommen werden sollen.</td>
+                        <td>Wenn Sie eine Analyse oder ein Szenario melden, können Sie einen Satz von Karten oder alle
+                            Karten auswählen, die in den Bericht aufgenommen werden sollen.</td>
                     </tr>
                     <tr>
                         <td>Auswertungen auswählen, um Bericht zu erstatten</td>
-                        <td>Wenn Sie eine Analyse, ein Szenario oder eine Karte melden, können Bewertungen oder Kommentare in den Bericht aufgenommen werden. Beachten Sie, dass diese Option auch für Zeilen in Cookies, lokale Speicherung, Beacons und testssl gilt.</td>
+                        <td>Wenn Sie eine Analyse, ein Szenario oder eine Karte melden, können Bewertungen oder
+                            Kommentare in den Bericht aufgenommen werden. Beachten Sie, dass diese Option auch für
+                            Zeilen in Cookies, lokale Speicherung, Beacons und testssl gilt.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Wählen Sie einen Anhang aus
+                        </td>
+                        <td>
+                            Bei der Meldung einer Analyse, eines Szenarios oder einer Karte kann ein Untersuchungsanhang
+                            hinzugefügt werden, um beispielsweise zu erläutern, wie die Untersuchung durchgeführt wurde.
+                        </td>
                     </tr>
                 </table>
 
-                <p>Vorlagen- und Filteroptionen sind gegenseitig inklusiv. Als solche können Vorlagen vollständige Informationen über Analysen, Szenarien und Karten sein, die später durch die Filteroptionen ausgewählt werden könnten.</p>
+                <p>Vorlagen- und Filteroptionen sind gegenseitig inklusiv. Als solche können Vorlagen vollständige
+                    Informationen über Analysen, Szenarien und Karten sein, die später durch die Filteroptionen
+                    ausgewählt werden könnten.</p>
 
                 <header class="article-title" style="margin-top: 10px;">
                     <h2 class="node__title mb-3 mt-0">Bearbeiten neuer Vorlagen</h2>
                 </header>
+                <p>Neue Vorlagen können im Template-Bereich mit der Schaltfläche Neue Vorlage hinzugefügt werden.</p>
                 <p>Die einzige unterstützte Syntax für Templates ist jedoch <a target="_blank"
-                        href="https://github.com/pugjs/pug">PUG</a>. Die generierten Berichte aus einer Vorlage entsprechen dem Datenobjektobjekt, das im json einer Analyse, einem Szenario oder einer Karte den entsprechenden <i>Locals</i> in der Pug-Syntax enthalten ist.</p>
-                <p>Sie können den Abschnitt „ <i>Sprachreferenz</i>“ der <a
-                        target="_blank"
-                        href="https://pugjs.org/api/getting-started.html">offiziellen Website</a> lesen, um vollständige Informationen in der Syntax zu erhalten.</p>
+                        href="https://github.com/pugjs/pug">PUG</a>. Die generierten Berichte aus einer Vorlage
+                    entsprechen dem Datenobjektobjekt, das im json einer Analyse, einem Szenario oder einer Karte den
+                    entsprechenden <i>Locals</i> in der Pug-Syntax enthalten ist.</p>
+                <p>Sie können den Abschnitt „ <i>Sprachreferenz</i>“ der <a target="_blank"
+                        href="https://pugjs.org/api/getting-started.html">offiziellen Website</a> lesen, um vollständige
+                    Informationen in der Syntax zu erhalten.</p>
 
                 <p>Die<mat-icon>Beschreibung</mat-icon><span
-                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Template</span> bietet eine Reihe von Aktionen zum Importieren, Bearbeiten oder Duplizieren vorhandener Vorlagen:</p>
+                        class="mat-list-item nav-item px-xl-3 text-uppercase is-active">Template</span> bietet eine
+                    Reihe von Aktionen zum Importieren, Bearbeiten oder Duplizieren vorhandener Vorlagen:</p>
 
                 <table border="2">
                     <tr>
-                        <td><button  color="blue"><i class="fas fa-plus"></i> Neue Vorlage</button></td>
-                        <td>Importieren Sie eine Vorlage in PUG-Syntax mit einem Namen und einem Autor für die spätere Verwendung in Berichten.</td>
+                        <td><button color="blue"><i class="fas fa-plus"></i> Neue Vorlage</button></td>
+                        <td>Importieren Sie eine Vorlage in PUG-Syntax mit einem Namen und einem Autor für die spätere
+                            Verwendung in Berichten.</td>
                     </tr>
                     <tr>
-                        <td><a href="javascript:;"> <i class="fa fa-download" aria-hidden="true"></i> </a> <a href="javascript:;"> <i class="fa fa-trash" aria-hidden="true"></i> </a></td>
+                        <td><a href="javascript:;"> <i class="fa fa-download" aria-hidden="true"></i> </a> <a
+                                href="javascript:;"> <i class="fa fa-trash" aria-hidden="true"></i> </a></td>
                         <td>Bzw. importierte Vorlagen herunterladen und löschen</td>
                     </tr>
                 </table>
 
-                <p>Als erste Einführung zum Generieren neuer Vorlagen empfehlen wir, eine Analyse, ein Szenario oder ein Tag aus der <i>Werkzeugleiste Bearbeiten/Export</i> im JSON-Rohformat herunterzuladen, um passende Einträge zu finden.</p>
-                <p>Viele Online-Online-Pug-Testing-Tool ermöglicht das Kopieren/Einfügen von PUG-Vorlagen und JSON-Informationen, um das endgültige HTML zu rendern. <i>Die Standardvorlage</i> kann auch als Referenz exportiert werden.</p>
+                <p>Als erste Einführung zum Generieren neuer Vorlagen empfehlen wir, eine Analyse, ein Szenario oder ein
+                    Tag aus der <i>Werkzeugleiste Bearbeiten/Export</i> im JSON-Rohformat herunterzuladen, um passende
+                    Einträge zu finden.</p>
+                <p>Viele Online-Online-Pug-Testing-Tool ermöglicht das Kopieren/Einfügen von PUG-Vorlagen und
+                    JSON-Informationen, um das endgültige HTML zu rendern. <i>Die Standardvorlage</i> kann auch als
+                    Referenz exportiert werden.</p>
+                    <header class="article-title" style="margin-top: 10px;">
+                        <h2 class="node__title mb-3 mt-0">Hinzufügung eines neuen Anhangs</h2>
+                        <p>
+                            Anhang kann auch im Muster-Abschnitt mit der Schaltfläche  <button> Neuer Anhang</button> hinzugefügt werden.
+                        </p>
+    
+                        <p>Die einzige unterstützte Syntax für Anhang ist HTML. Viele Software unterstützt den Export eines Formats (z. B. DOCx oder PDF) in HTML. Dieser Anhang wird automatisch an der Stelle { annex} in der Mops-Syntax der Mopsvorlage hinzugefügt. In der Standard-Pug-Vorlage wird dieser Anhang wie am Ende des Berichts beigefügt.</p>
+                    </header>
             </div>
         </div>
     </div>

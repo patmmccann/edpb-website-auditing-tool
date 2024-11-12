@@ -90,8 +90,14 @@
             "new_database": "Nouvelle base de connaissances"
         },
         "template": {
-            "new_template": "Nouveau modèle"
+            "new_template": "Nouveau modèle",
+            "new_annex": "Nouvelle annexe",
+            "annex":"Annexe",
+            "template":"Modèle",
+            "template_name": "Nom du modèle",
+            "annex_name": "Nom de l'annexe"
         },
+        "type":"Type",
         "create": "Créer",
         "cancel": "Annuler",
         "view": "Voir",
@@ -103,8 +109,7 @@
         "remove": "Supprimer",
         "disable": "Désactiver",
         "cookie": "Cookie",
-        "local_storage": "Local Storage",
-        "template_name": "Nom du modèle"
+        "local_storage": "Local Storage"
     },
     "analyses": {
         "edit": {
@@ -194,7 +199,9 @@
             "clear": "Effacer les informations du navigateur",
             "developer": "Affichier les outils de développement",
             "stop": "Stopper et enregistrer l'analyse",
-            "show": "Afficher/cacher la barre d'analyse"
+            "show": "Afficher/cacher la barre d'analyse",
+            "zoomOut":"Réduit la taille du texte",
+            "zoomIn":"Augmente la taille du texte"
         },
         "log_details": {
             "details": "Details",
@@ -202,7 +209,15 @@
             "close_details": "Fermer les details",
             "logs": "Journal",
             "logs_tooltip": "Script or requête ayant écrit l'information sélectionnée.",
-            "knowledge_tooltip": "Information depuis la base de connaissances liée à la ligne sélectionnée."
+            "knowledge_tooltip": "Information depuis la base de connaissances liée à la ligne sélectionnée.",
+            "log_cookie_js":"Cookie Javascript défini à partir des fichiers javascript suivants",
+            "log_cookie_http":"Cookie posé par un SetCookie sur la requête suivante",
+            "log_localstorage":"Valeur de stockage local écrite à partir des fichiers suivants",
+            "log_beacon":"Depuis la liste suivante",
+            "log_values":"Avec les valeurs suivantes",
+            "by_function" : "par la fonction",
+            "at_column" : "à la colonne",
+            "and_line" : "et ligne"
         }
     },
     "settings": {
@@ -236,7 +251,9 @@
         "client_id": "ID du client",
         "client_secret": "Secret du client",
         "update": "Mise à jour",
-        "infos": "Afficher les informations sur le navigateur"
+        "infos": "Afficher les informations sur le navigateur",
+        "use_doh": "Utiliser un serveur DoH",
+        "doh": "Serveur DoH à utiliser (Un redémarrage peut être nécessaire)"
     },
     "reports": {
         "creator": "Créateur",
@@ -256,9 +273,10 @@
         "save": "Enregistrer",
         "save_as": "Enregistrer sous",
         "select_template": "Selectionner un modèle",
-        "select_tags": "Sélectionner tags to report",
-        "select_cards": "Sélectionner cards to report",
-        "select_evaluations": "Sélectionner evaluations to report",
+        "select_tags": "Sélectionner un scénario",
+        "select_cards": "Sélectionner une carte",
+        "select_evaluations": "Sélectionner une evaluations",
+        "select_annex": "Sélectionnez une annexe",
         "all_tags": "Tous les scénarios",
         "all_cards": "Toutes les cartes",
         "versions": "Versions",
@@ -309,7 +327,9 @@
         },
         "screenshot": {
             "visible": "Visible",
-            "full_page": "Page complète",
+            "full_page_from_dom": "Page complète depuis le DOM (sans images)",
+            "full_page_from_scroll": "Page complète par défilement",
+            "fullpage_from_url": "Page complète à partir de l'URL brute",
             "option": "Option de capture"
         },
         "infos": {

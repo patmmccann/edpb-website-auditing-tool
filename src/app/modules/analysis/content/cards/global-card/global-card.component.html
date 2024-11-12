@@ -31,7 +31,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let card of all_cards">
-                    <td class="truncate">{{card.card.name}}</td>
+                    <td 
+                    (click)="scroll(card.card)"
+                    class="truncate">{{card.card.name}}</td>
                     <td class="truncate">
                       <ng-container 
                       *ngIf="card.evaluation"
@@ -80,7 +82,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let tag of all_tags">
-                    <td class="truncate">{{tag.tag.name}}</td>
+                    <td 
+                    (click)="router.navigate(['/analysis', analysis.id, 'tag', tag.tag.id])"
+                    class="truncate">{{tag.tag.name}}</td>
                     <td class="truncate">
                       <ng-container 
                       *ngIf="tag.evaluation"

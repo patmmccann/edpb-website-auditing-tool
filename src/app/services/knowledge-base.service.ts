@@ -334,7 +334,9 @@ export class KnowledgeBaseService extends ApplicationDb {
         const cookeLine = value as CookieLine;
         this.knowledgeBaseSource = { 'domain': cookeLine.domain, 'name': cookeLine.name };
         const cookies = await this.cookieKnowledgesService.getCookieEntries(cookeLine.domain, cookeLine.name);
-
+        this.knowledgeBaseData = null;
+        this.knowledgeBaseKind = 'cookie';   
+        
         if (cookies.matched) {
           cookiebases.map((cookiebase :any) => {
             cookiebase.cookie_domain = cookies.domain.filter(x => x.knowledge_base_id == cookiebase.id);
@@ -344,29 +346,26 @@ export class KnowledgeBaseService extends ApplicationDb {
           });
           
           this.knowledgeBaseData = cookiebases.filter((x:any) => x.all_cookies >0);;
-        } else {
-          this.knowledgeBaseData = null;
-        }
-        this.knowledgeBaseKind = 'cookie';   
-        
+        }         
         break;
 
       case "localstorage":
         const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
         const localstorageLine = value as LocalStorageLine;
-        this.knowledgeBaseSource = { 'key': localstorageLine.key, 'script': localstorageLine.log.stacks[0]?.fileName };
-        const localstorage = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log);
-        
-        if (localstorage.length >0) {
-          localstoragebase.map((localbase :any) => {
-            localbase.localstorage = localstorage.filter((x:any) => x.knowledge_base_id == localbase.id);
-          });
-          this.knowledgeBaseData = localstoragebase.filter((x:any) => x.localstorage.length >0);;
-        }else{
-          this.knowledgeBaseData = null;
-        }
-
+        this.knowledgeBaseData = null;
         this.knowledgeBaseKind = 'localstorage';
+
+        if (localstorageLine.log){
+          this.knowledgeBaseSource = { 'key': localstorageLine.key, 'script': localstorageLine.log.stacks[0]?.fileName };
+          const localstorage = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageLine.key, localstorageLine.log);
+          
+          if (localstorage.length >0) {
+            localstoragebase.map((localbase :any) => {
+              localbase.localstorage = localstorage.filter((x:any) => x.knowledge_base_id == localbase.id);
+            });
+            this.knowledgeBaseData = localstoragebase.filter((x:any) => x.localstorage.length >0);;
+          }
+        }
         break;
       default:
         this.knowledgeBaseData = null;

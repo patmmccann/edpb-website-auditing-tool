@@ -5,7 +5,9 @@
     (selectionChange)="updateScreenshot()"
     >
       <mat-option value="visible" selected>{{ "cards.screenshot.visible" | translate }}</mat-option>
-      <mat-option value="full">{{ "cards.screenshot.full_page" | translate }}</mat-option>
+      <mat-option value="fullpage_from_dom">{{ "cards.screenshot.full_page_from_dom" | translate }}</mat-option>
+      <mat-option value="fullpage_from_scroll">{{ "cards.screenshot.full_page_from_scroll" | translate }}</mat-option>
+      <mat-option value="fullpage_from_url">{{ "cards.screenshot.fullpage_from_url" | translate }}</mat-option>
     </mat-select>
 </mat-form-field>
 <img *ngIf="!loading" [src]="screenshotCard.image|safeIMG"  style="width:100.0%">

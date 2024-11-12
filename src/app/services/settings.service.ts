@@ -40,11 +40,13 @@ export class SettingsService {
     client_id:"",
     client_secret:"",
     use_proxy : false,
-    proxy_settings: ""
+    proxy_settings: "",
+    use_doh: false,
+    doh: ""
   }
 
   constructor(
-  ) { 
+  ) {
     const server_url = localStorage.getItem('server_url');
     const client_id = localStorage.getItem('client_id');
     const client_secret = localStorage.getItem('client_secret');
@@ -52,6 +54,7 @@ export class SettingsService {
     const test_ssl_location = localStorage.getItem('test_ssl_location');
     const proxy_settings = localStorage.getItem('proxy_settings');
     const setAgent = localStorage.getItem('useragent');
+    const doh = localStorage.getItem('doh')
     this._settings.useragent = setAgent == null || setAgent == "" ? this.detaultUserAgent  : setAgent;
     this._settings.dnt = localStorage.getItem('DNT') == 'true'? true : false ;
     this._settings.testssl = localStorage.getItem('testssl') == 'true'? true : false ;
@@ -73,6 +76,8 @@ export class SettingsService {
     this._settings.client_secret = client_secret != null ? client_secret : "";
     this._settings.use_proxy = localStorage.getItem('use_proxy') == 'true'? true : false ;
     this._settings.proxy_settings = proxy_settings != null ? proxy_settings : "";
+    this._settings.use_doh = localStorage.getItem('use_doh') == 'true'? true : false ;
+    this._settings.doh = doh? doh : "";
   }
   setItem(key :string, value:any):void{
     localStorage.setItem(key, value);
@@ -93,6 +98,12 @@ export class SettingsService {
   setTestSSLLocation(location:string){
     this._settings.test_ssl_location = location;
     localStorage.setItem('test_ssl_location', location);
+  }
+
+  setDoH(event:any) {
+    if (event) {
+      localStorage.setItem('doh', event.value);
+    }
   }
 
   get settings(){

@@ -90,8 +90,14 @@
             "new_database": "Nuova banca dati"
         },
         "template": {
-            "new_template": "Nuovo modello"
+            "new_template": "Nuovo modello",
+            "new_annex": "Nuovo allegato",
+            "annex":"Allegato",
+            "template":"Modello",
+            "template_name": "Nome modello",
+            "annex_name": "Nome dell'allegato"
         },
+        "type":"Tipo",
         "create": "Creare",
         "cancel": "Annullare",
         "view": "Vista",
@@ -103,8 +109,7 @@
         "remove": "Rimuovere",
         "disable": "Disabilitare",
         "cookie": "Cookie",
-        "local_storage": "Stoccaggio locale",
-        "template_name": "Nome del modello"
+        "local_storage": "Stoccaggio locale"
     },
     "analyses": {
         "edit": {
@@ -194,7 +199,9 @@
             "clear": "Cancellare tutte le informazioni memorizzate nel browser",
             "developer": "Mostra strumento di sviluppo per la pagina corrente",
             "stop": "Fermate e salvate l'analisi",
-            "show": "Mostra/nascondi la barra delle prove"
+            "show": "Mostra/nascondi la barra delle prove",
+            "zoomOut":"Riduce la dimensione del testo",
+            "zoomIn":"Aumenta la dimensione del testo"
         },
         "log_details": {
             "details": "Dettagli",
@@ -202,7 +209,15 @@
             "close_details": "Chiudere i dettagli",
             "logs": "Log",
             "logs_tooltip": "Script o richiesta che memorizza le informazioni selezionate.",
-            "knowledge_tooltip": "Informazioni provenienti dalla base nota che potrebbero essere collegate alla linea selezionata."
+            "knowledge_tooltip": "Informazioni provenienti dalla base nota che potrebbero essere collegate alla linea selezionata.",
+            "log_cookie_js":"Cookie Javascript impostato dai seguenti file Javascript",
+            "log_cookie_http":"Cookie impostato da un SetCookie alla seguente richiesta",
+            "log_localstorage":"Valore di archiviazione locale scritto dai seguenti file",
+            "log_beacon":"Dal seguente elenco",
+            "log_values":"Con i seguenti valori",
+            "by_function" : "dalla funzione",
+            "at_column" : "alla colonna",
+            "and_line" : "e linea"
         }
     },
     "settings": {
@@ -236,7 +251,9 @@
         "client_id": "Client ID",
         "client_secret": "Segreto del cliente",
         "update": "Aggiornamento",
-        "infos": "Mostra le informazioni del browser"
+        "infos": "Mostra le informazioni del browser",
+        "use_doh": "Utilizza il server DoH",
+        "doh": "Server DoH da utilizzare (potrebbe essere necessario riavviare)"
     },
     "reports": {
         "creator": "Creatore",
@@ -259,6 +276,7 @@
         "select_tags": "Selezionare i tag da segnalare",
         "select_cards": "Selezionare le schede da segnalare",
         "select_evaluations": "Selezionare le valutazioni da segnalare",
+        "select_annex": "Seleziona un allegato",
         "all_tags": "Tutti i tag",
         "all_cards": "Tutte le carte",
         "versions": "Versioni",
@@ -309,7 +327,9 @@
         },
         "screenshot": {
             "visible": "Visibile",
-            "full_page": "Pagina intera",
+            "full_page_from_dom": "Pagina intera dal DOM (senza immagini)",
+            "full_page_from_scroll": "Pagina intera dallo scorrimento",
+            "fullpage_from_url": "Pagina intera dall'URL non elaborato",
             "option": "Opzione Schermo"
         },
         "infos": {

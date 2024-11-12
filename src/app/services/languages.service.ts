@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {WATTranslateLoader} from '../shared/translate/wattranslate-loader';
 
@@ -13,7 +13,8 @@ import {WATTranslateLoader} from '../shared/translate/wattranslate-loader';
 export class LanguagesService {
   selectedLanguage: string = "en";
 
-  constructor(private translateService: TranslateService
+  constructor(
+    @Inject(TranslateService)  private translateService: TranslateService
     ) { }
 
   /**

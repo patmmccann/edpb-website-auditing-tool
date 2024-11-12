@@ -111,6 +111,13 @@
               <mat-option *ngFor="let evaluation_option of evaluation_options" [value]="evaluation_option" (click)="toggleEvaluationSelection(evaluation_option)">{{evaluation_option}}</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label> {{ "reports.select_annex" | translate }} </mat-label>
+            <mat-select [(value)]="selected_annex" (selectionChange)="rendererHTML()">
+                <mat-option [value]=""></mat-option>
+                <mat-option *ngFor="let annex of annexes" [value]="annex">{{annex.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </mat-card-header>
     <mat-card-content>
 

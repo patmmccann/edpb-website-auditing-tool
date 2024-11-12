@@ -1,0 +1,36 @@
+<mat-tree #treeLogCall [dataSource]="dataSourceValue" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button mat-icon-button disabled></button>
+        <div *ngIf="event">
+            <table>
+                <tbody>
+                    <tr *ngIf="event.listName != undefined">
+                        <td>
+                            {{ "menu.list" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{event.listName}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="event.filter != undefined">
+                        <td>
+                            {{ "entries.list.filters" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{event.filter}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+        </button>
+        {{node.name}}
+    </mat-tree-node>
+</mat-tree>

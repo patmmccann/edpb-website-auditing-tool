@@ -29,10 +29,12 @@ export class ReportComponent implements OnInit, OnDestroy {
   public tag: Tag | null = null;
   public card: Card | null = null;
   public templates: Template[] = [];
+  public annexes: Template[] = [];
   public editing: boolean = false;
   pug: string = "";
   json: any = null;
   selected_template: Template | null = null;
+  selected_annex: Template | null = null;
   reportEditor: any = null;
   report_level: 'analysis' | 'tag' | 'card' = 'analysis';
   cards_options: string[] = [];
@@ -84,7 +86,8 @@ export class ReportComponent implements OnInit, OnDestroy {
             .patchValue(['All evaluations']);
 
           this.selected_template = result[0];
-          this.templates = result;
+          this.templates = result.filter((template: Template) => template.type == 'template');
+          this.annexes = result.filter((template: Template) => template.type == 'annex');
           this.rendererHTML();
         });
       })
@@ -240,6 +243,10 @@ export class ReportComponent implements OnInit, OnDestroy {
       json = await this.reportService.fromAnalysis(this.analysis, this.tags_to_display.value, this.cards_to_display.value, this.evaluations_to_display.value);
     } else {
       throw new Error("Don't know what to report")
+    }
+
+    if (this.selected_annex){
+      json.annex = this.selected_annex.html;
     }
 
     this.json = json;

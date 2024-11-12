@@ -5,9 +5,12 @@
  */
 import { Stack } from "./stack.model";
 
+
+type LogType = "Cookie.HTTP" | "Cookie.JS" | "Request.Tracking" | "Storage.LocalStorage" | "";
+
 export class Log {
     public stacks :Stack[] = [];
-    public type:string = "";
+    public type:LogType = "";
     public timestamp:string = "";
     public location:string = "";
     

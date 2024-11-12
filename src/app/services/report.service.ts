@@ -128,7 +128,7 @@ export class ReportService {
     const sheets: Sheet = {};
     const sheetName: string[] = [];
     for (let name in data) {
-      const card = data[name];
+      const card = data[name].values;
 
       if (!card) continue;
 
@@ -163,7 +163,6 @@ export class ReportService {
         case 'cookies':
         case 'evaluations':
         case 'unsafeForms':
-        case 'info':
         case 'traffic':
           const new_sheet = name;
           sheetName.push(new_sheet);
@@ -179,6 +178,7 @@ export class ReportService {
           break;
         case 'secure_connection':
         //case 'source':
+        case 'info':
         case 'tag':
           const new_sheet_test = name;
           sheetName.push(new_sheet_test);
