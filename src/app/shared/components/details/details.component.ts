@@ -10,9 +10,10 @@ import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model'
 import { Details } from 'src/app/models/details.model';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.scss'],
+    standalone: false
 })
 export class DetailsComponent implements OnInit {
   @Input() detailsData: BeaconLine | LocalStorageLine| CookieLine | null = null;

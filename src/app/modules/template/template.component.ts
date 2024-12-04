@@ -20,10 +20,11 @@ export interface AdComponent {
 
 
 @Component({
-  selector: 'app-template',
-  templateUrl: './template.component.html',
-  styleUrls: ['./template.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom,
+    selector: 'app-template',
+    templateUrl: './template.component.html',
+    styleUrls: ['./template.component.scss'],
+    encapsulation: ViewEncapsulation.ShadowDom,
+    standalone: false
 })
 
 

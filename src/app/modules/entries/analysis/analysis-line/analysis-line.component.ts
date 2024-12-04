@@ -11,9 +11,10 @@ import { Evaluation } from 'src/app/models/evaluation.model';
 import { BrowserService } from 'src/app/services/browser.service';
 
 @Component({
-  selector: 'app-analysis-line',
-  templateUrl: './analysis-line.component.html',
-  styleUrls: ['./analysis-line.component.scss']
+    selector: 'app-analysis-line',
+    templateUrl: './analysis-line.component.html',
+    styleUrls: ['./analysis-line.component.scss'],
+    standalone: false
 })
 export class AnalysisLineComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();

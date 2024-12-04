@@ -14,9 +14,10 @@ import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-  selector: 'app-local-storage-card',
-  templateUrl: './local-storage-card.component.html',
-  styleUrls: ['./local-storage-card.component.scss']
+    selector: 'app-local-storage-card',
+    templateUrl: './local-storage-card.component.html',
+    styleUrls: ['./local-storage-card.component.scss'],
+    standalone: false
 })
 export class LocalStorageCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

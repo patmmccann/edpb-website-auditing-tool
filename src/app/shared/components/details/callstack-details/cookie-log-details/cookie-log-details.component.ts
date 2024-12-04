@@ -26,9 +26,10 @@ interface FlatNode {
 }
 
 @Component({
-  selector: 'app-cookie-log-details',
-  templateUrl: './cookie-log-details.component.html',
-  styleUrls: ['./cookie-log-details.component.scss']
+    selector: 'app-cookie-log-details',
+    templateUrl: './cookie-log-details.component.html',
+    styleUrls: ['./cookie-log-details.component.scss'],
+    standalone: false
 })
 export class CookieLogDetailsComponent implements OnInit , OnChanges {
   @Input() log : CookieLog | undefined;

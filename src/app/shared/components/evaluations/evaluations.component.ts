@@ -11,9 +11,10 @@ import { EvaluationService } from 'src/app/services/evaluation.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
 @Component({
-  selector: 'app-evaluations',
-  templateUrl: './evaluations.component.html',
-  styleUrls: ['./evaluations.component.scss']
+    selector: 'app-evaluations',
+    templateUrl: './evaluations.component.html',
+    styleUrls: ['./evaluations.component.scss'],
+    standalone: false
 })
 export class EvaluationsComponent implements OnInit, OnChanges {
   @Input() evaluation: Evaluation = new Evaluation();

@@ -19,9 +19,10 @@ interface FlatNode {
 
 
 @Component({
-  selector: 'app-storage-local-storage-details',
-  templateUrl: './storage-local-storage-details.component.html',
-  styleUrls: ['./storage-local-storage-details.component.scss']
+    selector: 'app-storage-local-storage-details',
+    templateUrl: './storage-local-storage-details.component.html',
+    styleUrls: ['./storage-local-storage-details.component.scss'],
+    standalone: false
 })
 export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
   @Input() log : Log | undefined;

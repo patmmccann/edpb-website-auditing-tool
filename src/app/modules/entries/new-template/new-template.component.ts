@@ -17,9 +17,10 @@ export interface TemplateData {
 }
 
 @Component({
-  selector: 'app-new-template',
-  templateUrl: './new-template.component.html',
-  styleUrls: ['./new-template.component.scss']
+    selector: 'app-new-template',
+    templateUrl: './new-template.component.html',
+    styleUrls: ['./new-template.component.scss'],
+    standalone: false
 })
 export class NewTemplateComponent {
 

@@ -20,9 +20,10 @@ import { MatOption } from '@angular/material/core';
 import { saveOptions } from './toolbar/toolbar.component';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+    selector: 'app-report',
+    templateUrl: './report.component.html',
+    styleUrls: ['./report.component.scss'],
+    standalone: false
 })
 export class ReportComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

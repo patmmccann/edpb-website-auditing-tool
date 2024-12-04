@@ -14,9 +14,10 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-new-base',
-  templateUrl: './new-base.component.html',
-  styleUrls: ['./new-base.component.scss']
+    selector: 'app-new-base',
+    templateUrl: './new-base.component.html',
+    styleUrls: ['./new-base.component.scss'],
+    standalone: false
 })
 export class NewBaseComponent {
 

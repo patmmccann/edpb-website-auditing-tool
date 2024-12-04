@@ -18,9 +18,10 @@ import { EvaluationService } from 'src/app/services/evaluation.service';
 import { BrowserService } from 'src/app/services/browser.service';
 
 @Component({
-  selector: 'app-global-card',
-  templateUrl: './global-card.component.html',
-  styleUrls: ['./global-card.component.scss']
+    selector: 'app-global-card',
+    templateUrl: './global-card.component.html',
+    styleUrls: ['./global-card.component.scss'],
+    standalone: false
 })
 export class GlobalCardComponent implements OnInit,OnChanges {
   @Input() card: GlobalCard | null = null;

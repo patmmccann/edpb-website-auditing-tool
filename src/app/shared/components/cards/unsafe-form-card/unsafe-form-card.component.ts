@@ -11,9 +11,10 @@ import { CardService } from 'src/app/services/card.service';
 import { Sort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-unsafe-form-card',
-  templateUrl: './unsafe-form-card.component.html',
-  styleUrls: ['./unsafe-form-card.component.scss']
+    selector: 'app-unsafe-form-card',
+    templateUrl: './unsafe-form-card.component.html',
+    styleUrls: ['./unsafe-form-card.component.scss'],
+    standalone: false
 })
 export class UnsafeFormCardComponent implements OnInit {
   @Input() card: UnsafeFormsCard = new UnsafeFormsCard([]);

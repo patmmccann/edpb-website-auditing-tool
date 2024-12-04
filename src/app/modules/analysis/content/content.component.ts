@@ -13,9 +13,10 @@ import { CardService } from 'src/app/services/card.service';
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+    selector: 'app-content',
+    templateUrl: './content.component.html',
+    styleUrls: ['./content.component.scss'],
+    standalone: false
 })
 export class ContentComponent implements OnInit, OnChanges {
   @Input() analysis: Analysis | null = null;

@@ -12,9 +12,10 @@ import { BrowserService, ScreenshotOptions } from 'src/app/services/browser.serv
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
-  selector: 'app-screenshot-card',
-  templateUrl: './screenshot-card.component.html',
-  styleUrls: ['./screenshot-card.component.scss']
+    selector: 'app-screenshot-card',
+    templateUrl: './screenshot-card.component.html',
+    styleUrls: ['./screenshot-card.component.scss'],
+    standalone: false
 })
 export class ScreenshotCardComponent implements OnInit {
   screenshotCard: ScreenshotCard = new ScreenshotCard("");

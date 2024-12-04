@@ -9,9 +9,10 @@ import { BrowserService } from 'src/app/services/browser.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-analysis',
-  templateUrl: './analysis.component.html',
-  styleUrls: ['./analysis.component.scss']
+    selector: 'app-analysis',
+    templateUrl: './analysis.component.html',
+    styleUrls: ['./analysis.component.scss'],
+    standalone: false
 })
 export class AnalysisComponent {
   localStorage:any=null;

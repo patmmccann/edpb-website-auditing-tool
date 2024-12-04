@@ -11,9 +11,10 @@ import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-  selector: 'app-testssl-card',
-  templateUrl: './testssl-card.component.html',
-  styleUrls: ['./testssl-card.component.scss']
+    selector: 'app-testssl-card',
+    templateUrl: './testssl-card.component.html',
+    styleUrls: ['./testssl-card.component.scss'],
+    standalone: false
 })
 export class TestsslCardComponent implements OnInit {
   @Input() card: TestSSLCard = new TestSSLCard({}, null, null);

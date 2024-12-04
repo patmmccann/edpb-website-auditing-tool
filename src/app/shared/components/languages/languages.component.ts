@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
 import { LanguagesService } from 'src/app/services/languages.service';
 
 @Component({
-  selector: 'app-languages',
-  templateUrl: './languages.component.html',
-  styleUrls: ['./languages.component.scss']
+    selector: 'app-languages',
+    templateUrl: './languages.component.html',
+    styleUrls: ['./languages.component.scss'],
+    standalone: false
 })
 export class LanguagesComponent {
   constructor(

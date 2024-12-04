@@ -8,9 +8,10 @@ import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-kn
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-knowledge-localstorage-item',
-  templateUrl: './knowledge-localstorage-item.component.html',
-  styleUrls: ['./knowledge-localstorage-item.component.scss']
+    selector: 'app-knowledge-localstorage-item',
+    templateUrl: './knowledge-localstorage-item.component.html',
+    styleUrls: ['./knowledge-localstorage-item.component.scss'],
+    standalone: false
 })
 export class KnowledgeLocalstorageItemComponent implements OnInit {
   @Input() knowledgeBaseData: any=[];

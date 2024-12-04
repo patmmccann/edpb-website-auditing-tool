@@ -10,9 +10,10 @@ import { Sort } from '@angular/material/sort';
 
 
 @Component({
-  selector: 'app-knowledgebase-table',
-  templateUrl: './knowledgebase-table.component.html',
-  styleUrls: ['./knowledgebase-table.component.scss']
+    selector: 'app-knowledgebase-table',
+    templateUrl: './knowledgebase-table.component.html',
+    styleUrls: ['./knowledgebase-table.component.scss'],
+    standalone: false
 })
 export class KnowledgebaseTableComponent implements OnInit {
   public loading:boolean = false;

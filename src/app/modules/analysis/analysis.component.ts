@@ -15,9 +15,10 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
-  selector: 'app-analysis',
-  templateUrl: './analysis.component.html',
-  styleUrls: ['./analysis.component.scss']
+    selector: 'app-analysis',
+    templateUrl: './analysis.component.html',
+    styleUrls: ['./analysis.component.scss'],
+    standalone: false
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

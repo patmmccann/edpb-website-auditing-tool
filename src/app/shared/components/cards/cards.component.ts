@@ -15,9 +15,10 @@ import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-cards',
-  templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss']
+    selector: 'app-cards',
+    templateUrl: './cards.component.html',
+    styleUrls: ['./cards.component.scss'],
+    standalone: false
 })
 export class CardsComponent implements OnInit {
   @Input() context: viewContext = 'evaluate';

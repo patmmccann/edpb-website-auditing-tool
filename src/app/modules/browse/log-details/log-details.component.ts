@@ -10,9 +10,10 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-log-details',
-  templateUrl: './log-details.component.html',
-  styleUrls: ['./log-details.component.scss']
+    selector: 'app-log-details',
+    templateUrl: './log-details.component.html',
+    styleUrls: ['./log-details.component.scss'],
+    standalone: false
 })
 export class LogDetailsComponent implements OnInit, OnDestroy {
 

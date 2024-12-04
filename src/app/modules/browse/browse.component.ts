@@ -19,10 +19,11 @@ import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
 import { SplitComponent } from 'angular-split';
 
 @Component({
-  selector: 'app-browse',
-  templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.scss'],
-  providers: [SplitComponent]
+    selector: 'app-browse',
+    templateUrl: './browse.component.html',
+    styleUrls: ['./browse.component.scss'],
+    providers: [SplitComponent],
+    standalone: false
 })
 export class BrowseComponent implements OnInit, OnDestroy {
   @ViewChild('content') contentElement: ElementRef = new ElementRef({});

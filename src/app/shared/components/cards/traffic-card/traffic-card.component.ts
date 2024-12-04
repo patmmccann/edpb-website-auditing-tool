@@ -10,9 +10,10 @@ import { Sort } from '@angular/material/sort';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-  selector: 'app-traffic-card',
-  templateUrl: './traffic-card.component.html',
-  styleUrls: ['./traffic-card.component.scss']
+    selector: 'app-traffic-card',
+    templateUrl: './traffic-card.component.html',
+    styleUrls: ['./traffic-card.component.scss'],
+    standalone: false
 })
 export class TrafficCardComponent implements OnInit {
 

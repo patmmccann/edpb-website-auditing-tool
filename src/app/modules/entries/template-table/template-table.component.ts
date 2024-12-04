@@ -11,9 +11,10 @@ import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
 
 @Component({
-  selector: 'app-template-table',
-  templateUrl: './template-table.component.html',
-  styleUrls: ['./template-table.component.scss']
+    selector: 'app-template-table',
+    templateUrl: './template-table.component.html',
+    styleUrls: ['./template-table.component.scss'],
+    standalone: false
 })
 export class TemplateTableComponent implements OnInit {
 

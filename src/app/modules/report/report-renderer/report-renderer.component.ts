@@ -6,10 +6,11 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-report-renderer',
-  templateUrl: './report-renderer.component.html',
-  styleUrls: ['./report-renderer.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom
+    selector: 'app-report-renderer',
+    templateUrl: './report-renderer.component.html',
+    styleUrls: ['./report-renderer.component.scss'],
+    encapsulation: ViewEncapsulation.ShadowDom,
+    standalone: false
 })
 export class ReportRendererComponent implements OnInit {
 

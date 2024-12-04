@@ -14,9 +14,10 @@ import { Status } from 'src/app/models/evaluation.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
 @Component({
-  selector: 'app-beacon-card',
-  templateUrl: './beacon-card.component.html',
-  styleUrls: ['./beacon-card.component.scss']
+    selector: 'app-beacon-card',
+    templateUrl: './beacon-card.component.html',
+    styleUrls: ['./beacon-card.component.scss'],
+    standalone: false
 })
 export class BeaconCardComponent implements OnInit {
 

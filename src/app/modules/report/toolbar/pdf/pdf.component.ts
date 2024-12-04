@@ -7,9 +7,10 @@ import { Component, Input } from '@angular/core';
 import { ReportService } from 'src/app/services/report.service';
 
 @Component({
-  selector: 'app-pdf',
-  templateUrl: './pdf.component.html',
-  styleUrls: ['./pdf.component.scss']
+    selector: 'app-pdf',
+    templateUrl: './pdf.component.html',
+    styleUrls: ['./pdf.component.scss'],
+    standalone: false
 })
 export class PdfComponent {
   @Input() editing: boolean = false;

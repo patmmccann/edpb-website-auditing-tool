@@ -12,7 +12,10 @@ import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowled
 import { FormGroup } from '@angular/forms';
 
 
-@Pipe({ name: 'findPurpose' })
+@Pipe({
+    name: 'findPurpose',
+    standalone: false
+})
 export class FindPurpose implements PipeTransform {
   constructor(
     private knowledgeBaseService: KnowledgeBaseService,
@@ -84,7 +87,10 @@ export class FindPurpose implements PipeTransform {
 }
 
 
-@Pipe({ name: 'nbEntriesInKnowlegeBase' })
+@Pipe({
+    name: 'nbEntriesInKnowlegeBase',
+    standalone: false
+})
 export class NbEntriesInKnowledge implements PipeTransform {
   constructor(
     private localstorageKnowledgesService: LocalstorageKnowledgesService,
@@ -107,7 +113,10 @@ export class NbEntriesInKnowledge implements PipeTransform {
   }
 }
 
-@Pipe({ name: 'filterCookieKnowledge' })
+@Pipe({
+    name: 'filterCookieKnowledge',
+    standalone: false
+})
 export class FilterCookieKnowledge implements PipeTransform {
   transform(items: CookieKnowledge[],
     filter: any): any[] {
@@ -128,7 +137,10 @@ export class FilterCookieKnowledge implements PipeTransform {
   }
 }
 
-@Pipe({ name: 'filterLocalStorageKnowledge' })
+@Pipe({
+    name: 'filterLocalStorageKnowledge',
+    standalone: false
+})
 export class FilterLocalStorageKnowledge implements PipeTransform {
   transform(items: LocalStorageKnowledge[],
     filter: any): any[] {

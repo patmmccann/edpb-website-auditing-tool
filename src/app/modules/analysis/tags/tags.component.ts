@@ -11,9 +11,10 @@ import { AnalysisService } from 'src/app/services/analysis.service';
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+    selector: 'app-tags',
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.scss'],
+    standalone: false
 })
 export class TagsComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();

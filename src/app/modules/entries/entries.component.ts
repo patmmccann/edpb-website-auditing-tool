@@ -18,9 +18,10 @@ import { NewTemplateComponent} from './new-template/new-template.component';
 import { Template, TemplateType } from 'src/app/models/template.model';
 
 @Component({
-  selector: 'app-entries',
-  templateUrl: './entries.component.html',
-  styleUrls: ['./entries.component.scss']
+    selector: 'app-entries',
+    templateUrl: './entries.component.html',
+    styleUrls: ['./entries.component.scss'],
+    standalone: false
 })
 export class EntriesComponent implements OnInit {
   public type_entries: 'edit' | 'template' | 'knowledgeBase' | 'new' = 'edit' ;

@@ -8,9 +8,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AnalysisService } from 'src/app/services/analysis.service';
 
 @Component({
-  selector: 'app-toolbar-analysis',
-  templateUrl: './toolbar-analysis.component.html',
-  styleUrls: ['./toolbar-analysis.component.scss']
+    selector: 'app-toolbar-analysis',
+    templateUrl: './toolbar-analysis.component.html',
+    styleUrls: ['./toolbar-analysis.component.scss'],
+    standalone: false
 })
 export class ToolbarAnalysisComponent {
   @Output() imported = new EventEmitter<number>();

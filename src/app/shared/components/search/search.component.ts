@@ -14,10 +14,11 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge]
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge],
+    standalone: false
 })
 export class SearchComponent {
 

@@ -7,9 +7,10 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 
 @Component({
-  selector: 'app-knowledge-base-item',
-  templateUrl: './knowledge-base-item.component.html',
-  styleUrls: ['./knowledge-base-item.component.scss']
+    selector: 'app-knowledge-base-item',
+    templateUrl: './knowledge-base-item.component.html',
+    styleUrls: ['./knowledge-base-item.component.scss'],
+    standalone: false
 })
 export class KnowledgeBaseItemComponent implements OnInit {
 

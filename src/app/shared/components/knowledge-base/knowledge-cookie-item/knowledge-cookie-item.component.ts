@@ -10,9 +10,10 @@ import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
-  selector: 'app-knowledge-cookie-item',
-  templateUrl: './knowledge-cookie-item.component.html',
-  styleUrls: ['./knowledge-cookie-item.component.scss']
+    selector: 'app-knowledge-cookie-item',
+    templateUrl: './knowledge-cookie-item.component.html',
+    styleUrls: ['./knowledge-cookie-item.component.scss'],
+    standalone: false
 })
 export class KnowledgeCookieItemComponent implements OnInit, OnChanges {
 

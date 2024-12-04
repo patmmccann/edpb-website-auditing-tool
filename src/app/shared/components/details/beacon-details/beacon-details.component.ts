@@ -7,9 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BeaconLine } from 'src/app/models/cards/beacon-card.model';
 
 @Component({
-  selector: 'app-beacon-details',
-  templateUrl: './beacon-details.component.html',
-  styleUrls: ['./beacon-details.component.scss']
+    selector: 'app-beacon-details',
+    templateUrl: './beacon-details.component.html',
+    styleUrls: ['./beacon-details.component.scss'],
+    standalone: false
 })
 export class BeaconDetailsComponent implements OnInit {
 

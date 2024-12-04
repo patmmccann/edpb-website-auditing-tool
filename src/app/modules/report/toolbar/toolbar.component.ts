@@ -8,9 +8,10 @@ import { Component, Input } from '@angular/core';
 export type saveOptions = 'docx' | 'pdf' |'none';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
+    standalone: false
 })
 export class ToolbarComponent {
   @Input() editing: boolean = false;

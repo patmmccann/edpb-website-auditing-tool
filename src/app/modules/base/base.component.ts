@@ -17,10 +17,11 @@ import { Sort } from '@angular/material/sort';
 import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
 
 @Component({
-  selector: 'app-base',
-  templateUrl: './base.component.html',
-  styleUrls: ['./base.component.scss'],
-  providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge]
+    selector: 'app-base',
+    templateUrl: './base.component.html',
+    styleUrls: ['./base.component.scss'],
+    providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
+    standalone: false
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);

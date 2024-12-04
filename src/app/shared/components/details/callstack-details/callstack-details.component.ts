@@ -10,9 +10,10 @@ import { RequestTrackingLog } from 'src/app/models/cards/request-tracking-log.mo
 
 
 @Component({
-  selector: 'app-callstack-details',
-  templateUrl: './callstack-details.component.html',
-  styleUrls: ['./callstack-details.component.scss']
+    selector: 'app-callstack-details',
+    templateUrl: './callstack-details.component.html',
+    styleUrls: ['./callstack-details.component.scss'],
+    standalone: false
 })
 
 

@@ -9,9 +9,10 @@ import { LanguagesService } from 'src/app/services/languages.service';
 import { ReportService } from 'src/app/services/report.service';
 
 @Component({
-  selector: 'app-docx',
-  templateUrl: './docx.component.html',
-  styleUrls: ['./docx.component.scss']
+    selector: 'app-docx',
+    templateUrl: './docx.component.html',
+    styleUrls: ['./docx.component.scss'],
+    standalone: false
 })
 export class DocxComponent {
   @Input() editing: boolean = false;

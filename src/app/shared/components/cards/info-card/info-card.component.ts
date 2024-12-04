@@ -5,9 +5,10 @@ import { InfoCard } from 'src/app/models/cards/info-card.model';
 import { Tag } from 'src/app/models/tag.model';
 
 @Component({
-  selector: 'app-info-card',
-  templateUrl: './info-card.component.html',
-  styleUrls: ['./info-card.component.scss']
+    selector: 'app-info-card',
+    templateUrl: './info-card.component.html',
+    styleUrls: ['./info-card.component.scss'],
+    standalone: false
 })
 export class InfoCardComponent {
   @Input() context: viewContext = 'evaluate';

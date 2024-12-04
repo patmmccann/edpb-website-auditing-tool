@@ -19,9 +19,10 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-  selector: 'app-new-analysis',
-  templateUrl: './new-analysis.component.html',
-  styleUrls: ['./new-analysis.component.scss']
+    selector: 'app-new-analysis',
+    templateUrl: './new-analysis.component.html',
+    styleUrls: ['./new-analysis.component.scss'],
+    standalone: false
 })
 export class NewAnalysisComponent implements OnInit {
   @ViewChild('entry') selectEntry: ElementRef = new ElementRef({});

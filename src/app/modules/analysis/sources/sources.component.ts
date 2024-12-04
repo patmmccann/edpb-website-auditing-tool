@@ -6,9 +6,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-sources',
-  templateUrl: './sources.component.html',
-  styleUrls: ['./sources.component.scss']
+    selector: 'app-sources',
+    templateUrl: './sources.component.html',
+    styleUrls: ['./sources.component.scss'],
+    standalone: false
 })
 export class SourcesComponent implements OnInit {
   @Output() clickOnClose = new EventEmitter();

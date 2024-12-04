@@ -26,9 +26,10 @@ interface FlatNode {
 }
 
 @Component({
-  selector: 'app-request-tracking-details',
-  templateUrl: './request-tracking-details.component.html',
-  styleUrls: ['./request-tracking-details.component.scss']
+    selector: 'app-request-tracking-details',
+    templateUrl: './request-tracking-details.component.html',
+    styleUrls: ['./request-tracking-details.component.scss'],
+    standalone: false
 })
 export class RequestTrackingDetailsComponent implements OnInit , OnChanges {
   @Input() log : RequestTrackingLog | undefined;

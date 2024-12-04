@@ -8,9 +8,10 @@ import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model'
 import { Details } from 'src/app/models/details.model';
 
 @Component({
-  selector: 'app-localstorage-details',
-  templateUrl: './localstorage-details.component.html',
-  styleUrls: ['./localstorage-details.component.scss']
+    selector: 'app-localstorage-details',
+    templateUrl: './localstorage-details.component.html',
+    styleUrls: ['./localstorage-details.component.scss'],
+    standalone: false
 })
 export class LocalstorageDetailsComponent implements OnInit {
   @Input() line : LocalStorageLine | null = null;

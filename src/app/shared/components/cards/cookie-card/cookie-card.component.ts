@@ -15,9 +15,10 @@ import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-  selector: 'app-cookie-card',
-  templateUrl: './cookie-card.component.html',
-  styleUrls: ['./cookie-card.component.scss']
+    selector: 'app-cookie-card',
+    templateUrl: './cookie-card.component.html',
+    styleUrls: ['./cookie-card.component.scss'],
+    standalone: false
 })
 export class CookieCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});
