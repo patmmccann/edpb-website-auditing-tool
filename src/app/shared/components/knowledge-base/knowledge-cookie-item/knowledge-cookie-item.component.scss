@@ -1,4 +1,6 @@
-@import 'src/assets/stylesheets/variables';
+@use 'src/assets/stylesheets/variables' as *;
+
+
 .knowledge-content{
   max-height: 400px;
   overflow: auto;

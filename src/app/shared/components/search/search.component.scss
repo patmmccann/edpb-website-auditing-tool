@@ -1,3 +1,5 @@
+@use 'src/assets/stylesheets/variables' as *;
+
 .spacer {
     flex: 1 1 auto;
 }
@@ -48,7 +50,7 @@ mat-chip {
     flex: 1 1 auto;
 }
 
-@import 'src/assets/stylesheets/variables';
+
 .card {
   &-evaluationBlock {
     position: relative;

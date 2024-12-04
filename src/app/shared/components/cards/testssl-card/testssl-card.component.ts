@@ -57,8 +57,6 @@ export class TestsslCardComponent implements OnInit {
           return compare(a.finding, b.finding, isAsc);
         case 'severity':
           return compare(a.severity, b.severity, isAsc);
-        case 'severity':
-          return compare(a.cve, b.cve, isAsc);
         case 'evaluation':
             return compare(a.status, b.status, isAsc);
         default:
