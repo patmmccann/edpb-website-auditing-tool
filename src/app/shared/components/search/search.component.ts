@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Card } from 'src/app/models/card.model';
 import { BeaconLine } from 'src/app/models/cards/beacon-card.model';
 import { CookieLine } from 'src/app/models/cards/cookie-card.model';
@@ -12,13 +12,24 @@ import { FilterForStatus, FilterForBeacon, FilterForCookie, FilterForLocalStorag
 import { CardService } from 'src/app/services/card.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
+import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf, NgFor } from '@angular/common';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge],
-    standalone: false
+    imports: [MatButtonToggleGroup, MatButtonToggle, MatIcon, NgIf, MatToolbar, MatToolbarRow, MatIconButton, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSuffix, MatSelect, NgFor, MatOption, MatTooltip, MatButton, TranslateModule]
 })
 export class SearchComponent {
 

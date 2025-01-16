@@ -12,15 +12,13 @@ import { MaterialAllModule } from 'src/app/material.module';
 import { CompareComponent } from './compare/compare.component';
 
 @NgModule({
-  declarations: [
-    BaseComponent,
-    CompareComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule, 
-    BaseRoutingModule,
-    MaterialAllModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        BaseRoutingModule,
+        MaterialAllModule,
+        BaseComponent,
+        CompareComponent
+    ]
 })
 export class BaseModule { }

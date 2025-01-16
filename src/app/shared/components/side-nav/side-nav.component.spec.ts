@@ -16,9 +16,8 @@ describe('SideNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideNavComponent ],
-      imports:      [ MaterialAllModule,  RouterTestingModule,SharedModule]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, SideNavComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(SideNavComponent);

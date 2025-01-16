@@ -14,9 +14,8 @@ describe('ScreenshotCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScreenshotCardComponent ],
-      imports:      [ SharedModule]
-    })
+    imports: [SharedModule, ScreenshotCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ScreenshotCardComponent);

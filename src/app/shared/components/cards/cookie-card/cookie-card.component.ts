@@ -10,15 +10,21 @@ import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
-import { MatSort,Sort } from '@angular/material/sort';
+import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { FilterForStatus, FilterForCookie, FilterForCookieKnowledge } from '../../../../pipes/filters.pipe';
+import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
+import { FindPurpose } from '../../../../pipes/knowledges.pipe';
 
 @Component({
     selector: 'app-cookie-card',
     templateUrl: './cookie-card.component.html',
     styleUrls: ['./cookie-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIcon, NgClass, AsyncPipe, TranslateModule, FilterForStatus, FilterForCookie, FilterForCookieKnowledge, SafeHtmlPipe, FindPurpose]
 })
 export class CookieCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

@@ -13,8 +13,8 @@ describe('UnsafeFormCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnsafeFormCardComponent ]
-    })
+    imports: [UnsafeFormCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(UnsafeFormCardComponent);

@@ -7,10 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
-@Pipe({
-    name: 'safeHtml',
-    standalone: false
-})
+@Pipe({ name: 'safeHtml' })
 export class SafeHtmlPipe implements PipeTransform {
   constructor(private sanitized: DomSanitizer) { }
   transform(value: string | null) {
@@ -21,10 +18,7 @@ export class SafeHtmlPipe implements PipeTransform {
   }
 }
 
-@Pipe({
-    name: 'safeIMG',
-    standalone: false
-})
+@Pipe({ name: 'safeIMG' })
 export class SafeImgPipe implements PipeTransform {
   constructor(private sanitized: DomSanitizer) { }
   transform(blob: Blob) {
@@ -33,10 +27,7 @@ export class SafeImgPipe implements PipeTransform {
   }
 }
 
-@Pipe({
-    name: 'safeURL',
-    standalone: false
-})
+@Pipe({ name: 'safeURL' })
 export class SafeUrl implements PipeTransform {
   constructor(private sanitized: DomSanitizer) { }
   isURL(input: string): boolean {

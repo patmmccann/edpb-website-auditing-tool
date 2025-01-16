@@ -10,9 +10,8 @@ describe('CookieLogDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CookieLogDetailsComponent],
-      imports:      [MaterialAllModule,  SharedModule ]
-    });
+    imports: [MaterialAllModule, SharedModule, CookieLogDetailsComponent]
+});
     fixture = TestBed.createComponent(CookieLogDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

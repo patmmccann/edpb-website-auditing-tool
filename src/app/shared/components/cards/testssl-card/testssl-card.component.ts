@@ -4,17 +4,20 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit, Input } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { viewContext } from 'src/app/models/card.model';
 import { TestSSLCard } from 'src/app/models/cards/test-sslcard.model';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-testssl-card',
     templateUrl: './testssl-card.component.html',
     styleUrls: ['./testssl-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatProgressSpinner, MatSort, MatSortHeader, NgFor, MatIcon, NgClass]
 })
 export class TestsslCardComponent implements OnInit {
   @Input() card: TestSSLCard = new TestSSLCard({}, null, null);

@@ -11,9 +11,8 @@ describe('CompareComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CompareComponent],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, CompareComponent]
+});
     fixture = TestBed.createComponent(CompareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

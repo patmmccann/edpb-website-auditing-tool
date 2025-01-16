@@ -13,8 +13,8 @@ describe('TrafficCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrafficCardComponent ]
-    })
+    imports: [TrafficCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TrafficCardComponent);

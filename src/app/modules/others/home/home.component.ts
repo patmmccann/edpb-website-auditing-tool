@@ -5,15 +5,19 @@
  */
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { LanguagesService } from 'src/app/services/languages.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgIf, NgClass, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { LanguagesComponent } from '../../../shared/components/languages/languages.component';
+import { SafeHtmlPipe } from '../../../pipes/tools.pipe';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, NgIf, NgClass, LanguagesComponent, RouterLink, NgSwitch, NgSwitchCase, NgSwitchDefault, SafeHtmlPipe, TranslateModule]
 })
 export class HomeComponent implements OnInit {
   help_content: 'home' | 'how_the_tool_works' | 'new_analysis' | 'knowledge_base' | 'create_reports' | 'about_tool' = 'home';

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AnalysisAndTag, AnalysisService } from 'src/app/services/analysis.service';
 import { Analysis } from 'src/app/models/analysis.model';
@@ -14,15 +14,21 @@ import { Tag } from 'src/app/models/tag.model';
 import { Card } from 'src/app/models/card.model';
 import { InfoCard } from 'src/app/models/cards/info-card.model'
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipGrid, MatChip, MatChipRemove, MatChipInput } from '@angular/material/chips';
 import { SettingsService } from 'src/app/services/settings.service';
 import { CardService } from 'src/app/services/card.service';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-new-analysis',
     templateUrl: './new-analysis.component.html',
     styleUrls: ['./new-analysis.component.scss'],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, NgIf, FormsModule, ReactiveFormsModule, MatIcon, MatTooltip, NgFor, NgSwitch, NgSwitchCase, MatFormField, MatLabel, MatChipGrid, MatChip, MatChipRemove, MatChipInput, TranslateModule]
 })
 export class NewAnalysisComponent implements OnInit {
   @ViewChild('entry') selectEntry: ElementRef = new ElementRef({});

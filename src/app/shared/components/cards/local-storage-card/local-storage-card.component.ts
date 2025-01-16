@@ -9,15 +9,20 @@ import { LocalStorageCard} from 'src/app/models/cards/local-storage-card.model';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { MatSort,Sort } from '@angular/material/sort';
+import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { FilterForStatus, FilterForLocalStorage } from '../../../../pipes/filters.pipe';
+import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
+import { FindPurpose } from '../../../../pipes/knowledges.pipe';
 
 @Component({
     selector: 'app-local-storage-card',
     templateUrl: './local-storage-card.component.html',
     styleUrls: ['./local-storage-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIcon, NgClass, AsyncPipe, FilterForStatus, FilterForLocalStorage, SafeHtmlPipe, FindPurpose]
 })
 export class LocalStorageCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

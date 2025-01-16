@@ -5,7 +5,7 @@
  */
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params, RouterLink } from '@angular/router';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
@@ -15,15 +15,26 @@ import { ReportService } from 'src/app/services/report.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
 import { BrowserService } from 'src/app/services/browser.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
-import { saveOptions } from './toolbar/toolbar.component';
+import { saveOptions, ToolbarComponent } from './toolbar/toolbar.component';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { ReportRendererComponent } from './report-renderer/report-renderer.component';
+import { SafeHtmlPipe } from '../../pipes/tools.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatButton, MatIcon, ToolbarComponent, MatCard, MatCardHeader, MatFormField, MatLabel, MatSelect, NgFor, MatOption, FormsModule, ReactiveFormsModule, MatSelectTrigger, MatCardContent, NgClass, MatInput, ReportRendererComponent, SafeHtmlPipe, TranslateModule]
 })
 export class ReportComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

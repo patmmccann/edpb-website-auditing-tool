@@ -14,9 +14,8 @@ describe('CallstackDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CallstackDetailsComponent ],
-      imports:      [ MaterialAllModule]
-    })
+    imports: [MaterialAllModule, CallstackDetailsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CallstackDetailsComponent);

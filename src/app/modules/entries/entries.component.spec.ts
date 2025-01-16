@@ -16,9 +16,8 @@ describe('EntriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EntriesComponent ],
-      imports:      [MaterialAllModule, SharedModule, EntriesModule]
-    })
+    imports: [MaterialAllModule, SharedModule, EntriesModule, EntriesComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(EntriesComponent);

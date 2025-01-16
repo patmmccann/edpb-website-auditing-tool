@@ -13,8 +13,8 @@ describe('SourcesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SourcesComponent ]
-    })
+    imports: [SourcesComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(SourcesComponent);

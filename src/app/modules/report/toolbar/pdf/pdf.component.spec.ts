@@ -15,9 +15,8 @@ describe('PdfComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PdfComponent],
-      imports:      [MaterialAllModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, SharedModule, PdfComponent]
+});
     fixture = TestBed.createComponent(PdfComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

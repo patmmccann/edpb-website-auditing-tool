@@ -11,9 +11,8 @@ describe('InfoCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InfoCardComponent],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, InfoCardComponent]
+});
     fixture = TestBed.createComponent(InfoCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

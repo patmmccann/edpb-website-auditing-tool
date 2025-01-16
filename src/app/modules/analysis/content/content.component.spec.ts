@@ -16,9 +16,8 @@ describe('ContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContentComponent, GlobalCardComponent],
-      imports:      [ MaterialAllModule, SharedModule]
-    })
+    imports: [MaterialAllModule, SharedModule, ContentComponent, GlobalCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ContentComponent);

@@ -4,6 +4,9 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { DocxComponent } from './docx/docx.component';
+import { PdfComponent } from './pdf/pdf.component';
 
 export type saveOptions = 'docx' | 'pdf' |'none';
 
@@ -11,7 +14,7 @@ export type saveOptions = 'docx' | 'pdf' |'none';
     selector: 'app-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss'],
-    standalone: false
+    imports: [NgIf, DocxComponent, PdfComponent]
 })
 export class ToolbarComponent {
   @Input() editing: boolean = false;

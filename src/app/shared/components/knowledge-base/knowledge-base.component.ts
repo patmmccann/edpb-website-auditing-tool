@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, EventEmitter, OnInit, Input, Output, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
@@ -16,12 +16,20 @@ import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { NgIf, NgSwitch, NgSwitchCase, NgFor } from '@angular/common';
+import { KnowledgeCookieItemComponent } from './knowledge-cookie-item/knowledge-cookie-item.component';
+import { KnowledgeLocalstorageItemComponent } from './knowledge-localstorage-item/knowledge-localstorage-item.component';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-knowledge-base',
     templateUrl: './knowledge-base.component.html',
     styleUrls: ['./knowledge-base.component.scss'],
-    standalone: false
+    imports: [MatAccordion, NgIf, NgSwitch, NgSwitchCase, KnowledgeCookieItemComponent, KnowledgeLocalstorageItemComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, NgFor, MatOption, TranslateModule]
 })
 export class KnowledgeBaseComponent implements OnInit, OnChanges, OnDestroy {
 

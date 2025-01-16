@@ -9,19 +9,24 @@ import { Tag } from 'src/app/models/tag.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { TagService } from 'src/app/services/tag.service';
 import { CardService } from 'src/app/services/card.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { GlobalCard } from 'src/app/models/cards/global-card.model';
 import { Card,allKindCard } from 'src/app/models/card.model';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { EvaluationService } from 'src/app/services/evaluation.service';
 import { BrowserService } from 'src/app/services/browser.service';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { NgIf, NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
+import { EvaluationsComponent } from '../../../../../shared/components/evaluations/evaluations.component';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-global-card',
     templateUrl: './global-card.component.html',
     styleUrls: ['./global-card.component.scss'],
-    standalone: false
+    imports: [MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgIf, EvaluationsComponent, MatSort, MatSortHeader, NgFor, NgSwitch, NgSwitchCase, MatIcon, RouterLink, TranslateModule]
 })
 export class GlobalCardComponent implements OnInit,OnChanges {
   @Input() card: GlobalCard | null = null;

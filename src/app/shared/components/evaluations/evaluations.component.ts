@@ -4,17 +4,24 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Card } from 'src/app/models/card.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { EvaluationService } from 'src/app/services/evaluation.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
+import { NgClass, NgIf, DatePipe } from '@angular/common';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { SafeHtmlPipe } from '../../../pipes/tools.pipe';
 
 @Component({
     selector: 'app-evaluations',
     templateUrl: './evaluations.component.html',
     styleUrls: ['./evaluations.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, NgClass, MatFormField, MatInput, NgIf, MatButton, MatIcon, MatLabel, DatePipe, TranslateModule, SafeHtmlPipe]
 })
 export class EvaluationsComponent implements OnInit, OnChanges {
   @Input() evaluation: Evaluation = new Evaluation();

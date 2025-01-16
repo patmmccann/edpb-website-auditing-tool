@@ -15,9 +15,8 @@ describe('FiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FiltersComponent ],
-      imports:      [ MaterialAllModule, SharedModule]
-    })
+    imports: [MaterialAllModule, SharedModule, FiltersComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(FiltersComponent);

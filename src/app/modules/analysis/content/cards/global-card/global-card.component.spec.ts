@@ -15,9 +15,8 @@ describe('GlobalCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GlobalCardComponent ],
-      imports:      [ MaterialAllModule,SharedModule]
-    })
+    imports: [MaterialAllModule, SharedModule, GlobalCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(GlobalCardComponent);

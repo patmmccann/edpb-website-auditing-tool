@@ -8,12 +8,16 @@ import { BeaconLine } from 'src/app/models/cards/beacon-card.model';
 import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
 import { Details } from 'src/app/models/details.model';
+import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { CookieDetailsComponent } from './cookie-details/cookie-details.component';
+import { LocalstorageDetailsComponent } from './localstorage-details/localstorage-details.component';
+import { BeaconDetailsComponent } from './beacon-details/beacon-details.component';
 
 @Component({
     selector: 'app-details',
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.scss'],
-    standalone: false
+    imports: [NgIf, NgSwitch, NgSwitchCase, CookieDetailsComponent, LocalstorageDetailsComponent, BeaconDetailsComponent]
 })
 export class DetailsComponent implements OnInit {
   @Input() detailsData: BeaconLine | LocalStorageLine| CookieLine | null = null;

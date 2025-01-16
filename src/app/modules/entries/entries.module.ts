@@ -20,23 +20,21 @@ import { TemplateTableComponent } from './template-table/template-table.componen
 import { ToolbarAnalysisComponent } from './analysis/toolbar-analysis/toolbar-analysis.component';
 
 @NgModule({
-  declarations: [
-    EntriesComponent,
-    NewAnalysisComponent,
-    AnalysisLineComponent,
-    NewKnowledgebaseComponent,
-    FiltersComponent,
-    NewBaseComponent,
-    KnowledgebaseTableComponent,
-    NewTemplateComponent,
-    TemplateTableComponent,
-    ToolbarAnalysisComponent
-  ],
-  imports: [
-    CommonModule,
-    EntriesRoutingModule,
-    SharedModule,
-    MaterialAllModule
-  ]
+    imports: [
+        CommonModule,
+        EntriesRoutingModule,
+        SharedModule,
+        MaterialAllModule,
+        EntriesComponent,
+        NewAnalysisComponent,
+        AnalysisLineComponent,
+        NewKnowledgebaseComponent,
+        FiltersComponent,
+        NewBaseComponent,
+        KnowledgebaseTableComponent,
+        NewTemplateComponent,
+        TemplateTableComponent,
+        ToolbarAnalysisComponent
+    ]
 })
 export class EntriesModule { }

@@ -4,13 +4,14 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { SafeHtmlPipe } from '../../../pipes/tools.pipe';
 
 @Component({
     selector: 'app-report-renderer',
     templateUrl: './report-renderer.component.html',
     styleUrls: ['./report-renderer.component.scss'],
     encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: false
+    imports: [SafeHtmlPipe]
 })
 export class ReportRendererComponent implements OnInit {
 

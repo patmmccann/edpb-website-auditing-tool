@@ -13,8 +13,8 @@ describe('NewKnowledgebaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewKnowledgebaseComponent ]
-    })
+    imports: [NewKnowledgebaseComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(NewKnowledgebaseComponent);

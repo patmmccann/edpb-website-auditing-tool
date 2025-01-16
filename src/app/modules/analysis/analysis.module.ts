@@ -15,20 +15,17 @@ import { GlobalCardComponent } from './content/cards/global-card/global-card.com
 import { MaterialAllModule } from 'src/app/material.module';
 
 @NgModule({
-  declarations: [
-    TagsComponent,
-    AnalysisComponent,
-    ContentComponent,
-    SourcesComponent,
-    GlobalCardComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AnalysisRoutingModule,
-    MaterialAllModule
-  ],
-  exports:[
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        AnalysisRoutingModule,
+        MaterialAllModule,
+        TagsComponent,
+        AnalysisComponent,
+        ContentComponent,
+        SourcesComponent,
+        GlobalCardComponent
+    ],
+    exports: []
 })
 export class AnalysisModule { }

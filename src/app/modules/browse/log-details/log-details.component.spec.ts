@@ -14,9 +14,8 @@ describe('LogDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogDetailsComponent ],
-      imports:      [ MaterialAllModule]
-    })
+    imports: [MaterialAllModule, LogDetailsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(LogDetailsComponent);

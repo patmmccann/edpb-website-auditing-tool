@@ -6,15 +6,17 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
+import { NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-template-table',
     templateUrl: './template-table.component.html',
     styleUrls: ['./template-table.component.scss'],
-    standalone: false
+    imports: [MatSort, MatSortHeader, NgFor, NgIf, TranslateModule]
 })
 export class TemplateTableComponent implements OnInit {
 

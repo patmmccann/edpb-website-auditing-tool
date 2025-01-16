@@ -16,9 +16,8 @@ describe('AnalysisLineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AnalysisLineComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, AnalysisLineComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(AnalysisLineComponent);

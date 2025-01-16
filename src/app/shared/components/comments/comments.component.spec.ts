@@ -14,9 +14,8 @@ describe('CommentsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommentsComponent ],
-      imports:      [SharedModule]
-    })
+    imports: [SharedModule, CommentsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CommentsComponent);

@@ -13,12 +13,31 @@ import { BrowserService } from 'src/app/services/browser.service';
 import { TestSSLCard } from 'src/app/models/cards/test-sslcard.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { SettingsService } from 'src/app/services/settings.service';
+import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { SearchComponent } from '../search/search.component';
+import { TestsslCardComponent } from './testssl-card/testssl-card.component';
+import { CookieCardComponent } from './cookie-card/cookie-card.component';
+import { HttpCardComponent } from './http-card/http-card.component';
+import { LocalStorageCardComponent } from './local-storage-card/local-storage-card.component';
+import { TrafficCardComponent } from './traffic-card/traffic-card.component';
+import { UnsafeFormCardComponent } from './unsafe-form-card/unsafe-form-card.component';
+import { BeaconCardComponent } from './beacon-card/beacon-card.component';
+import { ScreenshotCardComponent } from './screenshot-card/screenshot-card.component';
+import { InfoCardComponent } from './info-card/info-card.component';
+import { EvaluationsComponent } from '../evaluations/evaluations.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-cards',
     templateUrl: './cards.component.html',
     styleUrls: ['./cards.component.scss'],
-    standalone: false
+    imports: [MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgIf, MatExpansionPanelDescription, MatIcon, MatTooltip, MatFormField, MatInput, FormsModule, SearchComponent, NgSwitch, NgSwitchCase, TestsslCardComponent, CookieCardComponent, HttpCardComponent, LocalStorageCardComponent, TrafficCardComponent, UnsafeFormCardComponent, BeaconCardComponent, ScreenshotCardComponent, InfoCardComponent, EvaluationsComponent, TranslateModule]
 })
 export class CardsComponent implements OnInit {
   @Input() context: viewContext = 'evaluate';

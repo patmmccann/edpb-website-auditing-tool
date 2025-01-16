@@ -9,12 +9,19 @@ import { Tag } from 'src/app/models/tag.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { BrowserService } from 'src/app/services/browser.service';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgSwitch, NgSwitchCase, NgFor, DatePipe } from '@angular/common';
+import { MatChipListbox, MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-analysis-line',
     templateUrl: './analysis-line.component.html',
     styleUrls: ['./analysis-line.component.scss'],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatButton, MatIcon, NgFor, DatePipe, TranslateModule]
 })
 export class AnalysisLineComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();

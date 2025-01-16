@@ -1,9 +1,12 @@
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener, MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatTreeNodeToggle } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { CookieEvent, CookieLog } from 'src/app/models/cards/cookie-log.model';
+import { MatIconButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 interface LogNode {
   name: string;
@@ -29,7 +32,7 @@ interface FlatNode {
     selector: 'app-cookie-log-details',
     templateUrl: './cookie-log-details.component.html',
     styleUrls: ['./cookie-log-details.component.scss'],
-    standalone: false
+    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, NgIf, MatIcon, MatTreeNodeToggle, TranslateModule]
 })
 export class CookieLogDetailsComponent implements OnInit , OnChanges {
   @Input() log : CookieLog | undefined;

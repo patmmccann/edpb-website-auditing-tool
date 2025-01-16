@@ -8,13 +8,15 @@ import { viewContext } from 'src/app/models/card.model';
 import { UnsafeForm, UnsafeFormsCard } from 'src/app/models/cards/unsafe-forms-card.model';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-unsafe-form-card',
     templateUrl: './unsafe-form-card.component.html',
     styleUrls: ['./unsafe-form-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIcon, NgClass]
 })
 export class UnsafeFormCardComponent implements OnInit {
   @Input() card: UnsafeFormsCard = new UnsafeFormsCard([]);

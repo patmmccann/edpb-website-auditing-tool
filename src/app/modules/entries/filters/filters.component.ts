@@ -4,12 +4,22 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit } from '@angular/core';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/material/list';
+import { MatDivider } from '@angular/material/divider';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.scss'],
-    standalone: false
+    imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, NgIf, MatIcon, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, TranslateModule]
 })
 export class FiltersComponent implements OnInit {
   searchTerm : String ="";

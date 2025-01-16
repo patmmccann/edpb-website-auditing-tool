@@ -16,18 +16,16 @@ import { PdfComponent } from './toolbar/pdf/pdf.component';
 
 
 @NgModule({
-  declarations: [
-    ReportComponent,
-    ReportRendererComponent,
-    ToolbarComponent,
-    DocxComponent,
-    PdfComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ReportRoutingModule,
-    MaterialAllModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        ReportRoutingModule,
+        MaterialAllModule,
+        ReportComponent,
+        ReportRendererComponent,
+        ToolbarComponent,
+        DocxComponent,
+        PdfComponent
+    ]
 })
 export class ReportModule { }

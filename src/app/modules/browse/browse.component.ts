@@ -16,14 +16,20 @@ import { LogDetailsComponent } from './log-details/log-details.component';
 import { DetailsService } from 'src/app/services/details.service';
 import { CardService } from 'src/app/services/card.service';
 import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
-import { SplitComponent } from 'angular-split';
+import { SplitComponent, AngularSplitModule } from 'angular-split';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgIf, NgFor } from '@angular/common';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatAccordion } from '@angular/material/expansion';
+import { CardsComponent } from '../../shared/components/cards/cards.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-browse',
     templateUrl: './browse.component.html',
     styleUrls: ['./browse.component.scss'],
     providers: [SplitComponent],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, NgIf, ToolbarComponent, AngularSplitModule, MatAccordion, NgFor, CardsComponent, TranslateModule]
 })
 export class BrowseComponent implements OnInit, OnDestroy {
   @ViewChild('content') contentElement: ElementRef = new ElementRef({});

@@ -13,8 +13,8 @@ describe('HttpCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HttpCardComponent ]
-    })
+    imports: [HttpCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(HttpCardComponent);

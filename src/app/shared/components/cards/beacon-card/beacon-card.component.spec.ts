@@ -13,8 +13,8 @@ describe('BeaconCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BeaconCardComponent ]
-    })
+    imports: [BeaconCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(BeaconCardComponent);

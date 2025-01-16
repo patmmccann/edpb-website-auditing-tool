@@ -16,9 +16,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, HomeComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);

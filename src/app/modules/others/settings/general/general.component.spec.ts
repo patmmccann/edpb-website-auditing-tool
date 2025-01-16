@@ -15,9 +15,8 @@ describe('GeneralComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GeneralComponent],
-      imports:      [ MaterialAllModule, SharedModule]
-    });
+    imports: [MaterialAllModule, SharedModule, GeneralComponent]
+});
     fixture = TestBed.createComponent(GeneralComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

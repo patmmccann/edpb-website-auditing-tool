@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit,Input } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { viewContext } from 'src/app/models/card.model';
 import { BeaconCard } from 'src/app/models/cards/beacon-card.model';
 import { BeaconLine } from 'src/app/models/cards/beacon-card.model';
@@ -12,12 +12,15 @@ import { CardService } from 'src/app/services/card.service';
 import { DetailsService } from 'src/app/services/details.service';
 import { Status } from 'src/app/models/evaluation.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { FilterForStatus, FilterForBeacon } from '../../../../pipes/filters.pipe';
 
 @Component({
     selector: 'app-beacon-card',
     templateUrl: './beacon-card.component.html',
     styleUrls: ['./beacon-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIcon, NgClass, FilterForStatus, FilterForBeacon]
 })
 export class BeaconCardComponent implements OnInit {
 

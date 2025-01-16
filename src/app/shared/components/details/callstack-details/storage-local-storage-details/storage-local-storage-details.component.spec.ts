@@ -10,9 +10,8 @@ describe('StorageLocalStorageDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StorageLocalStorageDetailsComponent],
-      imports:      [MaterialAllModule,  SharedModule ]
-    });
+    imports: [MaterialAllModule, SharedModule, StorageLocalStorageDetailsComponent]
+});
     fixture = TestBed.createComponent(StorageLocalStorageDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

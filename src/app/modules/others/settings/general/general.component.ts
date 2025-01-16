@@ -6,12 +6,14 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SettingsService } from 'src/app/services/settings.service';
+import { LanguagesComponent } from '../../../../shared/components/languages/languages.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-general',
     templateUrl: './general.component.html',
     styleUrls: ['./general.component.scss'],
-    standalone: false
+    imports: [LanguagesComponent, TranslateModule]
 })
 export class GeneralComponent {
   remoteForm: UntypedFormGroup;

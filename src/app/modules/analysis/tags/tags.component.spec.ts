@@ -15,9 +15,8 @@ describe('TagsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TagsComponent ],
-      imports:      [ MaterialAllModule, AppRoutingModule]
-    })
+    imports: [MaterialAllModule, AppRoutingModule, TagsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TagsComponent);

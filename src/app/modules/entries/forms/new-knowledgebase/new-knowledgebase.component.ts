@@ -9,8 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 @Component({
     selector: 'app-new-knowledgebase',
     templateUrl: './new-knowledgebase.component.html',
-    styleUrls: ['./new-knowledgebase.component.scss'],
-    standalone: false
+    styleUrls: ['./new-knowledgebase.component.scss']
 })
 export class NewKnowledgebaseComponent implements OnInit {
   @Output() submitted = new EventEmitter();

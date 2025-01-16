@@ -13,8 +13,8 @@ describe('CommentItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommentItemComponent ]
-    })
+    imports: [CommentItemComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CommentItemComponent);

@@ -11,6 +11,7 @@ import { TemplateService } from 'src/app/services/template.service';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BrowserService } from 'src/app/services/browser.service';
+import { SafeHtmlPipe } from '../../pipes/tools.pipe';
 //import { render } from 'pug';
 
 export interface AdComponent {
@@ -24,7 +25,7 @@ export interface AdComponent {
     templateUrl: './template.component.html',
     styleUrls: ['./template.component.scss'],
     encapsulation: ViewEncapsulation.ShadowDom,
-    standalone: false
+    imports: [SafeHtmlPipe]
 })
 
 

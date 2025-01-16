@@ -13,8 +13,8 @@ describe('KnowledgeLocalstorageItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KnowledgeLocalstorageItemComponent ]
-    })
+    imports: [KnowledgeLocalstorageItemComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(KnowledgeLocalstorageItemComponent);

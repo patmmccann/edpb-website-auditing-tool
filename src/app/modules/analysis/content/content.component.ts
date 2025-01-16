@@ -11,12 +11,16 @@ import { GlobalCard } from 'src/app/models/cards/global-card.model';
 import { Tag } from 'src/app/models/tag.model';
 import { CardService } from 'src/app/services/card.service';
 import { TagService } from 'src/app/services/tag.service';
+import { MatAccordion } from '@angular/material/expansion';
+import { GlobalCardComponent } from './cards/global-card/global-card.component';
+import { NgFor } from '@angular/common';
+import { CardsComponent } from '../../../shared/components/cards/cards.component';
 
 @Component({
     selector: 'app-content',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.scss'],
-    standalone: false
+    imports: [MatAccordion, GlobalCardComponent, NgFor, CardsComponent]
 })
 export class ContentComponent implements OnInit, OnChanges {
   @Input() analysis: Analysis | null = null;

@@ -14,9 +14,8 @@ describe('TemplateTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateTableComponent ],
-      imports:      [ SharedModule]
-    })
+    imports: [SharedModule, TemplateTableComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TemplateTableComponent);

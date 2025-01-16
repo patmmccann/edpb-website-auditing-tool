@@ -1,8 +1,11 @@
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener, MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatTreeNodeToggle } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
 import { TranslateService } from '@ngx-translate/core';
+import { MatIconButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 interface LogNode {
   name: string;
@@ -22,7 +25,7 @@ interface FlatNode {
     selector: 'app-storage-local-storage-details',
     templateUrl: './storage-local-storage-details.component.html',
     styleUrls: ['./storage-local-storage-details.component.scss'],
-    standalone: false
+    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, NgIf, MatIcon, MatTreeNodeToggle]
 })
 export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
   @Input() log : Log | undefined;

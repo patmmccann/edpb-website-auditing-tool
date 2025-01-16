@@ -17,19 +17,18 @@ describe('NewBaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewBaseComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule, MatDialogModule ],
-      providers: [
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, MatDialogModule, NewBaseComponent],
+    providers: [
         {
-          provide: MatDialogRef,
-          useValue: {}
+            provide: MatDialogRef,
+            useValue: {}
         },
         {
-          provide: MAT_DIALOG_DATA,
-          useValue: {}
+            provide: MAT_DIALOG_DATA,
+            useValue: {}
         }
-     ],
-    })
+    ],
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(NewBaseComponent);

@@ -13,8 +13,8 @@ describe('CookieDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CookieDetailsComponent ]
-    })
+    imports: [CookieDetailsComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CookieDetailsComponent);

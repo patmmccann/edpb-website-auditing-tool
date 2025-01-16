@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
@@ -13,15 +13,26 @@ import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-know
 import { Knowledge } from 'src/app/models/knowledge.model';
 import { LocalStorageKnowledge } from 'src/app/models/knowledges/localstorage-knowledge.model';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { MatButton } from '@angular/material/button';
+import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgClass } from '@angular/common';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { CompareComponent } from './compare/compare.component';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-base',
     templateUrl: './base.component.html',
     styleUrls: ['./base.component.scss'],
     providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButton, NgIf, ModalComponent, CompareComponent, NgSwitch, NgSwitchCase, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatSelect, MatOption, NgFor, MatSort, MatSortHeader, NgClass, TranslateModule]
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);

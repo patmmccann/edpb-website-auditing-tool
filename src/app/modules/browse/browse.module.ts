@@ -15,18 +15,16 @@ import { MaterialAllModule } from 'src/app/material.module';
 import { AngularSplitModule } from 'angular-split';
 
 @NgModule({
-  declarations: [
-    BrowseComponent,
-    ToolbarComponent,
-    LogDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    BrowseRoutingModule,
-    RouterModule,
-    MaterialAllModule,
-    AngularSplitModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        BrowseRoutingModule,
+        RouterModule,
+        MaterialAllModule,
+        AngularSplitModule,
+        BrowseComponent,
+        ToolbarComponent,
+        LogDetailsComponent
+    ]
 })
 export class BrowseModule { }

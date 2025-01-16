@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params, RouterLink } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { Tag } from 'src/app/models/tag.model';
@@ -13,12 +13,25 @@ import { Evaluation } from 'src/app/models/evaluation.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { TagService } from 'src/app/services/tag.service';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
+import { NgIf, NgSwitch, NgSwitchCase, NgFor, DatePipe } from '@angular/common';
+import { MatChipListbox, MatChip } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { TagsComponent } from './tags/tags.component';
+import { ContentComponent } from './content/content.component';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { DetailsComponent } from '../../shared/components/details/details.component';
+import { CallstackDetailsComponent } from '../../shared/components/details/callstack-details/callstack-details.component';
+import { KnowledgeBaseComponent } from '../../shared/components/knowledge-base/knowledge-base.component';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    standalone: false
+    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIcon, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

@@ -15,9 +15,8 @@ describe('ToolbarAnalysisComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ToolbarAnalysisComponent],
-      imports:      [MaterialAllModule, SharedModule]
-    });
+    imports: [MaterialAllModule, SharedModule, ToolbarAnalysisComponent]
+});
     fixture = TestBed.createComponent(ToolbarAnalysisComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

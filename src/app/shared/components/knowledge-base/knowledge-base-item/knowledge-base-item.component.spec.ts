@@ -13,8 +13,8 @@ describe('KnowledgeBaseItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KnowledgeBaseItemComponent ]
-    })
+    imports: [KnowledgeBaseItemComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(KnowledgeBaseItemComponent);

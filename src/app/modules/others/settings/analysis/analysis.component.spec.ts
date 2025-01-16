@@ -15,9 +15,8 @@ describe('AnalysisComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AnalysisComponent],
-      imports:      [ MaterialAllModule, SharedModule]
-    });
+    imports: [MaterialAllModule, SharedModule, AnalysisComponent]
+});
     fixture = TestBed.createComponent(AnalysisComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -6,14 +6,16 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { TrafficCard } from 'src/app/models/cards/traffic-card.model';
 import { viewContext } from 'src/app/models/card.model';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { CardService } from 'src/app/services/card.service';
+import { NgIf, NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-traffic-card',
     templateUrl: './traffic-card.component.html',
     styleUrls: ['./traffic-card.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, TranslateModule]
 })
 export class TrafficCardComponent implements OnInit {
 

@@ -15,18 +15,16 @@ import { BrowserComponent } from './settings/browser/browser.component';
 import { GeneralComponent } from './settings/general/general.component';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    SettingsComponent,
-    AnalysisComponent,
-    BrowserComponent,
-    GeneralComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    OthersRoutingModule,
-    MaterialAllModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        OthersRoutingModule,
+        MaterialAllModule,
+        HomeComponent,
+        SettingsComponent,
+        AnalysisComponent,
+        BrowserComponent,
+        GeneralComponent
+    ]
 })
 export class OthersModule { }

@@ -15,9 +15,8 @@ describe('BrowserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BrowserComponent],
-      imports:      [ MaterialAllModule, SharedModule]
-    });
+    imports: [MaterialAllModule, SharedModule, BrowserComponent]
+});
     fixture = TestBed.createComponent(BrowserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -7,13 +7,17 @@ import { Component, Input, OnChanges, OnInit,SimpleChanges } from '@angular/core
 import { CookieLog } from 'src/app/models/cards/cookie-log.model';
 import { Log } from 'src/app/models/cards/log.model';
 import { RequestTrackingLog } from 'src/app/models/cards/request-tracking-log.model';
+import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { CookieLogDetailsComponent } from './cookie-log-details/cookie-log-details.component';
+import { RequestTrackingDetailsComponent } from './request-tracking-details/request-tracking-details.component';
+import { StorageLocalStorageDetailsComponent } from './storage-local-storage-details/storage-local-storage-details.component';
 
 
 @Component({
     selector: 'app-callstack-details',
     templateUrl: './callstack-details.component.html',
     styleUrls: ['./callstack-details.component.scss'],
-    standalone: false
+    imports: [NgIf, NgSwitch, NgSwitchCase, CookieLogDetailsComponent, RequestTrackingDetailsComponent, StorageLocalStorageDetailsComponent]
 })
 
 

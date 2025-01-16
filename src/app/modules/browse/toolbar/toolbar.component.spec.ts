@@ -16,9 +16,8 @@ describe('ToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ToolbarComponent ],
-      imports:      [ MaterialAllModule, RouterTestingModule, SharedModule]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, ToolbarComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ToolbarComponent);

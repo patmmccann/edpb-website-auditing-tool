@@ -1,9 +1,12 @@
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener, MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatTreeNodeToggle } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { RequestTrackingEvent, RequestTrackingLog } from 'src/app/models/cards/request-tracking-log.model';
+import { MatIconButton } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 interface LogNode {
   name: string;
@@ -29,7 +32,7 @@ interface FlatNode {
     selector: 'app-request-tracking-details',
     templateUrl: './request-tracking-details.component.html',
     styleUrls: ['./request-tracking-details.component.scss'],
-    standalone: false
+    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, NgIf, MatTreeNodeToggle, MatIcon, TranslateModule]
 })
 export class RequestTrackingDetailsComponent implements OnInit , OnChanges {
   @Input() log : RequestTrackingLog | undefined;

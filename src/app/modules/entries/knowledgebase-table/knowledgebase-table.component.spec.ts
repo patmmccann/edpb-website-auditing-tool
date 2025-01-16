@@ -16,9 +16,8 @@ describe('KnowledgebaseTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KnowledgebaseTableComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, KnowledgebaseTableComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(KnowledgebaseTableComponent);

@@ -11,9 +11,8 @@ describe('SearchComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchComponent],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, SearchComponent]
+});
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

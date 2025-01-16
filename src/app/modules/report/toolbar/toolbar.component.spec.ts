@@ -14,9 +14,8 @@ describe('ToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ToolbarComponent],
-      imports:      [ReportModule ]
-    });
+    imports: [ReportModule, ToolbarComponent]
+});
     fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

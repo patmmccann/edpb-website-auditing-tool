@@ -6,14 +6,21 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { KnowledgeBase, allTrustLevel,TrustLevel } from 'src/app/models/knowledgeBase.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { Sort } from '@angular/material/sort';
+import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
+import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { LoadingOverlayComponent } from '../../../shared/components/loading-overlay/loading-overlay.component';
+import { NbEntriesInKnowledge } from '../../../pipes/knowledges.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'app-knowledgebase-table',
     templateUrl: './knowledgebase-table.component.html',
     styleUrls: ['./knowledgebase-table.component.scss'],
-    standalone: false
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, RouterLink, NgClass, MatSelect, MatOption, LoadingOverlayComponent, AsyncPipe, NbEntriesInKnowledge, TranslateModule]
 })
 export class KnowledgebaseTableComponent implements OnInit {
   public loading:boolean = false;

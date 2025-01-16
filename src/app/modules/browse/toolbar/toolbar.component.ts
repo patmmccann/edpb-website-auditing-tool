@@ -10,12 +10,19 @@ import { BrowserService } from 'src/app/services/browser.service';
 import { CookieCard } from 'src/app/models/cards/cookie-card.model';
 import { LocalStorageCard } from 'src/app/models/cards/local-storage-card.model';
 import { SettingsService } from 'src/app/services/settings.service';
+import { MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-toolbar',
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss'],
-    standalone: false
+    imports: [MatButton, MatTooltip, MatIcon, NgIf, FormsModule, RouterLink, TranslateModule]
 })
 export class ToolbarComponent implements OnInit, OnDestroy , OnChanges{
   @ViewChild('search') searchElement: ElementRef = new ElementRef({});

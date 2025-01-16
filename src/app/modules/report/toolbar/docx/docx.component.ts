@@ -7,12 +7,19 @@ import { Component, Input } from '@angular/core';
 import { BrowserService } from 'src/app/services/browser.service';
 import { LanguagesService } from 'src/app/services/languages.service';
 import { ReportService } from 'src/app/services/report.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-docx',
     templateUrl: './docx.component.html',
     styleUrls: ['./docx.component.scss'],
-    standalone: false
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatSelect, MatOption, MatIcon, MatButton]
 })
 export class DocxComponent {
   @Input() editing: boolean = false;

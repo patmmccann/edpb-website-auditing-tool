@@ -19,9 +19,8 @@ describe('ReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReportComponent, ReportRendererComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule, ReportModule ]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, ReportModule, ReportComponent, ReportRendererComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ReportComponent);

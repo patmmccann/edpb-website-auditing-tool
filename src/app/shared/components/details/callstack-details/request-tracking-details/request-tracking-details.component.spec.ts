@@ -10,9 +10,8 @@ describe('RequestTrackingDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RequestTrackingDetailsComponent],
-      imports:      [MaterialAllModule,  SharedModule ]
-    });
+    imports: [MaterialAllModule, SharedModule, RequestTrackingDetailsComponent]
+});
     fixture = TestBed.createComponent(RequestTrackingDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

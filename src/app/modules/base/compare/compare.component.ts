@@ -4,12 +4,19 @@ import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { KnowledgesService } from 'src/app/services/knowledges.service';
+import { MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatCardActions, MatCardFooter } from '@angular/material/card';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-compare',
     templateUrl: './compare.component.html',
     styleUrls: ['./compare.component.scss'],
-    standalone: false
+    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, NgIf, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, NgFor, NgClass, MatCardActions, MatButton, MatCardFooter, MatProgressBar, TranslateModule]
 })
 export class CompareComponent implements OnInit {
   @Input() knowledgesService: KnowledgesService | null = null;

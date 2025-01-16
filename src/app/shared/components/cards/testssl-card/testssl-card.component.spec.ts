@@ -13,8 +13,8 @@ describe('TestsslCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TestsslCardComponent ]
-    })
+    imports: [TestsslCardComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TestsslCardComponent);

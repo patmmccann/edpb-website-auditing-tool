@@ -15,9 +15,8 @@ describe('TemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TemplateComponent ],
-      imports:      [RouterTestingModule, SharedModule]
-    })
+    imports: [RouterTestingModule, SharedModule, TemplateComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(TemplateComponent);

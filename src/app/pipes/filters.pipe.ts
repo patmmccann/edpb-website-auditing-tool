@@ -11,10 +11,7 @@ import { LocalstorageKnowledgesService } from '../services/knowledges/localstora
 import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowledge.model';
 import { CookieKnowledge } from '../models/knowledges/cookie-knowledge.model';
 
-@Pipe({
-    name: 'filterForAnalysis',
-    standalone: false
-})
+@Pipe({ name: 'filterForAnalysis' })
 export class FilterForAnalysis implements PipeTransform {
   transform(items: any[],
     searchText: string): any[] {
@@ -37,10 +34,7 @@ export class FilterForAnalysis implements PipeTransform {
 
 
 
-@Pipe({
-    name: 'filterForEval',
-    standalone: false
-})
+@Pipe({ name: 'filterForEval' })
 export class FilterForEval implements PipeTransform {
   constructor(
     private evaluationService: EvaluationService
@@ -73,10 +67,7 @@ export class FilterForEval implements PipeTransform {
 
 }
 
-@Pipe({
-    name: 'filterForStatus',
-    standalone: false
-})
+@Pipe({ name: 'filterForStatus' })
 export class FilterForStatus implements PipeTransform {
 
   transform(items: Details[],
@@ -94,10 +85,7 @@ export class FilterForStatus implements PipeTransform {
   }
 }
 
-@Pipe({
-    name: 'filterForCookie',
-    standalone: false
-})
+@Pipe({ name: 'filterForCookie' })
 export class FilterForCookie implements PipeTransform {
   transform(items: CookieLine[],
     cookie: any): any {
@@ -120,10 +108,7 @@ export class FilterForCookie implements PipeTransform {
 }
 
 
-@Pipe({
-    name: 'filterForLocalStorage',
-    standalone: false
-})
+@Pipe({ name: 'filterForLocalStorage' })
 export class FilterForLocalStorage implements PipeTransform {
   transform(items: LocalStorageLine[],
     localstorage: any): any {
@@ -145,10 +130,7 @@ export class FilterForLocalStorage implements PipeTransform {
   }
 }
 
-@Pipe({
-    name: 'filterForBeacon',
-    standalone: false
-})
+@Pipe({ name: 'filterForBeacon' })
 export class FilterForBeacon implements PipeTransform {
   transform(items: BeaconLine[],
     beacon: any): any {
@@ -165,10 +147,7 @@ export class FilterForBeacon implements PipeTransform {
   }
 }
 
-@Pipe({
-    name: 'filterForCookieKnowledgeBase',
-    standalone: false
-})
+@Pipe({ name: 'filterForCookieKnowledgeBase' })
 export class FilterForCookieKnowledge implements PipeTransform {
   constructor(
     private cookieKnowledgesService: CookieKnowledgesService

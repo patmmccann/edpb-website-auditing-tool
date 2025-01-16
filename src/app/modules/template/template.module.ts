@@ -12,14 +12,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    TemplateComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    TemplateRoutingModule,
-    MaterialAllModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        TemplateRoutingModule,
+        MaterialAllModule,
+        TemplateComponent
+    ]
 })
 export class TemplateModule { }

@@ -15,9 +15,8 @@ describe('DocxComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DocxComponent],
-      imports:      [MaterialAllModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, SharedModule, DocxComponent]
+});
     fixture = TestBed.createComponent(DocxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

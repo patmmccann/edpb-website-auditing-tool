@@ -18,9 +18,8 @@ describe('BrowseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BrowseComponent,ToolbarComponent ],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule, AngularSplitModule ]
-    })
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, AngularSplitModule, BrowseComponent, ToolbarComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(BrowseComponent);

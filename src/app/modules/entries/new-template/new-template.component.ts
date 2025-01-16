@@ -4,9 +4,15 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Inject,ElementRef } from '@angular/core';
-import { FormControl,FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { TemplateType } from 'src/app/models/template.model';
+import { NgIf } from '@angular/common';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface TemplateData {
   name: string,
@@ -20,7 +26,7 @@ export interface TemplateData {
     selector: 'app-new-template',
     templateUrl: './new-template.component.html',
     styleUrls: ['./new-template.component.scss'],
-    standalone: false
+    imports: [NgIf, MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatButton, ReactiveFormsModule, MatDialogActions, MatDialogClose, TranslateModule]
 })
 export class NewTemplateComponent {
 

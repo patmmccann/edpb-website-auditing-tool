@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit,EventEmitter, Input, Output} from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
-    standalone: false
+    imports: [NgClass]
 })
 export class ModalComponent implements OnInit {
   @Input() specialClass: string ="";

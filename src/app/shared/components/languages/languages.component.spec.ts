@@ -16,9 +16,8 @@ describe('LanguagesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LanguagesComponent],
-      imports:      [MaterialAllModule, RouterTestingModule, SharedModule ]
-    });
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, LanguagesComponent]
+});
     fixture = TestBed.createComponent(LanguagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
