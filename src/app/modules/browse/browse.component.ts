@@ -10,7 +10,7 @@ import { Tag } from 'src/app/models/tag.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { TagService } from 'src/app/services/tag.service';
 import { BrowserService } from 'src/app/services/browser.service';
-import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Card } from 'src/app/models/card.model';
 import { LogDetailsComponent } from './log-details/log-details.component';
 import { DetailsService } from 'src/app/services/details.service';

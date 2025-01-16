@@ -2,87 +2,105 @@
     class="example-headers-align">
     <mat-expansion-panel-header>
         <mat-panel-title>
-            <mat-panel-description *ngIf="!editing">
+            @if(!editing){
+            <mat-panel-description>
                 <h3 class="mt-0">
                     {{card.name}}
-                    <ng-container *ngIf="context != 'evaluate' && settingService.settings.help">
+                    @if(context != 'evaluate' && settingService.settings.help){
+                    <ng-container>
                         <mat-icon matTooltip="{{ 'cards.help.'+card.kind | translate }}"
                             [matTooltipPosition]="'after'">help_outline</mat-icon>
                     </ng-container>
+                    }
                 </h3>
             </mat-panel-description>
-            <mat-panel-description *ngIf="editing">
+            }@else {
+            <mat-panel-description>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <input matInput (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)" type="text"
                         name="card_name" id="card_name" [(ngModel)]="card.name">
                 </mat-form-field>
             </mat-panel-description>
+            }
+
+
         </mat-panel-title>
-        <mat-panel-description *ngIf="context == 'view' && card.kind == 'testSSL'">
-            <button (click)="runCard()">
+        @if(context == 'view' && card.kind == 'testSSL'){
+        <mat-panel-description>
+            <button mat-icon-button (click)="runCard()">
                 <mat-icon>play_arrow</mat-icon>
             </button>
         </mat-panel-description>
-        <mat-panel-description *ngIf="card.kind == 'image'">
+        }
+        @if(card.kind == 'image'){
+        <mat-panel-description>
             <button (click)="edit($event)">
                 <mat-icon>edit</mat-icon>
             </button>
         </mat-panel-description>
+        }
+
     </mat-expansion-panel-header>
 
-    <ng-container *ngIf="context == 'evaluate'  && 
-    ((card.kind == 'cookie') || (card.kind == 'localstorage')|| (card.kind == 'beacons'))">
-        <app-search [card]="card" (searchStatusEvent)="searchStatus = $event"
-            (searchCookieEvent)="searchCookie = $event" (searchLocalStorageEvent)="searchLocalStorage = $event"
-            (searchBeaconEvent)="searchBeacon = $event" (searchKnowledgeEvent)="searchKnowledge = $event">
-        </app-search>
-    </ng-container>
+    @if(context == 'evaluate' &&
+    ((card.kind == 'cookie') || (card.kind == 'localstorage')|| (card.kind == 'beacons'))){
+    <app-search [card]="card" (searchStatusEvent)="searchStatus = $event" (searchCookieEvent)="searchCookie = $event"
+        (searchLocalStorageEvent)="searchLocalStorage = $event" (searchBeaconEvent)="searchBeacon = $event"
+        (searchKnowledgeEvent)="searchKnowledge = $event">
+    </app-search>
+    }
 
-    <ng-container [ngSwitch]="card.kind">
-        <ng-container *ngSwitchCase="'testSSL'">
-            <app-testssl-card [context]="context" [card]="cardService.castToSSLCard(card)">
-            </app-testssl-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'cookie'">
-            <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)"
-                [searchStatus]="searchStatus" [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
-            </app-cookie-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'https'">
-            <app-http-card [context]="context" [card]="cardService.castToHTTPCard(card)">
-            </app-http-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'localstorage'">
-            <app-local-storage-card [context]="context" [card]="cardService.castToLocalStorageCard(card)"
-                [searchStatus]="searchStatus" [searchLocalStorage]="searchLocalStorage"
-                [searchKnowledge]="searchKnowledge">
-            </app-local-storage-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'traffic'">
-            <app-traffic-card [context]="context" [card]="cardService.castToTrafficCard(card)">
-            </app-traffic-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'forms'">
-            <app-unsafe-form-card [context]="context" [card]="cardService.castToUnsafeFormsCard(card)">
-            </app-unsafe-form-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'beacons'">
-            <app-beacon-card [context]="context" [card]="cardService.castToBeaconCard(card)"
-                [searchStatus]="searchStatus" [searchBeacon]="searchBeacon">
-            </app-beacon-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'image'">
-            <app-screenshot-card [context]="context" [card]="card" [analysis]="analysis" [tag]="tag">
-            </app-screenshot-card>
-        </ng-container>
-        <ng-container *ngSwitchCase="'info'">
-            <app-info-card [context]="context" [card]="cardService.castToInfoCard(card)" [analysis]="analysis" [tag]="tag">
-            </app-info-card>
-        </ng-container>
+    @switch (card.kind) {
+    @case ('testSSL') {
+    <ng-container>
+        <app-testssl-card [context]="context" [card]="cardService.castToSSLCard(card)">
+        </app-testssl-card>
     </ng-container>
-    <ng-container *ngIf="context == 'evaluate' &&  card.kind != 'global' && card.kind != 'info'">
+    }
+
+    @case ('cookie') {
+    <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)" [searchStatus]="searchStatus"
+        [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
+    </app-cookie-card>
+    }
+
+    @case ('https') {
+    <app-http-card [context]="context" [card]="cardService.castToHTTPCard(card)">
+    </app-http-card>
+    }
+    @case ('localstorage') {
+    <app-local-storage-card [context]="context" [card]="cardService.castToLocalStorageCard(card)"
+        [searchStatus]="searchStatus" [searchLocalStorage]="searchLocalStorage" [searchKnowledge]="searchKnowledge">
+    </app-local-storage-card>
+    }
+    @case ('traffic') {
+    <app-traffic-card [context]="context" [card]="cardService.castToTrafficCard(card)">
+    </app-traffic-card>
+    }
+    @case ('forms') {
+    <app-unsafe-form-card [context]="context" [card]="cardService.castToUnsafeFormsCard(card)">
+    </app-unsafe-form-card>
+    }
+    @case ('beacons') {
+    <app-beacon-card [context]="context" [card]="cardService.castToBeaconCard(card)" [searchStatus]="searchStatus"
+        [searchBeacon]="searchBeacon">
+    </app-beacon-card>
+    }
+
+    @case ('image') {
+
+    <app-screenshot-card [context]="context" [card]="card" [analysis]="analysis" [tag]="tag">
+    </app-screenshot-card>
+
+    }
+    @case ('info') {
+    <app-info-card [context]="context" [card]="cardService.castToInfoCard(card)" [analysis]="analysis" [tag]="tag">
+    </app-info-card>
+    }
+    }
+
+    @if(context == 'evaluate' && card.kind != 'global' && card.kind != 'info'){
         <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
         </app-evaluations>
-    </ng-container>
-
+    }
 </mat-expansion-panel>

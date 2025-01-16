@@ -14,7 +14,6 @@ import { TestSSLCard } from 'src/app/models/cards/test-sslcard.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { SettingsService } from 'src/app/services/settings.service';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
-import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatFormField } from '@angular/material/form-field';
@@ -32,12 +31,13 @@ import { ScreenshotCardComponent } from './screenshot-card/screenshot-card.compo
 import { InfoCardComponent } from './info-card/info-card.component';
 import { EvaluationsComponent } from '../evaluations/evaluations.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-cards',
     templateUrl: './cards.component.html',
     styleUrls: ['./cards.component.scss'],
-    imports: [MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgIf, MatExpansionPanelDescription, MatIcon, MatTooltip, MatFormField, MatInput, FormsModule, SearchComponent, NgSwitch, NgSwitchCase, TestsslCardComponent, CookieCardComponent, HttpCardComponent, LocalStorageCardComponent, TrafficCardComponent, UnsafeFormCardComponent, BeaconCardComponent, ScreenshotCardComponent, InfoCardComponent, EvaluationsComponent, TranslateModule]
+    imports: [MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatIcon, MatTooltip, MatFormField, MatInput, FormsModule, SearchComponent, TestsslCardComponent, CookieCardComponent, HttpCardComponent, LocalStorageCardComponent, TrafficCardComponent, UnsafeFormCardComponent, BeaconCardComponent, ScreenshotCardComponent, InfoCardComponent, EvaluationsComponent, TranslateModule]
 })
 export class CardsComponent implements OnInit {
   @Input() context: viewContext = 'evaluate';
