@@ -1,59 +1,57 @@
 <div class="header">
     <div class="header-buttons">
         <div class="header-button" style="margin-left: 6px;">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.go_back' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
             matTooltipClass="browser-tooptil"
-            [disabled]="!canGoBackward"  (click)="backward()" size="20" class="header-button-content">
+            [disabled]="!canGoBackward"  (click)="backward()" class="header-button-content">
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </div>
         <div class="header-button">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.go_forward' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
-            [disabled]="!canGoForward" (click)="forward()" size="20" class="header-button-content">
+            [disabled]="!canGoForward" (click)="forward()" class="header-button-content">
                 <mat-icon>arrow_forward</mat-icon>
             </button>
         </div>
         <div class="header-button">
-            <button mat-button
-            mat-button
+            <button 
+            mat-mini-fab
             matTooltip="{{ 'browse.toolbar.reload' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
-            (click)="refresh()" size="20" class="header-button-content">
-                <mat-icon>refresh</mat-icon>
+            (click)="refresh()" class="header-button-content">
+                <mat-icon >refresh</mat-icon>
             </button>
         </div>
     </div>
     <div class="header-search">
         <div class="header-search-loop">
-            
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.resume' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
-
-            *ngIf="pause_state == true else play_button" 
-            (click)="pause_state=false;play.emit()"
-            size="16" opacity="0.87" class="header-search-loop-content">
-                <mat-icon>pause</mat-icon>
-        </button>
-        <ng-template #play_button>
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
-
-            (click)="pause_state=true;pause.emit()"
-            size="16" opacity="0.87" class="header-search-loop-content">
-                <mat-icon>play_arrow</mat-icon>
-                </button>
-        </ng-template>
+            @if(pause_state == true){
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.resume' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+                (click)="pause_state=false;play.emit()"
+             opacity="0.87" class="header-search-loop-content">
+                    <mat-icon>pause</mat-icon>
+            </button>
+            }@else {
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+    
+                (click)="pause_state=true;pause.emit()"
+                 opacity="0.87" class="header-search-loop-content">
+                    <mat-icon>play_arrow</mat-icon>
+                    </button>
+            }
         
         </div>
         <div class="header-search-input">
@@ -61,38 +59,43 @@
                 class="header-search-input-content" (keydown)="onKeyDownEvent($event)" (click)="onMouseDown($event)">
             <div class="header-search-input-hidden"></div>
         </div>
-        <div *ngIf="analysis && tag" class="analysis-name">
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
+        @if(analysis && tag){
+            <div class="analysis-name">
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+                class="adress-button"
+                [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">
+                    {{analysis.name}} > {{tag.name}}
+                </button>
+            </div>
+        }
 
-            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">
-                {{analysis.name}} > {{tag.name}}
-            </button>
-        </div>
         <div class="analysis-plus">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.new' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
-
+            class="adress-button"
             [routerLink]="analysis?['/entries','new',analysis.id]:['/entries','new']"
             >
                 +
             </button>
         </div>
-        
-        <div *ngIf="this.analysis && this.tag" class="header-search-right">
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.screenshot' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
+        @if(this.analysis && this.tag){
+            <div class="header-search-right">
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.screenshot' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+    
+                (click)="screenshot.emit()" opacity="0.87" class="header-search-right-button">
+                    <mat-icon>camera_alt</mat-icon>
+                </button>
+            </div>
+        }
 
-            (click)="screenshot.emit()" size="16" opacity="0.87" class="header-search-right-button">
-                <mat-icon>camera_alt</mat-icon>
-            </button>
-        </div>
 
       <!--  <div *ngIf="this.analysis && this.tag" class="header-search-right">
             <button 
@@ -105,64 +108,71 @@
         </div>-->
 
         <div class="header-search-right">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.clear' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
-            (click)="erase.emit()"  size="16" opacity="0.87" class="header-search-right-button">
+            (click)="erase.emit()" opacity="0.87" class="header-search-right-button">
                 <mat-icon>delete_sweep</mat-icon>
             </button>
         </div>
 
-        <div *ngIf="settingsService.settings.devTool" class="header-search-right">
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.developer' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
-            (click)="devTool.emit()"  size="16" opacity="0.87" class="header-search-right-button">
-                <mat-icon>bug_report</mat-icon>
-            </button>
-        </div>
+        @if(settingsService.settings.devTool){
+            <div class="header-search-right">
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.developer' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+                (click)="devTool.emit()"  opacity="0.87" class="header-search-right-button">
+                    <mat-icon>bug_report</mat-icon>
+                </button>
+            </div>
+        }
 
 
-        <div *ngIf="analysis && tag" class="header-search-right">
-            <button mat-button
-            matTooltip="{{ 'browse.toolbar.stop' | translate }}"
-            matTooltipPosition="after"
-            matTooltipShowDelay="3000"
+        @if(analysis && tag){
+            <div class="header-search-right">
+                <button mat-mini-fab
+                matTooltip="{{ 'browse.toolbar.stop' | translate }}"
+                matTooltipPosition="after"
+                matTooltipShowDelay="3000"
+    
+                (click)="save.emit()" opacity="0.87" class="header-search-right-button">
+                    <mat-icon>stop</mat-icon>
+                </button>
+            </div>
+        }
 
-            (click)="save.emit()" size="16" opacity="0.87" class="header-search-right-button">
-                <mat-icon>stop</mat-icon>
-            </button>
-        </div>
 
+        @if(zoomFactor != 100){
+            <div 
+            class="zoom-factor">
+            <span 
+                 class="header-search-right-button">
+                 {{zoomFactor}} %
+                </span>
+            </div>
+        }
 
-        <div *ngIf="zoomFactor != 100"
-        class="zoom-factor">
-        <span 
-             class="header-search-right-button">
-             {{zoomFactor}} %
-            </span>
-        </div>
 
         <div class="header-search-right">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.zoomOut' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
-            (click)="zoomFactor = zoomFactor > 10 ? zoomFactor - 10 : zoomFactor" size="16" opacity="0.87" class="header-search-right-button">
+            (click)="zoomFactor = zoomFactor > 10 ? zoomFactor - 10 : zoomFactor"  opacity="0.87" class="header-search-right-button">
                 <mat-icon>zoom_out</mat-icon>
             </button>
         </div>
 
         <div class="header-search-right">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.zoomIn' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
-            (click)="zoomFactor = zoomFactor < 500 ? zoomFactor + 10 : zoomFactor" size="16" opacity="0.87" class="header-search-right-button">
+            (click)="zoomFactor = zoomFactor < 500 ? zoomFactor + 10 : zoomFactor"  opacity="0.87" class="header-search-right-button">
                 <mat-icon>zoom_in</mat-icon>
             </button>
         </div>
@@ -170,16 +180,19 @@
     </div>
     <div class="header-option">
         <div class="header-option-div">
-            <button mat-button
+            <button mat-mini-fab
             matTooltip="{{ 'browse.toolbar.show' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
 
             (click)="logVisibile = !logVisibile;toggleLog.emit(logVisibile)"
-            size="18" opacity="0.87" class="header-option-button">
+         opacity="0.87" class="header-button-content">
+            @if(logVisibile){
                 <mat-icon 
-                *ngIf="logVisibile" style="margin-left: 50px">chevron_left</mat-icon>
-                <mat-icon *ngIf="!logVisibile" style="margin-left: 50px">chevron_right</mat-icon>
+                style="margin-left: 50px">chevron_left</mat-icon>
+            }@else {
+                <mat-icon style="margin-left: 50px">chevron_right</mat-icon>
+            }
             </button>
         </div>
     </div>
