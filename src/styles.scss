@@ -1,22 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-@import "./assets/stylesheets/animations";
+@use "./assets/stylesheets/animations";
+@use "foundation-sites/scss/foundation.scss";
+@use "./assets/edpb/resources/css/css_rp6qcLCr3oWTYoJXBCCjs9vK3zAEHyj_Acl9KBmBhAA";
+@use "./assets/eusurvey/resources/css/runner";
+@use "./assets/eusurvey/resources/css/bootstrap";
+@use "./assets/stylesheets/btn";
+@use "./assets/stylesheets/tooltip";
+@use "src/assets/stylesheets/variables" as *;
 
-$fa-font-path: "~font-awesome/fonts";
-@import "font-awesome/scss/font-awesome.scss";
-
-// Foundation styles
-@import "foundation-sites/scss/foundation.scss";
-@include foundation-global-styles;
-@include foundation-flex-grid;
-@include foundation-flex-classes;
-
-@import "./assets/edpb/resources/css/css_rp6qcLCr3oWTYoJXBCCjs9vK3zAEHyj_Acl9KBmBhAA";
-
-@import "./assets/eusurvey/resources/css/runner";
-@import "./assets/eusurvey/resources/css/bootstrap";
-
-@import "./assets/stylesheets/btn";
-@import "./assets/stylesheets/tooltip";
 
 @font-face {
   font-family: "Font Awesome 5 Free";

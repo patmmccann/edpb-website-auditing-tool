@@ -1,7 +1,7 @@
 <div class="header">
     <div class="header-buttons">
         <div class="header-button" style="margin-left: 6px;">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.go_back' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -11,7 +11,7 @@
             </button>
         </div>
         <div class="header-button">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.go_forward' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -20,7 +20,8 @@
             </button>
         </div>
         <div class="header-button">
-            <button 
+            <button mat-button
+            mat-button
             matTooltip="{{ 'browse.toolbar.reload' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -32,7 +33,7 @@
     <div class="header-search">
         <div class="header-search-loop">
             
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.resume' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -43,7 +44,7 @@
                 <mat-icon>pause</mat-icon>
         </button>
         <ng-template #play_button>
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -61,7 +62,7 @@
             <div class="header-search-input-hidden"></div>
         </div>
         <div *ngIf="analysis && tag" class="analysis-name">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.suspend' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -71,7 +72,7 @@
             </button>
         </div>
         <div class="analysis-plus">
-            <button
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.new' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -83,7 +84,7 @@
         </div>
         
         <div *ngIf="this.analysis && this.tag" class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.screenshot' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -104,7 +105,7 @@
         </div>-->
 
         <div class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.clear' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -114,7 +115,7 @@
         </div>
 
         <div *ngIf="settingsService.settings.devTool" class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.developer' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -125,7 +126,7 @@
 
 
         <div *ngIf="analysis && tag" class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.stop' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -145,7 +146,7 @@
         </div>
 
         <div class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.zoomOut' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -156,7 +157,7 @@
         </div>
 
         <div class="header-search-right">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.zoomIn' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"
@@ -169,7 +170,7 @@
     </div>
     <div class="header-option">
         <div class="header-option-div">
-            <button 
+            <button mat-button
             matTooltip="{{ 'browse.toolbar.show' | translate }}"
             matTooltipPosition="after"
             matTooltipShowDelay="3000"

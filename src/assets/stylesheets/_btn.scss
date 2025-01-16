@@ -1,4 +1,5 @@
-@import '../../assets/stylesheets/variables';
+@use "src/assets/stylesheets/variables" as *;
+
 .btn {
   cursor: pointer;
   text-align: center;
