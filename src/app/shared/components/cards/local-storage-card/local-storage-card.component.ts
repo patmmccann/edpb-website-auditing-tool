@@ -17,12 +17,13 @@ import { FilterForStatus, FilterForLocalStorage } from '../../../../pipes/filter
 import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
 import { FindPurpose } from '../../../../pipes/knowledges.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-local-storage-card',
     templateUrl: './local-storage-card.component.html',
     styleUrls: ['./local-storage-card.component.scss'],
-    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, AsyncPipe, FilterForStatus, FilterForLocalStorage, SafeHtmlPipe, FindPurpose]
+    imports: [MatButtonModule, NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, AsyncPipe, FilterForStatus, FilterForLocalStorage, SafeHtmlPipe, FindPurpose]
 })
 export class LocalStorageCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

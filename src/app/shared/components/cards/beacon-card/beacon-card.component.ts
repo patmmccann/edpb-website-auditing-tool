@@ -15,12 +15,13 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { FilterForStatus, FilterForBeacon } from '../../../../pipes/filters.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-beacon-card',
     templateUrl: './beacon-card.component.html',
     styleUrls: ['./beacon-card.component.scss'],
-    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, FilterForStatus, FilterForBeacon]
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, FilterForStatus, FilterForBeacon, MatButtonModule]
 })
 export class BeaconCardComponent implements OnInit {
 

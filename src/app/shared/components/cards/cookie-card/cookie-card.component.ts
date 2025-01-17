@@ -3,8 +3,8 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
-import { Card, viewContext } from 'src/app/models/card.model';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { viewContext } from 'src/app/models/card.model';
 import { CookieCard } from 'src/app/models/cards/cookie-card.model';
 import { CookieLine } from 'src/app/models/cards/cookie-card.model';
 import { DetailsService } from 'src/app/services/details.service';
@@ -18,12 +18,13 @@ import { FilterForStatus, FilterForCookie, FilterForCookieKnowledge } from '../.
 import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
 import { FindPurpose } from '../../../../pipes/knowledges.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-cookie-card',
     templateUrl: './cookie-card.component.html',
     styleUrls: ['./cookie-card.component.scss'],
-    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, AsyncPipe, TranslateModule, FilterForStatus, FilterForCookie, FilterForCookieKnowledge, SafeHtmlPipe, FindPurpose]
+    imports: [MatButtonModule, NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, AsyncPipe, TranslateModule, FilterForStatus, FilterForCookie, FilterForCookieKnowledge, SafeHtmlPipe, FindPurpose]
 })
 export class CookieCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});
