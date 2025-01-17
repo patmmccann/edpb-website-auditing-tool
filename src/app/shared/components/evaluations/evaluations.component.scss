@@ -36,22 +36,6 @@
           vertical-align: -2px;
         }
       }
-      
-      .btn-red {
-        &:before {
-          content: '\f00d';
-        }
-      }
-      .btn-blue {
-        &:before {
-          content: '\f044';
-        }
-      }
-      .btn-green {
-        &:before {
-          content: '\f00c';
-        }
-      }
     }
     &-date {
       font-size: 1rem;
@@ -125,4 +109,10 @@ textarea{
 
 .commentsBlock-btn{
   float:right;
+}
+
+.evaluation-icon {
+  font-size: 15px;
+  height: 15px ;
+  width: 15px;
 }
