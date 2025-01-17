@@ -8,16 +8,16 @@ import { ReportService } from 'src/app/services/report.service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-pdf',
     templateUrl: './pdf.component.html',
     styleUrls: ['./pdf.component.scss'],
-    imports: [MatFormField, MatLabel, MatSelect, MatOption, MatIcon, MatInput, FormsModule, MatButton]
+    imports: [MatFormField, MatLabel, MatSelect, MatOption, MatIconModule, MatInput, FormsModule, MatButtonModule]
 })
 export class PdfComponent {
   @Input() editing: boolean = false;

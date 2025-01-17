@@ -20,8 +20,7 @@ import { MatOption } from '@angular/material/core';
 import { saveOptions, ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { NgIf, NgFor, NgClass } from '@angular/common';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
@@ -29,12 +28,13 @@ import { MatInput } from '@angular/material/input';
 import { ReportRendererComponent } from './report-renderer/report-renderer.component';
 import { SafeHtmlPipe } from '../../pipes/tools.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatButton, MatIcon, ToolbarComponent, MatCard, MatCardHeader, MatFormField, MatLabel, MatSelect, NgFor, MatOption, FormsModule, ReactiveFormsModule, MatSelectTrigger, MatCardContent, NgClass, MatInput, ReportRendererComponent, SafeHtmlPipe, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatButtonModule, MatIconModule, ToolbarComponent, MatCard, MatCardHeader, MatFormField, MatLabel, MatSelect, NgFor, MatOption, FormsModule, ReactiveFormsModule, MatSelectTrigger, MatCardContent, NgClass, MatInput, ReportRendererComponent, SafeHtmlPipe, TranslateModule]
 })
 export class ReportComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

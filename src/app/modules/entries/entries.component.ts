@@ -12,13 +12,12 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { NewBaseComponent } from './new-base/new-base.component';
 import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
-import { Sort } from '@angular/material/sort';
 import { TemplateService } from 'src/app/services/template.service';
 import { NewTemplateComponent} from './new-template/new-template.component';
 import { Template, TemplateType } from 'src/app/models/template.model';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { NgIf, NgSwitch, NgSwitchCase, NgFor, AsyncPipe } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { ToolbarAnalysisComponent } from './analysis/toolbar-analysis/toolbar-analysis.component';
 import { AnalysisLineComponent } from './analysis/analysis-line/analysis-line.component';
 import { KnowledgebaseTableComponent } from './knowledgebase-table/knowledgebase-table.component';
@@ -27,18 +26,18 @@ import { LoadingOverlayComponent } from '../../shared/components/loading-overlay
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import { MatList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FilterForAnalysis, FilterForEval } from '../../pipes/filters.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-entries',
     templateUrl: './entries.component.html',
     styleUrls: ['./entries.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, NgIf, NgSwitch, NgSwitchCase, MatButton, ToolbarAnalysisComponent, NgFor, AnalysisLineComponent, KnowledgebaseTableComponent, TemplateTableComponent, LoadingOverlayComponent, MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatIcon, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, ReactiveFormsModule, AsyncPipe, FilterForAnalysis, FilterForEval, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, NgIf, NgSwitch, NgSwitchCase, MatButtonModule, ToolbarAnalysisComponent, NgFor, AnalysisLineComponent, KnowledgebaseTableComponent, TemplateTableComponent, LoadingOverlayComponent, MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatIconModule, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, ReactiveFormsModule, AsyncPipe, FilterForAnalysis, FilterForEval, TranslateModule]
 })
 export class EntriesComponent implements OnInit {
   public type_entries: 'edit' | 'template' | 'knowledgeBase' | 'new' = 'edit' ;

@@ -8,7 +8,7 @@ import { MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatCardActions
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-compare',
     templateUrl: './compare.component.html',
     styleUrls: ['./compare.component.scss'],
-    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, NgIf, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, NgFor, NgClass, MatCardActions, MatButton, MatCardFooter, MatProgressBar, TranslateModule]
+    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, NgIf, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, NgFor, NgClass, MatCardActions, MatButtonModule, MatCardFooter, MatProgressBar, TranslateModule]
 })
 export class CompareComponent implements OnInit {
   @Input() knowledgesService: KnowledgesService | null = null;

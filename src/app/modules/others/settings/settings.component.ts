@@ -3,23 +3,21 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { BrowserService } from 'src/app/services/browser.service';
-import { SettingsService } from 'src/app/services/settings.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { BrowserComponent } from './browser/browser.component';
 import { GeneralComponent } from './general/general.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, MatButton, NgIf, MatIcon, AnalysisComponent, BrowserComponent, GeneralComponent, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, MatButtonModule, NgIf, MatIconModule, AnalysisComponent, BrowserComponent, GeneralComponent, TranslateModule]
 })
 export class SettingsComponent implements OnInit {
   option:'general'|'browser'|'analysis'|'cookies'='general';

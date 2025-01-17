@@ -7,17 +7,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { Tag } from 'src/app/models/tag.model';
-import { AnalysisService } from 'src/app/services/analysis.service';
 import { TagService } from 'src/app/services/tag.service';
 import { RouterLink } from '@angular/router';
 import { NgIf, NgSwitch, NgSwitchCase, DatePipe } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.scss'],
-    imports: [RouterLink, NgIf, NgSwitch, NgSwitchCase, MatIcon, DatePipe]
+    imports: [RouterLink, NgIf, NgSwitch, NgSwitchCase, MatIconModule, DatePipe]
 })
 export class TagsComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();

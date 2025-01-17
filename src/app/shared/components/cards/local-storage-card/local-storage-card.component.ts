@@ -13,16 +13,16 @@ import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
 import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { FilterForStatus, FilterForLocalStorage } from '../../../../pipes/filters.pipe';
 import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
 import { FindPurpose } from '../../../../pipes/knowledges.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-local-storage-card',
     templateUrl: './local-storage-card.component.html',
     styleUrls: ['./local-storage-card.component.scss'],
-    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIcon, NgClass, AsyncPipe, FilterForStatus, FilterForLocalStorage, SafeHtmlPipe, FindPurpose]
+    imports: [NgIf, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass, AsyncPipe, FilterForStatus, FilterForLocalStorage, SafeHtmlPipe, FindPurpose]
 })
 export class LocalStorageCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

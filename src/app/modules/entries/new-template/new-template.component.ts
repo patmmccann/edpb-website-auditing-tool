@@ -11,7 +11,7 @@ import { NgIf } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface TemplateData {
@@ -26,7 +26,7 @@ export interface TemplateData {
     selector: 'app-new-template',
     templateUrl: './new-template.component.html',
     styleUrls: ['./new-template.component.scss'],
-    imports: [NgIf, MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatButton, ReactiveFormsModule, MatDialogActions, MatDialogClose, TranslateModule]
+    imports: [NgIf, MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatButtonModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, TranslateModule]
 })
 export class NewTemplateComponent {
 

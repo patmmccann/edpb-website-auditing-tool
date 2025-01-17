@@ -12,11 +12,9 @@ import { CardService } from 'src/app/services/card.service';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { TagService } from 'src/app/services/tag.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { NgIf, NgSwitch, NgSwitchCase, NgFor, DatePipe } from '@angular/common';
 import { MatChipListbox, MatChip } from '@angular/material/chips';
-import { MatIcon } from '@angular/material/icon';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { TagsComponent } from './tags/tags.component';
 import { ContentComponent } from './content/content.component';
@@ -26,12 +24,13 @@ import { CallstackDetailsComponent } from '../../shared/components/details/calls
 import { KnowledgeBaseComponent } from '../../shared/components/knowledge-base/knowledge-base.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIcon, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIconModule, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

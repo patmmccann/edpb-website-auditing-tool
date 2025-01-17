@@ -13,16 +13,16 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    imports: [MatSlideToggle, FormsModule, NgIf, MatFormField, MatSelect, MatOption, MatLabel, MatInput, MatIcon, ReactiveFormsModule, MatButton, ModalComponent, NgFor, TranslateModule]
+    imports: [MatSlideToggle, FormsModule, NgIf, MatFormField, MatSelect, MatOption, MatLabel, MatInput, MatIconModule, ReactiveFormsModule, MatButtonModule, ModalComponent, NgFor, TranslateModule]
 })
 export class AnalysisComponent {
   localStorage:any=null;

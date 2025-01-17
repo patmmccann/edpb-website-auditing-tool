@@ -7,14 +7,14 @@ import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { MatToolbar } from '@angular/material/toolbar';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-toolbar-analysis',
     templateUrl: './toolbar-analysis.component.html',
     styleUrls: ['./toolbar-analysis.component.scss'],
-    imports: [MatToolbar, MatButton, FormsModule, ReactiveFormsModule, TranslateModule]
+    imports: [MatToolbar, MatButtonModule, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ToolbarAnalysisComponent {
   @Output() imported = new EventEmitter<number>();

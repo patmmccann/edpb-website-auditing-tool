@@ -9,17 +9,17 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { MatList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.scss'],
-    imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, NgIf, MatIcon, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, TranslateModule]
+    imports: [MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, NgIf, MatIconModule, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, TranslateModule]
 })
 export class FiltersComponent implements OnInit {
   searchTerm : String ="";

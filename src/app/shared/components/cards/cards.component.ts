@@ -14,8 +14,8 @@ import { TestSSLCard } from 'src/app/models/cards/test-sslcard.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { SettingsService } from 'src/app/services/settings.service';
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-cards',
     templateUrl: './cards.component.html',
     styleUrls: ['./cards.component.scss'],
-    imports: [MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatIcon, MatTooltip, MatFormField, MatInput, FormsModule, SearchComponent, TestsslCardComponent, CookieCardComponent, HttpCardComponent, LocalStorageCardComponent, TrafficCardComponent, UnsafeFormCardComponent, BeaconCardComponent, ScreenshotCardComponent, InfoCardComponent, EvaluationsComponent, TranslateModule]
+    imports: [MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatIconModule, MatTooltipModule, MatFormField, MatInput, FormsModule, SearchComponent, TestsslCardComponent, CookieCardComponent, HttpCardComponent, LocalStorageCardComponent, TrafficCardComponent, UnsafeFormCardComponent, BeaconCardComponent, ScreenshotCardComponent, InfoCardComponent, EvaluationsComponent, TranslateModule]
 })
 export class CardsComponent implements OnInit {
   @Input() context: viewContext = 'evaluate';

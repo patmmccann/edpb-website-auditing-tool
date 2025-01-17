@@ -12,7 +12,7 @@ import { MatInput } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface DialogData {
@@ -25,7 +25,7 @@ export interface DialogData {
     selector: 'app-new-base',
     templateUrl: './new-base.component.html',
     styleUrls: ['./new-base.component.scss'],
-    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatSelect, MatOption, MatDialogActions, MatButton, MatDialogClose, TranslateModule]
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatSelect, MatOption, MatDialogActions, MatButtonModule, MatDialogClose, TranslateModule]
 })
 export class NewBaseComponent {
 

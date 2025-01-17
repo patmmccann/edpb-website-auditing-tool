@@ -16,23 +16,23 @@ import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/local
 import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgClass } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { CompareComponent } from './compare/compare.component';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-base',
     templateUrl: './base.component.html',
     styleUrls: ['./base.component.scss'],
     providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButton, NgIf, ModalComponent, CompareComponent, NgSwitch, NgSwitchCase, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatSelect, MatOption, NgFor, MatSort, MatSortHeader, NgClass, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButtonModule, NgIf, ModalComponent, CompareComponent, NgSwitch, NgSwitchCase, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIconModule, MatSuffix, MatSelect, MatOption, NgFor, MatSort, MatSortHeader, NgClass, TranslateModule]
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);

@@ -13,23 +13,23 @@ import { CardService } from 'src/app/services/card.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
-import { MatIcon } from '@angular/material/icon';
 import { NgIf, NgFor } from '@angular/common';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIconButton, MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { MatTooltip } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge],
-    imports: [MatButtonToggleGroup, MatButtonToggle, MatIcon, NgIf, MatToolbar, MatToolbarRow, MatIconButton, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSuffix, MatSelect, NgFor, MatOption, MatTooltip, MatButton, TranslateModule]
+    imports: [MatButtonToggleGroup, MatButtonToggle, MatIconModule, NgIf, MatToolbar, MatToolbarRow, MatIconButton, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSuffix, MatSelect, NgFor, MatOption, MatTooltipModule, MatButtonModule, TranslateModule]
 })
 export class SearchComponent {
 

@@ -19,16 +19,16 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { CardService } from 'src/app/services/card.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { NgIf, NgFor, NgSwitch, NgSwitchCase } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-new-analysis',
     templateUrl: './new-analysis.component.html',
     styleUrls: ['./new-analysis.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, NgIf, FormsModule, ReactiveFormsModule, MatIcon, MatTooltip, NgFor, NgSwitch, NgSwitchCase, MatFormField, MatLabel, MatChipGrid, MatChip, MatChipRemove, MatChipInput, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, NgIf, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, NgFor, NgSwitch, NgSwitchCase, MatFormField, MatLabel, MatChipGrid, MatChip, MatChipRemove, MatChipInput, TranslateModule]
 })
 export class NewAnalysisComponent implements OnInit {
   @ViewChild('entry') selectEntry: ElementRef = new ElementRef({});

@@ -11,13 +11,13 @@ import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-testssl-card',
     templateUrl: './testssl-card.component.html',
     styleUrls: ['./testssl-card.component.scss'],
-    imports: [NgIf, MatProgressSpinner, MatSort, MatSortHeader, NgFor, MatIcon, NgClass]
+    imports: [NgIf, MatProgressSpinner, MatSort, MatSortHeader, NgFor, MatIconModule, NgClass]
 })
 export class TestsslCardComponent implements OnInit {
   @Input() card: TestSSLCard = new TestSSLCard({}, null, null);
