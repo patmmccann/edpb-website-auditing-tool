@@ -194,8 +194,7 @@ export class FilterForCookieKnowledge implements PipeTransform {
 }
 
 @Pipe({
-    name: 'filterForLocalStorageKnowledge',
-    standalone: false
+    name: 'filterForLocalStorageKnowledge'
 })
 export class FilterForLocalStorageKnowledge implements PipeTransform {
   constructor(
