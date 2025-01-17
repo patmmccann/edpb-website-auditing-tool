@@ -84,7 +84,9 @@
                 </app-tags>
             </mat-card-content>
             <mat-card-content>
-                <button class="add-button" [routerLink]="['/entries', 'new', analysis.id]">
+                <button 
+                mat-button
+                class="add-button" [routerLink]="['/entries', 'new', analysis.id]">
                     +
                 </button>
             </mat-card-content>

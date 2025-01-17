@@ -8,7 +8,6 @@ import { ActivatedRoute, Router, Params, RouterLink } from '@angular/router';
 import { Analysis } from 'src/app/models/analysis.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
 import { Tag } from 'src/app/models/tag.model';
-import { CardService } from 'src/app/services/card.service';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
@@ -25,12 +24,13 @@ import { KnowledgeBaseComponent } from '../../shared/components/knowledge-base/k
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIconModule, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
+    imports: [MatToolbar, MatButtonModule, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIconModule, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();
