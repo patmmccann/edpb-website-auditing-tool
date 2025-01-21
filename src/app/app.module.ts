@@ -19,7 +19,6 @@ import { ReportModule } from './modules/report/report.module';
 
 @NgModule({
   declarations: [
-    AppComponent
   ],
   imports: [
     SharedModule,
@@ -33,6 +32,6 @@ import { ReportModule } from './modules/report/report.module';
     TemplateModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }
