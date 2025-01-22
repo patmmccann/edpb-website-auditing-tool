@@ -3,13 +3,13 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { app, BrowserView, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, WebContentsView } from 'electron';
 import { BrowserCollector } from '../collectors/browser-collector';
 
 import * as path from 'path';
 
 export class BrowserSession {
-    _view: BrowserView;
+    _view: WebContentsView;
     _collector: BrowserCollector;
     _session_name: string;
     _mainWindow: BrowserWindow;
@@ -19,7 +19,7 @@ export class BrowserSession {
         this._mainWindow = mainWindow;
         this._session_name = session_name;
 
-        this._view = new BrowserView({
+        this._view = new WebContentsView({
             webPreferences: {
                 contextIsolation: false,
                 partition: this._session_name

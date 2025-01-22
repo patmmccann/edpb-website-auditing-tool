@@ -162,7 +162,7 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
     this.safeDetailsSubscriber?.unsubscribe();
     this.safeLoadEventSubscriber?.unsubscribe();
-    this.browserService.hideSession(window);
+    this.browserService.hideSession(window, this.analysis, this.tag);
   }
 
   async save(): Promise<void> {

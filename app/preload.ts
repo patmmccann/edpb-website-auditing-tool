@@ -14,7 +14,7 @@ contextBridge.exposeInMainWorld(
     eraseSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('eraseSession', analysis_id, tag_id),
     showSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('showSession', analysis_id, tag_id),
     getSessions: () => ipcRenderer.invoke('getSessions'),
-    hideSession: () => ipcRenderer.invoke('hideSession'),
+    hideSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('hideSession', analysis_id, tag_id),
     updateSettings:(settings)=> ipcRenderer.invoke('updateSettings', settings),
     resizeSession: (rect : any) => ipcRenderer.invoke('resizeSession', rect),
     loadURL: (analysis_id : number, tag_id : number, url : string) => ipcRenderer.invoke('loadURL', analysis_id, tag_id, url),

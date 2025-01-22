@@ -155,9 +155,9 @@ export class BrowserService {
     });
   }
 
-  hideSession(window: any) {
+  hideSession(window: any, analysis: Analysis | null, tag: Tag | null) {
     window.onresize = null;
-    return window.electron.hideSession();
+    return window.electron.hideSession(analysis ? analysis.id : null, tag ? tag.id : null);
   }
 
   gotoURL(window: any, analysis: Analysis | null, tag: Tag | null, url: string) {

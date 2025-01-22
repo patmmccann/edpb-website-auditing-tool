@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 
-import { BrowserView, WebContents, ipcMain } from 'electron';
+import { WebContentsView, WebContents, ipcMain } from 'electron';
 import { Collector } from "./collector";
 import { Card } from '../cards/card';
 
 
 export class BrowserCollector extends Collector {
     _session_name: string;
-    _view: BrowserView;
+    _view: WebContentsView;
     _contents: WebContents;
     _cards: Card[] = [];
 
@@ -22,7 +22,7 @@ export class BrowserCollector extends Collector {
         this._cards = this.createCardFromSettings();
     }
 
-    async createCollector(view: BrowserView) {
+    async createCollector(view: WebContentsView) {
         this._view = view;
         this._contents = view.webContents;
 

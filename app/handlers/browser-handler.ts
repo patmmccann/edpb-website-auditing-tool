@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { ipcMain, BrowserWindow, BrowserView } from 'electron';
+import { ipcMain, BrowserWindow, WebContentsView } from 'electron';
 import { BrowserSession } from './sessions/browser-session'
 import { BrowserCollector } from './collectors/browser-collector';
 
@@ -12,7 +12,7 @@ export class BrowsersHandler {
     _sessions: BrowserSession[] = [];
     _collectors : {[key: number]: BrowserCollector} = {};
 
-    currentView: BrowserView | null = null;
+    currentView: WebContentsView | null = null;
 
     constructor(mainWindow: BrowserWindow) {
         this._mainWindow = mainWindow;
@@ -90,14 +90,15 @@ export class BrowsersHandler {
         return this.sessions['session' + analysis_id + tag_id];
     }
 
-    hideSession() {
-        this.mainWindow.setBrowserView(null);
+    hideSession(event, analysis_id, tag_id) {
+        const browserSession = this.get(analysis_id, tag_id);
+        this.mainWindow.contentView.removeChildView(browserSession.view);
     }
 
     showSession(event, analysis_id, tag_id) {
         const browserSession = this.get(analysis_id, tag_id);
         this.currentView = browserSession.view;
-        this.mainWindow.setBrowserView(browserSession.view);
+        this.mainWindow.contentView.addChildView(browserSession.view);
         return browserSession.url;
     }
 
@@ -191,10 +192,10 @@ export class BrowsersHandler {
         const session = this.get(analysis_id, tag_id);
         if (!session) return;
         this._collectors[session.contents.id];
-        const current_view = this.mainWindow.getBrowserView();
+        const current_view = this.mainWindow.contentView.children[0];
 
         if (session.view == current_view) {
-            this.mainWindow.setBrowserView(null);
+            this.mainWindow.contentView.removeChildView(session.view);
         }
 
         await session.delete();
