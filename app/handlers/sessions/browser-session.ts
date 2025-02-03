@@ -13,6 +13,7 @@ export class BrowserSession {
     _collector: BrowserCollector;
     _session_name: string;
     _mainWindow: BrowserWindow;
+    _devtools: BrowserWindow | null;
 
     constructor(mainWindow: BrowserWindow, session_name: string, settings) {
         this._collector = new BrowserCollector(session_name, settings);
@@ -106,12 +107,12 @@ export class BrowserSession {
             try {
                 app.configureHostResolver({
                     secureDnsMode: 'secure',
-                    secureDnsServers: [ settings.doh ]
+                    secureDnsServers: [settings.doh]
                 })
-            }catch(e){
+            } catch (e) {
                 console.log("Use DoH server : " + e.message);
             }
-            
+
         }
     }
 
@@ -248,7 +249,16 @@ export class BrowserSession {
     }
 
     toogleDevTool() {
-        this.contents.toggleDevTools();
+        if (this._devtools == null) {
+            this._devtools = new BrowserWindow();
+            this.contents.setDevToolsWebContents(this._devtools.webContents);
+            this.contents.openDevTools({ mode: 'detach' })
+        } else {
+            this._devtools.close();
+            this._devtools = null;
+            this.contents.closeDevTools();
+        }
+
     }
 
     async collect(kinds) {
