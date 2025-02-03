@@ -7,10 +7,8 @@
                 <h3 class="mt-0">
                     {{card.name}}
                     @if(context != 'evaluate' && settingService.settings.help){
-                    <ng-container>
                         <mat-icon matTooltip="{{ 'cards.help.'+card.kind | translate }}"
                             [matTooltipPosition]="'after'">help_outline</mat-icon>
-                    </ng-container>
                     }
                 </h3>
             </mat-panel-description>
@@ -34,7 +32,7 @@
         }
         @if(card.kind == 'image'){
         <mat-panel-description>
-            <button (click)="edit($event)">
+            <button mat-icon-button (click)="edit($event)">
                 <mat-icon>edit</mat-icon>
             </button>
         </mat-panel-description>
