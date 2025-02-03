@@ -134,19 +134,19 @@ export class BrowserSession {
     }
 
     canGoForward() {
-        return this.contents.canGoForward();
+        return this.contents.navigationHistory.canGoForward();
     }
 
     canGoBack() {
-        return this.contents.canGoBack();
+        return this.contents.navigationHistory.canGoBack();
     }
 
     goBack() {
-        this.contents.goBack();
+        this.contents.navigationHistory.goBack();
     }
 
     goForward() {
-        this.contents.goForward();
+        this.contents.navigationHistory.goForward();
     }
 
     stop() {
