@@ -59,16 +59,16 @@ export class BrowserSession {
 
     applySettings(settings) {
         this.collector.settings = settings;
+        
+        //Set preloads
         const preloads = [];
         if (settings && settings.logs) {
-            //Set preloads
-            const stacktracePath = path.dirname(require.resolve("stacktrace-js/package.json"));
-            preloads.push(path.join(stacktracePath, '/dist/stacktrace.min.js'));
-            preloads.push(path.join(__dirname, 'preload.js'));
+            preloads.push(path.join(__dirname, 'trackers.bundle.js'));
         }
-        const htmlToImagePath = path.dirname(require.resolve("html2canvas/package.json"));
-        preloads.push(path.join(htmlToImagePath, '/dist/html2canvas.min.js'));
-
+        preloads.push(path.join(__dirname, 'screenshots.bundle.js'));
+        preloads.push(path.join(__dirname, 'dnt.bundle.js'));
+        
+  ;
         const ses = this._view.webContents.session;
         ses.setPreloads(preloads);
 

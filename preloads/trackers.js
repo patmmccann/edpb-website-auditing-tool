@@ -1,18 +1,9 @@
-/*
- * SPDX-FileCopyrightText: 2022-2023 European Data Protection Board (EDPB)
- *
- * SPDX-License-Identifier: EUPL-1.2
- * 
- * Based on https://github.com/EU-EDPS/website-evidence-collector/blob/master/lib/setup-cookie-recording.js
- * from the Website Evidence Collector (https://github.com/EU-EDPS/website-evidence-collector)
- */
-const { ipcRenderer, contextBridge } = require('electron');
+const { ipcRenderer } = require('electron');
 
-declare var StackTrace;
-declare var html2canvas;
+import * as StackTrace from 'stacktrace-js';
 
 // original object
-const origDescriptor: any = Object.getOwnPropertyDescriptor(
+const origDescriptor = Object.getOwnPropertyDescriptor(
     Document.prototype,
     "cookie"
 );
@@ -42,16 +33,16 @@ Object.defineProperty(window, "localStorage", {
     configurable: true,
     enumerable: true,
     value: new Proxy(localStorage, {
-        set: function (ls, prop: string, value) {
+        set: function (ls, prop, value) {
             //console.log(`direct assignment: ${prop} = ${value}`);
             let stack = StackTrace.getSync({ offline: true });
-            let hash: any = {};
+            let hash = {};
             hash[prop] = value;
             ipcRenderer.invoke('reportEvent', "Storage.LocalStorage", stack, hash, JSON.stringify(window.location));
             ls[prop] = value;
             return true;
         },
-        get: function (ls, prop: string) {
+        get: function (ls, prop) {
             // The only property access we care about is setItem. We pass
             // anything else back without complaint. But using the proxy
             // fouls 'this', setting it to this {set: fn(), get: fn()}
@@ -63,38 +54,15 @@ Object.defineProperty(window, "localStorage", {
                     return ls[prop];
                 }
             }
-            return (...args: any[]) => {
+            return (...args) => {
                 let stack = StackTrace.getSync({ offline: true });
-                let hash: any = {};
+                let hash = {};
                 hash[args[0]] = args[1];
                 ipcRenderer.invoke('reportEvent', "Storage.LocalStorage", stack, hash, JSON.stringify(window.location));
-                ls.setItem.apply(ls, args as any);
+                ls.setItem.apply(ls, args);
             };
         },
     }),
 });
 
 
-ipcRenderer.on('dntJs', (event, messages) => {
-    contextBridge.exposeInMainWorld(
-        'navigator',
-        {
-            doNotTrack: 1
-        });
-});
-
-ipcRenderer.on('full_screenshot', (event, partition) => {
-    html2canvas(document.body).then((canvas) => {
-        canvas.toBlob((blob) => {
-            const reader = new FileReader();
-            reader.addEventListener('loadend', () => {
-                const arrayBuffer = reader.result;
-                ipcRenderer.invoke('full_screenshot_image', arrayBuffer);
-            });
-            reader.readAsArrayBuffer(blob);
-        });
-    }).catch(function (error) {
-        console.error('Something went wrong with capture!', error);
-        ipcRenderer.invoke('full_screenshot_image', null);
-    });
-});
