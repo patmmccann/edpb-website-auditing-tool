@@ -37,6 +37,14 @@ export class BrowserSession {
             this._mainWindow.webContents.send('browser-event', 'did-finish-load', this._session_name);
         });
 
+        this.view.webContents.on('did-navigate', () => {
+            this._mainWindow.webContents.send('browser-event', 'did-navigate', this._session_name);
+        });
+
+        this.view.webContents.on('did-navigate-in-page', () => {
+            this._mainWindow.webContents.send('browser-event', 'did-navigate-in-page', this._session_name);
+        });
+
         this.view.webContents.session.webRequest.onBeforeRequest(async (details, callback) => {
             this.collector.onBeforeRequestCallbacks.forEach(fn => fn(details));
             callback({});
