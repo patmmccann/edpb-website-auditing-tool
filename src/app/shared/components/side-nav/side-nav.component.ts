@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { BrowserService, BrowserSession } from 'src/app/services/browser.service';
 import { MatDrawerContainer, MatDrawer, MatDrawerContent } from '@angular/material/sidenav';
 import { MatNavList, MatListItem, MatListItemIcon, MatListSubheaderCssMatStyler, MatListItemTitle } from '@angular/material/list';
-import { NgClass, NgIf, NgFor } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-side-nav',
     templateUrl: './side-nav.component.html',
     styleUrls: ['./side-nav.component.scss'],
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, NgClass, MatListItem, NgIf, MatIconModule, MatListItemIcon, MatListSubheaderCssMatStyler, MatDivider, RouterLink, MatListItemTitle, NgFor, MatDrawerContent, RouterOutlet, TranslateModule]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatIconModule, MatListItemIcon, MatListSubheaderCssMatStyler, MatDivider, RouterLink, MatListItemTitle,MatDrawerContent, RouterOutlet, TranslateModule]
 })
 export class SideNavComponent implements OnInit {
   pinned: boolean = true;
