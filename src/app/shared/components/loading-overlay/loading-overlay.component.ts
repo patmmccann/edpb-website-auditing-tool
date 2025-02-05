@@ -11,7 +11,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     selector: 'app-loading-overlay',
     templateUrl: './loading-overlay.component.html',
     styleUrls: ['./loading-overlay.component.scss'],
-    imports: [NgIf, NgClass, MatProgressSpinner]
+    imports: [MatProgressSpinner]
 })
 export class LoadingOverlayComponent implements OnInit {
   @Input() visibility: boolean = false;
