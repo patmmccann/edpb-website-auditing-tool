@@ -4,12 +4,14 @@
     </mat-card-header>
     <mat-card-content>
         <mat-accordion>
-            <app-modal *ngIf="showModal==true"
-                (clickOnClose)="showModal = false;closeEvent.emit()">
+            @if(showModal==true){
+            <app-modal (clickOnClose)="showModal = false;closeEvent.emit()">
                 {{ "compare.no_modifications" | translate }}
             </app-modal>
+            }
 
-            <mat-expansion-panel *ngIf="to_add.length >0">
+            @if(to_add.length >0){
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         {{ "compare.new_elements" | translate }} ({{to_add.length}})
@@ -36,7 +38,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of to_add; index as i" [ngClass]="{ noElementsDisplaying: showForm }">
+                        @for(item of to_add;track item.name;let i = $index){
+                        <tr [class.noElementsDisplaying]="showForm">
                             <td class="base-listsBlock-item">
                                 <a href="javascript:;" (click)="apply_add(i)" class="btn base-tooltip">
                                     <i class="fa fa-check" aria-hidden="true"></i>
@@ -46,7 +49,8 @@
                                 </a>
                                 <a (click)="delete_add(i)" class="btn base-tooltip">
                                     <i class="fa fa-close" aria-hidden="true"></i>
-                                    <span title="Remove modification" class="base-tooltip-text">{{ "compare.remove_modification" | translate }}
+                                    <span title="Remove modification" class="base-tooltip-text">{{
+                                        "compare.remove_modification" | translate }}
                                     </span>
                                 </a>
                             </td>
@@ -98,14 +102,18 @@
                                 </div>
                             </td>
                         </tr>
+                        }
+
                     </tbody>
 
                 </table>
             </mat-expansion-panel>
-            <mat-expansion-panel *ngIf="to_remove.length >0">
+            }
+            @if(to_remove.length >0){
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{ "compare.deleted_elements" | translate }}  ({{to_remove.length}})
+                        {{ "compare.deleted_elements" | translate }} ({{to_remove.length}})
                     </mat-panel-title>
                     <mat-panel-description>
                         {{ "compare.deleted_elements_expand" | translate }}
@@ -129,7 +137,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of to_remove; index as i" [ngClass]="{ noElementsDisplaying: showForm }">
+                        @for(item of to_remove;track item.id;let i = $index){
+                        <tr [class.noElementsDisplaying]="showForm">
                             <td class="base-listsBlock-item">
                                 <a href="javascript:;" (click)="apply_remove(i, item.id)" class="btn base-tooltip">
                                     <i class="fa fa-check" aria-hidden="true"></i>
@@ -139,7 +148,8 @@
                                 </a>
                                 <a (click)="delete_remove(item.id)" class="btn base-tooltip">
                                     <i class="fa fa-close" aria-hidden="true"></i>
-                                    <span title="Remove modification" class="base-tooltip-text">{{ "compare.remove_modification" | translate }}
+                                    <span title="Remove modification" class="base-tooltip-text">{{
+                                        "compare.remove_modification" | translate }}
                                     </span>
                                 </a>
                             </td>
@@ -191,21 +201,32 @@
                                 </div>
                             </td>
                         </tr>
+                        }
+
                     </tbody>
 
                 </table>
             </mat-expansion-panel>
+            }
+
         </mat-accordion>
     </mat-card-content>
-    <mat-card-actions *ngIf="!showModal">
+    @if(!showModal){
+    <mat-card-actions>
         <span class="spacer"></span>
-        <button *ngIf="to_remove.length != 0 && to_add.length != 0" mat-button
-        (click)="applyAll()" > {{ "compare.apply_all" | translate }}
+        @if(to_remove.length != 0 && to_add.length != 0){
+        <button mat-button (click)="applyAll()"> {{ "compare.apply_all" | translate }}
         </button>
-        <button mat-button 
-        (click)="closeEvent.emit()">{{ "compare.dismiss" | translate }}</button>
+        }
+
+        <button mat-button (click)="closeEvent.emit()">{{ "compare.dismiss" | translate }}</button>
     </mat-card-actions>
-    <mat-card-footer *ngIf="showProgress">
+    }
+
+    @if(showProgress){
+    <mat-card-footer>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
+    }
+
 </mat-card>
