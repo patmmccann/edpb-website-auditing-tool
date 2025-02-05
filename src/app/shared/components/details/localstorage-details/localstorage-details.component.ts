@@ -5,14 +5,11 @@
  */
 import { Component, OnInit,Input } from '@angular/core';
 import { LocalStorageLine } from 'src/app/models/cards/local-storage-card.model';
-import { Details } from 'src/app/models/details.model';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-localstorage-details',
     templateUrl: './localstorage-details.component.html',
-    styleUrls: ['./localstorage-details.component.scss'],
-    imports: [NgIf]
+    styleUrls: ['./localstorage-details.component.scss']
 })
 export class LocalstorageDetailsComponent implements OnInit {
   @Input() line : LocalStorageLine | null = null;

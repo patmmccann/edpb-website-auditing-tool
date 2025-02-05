@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, OnInit, Input } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
