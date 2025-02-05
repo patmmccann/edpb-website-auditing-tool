@@ -9,14 +9,14 @@ import { Evaluation } from 'src/app/models/evaluation.model';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgSwitch, NgSwitchCase, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.scss'],
-    imports: [RouterLink, NgIf, NgSwitch, NgSwitchCase, MatIconModule, DatePipe]
+    imports: [RouterLink, MatIconModule, DatePipe]
 })
 export class TagsComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();
