@@ -12,7 +12,7 @@ import { Evaluation } from 'src/app/models/evaluation.model';
 import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { NgIf, NgSwitch, NgSwitchCase, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatChipListbox, MatChip } from '@angular/material/chips';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { TagsComponent } from './tags/tags.component';
