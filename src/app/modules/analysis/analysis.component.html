@@ -15,22 +15,17 @@
             </strong>
         </li>
         <li class="breadcrumb-item">
-            <a *ngIf="activeTag else mainAnalysis" [routerLink]="['/analysis', analysis.id]">
+            @if(activeTag){
+            <a [routerLink]="['/analysis', analysis.id]">
                 {{ analysis.name }}
             </a>
-            <ng-template #mainAnalysis>
-                {{ analysis.name }}
-            </ng-template>
-        </li>
-        <li *ngIf="activeTag" class="breadcrumb-item">
+        <li class="breadcrumb-item">
             {{ activeTag.name }}
         </li>
-        <!--
-        <span class="header-spacer"></span>
-        <strong>
-            EN
-        </strong>
-        <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
+        }@else {
+        {{ analysis.name }}
+        }
+        </li>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -42,29 +37,39 @@
                 {{analysis.name}}
             </a>
         </h1>
-        <mat-chip-listbox *ngIf="evaluation" [ngSwitch]="evaluation.status">
-            <ng-container *ngSwitchCase="'compliant'">
-                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{ "analyses.evaluation.compliant" | translate }}</a></mat-chip>
-            </ng-container>
-            <ng-container *ngSwitchCase="'not_compliant'">
-                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;"> {{ "analyses.evaluation.not_compliant" | translate }} </a></mat-chip>
-            </ng-container>
-            <ng-container *ngSwitchCase="'TBD'">
-                <mat-chip>
-                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.TBD" | translate }} </a>
-                </mat-chip>
-            </ng-container>
+        @if(evaluation){
+        <mat-chip-listbox>
+            @switch (evaluation.status) {
+
+            @case ("compliant") {
+            <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{
+                    "analyses.evaluation.compliant" | translate }}</a></mat-chip>
+            }
+            @case ("not_compliant") {
+            <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;"> {{
+                    "analyses.evaluation.not_compliant" | translate }} </a></mat-chip>
+            }
+            @case ("TBD") {
+            <mat-chip>
+                <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.TBD" |
+                    translate }} </a>
+            </mat-chip>
+            }
+
+            }
+
+
         </mat-chip-listbox>
+
+        }
+
     </mat-toolbar-row>
     <mat-toolbar-row class="header-desc">
-        <a
-        target="_blank"
-        href="{{analysis.url}}"
-        >
-        <mat-icon>link</mat-icon>
-        {{analysis.url}}    
-    </a>
-        
+        <a target="_blank" href="{{analysis.url}}">
+            <mat-icon>link</mat-icon>
+            {{analysis.url}}
+        </a>
+
     </mat-toolbar-row>
     <mat-toolbar-row class="header-desc">
         <mat-icon>date_range</mat-icon>
@@ -79,14 +84,15 @@
             <mat-card-title>
                 <h2>Scenario</h2>
             </mat-card-title>
-            <mat-card-content *ngFor="let tag of tags">
-                <app-tags [analysis]="analysis" [tag]="tag">
-                </app-tags>
-            </mat-card-content>
+            @for (tag of tags; track tag.id) {
+                <mat-card-content>
+                    <app-tags [analysis]="analysis" [tag]="tag">
+                    </app-tags>
+                </mat-card-content>
+            }
+
             <mat-card-content>
-                <button 
-                mat-button
-                class="add-button" [routerLink]="['/entries', 'new', analysis.id]">
+                <button mat-button class="add-button" [routerLink]="['/entries', 'new', analysis.id]">
                     +
                 </button>
             </mat-card-content>
@@ -98,43 +104,44 @@
         </app-content>
 
     </div>
-    
-    <div  
-    class="rigth_panel"
-    *ngIf="knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind != null || detailsService.detailsData"
-    >
+
+    @if(knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind != null ||
+    detailsService.detailsData){
+    <div class="rigth_panel">
         <mat-card class="sticky-card">
             <mat-card-title>
                 <h2>{{ "analyses.panel.more_details" | translate }}</h2>
             </mat-card-title>
             <mat-card-content style="background-color:#fff ;">
                 <mat-tab-group dynamicHeight animationDuration="0ms">
-                    <mat-tab *ngIf="detailsService.detailsData" label="Details">
-                        <app-details 
-                        [detailsData]="detailsService.detailsData">
+                    @if(detailsService.detailsData){
+                    <mat-tab label="Details">
+                        <app-details [detailsData]="detailsService.detailsData">
                         </app-details>
-                        <span style="margin-left: 10px;"
-                        *ngIf="detailsService.detailsData.log != null">
-                            <h2 >{{ "analyses.panel.callstack_details" | translate }}</h2>
+                        @if(detailsService.detailsData.log != null){
+                        <span style="margin-left: 10px;">
+                            <h2>{{ "analyses.panel.callstack_details" | translate }}</h2>
                             <app-callstack-details [log]="detailsService.detailsData.log">
                             </app-callstack-details>
                         </span>
+                        }
                     </mat-tab>
+                    }
 
-                    <mat-tab 
-                    *ngIf="knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind != null"
-                    label="Knowledge">
-                        <app-knowledge-base
-                        [context]="'analysis'"
-                        [analysis]="analysis"
-                        [tag]="activeTag"
-                        >
+                    @if(knowledgeBaseService.knowledgeBaseData != null || knowledgeBaseService.knowledgeBaseKind !=
+                    null){
+                    <mat-tab label="Knowledge">
+                        <app-knowledge-base [context]="'analysis'" [analysis]="analysis" [tag]="activeTag">
                         </app-knowledge-base>
                     </mat-tab>
+                    }
                 </mat-tab-group>
             </mat-card-content>
         </mat-card>
     </div>
+    }
 </div>
 
-<app-modal *ngIf="showModal" (clickOnClose)="showModal = false">
+@if(showModal){
+<app-modal (clickOnClose)="showModal = false"></app-modal>
+}

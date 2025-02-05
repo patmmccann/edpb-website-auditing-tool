@@ -30,7 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    imports: [MatToolbar, MatButtonModule, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatIconModule, MatCard, MatCardTitle, NgFor, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
+    imports: [MatToolbar, MatButtonModule, MatToolbarRow, RouterLink, MatChipListbox, MatChip, MatIconModule, MatCard, MatCardTitle, MatCardContent, TagsComponent, ContentComponent, MatTabGroup, MatTab, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, ModalComponent, DatePipe, TranslateModule]
 })
 export class AnalysisComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();
