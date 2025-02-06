@@ -25,14 +25,16 @@
         selectedKnowledgeId = null;
         itemsSelected = [];
       ">
-            <ng-container *ngIf="base.category == 'cookie'">
-                <i class="fas fa-plus"></i>
-                {{ "knowledge.cookie.new_entry" | translate }}
-            </ng-container>
-            <ng-container *ngIf="base.category == 'localstorage'">
-                <i class="fas fa-plus"></i>
-                {{ "knowledge.localstorage.new_entry" | translate }}
-            </ng-container>
+        <i class="fas fa-plus"></i>
+      @switch(base.category){
+        @case('cookie'){
+            {{ "knowledge.cookie.new_entry" | translate }}
+        }
+
+        @case('localstorage'){
+            {{ "knowledge.localstorage.new_entry" | translate }}
+        }
+      }
         </button>
 
         <button mat-raised-button color="blue" title="Create a new entry" (click)="updateEntries()">
@@ -40,27 +42,33 @@
             {{ "knowledge.update_knowledge" | translate }}
         </button>
     </mat-toolbar-row>
-    <mat-toolbar-row *ngIf="showModal">
-        <app-modal (clickOnClose)="showModal = false">
-            <b style="color: red"> Error with database updates : malformed file !</b>
-        </app-modal>
-    </mat-toolbar-row>
+    @if(showModal){
+        <mat-toolbar-row>
+            <app-modal (clickOnClose)="showModal = false">
+                <b style="color: red"> Error with database updates : malformed file !</b>
+            </app-modal>
+        </mat-toolbar-row>
+    }
+
 </mat-toolbar>
 
 <div class="container base-mainContainerBlock base-knowledges_base">
-    <div *ngIf="updateKnowledges.length >0" class="row">
-        <div class="small-9 medium-9 columns">
-            <app-compare 
-            [knowledgesService]="KnowledgesService" 
-            [base]="base"
-            [updateKnowledges]="updateKnowledges"
-            (closeEvent)="updateKnowledges = []"
-            (refreshEvent)="refresh()"
-            (deleteEvent)="delete(cookieKnowledges[$event].id)"
-            >
-        </app-compare>
+    @if(updateKnowledges.length >0){
+        <div class="row">
+            <div class="small-9 medium-9 columns">
+                <app-compare 
+                [knowledgesService]="KnowledgesService" 
+                [base]="base"
+                [updateKnowledges]="updateKnowledges"
+                (closeEvent)="updateKnowledges = []"
+                (refreshEvent)="refresh()"
+                (deleteEvent)="delete(cookieKnowledges[$event].id)"
+                >
+            </app-compare>
+            </div>
         </div>
-    </div>
+    }
+
 
     <div class="row">
         <div class="small-9 medium-9 columns">

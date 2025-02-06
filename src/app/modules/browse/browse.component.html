@@ -1,4 +1,3 @@
-
 <mat-toolbar>
     <mat-toolbar-row class="navigation-header">
         <li class="breadcrumb-item">
@@ -11,12 +10,18 @@
         <li class="breadcrumb-item">
             {{ 'menu.browse' | translate }}
         </li>
-        <li *ngIf="analysis " class="breadcrumb-item">
-                {{ analysis.name }}
+        @if(analysis){
+        <li class="breadcrumb-item">
+            {{ analysis.name }}
         </li>
-        <li *ngIf="tag" class="breadcrumb-item">
+        }
+
+        @if(tag){
+        <li class="breadcrumb-item">
             {{ tag.name }}
         </li>
+        }
+
         <!--
         <span class="header-spacer"></span>
         <strong>
@@ -25,32 +30,26 @@
         <mat-icon aria-hidden="false" aria-label="Example languageicon">language</mat-icon> -->
     </mat-toolbar-row>
 </mat-toolbar>
-<app-toolbar  #navToolbar
-[analysis]="analysis" 
-[tag]="tag"
-(play)="play()" 
-(pause)="pause()"
-(screenshot)="screenshot()" 
-(erase)="erase()" 
-(save)="save()" 
-(toggleLog)="toggleLog($event)"
-(devTool)="devTool()"
-></app-toolbar>
+<app-toolbar #navToolbar [analysis]="analysis" [tag]="tag" (play)="play()" (pause)="pause()" (screenshot)="screenshot()"
+    (erase)="erase()" (save)="save()" (toggleLog)="toggleLog($event)" (devTool)="devTool()"></app-toolbar>
 <div class="example-container">
-	<as-split [useTransition]="false" (dragEnd)="dragEnd()" [gutterSize]="10">
-		<as-split-area #content [size]="40" [order]="1"  [visible]="true">
+    <as-split [useTransition]="false" (dragEnd)="dragEnd()" [gutterSize]="10">
+        <as-split-area #content [size]="40" [order]="1" [visible]="true">
 
-    
+
             <div class="browse_content" #content></div>
-		</as-split-area>
-		<as-split-area #logNav [size]="30" [order]="3" [visible]="logVisible">
-    
-                <mat-accordion class="example-headers-align">
-                    <app-cards [context]="'view'" [analysis]="analysis" [tag]="tag" [card]="card" *ngFor="let card of cards">
-                    </app-cards>
-                </mat-accordion>
-            
+        </as-split-area>
+        <as-split-area #logNav [size]="30" [order]="3" [visible]="logVisible">
 
-		</as-split-area>
-	</as-split>
+            <mat-accordion class="example-headers-align">
+                @for(card of cards; track card.name){
+                <app-cards [context]="'view'" [analysis]="analysis" [tag]="tag" [card]="card">
+                </app-cards>
+                }
+
+            </mat-accordion>
+
+
+        </as-split-area>
+    </as-split>
 </div>
