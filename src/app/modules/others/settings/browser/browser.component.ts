@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-browser',
     templateUrl: './browser.component.html',
     styleUrls: ['./browser.component.scss'],
-    imports: [MatSlideToggle, FormsModule, NgIf, MatFormField, MatLabel, MatInput, TranslateModule]
+    imports: [MatSlideToggle, FormsModule, MatFormField, MatLabel, MatInput, TranslateModule]
 })
 export class BrowserComponent {
   localStorage:any=null;

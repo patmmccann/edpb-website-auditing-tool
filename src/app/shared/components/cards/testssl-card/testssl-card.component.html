@@ -1,104 +1,135 @@
-<ng-container *ngIf="card.launched">
+@if(card.launched){
   <i> Processing... this may take a while.</i>
   <mat-spinner></mat-spinner>
-</ng-container>
+}
 
-<ng-container *ngIf="card.testSSLError || card.testSSLErrorOutput">
+@if(card.testSSLError || card.testSSLErrorOutput){
   <i> Test ssl error : {{card.testSSLError}}</i><br>
   Output error : {{card.testSSLErrorOutput}}
-</ng-container>
+}
 
-<ng-container *ngIf="!card.testSSLError && !card.testSSLErrorOutput && !card.launched && card.vulnerabilities.length == 0 && card.protocols.length == 0 else showCard">
+@if(!card.testSSLError && !card.testSSLErrorOutput && !card.launched && card.vulnerabilities.length == 0 && card.protocols.length == 0){
   <i> Test_ssl.sh has not been launched.</i>
-</ng-container>
-
-<ng-template #showCard>
-  <ng-container *ngIf="card.protocols.length > 0">
-    <h2> Protocols </h2>
-    <table matSort (matSortChange)="sortProtocolsData($event)" style="width: 100%">
-      <colgroup>
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 20%;text-align:center;">
-        <col *ngIf="context=='evaluate'" span="1" style="width: 20%;">
-      </colgroup>
-      <thead>
-        <tr>
-          <th mat-sort-header="id">Protocol</th>
-          <th mat-sort-header="finding">Finding</th>
-          <th mat-sort-header="severity">Severity</th>
-          <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">Evaluation</th>
-        </tr>
-      </thead>
-      <tbody #tableContent>
-        <tr *ngFor="let line of card.protocols; index as idx">
-          <td class="truncate">{{line.id}}</td>
-          <td class="truncate">{{line.finding}}</td>
-          <td class="truncate">{{line.severity}}</td>
-          <td *ngIf="context=='evaluate'">
-            <button (click)="setEvaluation(line, 'compliant')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='compliant'}" style="color: green;">done
-              </mat-icon>
-            </button>
-            <button (click)="setEvaluation(line, 'not_compliant')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='not_compliant'}" style="color: red;">close
-              </mat-icon>
-            </button>
-            <button (click)="setEvaluation(line, 'TBD')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='TBD'}" style="color: #004494;">search</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </ng-container>
-  <ng-container *ngIf="card.vulnerabilities.length > 0">
-    <h2> Vulnerabilites </h2>
-
-    <table matSort (matSortChange)="sortVulnerabilitiesData($event)" style="width: 100%">
-      <colgroup>
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 20%">
-        <col span="1" style="width: 10%;text-align:center;">
-        <col *ngIf="context=='evaluate'" span="1" style="width: 20%;">
-      </colgroup>
-      <thead>
-        <tr>
-          <th mat-sort-header="id">Vulnerability</th>
-          <th mat-sort-header="finding">Finding</th>
-          <th mat-sort-header="severity">Severity</th>
-          <th mat-sort-header="cve">CVE</th>
-          <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">Evaluation</th>
-        </tr>
-      </thead>
-      <tbody #tableContent>
-        <tr *ngFor="let line of card.vulnerabilities index as idx">
-          <td class="truncate">{{line.id}}</td>
-          <td class="truncate">{{line.finding}}</td>
-          <td class="truncate">{{line.severity}}</td>
-          <td class="truncate">
-            <a target="_blank" href="{{'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+line.cve}}">
-              {{line.cve}}
-            </a>
-          </td>
-          <td *ngIf="context=='evaluate'">
-            <button (click)="setEvaluation(line, 'compliant')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='compliant'}" style="color: green;">done
-              </mat-icon>
-            </button>
-            <button (click)="setEvaluation(line, 'not_compliant')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='not_compliant'}" style="color: red;">close
-              </mat-icon>
-            </button>
-            <button (click)="setEvaluation(line, 'TBD')">
-              <mat-icon [ngClass]="{'eval_not_selected' : line.status!='TBD'}" style="color: #004494;">search</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-  </ng-container>
-</ng-template>
+}@else {
+  @if(card.protocols.length > 0){
+      <h2> Protocols </h2>
+      <table matSort (matSortChange)="sortProtocolsData($event)" style="width: 100%">
+        <colgroup>
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 20%;text-align:center;">
+          @if(context=='evaluate'){
+            <col span="1" style="width: 20%;">
+          }
+        </colgroup>
+        <thead>
+          <tr>
+            <th mat-sort-header="id">Protocol</th>
+            <th mat-sort-header="finding">Finding</th>
+            <th mat-sort-header="severity">Severity</th>
+            @if(context=='evaluate'){
+              <th mat-sort-header="evaluation">Evaluation</th>
+            }
+          </tr>
+        </thead>
+        <tbody #tableContent>
+          @for(line of card.protocols; track line.id; let idx = $index){
+            <tr>
+              <td class="truncate">{{line.id}}</td>
+              <td class="truncate">{{line.finding}}</td>
+              <td class="truncate">{{line.severity}}</td>
+              @if(context=='evaluate'){
+                <td>
+                  <button (click)="setEvaluation(line, 'compliant')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='compliant'"
+                    style="color: green;">done
+                    </mat-icon>
+                  </button>
+                  <button (click)="setEvaluation(line, 'not_compliant')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='not_compliant'"
+                    style="color: red;">close
+                    </mat-icon>
+                  </button>
+                  <button (click)="setEvaluation(line, 'TBD')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='TBD'"
+                    style="color: #004494;">search</mat-icon>
+                  </button>
+                </td>
+              }
+            </tr>
+          }
+          
+        </tbody>
+  
+      </table>
+  }
+   
+  @if(card.vulnerabilities.length > 0){
+      <h2> Vulnerabilites </h2>
+  
+      <table matSort (matSortChange)="sortVulnerabilitiesData($event)" style="width: 100%">
+        <colgroup>
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 20%">
+          <col span="1" style="width: 10%;text-align:center;">
+          @if(context=='evaluate'){
+            <col span="1" style="width: 20%;">
+          }
+        </colgroup>
+        <thead>
+          <tr>
+            <th mat-sort-header="id">Vulnerability</th>
+            <th mat-sort-header="finding">Finding</th>
+            <th mat-sort-header="severity">Severity</th>
+            <th mat-sort-header="cve">CVE</th>
+            @if(context=='evaluate'){
+              <th mat-sort-header="evaluation">Evaluation</th>
+            }
+          </tr>
+        </thead>
+        <tbody #tableContent>
+          @for(line of card.vulnerabilities; track line.id;let idx = $index){
+            <tr>
+              <td class="truncate">{{line.id}}</td>
+              <td class="truncate">{{line.finding}}</td>
+              <td class="truncate">{{line.severity}}</td>
+              <td class="truncate">
+                <a target="_blank" href="{{'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+line.cve}}">
+                  {{line.cve}}
+                </a>
+              </td>
+              @if(context=='evaluate'){
+                <td>
+                  <button (click)="setEvaluation(line, 'compliant')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='compliant'"
+                    style="color: green;">done
+                    </mat-icon>
+                  </button>
+                  <button (click)="setEvaluation(line, 'not_compliant')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='not_compliant'"
+                     style="color: red;">close
+                    </mat-icon>
+                  </button>
+                  <button (click)="setEvaluation(line, 'TBD')">
+                    <mat-icon 
+                    [class.eval_not_selected]="line.status!='TBD'"
+                    style="color: #004494;">search</mat-icon>
+                  </button>
+                </td>
+              }
+              
+            </tr>
+          }
+          
+        </tbody>
+  
+      </table>
+  }
+    
+}

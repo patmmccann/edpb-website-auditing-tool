@@ -27,8 +27,9 @@ export class BrowserSession {
             }
         });
 
-
         this.applySettings(settings);
+        
+        mainWindow.contentView.addChildView(this._view);
 
         this.view.webContents.on('did-start-loading', () => {
             this._mainWindow.webContents.send('browser-event', 'did-start-loading', this._session_name);
@@ -121,6 +122,7 @@ export class BrowserSession {
     }
 
     delete() {
+        this.mainWindow.contentView.removeChildView(this.view);
         this.collector.end();
         (this.contents as any).destroy();
     }
@@ -299,5 +301,13 @@ export class BrowserSession {
 
     get mainWindow() {
         return this._mainWindow;
+    }
+
+    hide(){
+        this.view.setVisible(false);
+    }
+
+    show(){
+        this.view.setVisible(true);
     }
 }

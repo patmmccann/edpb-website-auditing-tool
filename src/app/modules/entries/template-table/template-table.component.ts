@@ -4,19 +4,16 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
-import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
-import { NgFor, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-template-table',
     templateUrl: './template-table.component.html',
     styleUrls: ['./template-table.component.scss'],
-    imports: [MatSort, MatSortHeader, NgFor, NgIf, TranslateModule]
+    imports: [MatSort, MatSortHeader, TranslateModule]
 })
 export class TemplateTableComponent implements OnInit {
 

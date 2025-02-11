@@ -4,7 +4,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { RequestTrackingEvent, RequestTrackingLog } from 'src/app/models/cards/request-tracking-log.model';
 import { MatIconButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 interface LogNode {
@@ -31,7 +30,7 @@ interface FlatNode {
     selector: 'app-request-tracking-details',
     templateUrl: './request-tracking-details.component.html',
     styleUrls: ['./request-tracking-details.component.scss'],
-    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, NgIf, MatTreeNodeToggle, MatIconModule, TranslateModule]
+    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, MatTreeNodeToggle, MatIconModule, TranslateModule]
 })
 export class RequestTrackingDetailsComponent implements OnInit , OnChanges {
   @Input() log : RequestTrackingLog | undefined;

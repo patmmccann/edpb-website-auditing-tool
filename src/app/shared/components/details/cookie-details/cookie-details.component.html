@@ -1,87 +1,89 @@
-<div *ngIf="line">
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    {{ "knowledge.name" | translate }}
-                </td>
-                <td class="truncate">
-                    {{line.name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{ "knowledge.value" | translate }}
-                </td>
-                <td class="truncate">
-                    {{line.value}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{ "knowledge.domain" | translate }}
-                </td>
-                <td class="truncate">
-                    {{line.domain}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    path
-                </td>
-                <td>
-                    {{line.path}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    httpOnly
-                </td>
-                <td>
-                    {{line.httpOnly}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    secure
-                </td>
-                <td>
-                    {{line.secure}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    session
-                </td>
-                <td>
-                    {{line.session}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    sameSite
-                </td>
-                <td>
-                    {{line.sameSite}}
-                </td>
-            </tr>
-            <tr>
-                <td class="truncate">
-                    expires (days)
-                </td>
-                <td>
-                    {{line.expiresDays}}
-                </td>
-            </tr>
-            <tr>
-                <td class="truncate">
-                    expires (UTC)
-                </td>
-                <td>
-                    {{line.expiresUTC}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-</div>
+@if(line){
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        {{ "knowledge.name" | translate }}
+                    </td>
+                    <td class="truncate">
+                        {{line.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ "knowledge.value" | translate }}
+                    </td>
+                    <td class="truncate">
+                        {{line.value}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ "knowledge.domain" | translate }}
+                    </td>
+                    <td class="truncate">
+                        {{line.domain}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        path
+                    </td>
+                    <td>
+                        {{line.path}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        httpOnly
+                    </td>
+                    <td>
+                        {{line.httpOnly}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        secure
+                    </td>
+                    <td>
+                        {{line.secure}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        session
+                    </td>
+                    <td>
+                        {{line.session}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        sameSite
+                    </td>
+                    <td>
+                        {{line.sameSite}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="truncate">
+                        expires (days)
+                    </td>
+                    <td>
+                        {{line.expiresDays}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="truncate">
+                        expires (UTC)
+                    </td>
+                    <td>
+                        {{line.expiresUTC}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+}

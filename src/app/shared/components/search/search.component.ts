@@ -13,7 +13,6 @@ import { CardService } from 'src/app/services/card.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
-import { NgIf, NgFor } from '@angular/common';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatIconButton, MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -29,7 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     providers: [FilterForStatus, FilterForCookie, FilterForLocalStorage, FilterForBeacon, FilterForCookieKnowledge],
-    imports: [MatButtonToggleGroup, MatButtonToggle, MatIconModule, NgIf, MatToolbar, MatToolbarRow, MatIconButton, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSuffix, MatSelect, NgFor, MatOption, MatTooltipModule, MatButtonModule, TranslateModule]
+    imports: [MatButtonToggleGroup, MatButtonToggle, MatIconModule, MatToolbar, MatToolbarRow, MatIconButton, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSuffix, MatSelect, MatOption, MatTooltipModule, MatButtonModule, TranslateModule]
 })
 export class SearchComponent {
 

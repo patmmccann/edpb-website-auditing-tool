@@ -1,28 +1,35 @@
 <mat-tree #treeLogCall [dataSource]="dataSourceValue" [treeControl]="treeControl">
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <button mat-icon-button disabled></button>
-        <div *ngIf="event">
-            <table>
-                <tbody>
-                    <tr *ngIf="event.listName != undefined">
-                        <td>
-                            {{ "menu.list" | translate }}
-                        </td>
-                        <td class="truncate">
-                            {{event.listName}}
-                        </td>
-                    </tr>
-                    <tr *ngIf="event.filter != undefined">
-                        <td>
-                            {{ "entries.list.filters" | translate }}
-                        </td>
-                        <td class="truncate">
-                            {{event.filter}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        @if(event){
+            <div>
+                <table>
+                    <tbody>
+                        @if(event.listName != undefined){
+                            <tr>
+                                <td>
+                                    {{ "menu.list" | translate }}
+                                </td>
+                                <td class="truncate">
+                                    {{event.listName}}
+                                </td>
+                            </tr>
+                        }
+                        @if(event.filter != undefined){
+                            <tr>
+                                <td>
+                                    {{ "entries.list.filters" | translate }}
+                                </td>
+                                <td class="truncate">
+                                    {{event.filter}}
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>

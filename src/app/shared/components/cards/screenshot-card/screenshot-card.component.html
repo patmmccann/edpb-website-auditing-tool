@@ -1,4 +1,5 @@
-<mat-form-field *ngIf="context == 'view'">
+@if(context == 'view'){
+  <mat-form-field>
     <mat-label>{{ "cards.screenshot.option" | translate }}</mat-label>
     <mat-select 
     [(value)]="screenshot_option"
@@ -10,5 +11,12 @@
       <mat-option value="fullpage_from_url">{{ "cards.screenshot.fullpage_from_url" | translate }}</mat-option>
     </mat-select>
 </mat-form-field>
-<img *ngIf="!loading" [src]="screenshotCard.image|safeIMG"  style="width:100.0%">
-<app-loading-overlay *ngIf="loading" [visibility]="true" [childMode]="true"></app-loading-overlay>
+}
+
+
+@if(loading){
+  <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
+}@else {
+  <img [src]="screenshotCard.image|safeIMG"  style="width:100.0%">
+}
+

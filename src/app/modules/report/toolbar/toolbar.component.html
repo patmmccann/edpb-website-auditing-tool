@@ -1,10 +1,16 @@
-<app-docx
-*ngIf="saveOption == 'docx'"
-[editing]="editing"
-[pug]="pug"
-></app-docx>
-<app-pdf
-*ngIf="saveOption == 'pdf'"
-[editing]="editing"
-[pug]="pug"
-></app-pdf>
+@switch (saveOption) {
+    @case ('docx') {
+        <app-docx
+        [editing]="editing"
+        [pug]="pug"
+        ></app-docx>
+    }
+    @case ('pdf') {
+        <app-pdf
+        [editing]="editing"
+        [pug]="pug"
+        ></app-pdf>
+    }
+}
+
+

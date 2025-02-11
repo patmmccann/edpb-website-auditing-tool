@@ -12,19 +12,22 @@
     <div class="card-evaluationBlock-buttons">
       <button 
       class="btn btn-green" aria-hidden="true"
-        [ngClass]="{ 'btn-active': evaluation.status === 'compliant' }" (click)="selectedButton($event, 'compliant')" name="compliant"
+      [class.btn-active]="evaluation.status === 'compliant'"
+        (click)="selectedButton($event, 'compliant')" name="compliant"
         type="submit">
         <mat-icon class="evaluation-icon">done</mat-icon>
         {{ "analyses.evaluation.compliant" | translate }}
       </button>
       <button class="btn btn-red"  aria-hidden="true"
-        [ngClass]="{ 'btn-active': evaluation.status === 'not_compliant' }" (click)="selectedButton($event, 'not_compliant')" name="fix"
+      [class.btn-active]="evaluation.status === 'not_compliant'"
+        (click)="selectedButton($event, 'not_compliant')" name="fix"
         type="submit">
         <mat-icon class="evaluation-icon">close</mat-icon>
         {{ "analyses.evaluation.not_compliant" | translate }}
       </button>
       <button class="btn-blue"  aria-hidden="true"
-        [ngClass]="{ 'btn-active': evaluation.status === 'TBD' }" (click)="selectedButton($event, 'TBD')" name="tdb"
+      [class.btn-active]="evaluation.status === 'TBD'"
+        (click)="selectedButton($event, 'TBD')" name="tdb"
         type="submit">
         <mat-icon class="evaluation-icon">search</mat-icon>
         {{ "analyses.evaluation.TBD" | translate }}
@@ -33,7 +36,7 @@
 
     <div 
     class="card-evaluationBlock-question-{{ cardId }} fadeIn" 
-    [ngClass]="{ hide: evaluation.status == 'pending' }"
+    [class.hide]="evaluation.status == 'pending'"
     >
   
       <mat-form-field >
@@ -41,10 +44,8 @@
       matInput
       (keyup)="autoTextareaResize($event)" id="{{ evaluationCommentElementId }}" rows="8" cols="50"
         formControlName="evaluationComment" name="card-evaluation-comment" (focusin)="evaluationCommentFocusIn()"
-        [ngClass]="{
-        hide:
-          (!editorEvaluationComment )
-      }" [attr.placeholder]="comment_placeholder"></textarea>
+        [class.hide]="(!editorEvaluationComment )"
+        [attr.placeholder]="comment_placeholder"></textarea>
       <br>
       <div
       (click)="evaluationCommentFocusIn()"
@@ -52,23 +53,23 @@
       [innerHTML]="
         evaluationForm.controls['evaluationComment'].value | safeHtml
       "
-      [ngClass]="{
-        hide:
-          editorEvaluationComment ||
-          !evaluationForm.controls['evaluationComment'].value
-      }"
+      [class.hide]="editorEvaluationComment ||
+          !evaluationForm.controls['evaluationComment'].value"
     ></div>
     <div class="commentsBlock-btn">
-      <button *ngIf="this.editorEvaluationComment" (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> {{ 'analyses.evaluation.close_edition' | translate }}</button>  
-      <button *ngIf="!this.editorEvaluationComment"  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon>
-        <ng-container *ngIf="evaluationForm.controls['evaluationComment'].value && evaluationForm.controls['evaluationComment'].value.length >0 else write_comment">
-          {{ 'analyses.evaluation.edit_comment' | translate }}
-        </ng-container>
-        <ng-template #write_comment>
-          {{ 'analyses.evaluation.write_comment' | translate }}
-        </ng-template>
+      @if(this.editorEvaluationComment){
+        <button (click)="onNoClick()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="close comment">close</mat-icon> {{ 'analyses.evaluation.close_edition' | translate }}</button>  
+      }@else {
+        <button  (click)="evaluationCommentFocusIn()" mat-raised-button color="blue"> <mat-icon aria-hidden="false" aria-label="edit comment">edit</mat-icon>
+          @if(evaluationForm.controls['evaluationComment'].value && evaluationForm.controls['evaluationComment'].value.length >0){
+            {{ 'analyses.evaluation.edit_comment' | translate }}
+          }@else {
+            {{ 'analyses.evaluation.write_comment' | translate }}
+          }        
+        </button>
+      }
       
-      </button>
+      
     </div>
         </mat-form-field>
         <mat-label class="evaluationlabel"> <i>Evaluation on {{

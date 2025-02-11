@@ -9,7 +9,6 @@ import { DetailsService } from 'src/app/services/details.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
-import { NgIf } from '@angular/common';
 import { DetailsComponent } from '../../../shared/components/details/details.component';
 import { CallstackDetailsComponent } from '../../../shared/components/details/callstack-details/callstack-details.component';
 import { KnowledgeBaseComponent } from '../../../shared/components/knowledge-base/knowledge-base.component';
@@ -22,7 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     selector: 'app-log-details',
     templateUrl: './log-details.component.html',
     styleUrls: ['./log-details.component.scss'],
-    imports: [MatTabGroup, NgIf, MatTab, MatTabLabel, MatIconModule, MatTooltipModule, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, MatButtonModule, TranslateModule]
+    imports: [MatTabGroup, MatTab, MatTabLabel, MatIconModule, MatTooltipModule, DetailsComponent, CallstackDetailsComponent, KnowledgeBaseComponent, MatButtonModule, TranslateModule]
 })
 export class LogDetailsComponent implements OnInit, OnDestroy {
 

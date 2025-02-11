@@ -5,19 +5,27 @@
                 {{analysis.name}}
             </a>
         </h2>
-        <mat-chip-listbox *ngIf="analysis_evaluation" [ngSwitch]="analysis_evaluation.status">
-            <ng-container *ngSwitchCase="'compliant'">
-                <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{ 'analyses.evaluation.compliant' | translate }} </a></mat-chip>
-            </ng-container>
-            <ng-container *ngSwitchCase="'not_compliant'">
-                <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">{{ "analyses.evaluation.not_compliant" | translate }}</a></mat-chip>
-            </ng-container>
-            <ng-container *ngSwitchCase="'TBD'">
-                <mat-chip>
-                    <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.TBD" | translate }}</a>
-                </mat-chip>
-            </ng-container>
+        @if(analysis_evaluation){
+        <mat-chip-listbox>
+            @switch (analysis_evaluation.status) {
+            @case ('compliant') {
+            <mat-chip><a [routerLink]="['/analysis', analysis.id]" style="color: green;"> {{
+                    'analyses.evaluation.compliant' | translate }} </a></mat-chip>
+            }
+            @case ('not_compliant') {
+            <mat-chip> <a [routerLink]="['/analysis', analysis.id]" style="color: red;">{{
+                    "analyses.evaluation.not_compliant" | translate }}</a></mat-chip>
+            }
+            @case ('TBD') {
+            <mat-chip>
+                <a [routerLink]="['/analysis', analysis.id]" style="color: #004494;">{{ "analyses.evaluation.TBD" |
+                    translate }}</a>
+            </mat-chip>
+            }
+            }
         </mat-chip-listbox>
+        }
+
         <span class="button-spacer"></span>
         <button mat-button [routerLink]="['/analysis', analysis.id]">
             <mat-icon class="action-icon" aria-hidden="false" aria-label="view icon">remove_red_eye</mat-icon>
@@ -30,32 +38,33 @@
         </button>
     </mat-toolbar-row>
     <mat-toolbar-row class="header-desc">
-        <ng-container *ngFor="let tag of tags;let i = index">
-            <ng-container *ngIf="tags_evaluation[i] else no_evaluation" [ngSwitch]="tags_evaluation[i]?.status">
-                <ng-container *ngSwitchCase="'compliant'">
-                    <mat-chip>
-                        <a style="color: green;"
-                            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
-                    </mat-chip>
-                </ng-container>
-                <ng-container *ngSwitchCase="'not_compliant'">
-                    <mat-chip>
-                        <a style="color: red;" [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
-                    </mat-chip>
-                </ng-container>
-                <ng-container *ngSwitchCase="'TBD'">
-                    <mat-chip>
-                        <a style="color: #004494;"
-                            [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
-                    </mat-chip>
-                </ng-container>
-            </ng-container>
-            <ng-template #no_evaluation>
+        @for(tag of tags; track tag.id; let i = $index){
+            @if(tags_evaluation[i]){
+                @switch (tags_evaluation[i]?.status) {
+                    @case ('compliant') {
+                        <mat-chip>
+                            <a style="color: green;"
+                                [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                        </mat-chip>
+                    }
+                    @case ('not_compliant') {
+                        <mat-chip>
+                            <a style="color: red;" [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                        </mat-chip>
+                    }
+                    @case ('TBD') {
+                        <mat-chip>
+                            <a style="color: #004494;"
+                                [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
+                        </mat-chip>
+                    }
+                }
+            }@else {
                 <mat-chip>
                     <a [routerLink]="['/analysis', analysis.id, 'tag', tag.id]">{{tag.name}}</a>
                 </mat-chip>
-            </ng-template>
-        </ng-container>
+            }
+        }
     </mat-toolbar-row>
     <mat-toolbar-row class="header-desc">
         <mat-icon>link</mat-icon>

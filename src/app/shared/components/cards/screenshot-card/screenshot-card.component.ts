@@ -10,7 +10,6 @@ import { ScreenshotCard } from 'src/app/models/cards/screenshot-card.model';
 import { Tag } from 'src/app/models/tag.model';
 import { BrowserService, ScreenshotOptions } from 'src/app/services/browser.service';
 import { TagService } from 'src/app/services/tag.service';
-import { NgIf } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -22,7 +21,7 @@ import { SafeImgPipe } from '../../../../pipes/tools.pipe';
     selector: 'app-screenshot-card',
     templateUrl: './screenshot-card.component.html',
     styleUrls: ['./screenshot-card.component.scss'],
-    imports: [NgIf, MatFormField, MatLabel, MatSelect, MatOption, LoadingOverlayComponent, TranslateModule, SafeImgPipe]
+    imports: [MatFormField, MatLabel, MatSelect, MatOption, LoadingOverlayComponent, TranslateModule, SafeImgPipe]
 })
 export class ScreenshotCardComponent implements OnInit {
   screenshotCard: ScreenshotCard = new ScreenshotCard("");

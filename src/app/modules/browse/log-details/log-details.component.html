@@ -1,49 +1,56 @@
 <mat-tab-group dynamicHeight animationDuration="0ms">
-  <mat-tab *ngIf="detailsService.detailsData">
+  @if(detailsService.detailsData){
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{ "browse.log_details.details" | translate }}
+        @if(settingService.settings.help){
+          <mat-icon
+          matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
+          [matTooltipPosition]="'after'"
+          >help_outline</mat-icon>
+        }
+      </ng-template>
+      <app-details
+      [detailsData]= "detailsService.detailsData"
+      ></app-details>
+    </mat-tab>
+
+    @if(detailsService.detailsData.log){
+      <mat-tab>
+        <ng-template mat-tab-label>
+          {{ 'browse.log_details.logs' | translate }}
+          @if(settingService.settings.help){
+            <mat-icon
+            matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
+            [matTooltipPosition]="'after'"
+            >help_outline</mat-icon>
+          }   
+        </ng-template>
+    
+        <app-callstack-details [log]="detailsService.detailsData.log">
+        </app-callstack-details>
+      </mat-tab>
+    }
+  }
+
+  @if(knowledgeBaseService.knowledgeBaseData != null){
+    <mat-tab>
     <ng-template mat-tab-label>
-      {{ "browse.log_details.details" | translate }}
-      <ng-container *ngIf="settingService.settings.help">
+      {{ 'menu.knowledge' | translate }}
+      @if(settingService.settings.help){
         <mat-icon
-        matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
+        matTooltip="{{ 'browse.log_details.knowledge_tooltip' | translate }}"
         [matTooltipPosition]="'after'"
         >help_outline</mat-icon>
-      </ng-container>
+      }
     </ng-template>
-    <app-details
-    [detailsData]= "detailsService.detailsData"
-    ></app-details>
-  </mat-tab>
-  <mat-tab *ngIf="detailsService.detailsData && detailsService.detailsData.log">
-    <ng-template mat-tab-label>
-      {{ 'browse.log_details.logs' | translate }}
-      <ng-container *ngIf="settingService.settings.help">
-        <mat-icon
-        matTooltip="{{ 'browse.log_details.logs_tooltip' | translate }}"
-        [matTooltipPosition]="'after'"
-        >help_outline</mat-icon>
-      </ng-container>
+  
+    <app-knowledge-base
+    [context]="'browser'"
+    ></app-knowledge-base>
+    </mat-tab>
+  }
 
-    </ng-template>
-
-    <app-callstack-details [log]="detailsService.detailsData.log">
-    </app-callstack-details>
-  </mat-tab>
-  <mat-tab 
-  *ngIf="knowledgeBaseService.knowledgeBaseData != null">
-  <ng-template mat-tab-label>
-    {{ 'menu.knowledge' | translate }}
-    <ng-container *ngIf="settingService.settings.help">
-      <mat-icon
-      matTooltip="{{ 'browse.log_details.knowledge_tooltip' | translate }}"
-      [matTooltipPosition]="'after'"
-      >help_outline</mat-icon>
-    </ng-container>
-  </ng-template>
-
-  <app-knowledge-base
-  [context]="'browser'"
-  ></app-knowledge-base>
-  </mat-tab>
 </mat-tab-group>
 
 <button mat-raised-button color="primary" class="btn btn-block" (click)="closeBottomSheet()">Close details

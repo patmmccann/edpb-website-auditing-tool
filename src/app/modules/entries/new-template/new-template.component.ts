@@ -7,7 +7,6 @@ import { Component, Inject,ElementRef } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { TemplateType } from 'src/app/models/template.model';
-import { NgIf } from '@angular/common';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -26,7 +25,7 @@ export interface TemplateData {
     selector: 'app-new-template',
     templateUrl: './new-template.component.html',
     styleUrls: ['./new-template.component.scss'],
-    imports: [NgIf, MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatButtonModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, TranslateModule]
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatFormField, MatLabel, MatInput, FormsModule, MatButtonModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, TranslateModule]
 })
 export class NewTemplateComponent {
 

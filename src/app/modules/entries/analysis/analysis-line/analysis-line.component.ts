@@ -11,7 +11,7 @@ import { Evaluation } from 'src/app/models/evaluation.model';
 import { BrowserService } from 'src/app/services/browser.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgSwitch, NgSwitchCase, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatChipListbox, MatChip } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-analysis-line',
     templateUrl: './analysis-line.component.html',
     styleUrls: ['./analysis-line.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatChipListbox, NgSwitch, NgSwitchCase, MatChip, MatButtonModule, MatIconModule, NgFor, DatePipe, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink, MatChipListbox, MatChip, MatButtonModule, MatIconModule, DatePipe, TranslateModule]
 })
 export class AnalysisLineComponent implements OnInit {
   @Input() analysis: Analysis = new Analysis();

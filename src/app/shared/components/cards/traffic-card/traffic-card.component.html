@@ -1,5 +1,5 @@
-<ng-container *ngIf="card.requests['thirdParty']">
-    <h2>{{ "cards.traffic.resquested_hosts" | translate }} ({{card.requests['thirdParty'].length}})</h2>
+@if(card.requests['thirdParty']){
+  <h2>{{ "cards.traffic.resquested_hosts" | translate }} ({{card.requests['thirdParty'].length}})</h2>
 <table  matSort (matSortChange)="sortData($event)" style="width: 100%">
     <colgroup>
       <col span="1" style="width: 100%;">
@@ -16,4 +16,4 @@
     </tbody>
   
   </table>
-</ng-container>
+}

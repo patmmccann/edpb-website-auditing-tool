@@ -6,11 +6,14 @@
         <mat-form-field appearance="fill">
             <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
             <input matInput [(ngModel)]="searchTerm" />
-            <mat-icon *ngIf="!searchTerm" matSuffix>search</mat-icon>
-            <mat-icon 
-            *ngIf="searchTerm && searchTerm.length>0" 
-            (click)="onCleanSearch()"
-            matSuffix>close</mat-icon>
+            @if(!searchTerm){
+                <mat-icon matSuffix>search</mat-icon>
+            }@else if(searchTerm.length>0){
+                <mat-icon 
+                (click)="onCleanSearch()"
+                matSuffix>close</mat-icon>
+            }
+
         </mat-form-field>
         <mat-list>
             <mat-divider></mat-divider>

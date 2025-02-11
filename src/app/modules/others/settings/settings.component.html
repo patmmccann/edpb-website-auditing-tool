@@ -18,28 +18,45 @@
                 <div class="option-text">
                 </div>
                 <button mat-button (click)="option='general'">General</button>
-                <mat-icon *ngIf="option == 'general'" >chevron_right</mat-icon>
+                @if(option == 'general'){
+                    <mat-icon>chevron_right</mat-icon>
+                }
             </div>
-            <div *ngIf="browserService.use_electron" title="Browser" class="sc-19uuyq5 option-item">
-                <div class="option-text">
+            @if(browserService.use_electron){
+                <div title="Browser" class="sc-19uuyq5 option-item">
+                    <div class="option-text">
+                    </div>
+                    <button mat-button  (click)="option='browser'">{{ 'menu.browser' | translate }}
+                    </button>
+                    @if(option == 'browser'){
+                        <mat-icon >chevron_right</mat-icon>
+                    }
                 </div>
-                <button mat-button  (click)="option='browser'">{{ 'menu.browser' | translate }}
-                </button>
-                <mat-icon *ngIf="option == 'browser'" >chevron_right</mat-icon>
-            </div>
-            <div *ngIf="browserService.use_electron" title="Analysis" class="sc-19uuyq5 option-item">
-                <div class="option-text">
+                <div title="Analysis" class="sc-19uuyq5 option-item">
+                    <div class="option-text">
+                    </div>
+                    <button mat-button (click)="option='analysis'">{{ 'menu.analysis' | translate }}
+                    </button>
+                    @if(option == 'analysis'){
+                        <mat-icon>chevron_right</mat-icon>
+                    }
                 </div>
-                <button mat-button (click)="option='analysis'">{{ 'menu.analysis' | translate }}
-                </button>
-                <mat-icon *ngIf="option == 'analysis'" >chevron_right</mat-icon>
-            </div>
+            }
+            
         </div>
     </div>
 
     <div class="content">
-        <app-analysis *ngIf="option == 'analysis'"></app-analysis>
-        <app-browser *ngIf="option == 'browser'"></app-browser>
-        <app-general *ngIf="option == 'general'"></app-general>
+        @switch (option) {
+            @case ('analysis') {
+                <app-analysis></app-analysis>
+            }
+            @case ('browser') {
+                <app-browser></app-browser>
+            }
+            @case ('general') {
+                <app-general></app-general>
+            }
+        }
     </div>
 </div>

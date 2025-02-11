@@ -3,8 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route} from '@angular/router';
 import { BrowseComponent } from './browse.component';
 
 
@@ -15,6 +14,7 @@ export const browseRoutes: Route[] = [
   },
   {
     path: ':id/tag/:tag_id',
-    component: BrowseComponent
+    component: BrowseComponent,
+    runGuardsAndResolvers: 'paramsChange'
   }
 ];

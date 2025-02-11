@@ -8,7 +8,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { BrowserService } from 'src/app/services/browser.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { NgIf, NgFor } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -22,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-analysis',
     templateUrl: './analysis.component.html',
     styleUrls: ['./analysis.component.scss'],
-    imports: [MatSlideToggle, FormsModule, NgIf, MatFormField, MatSelect, MatOption, MatLabel, MatInput, MatIconModule, ReactiveFormsModule, MatButtonModule, ModalComponent, NgFor, TranslateModule]
+    imports: [MatSlideToggle, FormsModule, MatFormField, MatSelect, MatOption, MatLabel, MatInput, MatIconModule, ReactiveFormsModule, MatButtonModule, ModalComponent, TranslateModule]
 })
 export class AnalysisComponent {
   localStorage:any=null;

@@ -1,52 +1,67 @@
-<table *ngIf="this.card.cookieLines.length>0" matSort (matSortChange)="sortData($event)" style="width: 100%">
-  <colgroup>
-    <col span="1" style="width: 30%;">
-    <col span="1" style="width: 20%;">
-    <col span="1" style="width: 20%;text-align:center;">
-    <col *ngIf="context=='evaluate'" span="1" style="width: 20%;">
-  </colgroup>
-  <thead>
-    <tr>
-      <th mat-sort-header="domain">{{ "knowledge.domain" | translate }}</th>
-      <th mat-sort-header="name">{{ "knowledge.name" | translate }}</th>
-      <th mat-sort-header="category">{{ "knowledge.category" | translate }}</th>
-      <th *ngIf="context=='evaluate'" mat-sort-header="evaluation">
-        {{ "analyses.edit.evaluation" | translate }}
-      </th>
-    </tr>
-  </thead>
-  <tbody #tableContent>
-    <tr *ngFor="let line of this.card.cookieLines | filterForCookie:searchCookie| filterForStatus:searchStatus | filterForCookieKnowledgeBase:searchKnowledge |async; index as idx ">
-      <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
-      <td class="truncate" (click)="selected(line)">{{line.name}}</td>
-      <td class="truncate" (click)="selected(line)"
-      [innerHTML]="line | findPurpose | async | safeHtml"
-      >
-      </td>
-      <td *ngIf="context=='evaluate'">
-       <button 
-       mat-icon-button
-       class="evaluation-icon"
-       (click)="setEvaluation(line, 'compliant')"
-       >
-        <mat-icon [ngClass]="{'eval_not_selected' : line.status!='compliant'}" style="color: green;">done</mat-icon>
-       </button> 
-       <button 
-       mat-icon-button
-       class="evaluation-icon"
-       (click)="setEvaluation(line, 'not_compliant')"
-       >
-        <mat-icon [ngClass]="{'eval_not_selected' : line.status!='not_compliant'}" style="color: red;">close</mat-icon>
-       </button>
-        <button 
-        mat-icon-button
-        class="evaluation-icon"
-        (click)="setEvaluation(line, 'TBD')"
+@if(this.card.cookieLines.length>0){
+  <table matSort (matSortChange)="sortData($event)" style="width: 100%">
+    <colgroup>
+      <col span="1" style="width: 30%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;text-align:center;">
+      @if(context=='evaluate'){
+        <col span="1" style="width: 20%;">
+      }
+    </colgroup>
+    <thead>
+      <tr>
+        <th mat-sort-header="domain">{{ "knowledge.domain" | translate }}</th>
+        <th mat-sort-header="name">{{ "knowledge.name" | translate }}</th>
+        <th mat-sort-header="category">{{ "knowledge.category" | translate }}</th>
+        @if(context=='evaluate'){
+          <th mat-sort-header="evaluation">
+            {{ "analyses.edit.evaluation" | translate }}
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody #tableContent>
+      <tr *ngFor="let line of this.card.cookieLines | filterForCookie:searchCookie| filterForStatus:searchStatus | filterForCookieKnowledgeBase:searchKnowledge |async; index as idx ">
+        <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
+        <td class="truncate" (click)="selected(line)">{{line.name}}</td>
+        <td class="truncate" (click)="selected(line)"
+        [innerHTML]="line | findPurpose | async | safeHtml"
         >
-          <mat-icon [ngClass]="{'eval_not_selected' : line.status!='TBD'}" style="color: #004494;">search</mat-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-
-</table>
+        </td>
+        @if(context=='evaluate'){
+          <td>
+            <button 
+            mat-icon-button
+            class="evaluation-icon"
+            (click)="setEvaluation(line, 'compliant')"
+            >
+             <mat-icon 
+             [class.eval_not_selected]="line.status!='compliant'"
+             style="color: green;">done</mat-icon>
+            </button> 
+            <button 
+            mat-icon-button
+            class="evaluation-icon"
+            (click)="setEvaluation(line, 'not_compliant')"
+            >
+             <mat-icon 
+             [class.eval_not_selected]="line.status!='not_compliant'"
+             style="color: red;">close</mat-icon>
+            </button>
+             <button 
+             mat-icon-button
+             class="evaluation-icon"
+             (click)="setEvaluation(line, 'TBD')"
+             >
+               <mat-icon 
+               [class.eval_not_selected]="line.status!='TBD'"
+               style="color: #004494;">search</mat-icon>
+             </button>
+           </td>
+        }
+        
+      </tr>
+    </tbody>
+  
+  </table>
+}

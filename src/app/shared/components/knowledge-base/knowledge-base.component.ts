@@ -17,7 +17,6 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { CookieKnowledgesService } from 'src/app/services/knowledges/cookie-knowledges.service';
 import { LocalstorageKnowledgesService } from 'src/app/services/knowledges/localstorage-knowledges.service';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
-import { NgIf, NgSwitch, NgSwitchCase, NgFor } from '@angular/common';
 import { KnowledgeCookieItemComponent } from './knowledge-cookie-item/knowledge-cookie-item.component';
 import { KnowledgeLocalstorageItemComponent } from './knowledge-localstorage-item/knowledge-localstorage-item.component';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -29,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-knowledge-base',
     templateUrl: './knowledge-base.component.html',
     styleUrls: ['./knowledge-base.component.scss'],
-    imports: [MatAccordion, NgIf, NgSwitch, NgSwitchCase, KnowledgeCookieItemComponent, KnowledgeLocalstorageItemComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, NgFor, MatOption, TranslateModule]
+    imports: [MatAccordion, KnowledgeCookieItemComponent, KnowledgeLocalstorageItemComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, MatOption, TranslateModule]
 })
 export class KnowledgeBaseComponent implements OnInit, OnChanges, OnDestroy {
 

@@ -26,12 +26,14 @@
             {{card.start_time | date:'full' }}
         </td>
       </tr>
-      <tr *ngIf="context != 'view'">
-        <td class="truncate">{{ "cards.infos.end_time" | translate }}</td>
-        <td class="truncate">
-            {{card.end_time | date:'full' }}
-        </td>
-      </tr>
+      @if(context != 'view'){
+        <tr>
+          <td class="truncate">{{ "cards.infos.end_time" | translate }}</td>
+          <td class="truncate">
+              {{card.end_time | date:'full' }}
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
   <br>
@@ -46,8 +48,11 @@
       </tr>
     </thead>
     <tbody>      
-    <tr *ngFor="let url of card.visited_urls">
-      <td colspan="2" class="truncate"> {{url}} </td>
-    </tr>
+      @for(url of card.visited_urls; track url){
+        <tr>
+          <td colspan="2" class="truncate"> {{url}} </td>
+        </tr>
+      }
+
     </tbody>
   </table>

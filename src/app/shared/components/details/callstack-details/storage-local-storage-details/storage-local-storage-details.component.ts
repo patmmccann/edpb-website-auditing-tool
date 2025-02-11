@@ -4,7 +4,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Log } from 'src/app/models/cards/log.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MatIconButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 interface LogNode {
@@ -25,7 +24,7 @@ interface FlatNode {
     selector: 'app-storage-local-storage-details',
     templateUrl: './storage-local-storage-details.component.html',
     styleUrls: ['./storage-local-storage-details.component.scss'],
-    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, NgIf, MatIconModule, MatTreeNodeToggle]
+    imports: [MatTree, MatTreeNodeDef, MatTreeNode, MatTreeNodePadding, MatIconButton, MatIconModule, MatTreeNodeToggle]
 })
 export class StorageLocalStorageDetailsComponent implements OnInit , OnChanges {
   @Input() log : Log | undefined;

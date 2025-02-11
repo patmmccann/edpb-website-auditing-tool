@@ -19,7 +19,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { saveOptions, ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -34,7 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, NgIf, MatButtonModule, MatIconModule, ToolbarComponent, MatCard, MatCardHeader, MatFormField, MatLabel, MatSelect, NgFor, MatOption, FormsModule, ReactiveFormsModule, MatSelectTrigger, MatCardContent, NgClass, MatInput, ReportRendererComponent, SafeHtmlPipe, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink,  MatButtonModule, MatIconModule, ToolbarComponent, MatCard, MatCardHeader, MatFormField, MatLabel, MatSelect, MatOption, FormsModule, ReactiveFormsModule, MatSelectTrigger, MatCardContent, NgClass, MatInput, ReportRendererComponent, SafeHtmlPipe, TranslateModule]
 })
 export class ReportComponent implements OnInit, OnDestroy {
   public analysis: Analysis = new Analysis();

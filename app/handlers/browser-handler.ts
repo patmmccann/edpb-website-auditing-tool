@@ -92,13 +92,15 @@ export class BrowsersHandler {
 
     hideSession(event, analysis_id, tag_id) {
         const browserSession = this.get(analysis_id, tag_id);
-        this.mainWindow.contentView.removeChildView(browserSession.view);
+        if (browserSession){
+            browserSession.hide();
+        }
     }
 
     showSession(event, analysis_id, tag_id) {
         const browserSession = this.get(analysis_id, tag_id);
+        browserSession.show();
         this.currentView = browserSession.view;
-        this.mainWindow.contentView.addChildView(browserSession.view);
         return browserSession.url;
     }
 
@@ -191,13 +193,6 @@ export class BrowsersHandler {
     async deleteBrowserSession(event, analysis_id, tag_id) {
         const session = this.get(analysis_id, tag_id);
         if (!session) return;
-        this._collectors[session.contents.id];
-        const current_view = this.mainWindow.contentView.children[0];
-
-        if (session.view == current_view) {
-            this.mainWindow.contentView.removeChildView(session.view);
-        }
-
         await session.delete();
         if (session.name != 'main') {
             this.sessions[session.name] = null;

@@ -1,4 +1,5 @@
-<table *ngIf="card.https_support != null" class="use-of-httpsssl">
+@if(card.https_support != null){
+  <table class="use-of-httpsssl">
     <colgroup>
       <col style="width: 50%">
       <col style="width: 50%">
@@ -20,3 +21,4 @@
       </tr>
     </tbody>
   </table>
+}

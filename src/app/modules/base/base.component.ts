@@ -17,7 +17,6 @@ import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { FilterCookieKnowledge, FilterLocalStorageKnowledge } from 'src/app/pipes/knowledges.pipe';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, NgSwitch, NgSwitchCase, NgFor, NgClass } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { CompareComponent } from './compare/compare.component';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
@@ -32,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     templateUrl: './base.component.html',
     styleUrls: ['./base.component.scss'],
     providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButtonModule, NgIf, ModalComponent, CompareComponent, NgSwitch, NgSwitchCase, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIconModule, MatSuffix, MatSelect, MatOption, NgFor, MatSort, MatSortHeader, NgClass, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButtonModule, ModalComponent, CompareComponent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIconModule, MatSuffix, MatSelect, MatOption, MatSort, MatSortHeader, TranslateModule]
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);

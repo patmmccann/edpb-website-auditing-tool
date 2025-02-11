@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { BrowserService } from 'src/app/services/browser.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { BrowserComponent } from './browser/browser.component';
 import { GeneralComponent } from './general/general.component';
@@ -17,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    imports: [MatToolbar, MatToolbarRow, MatButtonModule, NgIf, MatIconModule, AnalysisComponent, BrowserComponent, GeneralComponent, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow, MatButtonModule, MatIconModule, AnalysisComponent, BrowserComponent, GeneralComponent, TranslateModule]
 })
 export class SettingsComponent implements OnInit {
   option:'general'|'browser'|'analysis'|'cookies'='general';

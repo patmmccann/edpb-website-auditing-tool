@@ -3,140 +3,163 @@
         <li class="breadcrumb-item">
             <a>
                 <strong>
-                    <ng-container *ngIf="type_entries === 'edit' || type_entries === 'new'">
-                        {{ 'header.analyses' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="type_entries === 'knowledgeBase'">
-                        {{ 'header.knowledge' | translate }}
-                    </ng-container>
-                    <ng-container *ngIf="type_entries === 'template'">
-                        {{ 'menu.template' | translate }}
-                    </ng-container>
+                    @switch (type_entries) {
+                    @case('edit'){
+                    {{ 'header.analyses' | translate }}
+                    }
+                    @case('new'){
+                    {{ 'header.analyses' | translate }}
+                    }
+                    @case('knowledgeBase'){
+                    {{ 'header.knowledge' | translate }}
+                    }
+                    @case('template'){
+                    {{ 'menu.template' | translate }}
+                    }
+                    }
                 </strong>
             </a>
         </li>
         <li class="breadcrumb-item">
-            <ng-container [ngSwitch]="type_entries">
-                <ng-container *ngSwitchCase="'edit'">
-                    {{ 'menu.list' | translate }}
-                </ng-container>
-                <ng-container *ngSwitchCase="'report'">
+            @switch (type_entries) {
+            @case('edit'){
+            {{ 'menu.list' | translate }}
+            }
+            <!-- @case('report'){
                     {{ 'entries.report' | translate }}
-                </ng-container>
-            </ng-container>
+                } -->
+            }
         </li>
     </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-toolbar *ngIf="type_entries=='knowledgeBase'">
+@switch(type_entries){
+@case('knowledgeBase'){
+<mat-toolbar>
     <div style="margin-left: 30px;">
-        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.database.new_database' | translate }}</button>
-        <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> {{ 'header.import' | translate }} </button>
-        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> {{ "entries.export_all" | translate }}
+        <button (click)="openNewKnowledgeDialog()" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{
+            'entries.database.new_database' | translate }}</button>
+        <button (click)="import()" mat-raised-button color="blue"><i class="fas fa-file-import"></i> {{ 'header.import'
+            | translate }} </button>
+        <button (click)="export_all()" mat-raised-button color="blue"><i class="fas fa-file-export"></i> {{
+            "entries.export_all" | translate }}
         </button>
     </div>
 </mat-toolbar>
-
-<app-toolbar-analysis 
-*ngIf="type_entries=='edit'"
-(imported)="refreshContent()"
->
+}
+@case('edit'){
+<app-toolbar-analysis (imported)="refreshContent()">
 </app-toolbar-analysis>
-
-<mat-toolbar *ngIf="type_entries=='template'">
+}
+@case('template'){
+<mat-toolbar>
     <div style="margin-left: 30px;">
-        <button (click)="openNewTemplateDialog('template')" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_template' | translate }}</button>
-        <button (click)="openNewTemplateDialog('annex')" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{ 'entries.template.new_annex' | translate }}</button>
+        <button (click)="openNewTemplateDialog('template')" mat-raised-button color="blue"> <i class="fas fa-plus"></i>
+            {{ 'entries.template.new_template' | translate }}</button>
+        <button (click)="openNewTemplateDialog('annex')" mat-raised-button color="blue"> <i class="fas fa-plus"></i> {{
+            'entries.template.new_annex' | translate }}</button>
     </div>
 </mat-toolbar>
+}
+}
 
 <div class="charts-wrapper">
 
     <div class="main_panel">
-        <ng-container [ngSwitch]="type_entries" *ngIf="!loading; else loadingEntries">
-            <ng-container *ngSwitchCase="'edit'">             
-                <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.analysis' | translate }}</strong></span></div>
-                </div><br>
-                <app-analysis-line *ngFor="
-                let analysis of entries | filterForAnalysis: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
-                let i = index
-              " (changed)="updateEntrie($event)" (deleted)="refreshContent()" [analysis]="analysis">
-                </app-analysis-line>
-            </ng-container>
-            <ng-container *ngSwitchCase="'knowledgeBase'">
-                <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.trackers' | translate }}</strong></span></div>
-                </div><br>
-                <app-knowledgebase-table [entries]="entries" (changed)="updateEntrie($event)"
-                    (duplicated)="refreshContent()" (deleted)="refreshContent()">
-
-                </app-knowledgebase-table>
-
-            </ng-container>
-            <ng-container *ngSwitchCase="'template'">
-                <div class="surveytitle">
-                    <div style="text-align: center;"><span style="font-size: 14pt;"><strong>Templates can be used to
-                                format report of analysis in HTML or PDF format.</strong><br><i>Refer to the section
-                                templating in help for more information about the template format</i></span>
+        @if(!loading){
+            @switch(type_entries){
+                @case('edit'){
+                    <div class="surveytitle">
+                        <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.analysis'
+                                    | translate }}</strong></span></div>
+                    </div><br>
+                    <app-analysis-line *ngFor="
+                    let analysis of entries | filterForAnalysis: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
+                    let i = index
+                  " (changed)="updateEntrie($event)" (deleted)="refreshContent()" [analysis]="analysis">
+                    </app-analysis-line>
+                }
+                @case('knowledgeBase'){
+                    <div class="surveytitle">
+                        <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.trackers'
+                                    | translate }}</strong></span></div>
+                    </div><br>
+                    <app-knowledgebase-table [entries]="entries" (changed)="updateEntrie($event)"
+                        (duplicated)="refreshContent()" (deleted)="refreshContent()">
+    
+                    </app-knowledgebase-table>
+                }
+                @case('template'){
+                    <div class="surveytitle">
+                        <div style="text-align: center;"><span style="font-size: 14pt;"><strong>Templates can be used to
+                                    format report of analysis in HTML or PDF format.</strong><br><i>Refer to the section
+                                    templating in help for more information about the template format</i></span>
+                        </div>
+                    </div><br>
+    
+                    <app-template-table [entries]="entries" (changed)="updateEntrie($event)" (duplicated)="refreshContent()"
+                        (deleted)="refreshContent()">
+    
+                    </app-template-table>
+                }
+            }
+        }@else {
+                <tbody>
+                    <div class="entries-loading entries-loading-line">
+                        <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
                     </div>
-                </div><br>
+                </tbody>
+        }
+        
 
-                <app-template-table [entries]="entries" (changed)="updateEntrie($event)" (duplicated)="refreshContent()"
-                    (deleted)="refreshContent()">
-
-                </app-template-table>
-
-            </ng-container>
-        </ng-container>
-        <ng-template #loadingEntries>
-            <tbody>
-                <div class="entries-loading entries-loading-line">
-                    <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
-                </div>
-            </tbody>
-        </ng-template>
     </div>
-    <div *ngIf="type_entries =='edit'" class="right_panel">
-        <mat-card class="sticky-card">
-            <mat-card-title>
-                <h2>{{ 'entries.list.filters' | translate }}</h2>
-            </mat-card-title>
-            <mat-card-content>
-                <mat-form-field appearance="fill">
-                    <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
-                    <input matInput [(ngModel)]="searchText" />
-                    <mat-icon *ngIf="!searchText" matSuffix>search</mat-icon>
-                    <mat-icon *ngIf="searchText && searchText.length>0" (click)="onCleanSearch()" matSuffix>close
-                    </mat-icon>
-                </mat-form-field>
-                <mat-list>
-                    <mat-divider></mat-divider>
-                    <div mat-subheader>{{ 'analyses.evaluation.status' | translate }}</div>
-                    <mat-list-item>
-                        <mat-checkbox [(ngModel)]="not_evaluate" [color]="'primary'">
-                            {{ "analyses.evaluation.not_evaluate" | translate }}
-                        </mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox [(ngModel)]="compliant" style="color: green;" [color]="'primary'">
-                            {{ "analyses.evaluation.compliant" | translate }}
-                        </mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox [(ngModel)]="not_compliant" style="color: red;" [color]="'primary'">
-                            {{ "analyses.evaluation.not_compliant" | translate }}
-                        </mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox [(ngModel)]="tbd" style="color:#004494;" [color]="'primary'">
-                            {{ "analyses.evaluation.TBD" | translate }}
-                        </mat-checkbox>
-                    </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
-    </div>
+    @if(type_entries =='edit'){
+        <div class="right_panel">
+            <mat-card class="sticky-card">
+                <mat-card-title>
+                    <h2>{{ 'entries.list.filters' | translate }}</h2>
+                </mat-card-title>
+                <mat-card-content>
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{ 'entries.list.search_by_name' | translate }}</mat-label>
+                        <input matInput [(ngModel)]="searchText" />
+                        @if(!searchText){
+                            <mat-icon matSuffix>search</mat-icon>
+                        }@else if(searchText.length>0){
+                            <mat-icon (click)="onCleanSearch()" matSuffix>close
+                            </mat-icon>
+                        }
+
+                    </mat-form-field>
+                    <mat-list>
+                        <mat-divider></mat-divider>
+                        <div mat-subheader>{{ 'analyses.evaluation.status' | translate }}</div>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="not_evaluate" [color]="'primary'">
+                                {{ "analyses.evaluation.not_evaluate" | translate }}
+                            </mat-checkbox>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="compliant" style="color: green;" [color]="'primary'">
+                                {{ "analyses.evaluation.compliant" | translate }}
+                            </mat-checkbox>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="not_compliant" style="color: red;" [color]="'primary'">
+                                {{ "analyses.evaluation.not_compliant" | translate }}
+                            </mat-checkbox>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-checkbox [(ngModel)]="tbd" style="color:#004494;" [color]="'primary'">
+                                {{ "analyses.evaluation.TBD" | translate }}
+                            </mat-checkbox>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    }
+    
 </div>
 
 <!-- Import/export functions -->

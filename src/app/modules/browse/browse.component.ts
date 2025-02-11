@@ -62,7 +62,8 @@ export class BrowseComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-
+      // FIXME : this a temporary fix
+      this.ngOnDestroy();
       const analysisId = parseInt(this.route.snapshot.params['id'], 10);
       const tagId = parseInt(this.route.snapshot.params['tag_id'], 10);
 

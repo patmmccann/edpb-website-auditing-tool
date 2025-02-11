@@ -1,5 +1,4 @@
-<ng-container *ngIf="!loading; else waitForComplete">
-
+@if(!loading){
 <table matSort (matSortChange)="sortBy($event)" class="entries-list-table">
   <thead>
     <tr>
@@ -25,10 +24,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="
-  let base of entries;
-  let i = index
-">
+    @for (base of entries; track base; let idx = $index) {
+    <tr>
       <td class="base-listsBlock-item">
         <div class="base-listsBlock-item-actions">
           <a [routerLink]="['/knowledge_bases', base.id]" class="base-tooltip">
@@ -67,43 +64,36 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <td [ngClass]="{
-        'validated': base.trustLevel == 'validated',
-        'reliable':  base.trustLevel == 'reliable',
-        'informative':  base.trustLevel == 'informative',
-        'undefined':  base.trustLevel == 'undefined'
-      }">
-          <mat-select   class="base-listsBlock-item" 
-           [(value)]="base.trustLevel" (selectionChange)="updateTrust(base, $event.value)">
-              <mat-option 
-              [ngClass]="{
-                'validated_selection': trustLevel == 'validated',
-                'reliable_selection':  trustLevel == 'reliable',
-                'informative_selection':  trustLevel == 'informative',
-                'undefined_selection':  trustLevel == 'undefined'
-              }"
-              *ngFor="let trustLevel of allTrustLevel" 
-              [value]="trustLevel">{{ "knowledge."+trustLevel | translate }}</mat-option>
-          </mat-select>
+      <td [class.validated]="base.trustLevel == 'validated'" [class.reliable]="base.trustLevel == 'reliable'"
+        [class.informative]="base.trustLevel == 'informative'" [class.undefined]="base.trustLevel == 'undefined'">
+        <mat-select class="base-listsBlock-item" [(value)]="base.trustLevel"
+          (selectionChange)="updateTrust(base, $event.value)">
+          @for(trustLevel of allTrustLevel; track trustLevel){
+          <mat-option [class.validated]="base.trustLevel == 'validated'"
+            [class.reliable]="base.trustLevel == 'reliable'" [class.informative]="base.trustLevel == 'informative'"
+            [class.undefined]="base.trustLevel == 'undefined'" [value]="trustLevel">{{ "knowledge."+trustLevel |
+            translate }}</mat-option>
+          }
+        </mat-select>
 
       </td>
       <td class="base-listsBlock-item">
-        <mat-select   class="base-listsBlock-item"             
-         [(value)]="base.used" (selectionChange)="updateUsed(base, $event.value)">
-            <mat-option [value]="true" >Yes</mat-option>
-            <mat-option [value]="false" >No</mat-option>
+        <mat-select class="base-listsBlock-item" [(value)]="base.used"
+          (selectionChange)="updateUsed(base, $event.value)">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
         </mat-select>
 
-    </td>
+      </td>
     </tr>
+    }
+
   </tbody>
 </table>
-</ng-container>
-
-<ng-template #waitForComplete>
-  <tbody>
-      <div class="entries-loading entries-loading-line">
-          <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
-      </div>
-  </tbody>
-</ng-template>
+}@else {
+<tbody>
+  <div class="entries-loading entries-loading-line">
+    <app-loading-overlay [visibility]="true" [childMode]="true"></app-loading-overlay>
+  </div>
+</tbody>
+}

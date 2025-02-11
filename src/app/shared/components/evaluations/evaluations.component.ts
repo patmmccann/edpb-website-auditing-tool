@@ -9,7 +9,7 @@ import { Card } from 'src/app/models/card.model';
 import { Evaluation, Status } from 'src/app/models/evaluation.model';
 import { EvaluationService } from 'src/app/services/evaluation.service';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { NgClass, NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-evaluations',
     templateUrl: './evaluations.component.html',
     styleUrls: ['./evaluations.component.scss'],
-    imports: [FormsModule, ReactiveFormsModule, NgClass, MatFormField, MatInput, NgIf, MatButtonModule, MatIconModule, MatLabel, DatePipe, TranslateModule, SafeHtmlPipe]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButtonModule, MatIconModule, MatLabel, DatePipe, TranslateModule, SafeHtmlPipe]
 })
 export class EvaluationsComponent implements OnInit, OnChanges {
   @Input() evaluation: Evaluation = new Evaluation();
