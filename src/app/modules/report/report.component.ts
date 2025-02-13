@@ -289,7 +289,8 @@ export class ReportComponent implements OnInit, OnDestroy {
       skin: false,
       setup: (editor: any) => {
         this.reportEditor = editor;
-      }
+      },
+      //license_key: 'gpl' //FIXME : waiting for approval
     });
   }
 

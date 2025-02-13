@@ -172,7 +172,8 @@ export class EvaluationsComponent implements OnInit, OnChanges {
       skin: false,
       setup: (editor: any) => {
         this.editorEvaluationComment = editor;
-      }
+      },
+      //license_key: 'gpl' //FIXME : waiting for approval
     });
   }
 

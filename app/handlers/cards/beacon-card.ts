@@ -18,7 +18,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import * as lodash from 'lodash';
-import { Request, FiltersEngine } from '@cliqz/adblocker';
+import { Request, FiltersEngine } from '@ghostery/adblocker';
 import { HarCollector } from "../collectors/har-collector";
 import { BrowserCollector } from "../collectors/browser-collector";
 
