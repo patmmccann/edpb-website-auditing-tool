@@ -114,7 +114,7 @@ export class BrowserService {
       window.onresize = (event: Event) => {
         setTimeout(() => {
           const rect_resize = (component.contentElement as any).nativeElement.getBoundingClientRect();
-          window.electron.resizeSession({ 'x': Math.round(rect_resize.left), 'y': Math.round(rect_resize.top + 30), 'width': Math.round(rect_resize.width), 'height': Math.round(rect_resize.height) });
+          window.electron.resizeSession({ 'x': Math.round(rect_resize.left), 'y': Math.round(rect_resize.top ), 'width': Math.round(rect_resize.width), 'height': Math.round(rect_resize.height) });
         }, 100);
       }
 

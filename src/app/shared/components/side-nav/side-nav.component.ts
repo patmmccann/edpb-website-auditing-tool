@@ -45,6 +45,6 @@ export class SideNavComponent implements OnInit {
     this.pinned = !this.pinned;
     setTimeout(async () => {
       window.dispatchEvent(new Event('resize'));
-    }, 10);
+    }, 210);
   }
 }
