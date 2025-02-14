@@ -16,7 +16,7 @@ import { TemplateService } from 'src/app/services/template.service';
 import { NewTemplateComponent} from './new-template/new-template.component';
 import { Template, TemplateType } from 'src/app/models/template.model';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import {  NgFor, AsyncPipe } from '@angular/common';
+import {  AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ToolbarAnalysisComponent } from './analysis/toolbar-analysis/toolbar-analysis.component';
 import { AnalysisLineComponent } from './analysis/analysis-line/analysis-line.component';
@@ -37,7 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-entries',
     templateUrl: './entries.component.html',
     styleUrls: ['./entries.component.scss'],
-    imports: [MatToolbar, MatToolbarRow,  MatButtonModule, ToolbarAnalysisComponent, NgFor, AnalysisLineComponent, KnowledgebaseTableComponent, TemplateTableComponent, LoadingOverlayComponent, MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatIconModule, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, ReactiveFormsModule, AsyncPipe, FilterForAnalysis, FilterForEval, TranslateModule]
+    imports: [MatToolbar, MatToolbarRow,  MatButtonModule, ToolbarAnalysisComponent, AnalysisLineComponent, KnowledgebaseTableComponent, TemplateTableComponent, LoadingOverlayComponent, MatCard, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatIconModule, MatSuffix, MatList, MatDivider, MatListSubheaderCssMatStyler, MatListItem, MatCheckbox, ReactiveFormsModule, AsyncPipe, FilterForAnalysis, FilterForEval, TranslateModule]
 })
 export class EntriesComponent implements OnInit {
   public type_entries: 'edit' | 'template' | 'knowledgeBase' | 'new' = 'edit' ;

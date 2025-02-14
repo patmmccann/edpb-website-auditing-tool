@@ -73,11 +73,11 @@
                         <div style="text-align: center;"><span style="font-size: 14pt;"><strong>{{ 'entries.header.analysis'
                                     | translate }}</strong></span></div>
                     </div><br>
-                    <app-analysis-line *ngFor="
-                    let analysis of entries | filterForAnalysis: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async;
-                    let i = index
-                  " (changed)="updateEntrie($event)" (deleted)="refreshContent()" [analysis]="analysis">
+                   @for(analysis of (entries | filterForAnalysis: searchText | filterForEval:not_evaluate:compliant:not_compliant:tbd | async); track analysis){
+                    <app-analysis-line (changed)="updateEntrie($event)" (deleted)="refreshContent()" [analysis]="analysis">
                     </app-analysis-line>
+                   } 
+
                 }
                 @case('knowledgeBase'){
                     <div class="surveytitle">

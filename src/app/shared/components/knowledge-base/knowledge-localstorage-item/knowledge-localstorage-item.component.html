@@ -1,4 +1,5 @@
-<mat-expansion-panel *ngFor="let localstorage_knowledge of knowledgeBaseData">
+@for(localstorage_knowledge of knowledgeBaseData; track localstorage_knowledge){
+<mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h3 class="mt-0">
@@ -9,36 +10,37 @@
     </mat-expansion-panel-header>
 
     <div class="knowledge-content">
-        <ng-container *ngFor="let item of localstorage_knowledge.localstorage">
-            <div class="base-knowledges_base-displayData">
-                <div class="base-knowledges_base-displayData-category">
-                    {{ "knowledge.purpose" | translate }} : {{item.category}}
-                </div>
-                <div class="base-knowledges_base-displayData-description">
-                    <ng-container>
-                        {{ "knowledge.key" | translate }} : {{item.key}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.script" | translate }} : {{item.script}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.source" | translate }} : {{item.source}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
-                    </ng-container>
-                    <ng-container>
-                        {{ "knowledge.comments" | translate }} : <br>
-                        <div [innerHTML]="item.comment"></div>
-                    </ng-container>
-                </div>
+        @for(item of localstorage_knowledge.localstorage; track item){
+        <div class="base-knowledges_base-displayData">
+            <div class="base-knowledges_base-displayData-category">
+                {{ "knowledge.purpose" | translate }} : {{item.category}}
             </div>
-        </ng-container>
+            <div class="base-knowledges_base-displayData-description">
+                <ng-container>
+                    {{ "knowledge.key" | translate }} : {{item.key}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.script" | translate }} : {{item.script}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.source" | translate }} : {{item.source}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.data_controller" | translate }} : {{item.controller}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.privacy_policy" | translate }} : {{item.policy}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.referenced_in" | translate }} : {{item.reference}} <br>
+                </ng-container>
+                <ng-container>
+                    {{ "knowledge.comments" | translate }} : <br>
+                    <div [innerHTML]="item.comment"></div>
+                </ng-container>
+            </div>
+        </div>
+        }
     </div>
 </mat-expansion-panel>
+}

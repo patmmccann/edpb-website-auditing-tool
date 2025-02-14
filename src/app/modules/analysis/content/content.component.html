@@ -11,7 +11,9 @@
 </header>
 
 <article>
-    <app-cards [context]="'evaluate'" [analysis]="analysis" [tag]="tag" *ngFor="let card of cards" [card]="card">
-    </app-cards>
+    @for(card of cards; track card.id){
+        <app-cards [context]="'evaluate'" [analysis]="analysis" [tag]="tag" [card]="card">
+        </app-cards>
+    }
 </article>
 </mat-accordion>

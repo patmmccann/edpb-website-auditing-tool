@@ -10,9 +10,11 @@
       </tr>
     </thead>
     <tbody #tableContent>
-      <tr *ngFor="let line of card.requests['thirdParty']; index as idx">
-        <td class="truncate">{{line}}</td>
-      </tr>
+      @for(line of card.requests['thirdParty']; track line){
+        <tr>
+          <td class="truncate">{{line}}</td>
+        </tr>
+      }
     </tbody>
   
   </table>

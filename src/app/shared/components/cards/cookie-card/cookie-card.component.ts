@@ -12,7 +12,7 @@ import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
 import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { Status } from 'src/app/models/evaluation.model';
 import { CardService } from 'src/app/services/card.service';
-import { NgFor, AsyncPipe } from '@angular/common';
+import {AsyncPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FilterForStatus, FilterForCookie, FilterForCookieKnowledge } from '../../../../pipes/filters.pipe';
 import { SafeHtmlPipe } from '../../../../pipes/tools.pipe';
@@ -24,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-cookie-card',
     templateUrl: './cookie-card.component.html',
     styleUrls: ['./cookie-card.component.scss'],
-    imports: [MatButtonModule, MatSort, MatSortHeader, NgFor, MatIconModule, AsyncPipe, TranslateModule, FilterForStatus, FilterForCookie, FilterForCookieKnowledge, SafeHtmlPipe, FindPurpose]
+    imports: [MatButtonModule, MatSort, MatSortHeader, MatIconModule, AsyncPipe, TranslateModule, FilterForStatus, FilterForCookie, FilterForCookieKnowledge, SafeHtmlPipe, FindPurpose]
 })
 export class CookieCardComponent implements OnInit {
   @ViewChild('tableContent') tableContent: ElementRef = new ElementRef({});

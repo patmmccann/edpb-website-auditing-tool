@@ -17,41 +17,43 @@
       </tr>
     </thead>
     <tbody #tableContent>
-      <tr *ngFor="let line of this.card.beaconLines | filterForBeacon:searchBeacon  | filterForStatus:searchStatus; index as idx">
-        <td class="truncate" (click)="selected(line)">{{line.url}}</td>
-        <td class="truncate" (click)="selected(line)">{{line.occurrances}}</td>
-        @if(context=='evaluate'){
-          <td>
-            <button
-            mat-icon-button
-            class="evaluation-icon"
-            (click)="setEvaluation(line, 'compliant')"
-            >
-             <mat-icon 
-             [class.eval_not_selected]="line.status!='compliant'"
-             style="color: green;">done</mat-icon>
-            </button> 
-            <button
-            mat-icon-button
-            class="evaluation-icon"
-            (click)="setEvaluation(line, 'not_compliant')"
-            >
-             <mat-icon 
-             [class.eval_not_selected]="line.status!='not_compliant'"
-             style="color: red;">close</mat-icon>
-            </button>
-             <button
-             mat-icon-button
-             class="evaluation-icon"
-             (click)="setEvaluation(line, 'TBD')"
-             >
+      @for(line of (this.card.beaconLines | filterForBeacon:searchBeacon  | filterForStatus:searchStatus); track line){
+        <tr>
+          <td class="truncate" (click)="selected(line)">{{line.url}}</td>
+          <td class="truncate" (click)="selected(line)">{{line.occurrances}}</td>
+          @if(context=='evaluate'){
+            <td>
+              <button
+              mat-icon-button
+              class="evaluation-icon"
+              (click)="setEvaluation(line, 'compliant')"
+              >
                <mat-icon 
-               [class.eval_not_selected]="line.status!='TBD'"
-               style="color: #004494;">search</mat-icon>
-             </button>
-           </td>
-        }
-      </tr>
+               [class.eval_not_selected]="line.status!='compliant'"
+               style="color: green;">done</mat-icon>
+              </button> 
+              <button
+              mat-icon-button
+              class="evaluation-icon"
+              (click)="setEvaluation(line, 'not_compliant')"
+              >
+               <mat-icon 
+               [class.eval_not_selected]="line.status!='not_compliant'"
+               style="color: red;">close</mat-icon>
+              </button>
+               <button
+               mat-icon-button
+               class="evaluation-icon"
+               (click)="setEvaluation(line, 'TBD')"
+               >
+                 <mat-icon 
+                 [class.eval_not_selected]="line.status!='TBD'"
+                 style="color: #004494;">search</mat-icon>
+               </button>
+             </td>
+          }
+        </tr>
+      }
     </tbody>
   
   </table>

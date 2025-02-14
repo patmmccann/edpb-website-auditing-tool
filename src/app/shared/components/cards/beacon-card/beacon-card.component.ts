@@ -12,7 +12,6 @@ import { CardService } from 'src/app/services/card.service';
 import { DetailsService } from 'src/app/services/details.service';
 import { Status } from 'src/app/models/evaluation.model';
 import { KnowledgeBaseService } from 'src/app/services/knowledge-base.service';
-import { NgFor} from '@angular/common';
 import { FilterForStatus, FilterForBeacon } from '../../../../pipes/filters.pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-beacon-card',
     templateUrl: './beacon-card.component.html',
     styleUrls: ['./beacon-card.component.scss'],
-    imports: [MatSort, MatSortHeader, NgFor, MatIconModule, FilterForStatus, FilterForBeacon, MatButtonModule]
+    imports: [MatSort, MatSortHeader, MatIconModule, FilterForStatus, FilterForBeacon, MatButtonModule]
 })
 export class BeaconCardComponent implements OnInit {
 

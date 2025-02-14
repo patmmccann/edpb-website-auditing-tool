@@ -5,13 +5,13 @@
  */
 import { Component, OnInit, Input } from '@angular/core';
 import { BeaconLine } from 'src/app/models/cards/beacon-card.model';
-import { NgFor, KeyValuePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
     selector: 'app-beacon-details',
     templateUrl: './beacon-details.component.html',
     styleUrls: ['./beacon-details.component.scss'],
-    imports: [NgFor, KeyValuePipe]
+    imports: [KeyValuePipe]
 })
 export class BeaconDetailsComponent implements OnInit {
 

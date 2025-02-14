@@ -1,10 +1,11 @@
-<li 
-*ngFor="let lang of languagesService.availableLanguages"
-class="dropdown-item">
-    <a 
-    class="language-link" 
-    href="javascript:;"
-    (click)="languagesService.updateCurrentLanguage(lang)">
-    {{ "languages."+lang | translate}}
-</a>
-</li>
+@for(lang of languagesService.availableLanguages; track lang){
+    <li 
+    class="dropdown-item">
+        <a 
+        class="language-link" 
+        href="javascript:;"
+        (click)="languagesService.updateCurrentLanguage(lang)">
+        {{ "languages."+lang | translate}}
+    </a>
+    </li>
+}

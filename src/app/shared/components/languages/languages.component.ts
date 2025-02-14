@@ -5,14 +5,13 @@
  */
 import { Component } from '@angular/core';
 import { LanguagesService } from 'src/app/services/languages.service';
-import { NgFor } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-languages',
     templateUrl: './languages.component.html',
     styleUrls: ['./languages.component.scss'],
-    imports: [NgFor, TranslateModule]
+    imports: [TranslateModule]
 })
 export class LanguagesComponent {
   constructor(

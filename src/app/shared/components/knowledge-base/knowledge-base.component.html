@@ -45,8 +45,10 @@
                     <div class="base-elementCategory-wrapper">
                         <select name="category" formControlName="category" required>
                             <option value="null" disabled>{{ "knowledge.category" | translate }}</option>
-                            <option value="{{ category }}" *ngFor="let category of categories">{{category}}
-                            </option>
+                            @for(category of categories; track category){
+                                <option value="{{ category }}">{{category}}
+                                </option>
+                            }
                         </select>
                     </div>
                 </div>
