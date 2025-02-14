@@ -164,17 +164,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for(item of cookieKnowledges; track item.name){
+                            @for(item of cookieKnowledges; track item.id){
                                 <tr [class.noElementsDisplaying]="showForm">
                                     <td class="base-listsBlock-item">
                                         <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
-                                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                                            <mat-icon>content_copy</mat-icon>
                                             <span title="dupplicate" class="base-tooltip-text">
                                                 {{ "entries.dupplicate" | translate }}
                                             </span>
                                         </a>
                                         <a (click)="delete(item.id)" class="btn base-tooltip">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            <mat-icon>delete</mat-icon>
                                             <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate
                                                 }}
                                             </span>
@@ -256,13 +256,13 @@
                                 [class.noElementsDisplaying]="showForm">
                                 <td class="base-listsBlock-item">
                                     <a href="javascript:;" (click)="duplicate(item.id)" class="btn base-tooltip">
-                                        <i class="fa fa-files-o" aria-hidden="true"></i>
+                                        <mat-icon>content_copy</mat-icon>
                                         <span title="dupplicate" class="base-tooltip-text">
                                             {{ "entries.dupplicate" | translate }}
                                         </span>
                                     </a>
                                     <a (click)="delete(item.id)" class="btn base-tooltip">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <mat-icon>delete</mat-icon>
                                         <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate
                                             }}
                                         </span>

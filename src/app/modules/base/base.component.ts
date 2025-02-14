@@ -63,7 +63,7 @@ export class BaseComponent implements OnInit {
   showForm = false;
   editMode: 'edit' | 'new' = 'edit';
   selectedKnowledgeId: number | null = 0;
-  categories: string[] = ["Targeted advertising", "Non-Targeted advertising", "Technical", "Analytics (exempted)", "Analytics (non exempted)", "Social media", "Content customisation", "?"];
+  categories: string[] = [];
   itemsSelected: number[] = [];
   KnowledgesService: CookieKnowledgesService | LocalstorageKnowledgesService;
 
@@ -107,8 +107,10 @@ export class BaseComponent implements OnInit {
     this.knowledges = result;
     if (this.base.category == 'cookie') {
       this.cookieKnowledges = result as CookieKnowledge[];
+      this.categories = [...new Set(this.cookieKnowledges.map(x => x.category))];
     } else if (this.base.category == 'localstorage') {
       this.localStorageKnowledges = result as LocalStorageKnowledge[];
+      this.categories = [...new Set(this.localStorageKnowledges.map(x => x.category))];
     }
   }
 

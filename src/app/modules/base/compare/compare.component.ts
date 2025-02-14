@@ -10,12 +10,13 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-compare',
     templateUrl: './compare.component.html',
     styleUrls: ['./compare.component.scss'],
-    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatCardActions, MatButtonModule, MatCardFooter, MatProgressBar, TranslateModule]
+    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatCardActions, MatButtonModule, MatCardFooter, MatProgressBar, TranslateModule, MatIconModule]
 })
 export class CompareComponent implements OnInit {
   @Input() knowledgesService: KnowledgesService | null = null;
