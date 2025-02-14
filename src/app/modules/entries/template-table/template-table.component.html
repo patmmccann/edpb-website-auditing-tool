@@ -24,12 +24,12 @@
         <td class="base-listsBlock-item">
           <div class="base-listsBlock-item-actions">
             <a href="javascript:;" (click)="export(template.id)" class="base-tooltip">
-              <i class="fa fa-download" aria-hidden="true"></i>
+              <mat-icon>download</mat-icon>
               <span title="export" class="base-tooltip-text">{{ "entries.export" | translate }}</span>
             </a>
             @if(template.id >0){
               <a href="javascript:;" (click)="remove(template.id)" class="base-tooltip">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+                <mat-icon>delete</mat-icon>
                 <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}</span>
               </a>
             }

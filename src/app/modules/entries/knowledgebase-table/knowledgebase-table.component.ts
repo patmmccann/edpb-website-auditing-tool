@@ -14,13 +14,14 @@ import { MatOption } from '@angular/material/core';
 import { LoadingOverlayComponent } from '../../../shared/components/loading-overlay/loading-overlay.component';
 import { NbEntriesInKnowledge } from '../../../pipes/knowledges.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
     selector: 'app-knowledgebase-table',
     templateUrl: './knowledgebase-table.component.html',
     styleUrls: ['./knowledgebase-table.component.scss'],
-    imports: [MatSort, MatSortHeader, RouterLink, MatSelect, MatOption, LoadingOverlayComponent, AsyncPipe, NbEntriesInKnowledge, TranslateModule]
+    imports: [MatSort, MatSortHeader, RouterLink, MatSelect, MatOption, LoadingOverlayComponent, AsyncPipe, NbEntriesInKnowledge, TranslateModule, MatIconModule]
 })
 export class KnowledgebaseTableComponent implements OnInit {
   public loading:boolean = false;

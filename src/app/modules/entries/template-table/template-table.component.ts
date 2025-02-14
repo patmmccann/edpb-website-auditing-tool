@@ -8,12 +8,12 @@ import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/models/template.model';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
     selector: 'app-template-table',
     templateUrl: './template-table.component.html',
     styleUrls: ['./template-table.component.scss'],
-    imports: [MatSort, MatSortHeader, TranslateModule]
+    imports: [MatSort, MatSortHeader, TranslateModule, MatIconModule]
 })
 export class TemplateTableComponent implements OnInit {
 

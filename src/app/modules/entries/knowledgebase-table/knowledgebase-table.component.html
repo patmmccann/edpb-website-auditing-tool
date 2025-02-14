@@ -29,19 +29,19 @@
       <td class="base-listsBlock-item">
         <div class="base-listsBlock-item-actions">
           <a [routerLink]="['/knowledge_bases', base.id]" class="base-tooltip">
-            <i class="fa fa-eye" aria-hidden="true"></i>
+            <mat-icon>remove_red_eye</mat-icon>
             <span title="View" class="base-tooltip-text">{{ "entries.view" | translate }}</span>
           </a>
           <a href="javascript:;" (click)="export(base.id)" class="base-tooltip">
-            <i class="fa fa-download" aria-hidden="true"></i>
+            <mat-icon>download</mat-icon>
             <span title="export" class="base-tooltip-text">{{ "entries.export" | translate }}</span>
           </a>
           <a href="javascript:;" (click)="duplicate(base.id)" class="base-tooltip">
-            <i class="fa fa-files-o" aria-hidden="true"></i>
+            <mat-icon>content_copy</mat-icon>
             <span title="dupplicate" class="base-tooltip-text">{{ "entries.dupplicate" | translate }}</span>
           </a>
           <a href="javascript:;" (click)="remove(base.id)" class="base-tooltip">
-            <i class="fa fa-trash" aria-hidden="true"></i>
+            <mat-icon>delete</mat-icon>
             <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate }}</span>
           </a>
         </div>
