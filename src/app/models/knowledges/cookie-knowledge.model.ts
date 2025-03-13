@@ -15,6 +15,7 @@ export class CookieKnowledge extends Knowledge{
     public policy: string = "";
     public reference: string = "";
     public comment: string = "";
+    public wildcard_match : number = 0;
     
     constructor(){
         super('cookie');

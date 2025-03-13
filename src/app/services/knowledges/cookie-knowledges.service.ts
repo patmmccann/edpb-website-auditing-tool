@@ -7,7 +7,6 @@ import { Injectable } from '@angular/core';
 import { KnowledgesService } from '../knowledges.service';
 import { CookieKnowledge } from 'src/app/models/knowledges/cookie-knowledge.model';
 import { Knowledge } from 'src/app/models/knowledge.model';
-import { KnowledgeBase } from 'src/app/models/knowledgeBase.model';
 
 export interface CookieSearch {
   name_and_domain: CookieKnowledge[],
@@ -24,7 +23,8 @@ export class CookieKnowledgesService extends KnowledgesService {
   constructor() {
     super('cookieKnowledge', [
       { indexName: 'index_domain', keyPath: 'domain', unique: false },
-      { indexName: 'index_name', keyPath: 'name', unique: false }
+      { indexName: 'index_name', keyPath: 'name', unique: false },
+      { indexName: 'index_wildcard', keyPath: 'wildcard_match', unique: false }
     ]);
   }
 
@@ -34,14 +34,15 @@ export class CookieKnowledgesService extends KnowledgesService {
 
       if (name){
         searchPromises.push(this.findAllByName(name));
+        searchPromises.push(this.findAllByWildcardMatch(name));
       }
       if (domain){
         searchPromises.push(this.findAllByDomain(domain));
       }
 
       Promise.all(searchPromises).then((allresults) => {
-        const searchName = allresults[0];
-        const searchDomain = allresults[1];
+        const searchName = allresults[0].concat(allresults[1]);
+        const searchDomain = allresults[2];
 
         let name :any= [];
         let name_and_domain :any= [];
@@ -72,10 +73,7 @@ export class CookieKnowledgesService extends KnowledgesService {
     });
   }
 
-  /**
-   * List all Knowledge by base id
-   * @param baseId Id of base
-   */
+
   private async findAllByDomain(domain: string): Promise<Array<CookieKnowledge>> {
     return new Promise((resolve, reject) => {
       if (!domain)resolve([]);
@@ -91,10 +89,7 @@ export class CookieKnowledgesService extends KnowledgesService {
     });
   }
 
-  /**
-  * List all Knowledge by base id
-  * @param baseId Id of base
-  */
+
   private async findAllByName(name: string): Promise<Array<CookieKnowledge>> {
     return new Promise((resolve, reject) => {
       if (!name)resolve([]);
@@ -109,6 +104,22 @@ export class CookieKnowledgesService extends KnowledgesService {
         });
     });
   }
+  
+  private async findAllByWildcardMatch(name: string): Promise<Array<CookieKnowledge>> {
+    return new Promise((resolve, reject) => {
+      if (!name)resolve([]);
+      super
+        .findAll({ index: 'index_wildcard', value: 1 })
+        .then((result: any) => {
+          resolve(result.filter((x:CookieKnowledge) => new RegExp(x.name.replace(/\*/g, ".*")).test(name)));
+        })
+        .catch(error => {
+          console.error('Request failed', error);
+          reject();
+        });
+    });
+  }
+  
 
   override async update(knowledge: Knowledge): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -117,6 +128,13 @@ export class CookieKnowledgesService extends KnowledgesService {
         const cookieKnowledge = knowledge as CookieKnowledge;
         entry.domain = cookieKnowledge.domain;
         entry.name = cookieKnowledge.name;
+
+        if (cookieKnowledge.name.includes("*")){
+          entry.wildcard_match = 1;
+        }else{
+          entry.wildcard_match = 0;
+        }
+
         entry.source = cookieKnowledge.source;
         entry.controller = cookieKnowledge.controller;
         entry.policy = cookieKnowledge.policy;
@@ -148,6 +166,13 @@ export class CookieKnowledgesService extends KnowledgesService {
         const temp = new CookieKnowledge();
         temp.domain = entry_cookie.domain;
         temp.name = entry_cookie.name;
+        
+        if (entry_cookie.name.includes("*")){
+          temp.wildcard_match = 1;
+        }else{
+          temp.wildcard_match = 0;
+        }
+
         temp.source = entry_cookie.source;
         temp.controller = entry_cookie.controller;
         temp.policy = entry_cookie.policy;

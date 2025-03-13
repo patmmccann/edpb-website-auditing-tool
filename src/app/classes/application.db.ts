@@ -123,15 +123,16 @@ export class ApplicationDb {
             this.getObjectStore().then(() => {
                 let evt = null;
                 let index1;
-                if (withIndex) {
-                    if (this.objectStore) {
+                if (this.objectStore === undefined) {
+                    reject();
+                    return;
+                }
+
+                if (withIndex && this.objectStore.indexNames.contains(withIndex.index)) {
                         index1 = this.objectStore.index(withIndex.index);
                         evt = index1.openCursor(IDBKeyRange.only(withIndex.value));
-                    }
                 } else {
-                    if (this.objectStore) {
-                        evt = this.objectStore.openCursor();
-                    }
+                    evt = this.objectStore.openCursor();
                 }
 
                 if (evt) {
