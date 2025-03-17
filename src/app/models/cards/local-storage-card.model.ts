@@ -6,35 +6,45 @@
 import { Card } from "../card.model";
 import { Details } from "../details.model";
 import { Log } from "./log.model";
+import { signal } from "@angular/core";
 
-export class LocalStorageLine extends Details{
-    public host:string
-    public key:string;
-    public value:string;
-    public firstPartyStorage : string[];
-    public log:Log | null = null;
+export class LocalStorageLine extends Details {
+    public host: string
+    public key: string;
+    public value: string;
+    public firstPartyStorage: string[];
+    public log: Log | null = null;
 
-    constructor(host:string, key:string, value:any, idx:number){
+    constructor(host: string, key: string, value: any, idx: number) {
         super('localstorage', idx);
         this.host = host;
         this.key = key;
         this.value = value.value;
         this.firstPartyStorage = value.firstPartyStorage;
-        if (value.log){
+        if (value.log) {
             this.log = new Log(value.log);
         }
     }
 }
 
 export class LocalStorageCard extends Card {
-    public localStorageLines : LocalStorageLine[];
+    private _localStorageLines;
 
-    constructor(name:string){
+    constructor(name: string) {
         super(name, "localstorage");
-        this.localStorageLines= [];
+        this._localStorageLines = signal<LocalStorageLine[]>([]);
     }
 
-    push(line:LocalStorageLine){
+    push(line: LocalStorageLine) {
+        this._localStorageLines.update(currentItems => [...currentItems, line]);
         this.localStorageLines.push(line);
+    }
+
+    get localStorageLines() {
+        return this._localStorageLines();
+    }
+
+    set localStorageLines(LocalStorageLine: LocalStorageLine[]) {
+        this._localStorageLines.set(LocalStorageLine);
     }
 }

@@ -16,7 +16,7 @@ export type kindDetail = ''|
 export class Details {
     public kind: kindDetail;
     public status:Status;
-    public idx:number;
+    public idx:number | string;
 
     constructor(kind: kindDetail, idx:number) {
         this.kind = kind;

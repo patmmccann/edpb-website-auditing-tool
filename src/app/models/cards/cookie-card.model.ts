@@ -6,6 +6,7 @@
 import { Card } from "../card.model";
 import { Details } from "../details.model";
 import { CookieLog } from "./cookie-log.model";
+import { signal } from "@angular/core";
 
 export class CookieLine extends Details{
     public name: string;
@@ -55,12 +56,12 @@ export class CookieLine extends Details{
 
 
 export class CookieCard extends Card {
-    public cookieLines: CookieLine[];
+    private _cookieLines;
 
 
     constructor(name: string) {
         super(name, "cookie");
-        this.cookieLines = [];
+        this._cookieLines = signal<CookieLine[]>([]);
     }
 
     push(line: CookieLine) {
@@ -69,5 +70,13 @@ export class CookieCard extends Card {
 
     contains(line: CookieLine) {
         return this.cookieLines.some(l => l.name == line.name && l.value == line.value && l.domain == line.domain)
+    }
+
+    get cookieLines() {
+        return this._cookieLines();
+    }
+
+    set cookieLines(cookieLines : CookieLine[]){
+        this._cookieLines.set(cookieLines);
     }
 }

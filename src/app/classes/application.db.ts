@@ -37,7 +37,6 @@ export class ApplicationDb {
    */
     async initDb() {
         return new Promise((resolve, reject) => {
-            this.clearCache();
             const evt = window.indexedDB.open(this.tableName, this.dbVersion);
             evt.onerror = (event: any) => {
                 // Hack to return the previous database if the current version is bigger than the previous one.

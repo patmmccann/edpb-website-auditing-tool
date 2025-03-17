@@ -12,7 +12,7 @@ import { LocalStorageKnowledge } from '../models/knowledges/localstorage-knowled
 import { FormGroup } from '@angular/forms';
 
 
-@Pipe({ name: 'findPurpose' })
+@Pipe({ name: 'findPurpose'  })
 export class FindPurpose implements PipeTransform {
   constructor(
     private knowledgeBaseService: KnowledgeBaseService,
@@ -33,10 +33,11 @@ export class FindPurpose implements PipeTransform {
       undefined: "#127137"
     }
 
+    const purposes = new Set();
+
     if (line.kind == 'cookie') {
       const cookiebases = sorted_bases.filter(x => x.category == "cookie");
       const cookieLine = line as CookieLine;
-      const purposes = new Set();
       const result = await this.cookieKnowledgesService.getCookieEntries(cookieLine.domain, cookieLine.name);
       if (result.name_and_domain.length > 0) {
         result.name_and_domain.forEach(el => {
@@ -60,11 +61,9 @@ export class FindPurpose implements PipeTransform {
           }
         });
       }
-      return Array.from(purposes).join(" ");
     } else if (line.kind == 'localstorage') {
       const localstoragebase = sorted_bases.filter(x => x.category == "localstorage");
       const localstorageline = line as LocalStorageLine;
-      const purposes = new Set();
       if (localstorageline.log) {
         const result = await this.localstorageKnowledgeService.getLocalStorageEntries(localstorageline.key, localstorageline.log);
         if (result.length > 0) {
@@ -75,11 +74,18 @@ export class FindPurpose implements PipeTransform {
             }
           });
         }
-        return Array.from(purposes).join(" ");
       }
     }
 
-    return "";
+    if(purposes.size == 0){
+      return "";
+    }
+
+    const res = Array.from(purposes).join(" ");
+
+    // Force updating the line
+    line.idx = String(line.idx)+ res;
+    return res;
   }
 }
 
