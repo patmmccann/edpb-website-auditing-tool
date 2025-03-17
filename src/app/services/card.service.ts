@@ -39,7 +39,7 @@ export class CardService extends ApplicationDb {
   saveCards(cards: Card[]): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      const promises = cards.map(card => super.create(card));
+      const promises = cards.map(card => super.create(card.toJson()));
 
       Promise.all(promises).then(cards => {
         resolve(cards.flat());
@@ -52,7 +52,7 @@ export class CardService extends ApplicationDb {
    */
   saveCard(card: Card): Promise<any> {
     return new Promise((resolve, reject) => {
-      super.create(card)
+      super.create(card.toJson())
       .then(card => {
         resolve(card);
       })

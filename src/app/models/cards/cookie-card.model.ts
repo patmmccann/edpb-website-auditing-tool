@@ -79,4 +79,11 @@ export class CookieCard extends Card {
     set cookieLines(cookieLines : CookieLine[]){
         this._cookieLines.set(cookieLines);
     }
+
+    override toJson() {
+        const obj = Object.assign({}, this);
+        delete (obj as any)._cookieLines; // Ensure signal is removed
+        obj.cookieLines = this.cookieLines;
+        return obj;
+    }
 }

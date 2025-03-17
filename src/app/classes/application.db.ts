@@ -24,7 +24,6 @@ export class ApplicationDb {
         this.dbVersion = dbVersion;
         this.tableName = tableName;
         this.indexes = indexes?indexes:[];
-        this.clearCache();
     }
 
     prepareApi(apiService: ApiService) {

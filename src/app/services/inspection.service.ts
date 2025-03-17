@@ -59,8 +59,9 @@ export class InspectionService {
     let idx = 0;
     for (const host in value) {
       for (const key in value[host]) {
-        const localStorageLine = new LocalStorageLine(host, key, value[host][key], idx++);
-        localStorageCard.push(localStorageLine)
+        const localStorageLine = new LocalStorageLine(host, key, value[host][key], idx);
+        localStorageCard.push(localStorageLine);
+        idx++;
       }
     }
 

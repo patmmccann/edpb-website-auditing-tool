@@ -43,4 +43,8 @@ export class Card {
         this.name = name;
         this.kind = kind;
     }
+
+    toJson(){
+        return this;
+    }
 }

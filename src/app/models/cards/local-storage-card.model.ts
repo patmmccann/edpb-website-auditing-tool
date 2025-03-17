@@ -37,7 +37,6 @@ export class LocalStorageCard extends Card {
 
     push(line: LocalStorageLine) {
         this._localStorageLines.update(currentItems => [...currentItems, line]);
-        this.localStorageLines.push(line);
     }
 
     get localStorageLines() {
@@ -46,5 +45,12 @@ export class LocalStorageCard extends Card {
 
     set localStorageLines(LocalStorageLine: LocalStorageLine[]) {
         this._localStorageLines.set(LocalStorageLine);
+    }
+
+    override toJson() {
+        const obj = Object.assign({}, this);
+        delete (obj as any)._localStorageLines; // Ensure signal is removed
+        obj.localStorageLines = this.localStorageLines;
+        return obj;
     }
 }
