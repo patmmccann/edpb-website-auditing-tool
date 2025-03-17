@@ -20,6 +20,12 @@ export interface CookieSearch {
 })
 
 export class CookieKnowledgesService extends KnowledgesService {
+  override entryCache = new Map<string, CookieSearch>();
+
+  private getKey(domain: string, name : string): string {
+    return `${name}::${domain}`;
+  }
+
   constructor() {
     super('cookieKnowledge', [
       { indexName: 'index_domain', keyPath: 'domain', unique: false },
@@ -30,6 +36,13 @@ export class CookieKnowledgesService extends KnowledgesService {
 
   public getCookieEntries(domain: string, name: string): Promise<CookieSearch> {
     return new Promise((resolve, reject) => {
+      const key = this.getKey(domain, name);
+      const cacheEntry = this.entryCache.get(key);
+      if (cacheEntry) {
+        resolve(cacheEntry);
+        return;
+      }
+
       const searchPromises: Promise<Array<CookieKnowledge>>[] = [];
 
       if (name){
@@ -58,16 +71,14 @@ export class CookieKnowledgesService extends KnowledgesService {
         if (searchName && searchDomain){
           name_and_domain = searchDomain.filter(entryName => searchName.some(entryDomain => entryName.id == entryDomain.id));
         }
-        
-        
-       
-
-        resolve({
+        const result = {
           name_and_domain: name_and_domain,
           name: name,
           domain: domain,
           matched : name_and_domain.length >0 || name.length >0 || domain.length >0
-        });
+        }
+        this.entryCache.set(key, result);
+        resolve(result);
       });
 
     });
@@ -181,7 +192,6 @@ export class CookieKnowledgesService extends KnowledgesService {
         temp.comment = entry_cookie.comment;
         temp.created_at = entry_cookie.created_at;
         temp.updated_at = entry_cookie.updated_at;
-
 
         this.add(baseId, temp)
           .then((result: Knowledge) => {

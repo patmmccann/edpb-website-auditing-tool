@@ -10,6 +10,8 @@ export interface Indexes {
   }
 
 export class ApplicationDb {
+    protected entryCache :any = null;
+
     protected apiService: ApiService | null = null;
     
     protected dbVersion: number;
@@ -22,6 +24,7 @@ export class ApplicationDb {
         this.dbVersion = dbVersion;
         this.tableName = tableName;
         this.indexes = indexes?indexes:[];
+        this.clearCache();
     }
 
     prepareApi(apiService: ApiService) {
@@ -34,6 +37,7 @@ export class ApplicationDb {
    */
     async initDb() {
         return new Promise((resolve, reject) => {
+            this.clearCache();
             const evt = window.indexedDB.open(this.tableName, this.dbVersion);
             evt.onerror = (event: any) => {
                 // Hack to return the previous database if the current version is bigger than the previous one.
@@ -91,6 +95,7 @@ export class ApplicationDb {
 
     async create(data: any | FormData, prefix?: string, preformated?: FormData): Promise<any> {
         return new Promise((resolve, reject) => {
+            this.clearCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     if ('id' in data) delete data.id;
@@ -181,6 +186,7 @@ export class ApplicationDb {
 
     async update(id: any, entry: any, prefix?: string | null, preformated?: FormData) {
         return new Promise((resolve, reject) => {
+            this.clearCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     const evt = this.objectStore.put(entry);
@@ -203,7 +209,7 @@ export class ApplicationDb {
  */
     async delete(id: number) {
         return new Promise((resolve, reject) => {
-
+            this.clearCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     const evt = this.objectStore.delete(id);
@@ -219,5 +225,10 @@ export class ApplicationDb {
 
         });
     }
-
+    
+    public clearCache(){
+        if (this.entryCache!= null){
+          this.entryCache.clear();
+        }
+    }
 }
