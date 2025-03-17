@@ -16,8 +16,8 @@ export class BeaconLine extends Details{
     public log : Log | null = null;
     public occurrances : number;
 
-    constructor(beacon:any){
-        super('beacon');
+    constructor(beacon:any, idx:number){
+        super('beacon', idx);
         this.filter =beacon.filter;
         this.listName = beacon.listName;
         this.query = beacon.query;

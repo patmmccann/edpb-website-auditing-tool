@@ -14,8 +14,8 @@ export class LocalStorageLine extends Details{
     public firstPartyStorage : string[];
     public log:Log | null = null;
 
-    constructor(host:string, key:string, value:any){
-        super('localstorage');
+    constructor(host:string, key:string, value:any, idx:number){
+        super('localstorage', idx);
         this.host = host;
         this.key = key;
         this.value = value.value;

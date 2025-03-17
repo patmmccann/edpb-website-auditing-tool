@@ -11,8 +11,8 @@ export class ProtocolLine extends Details{
     finding:string;
     severity:string;
 
-    constructor(id:string, finding:string, severity:string){
-        super('protocol');
+    constructor(id:string, finding:string, severity:string, idx:number){
+        super('protocol', idx);
         this.id = id;
         this.finding = finding;
         this.severity = severity;
@@ -25,8 +25,8 @@ export class VulnerabilityLine extends Details{
     severity:string="";
     cve:string=""
 
-    constructor(id:string, finding:string, severity:string, cve:string){
-        super('vulnerability');
+    constructor(id:string, finding:string, severity:string, cve:string, idx : number){
+        super('vulnerability', idx);
         this.id = id;
         this.finding = finding;
         this.severity = severity;
@@ -45,13 +45,13 @@ export class TestSSLCard extends Card{
         super("TestSSL Scan", "testSSL");
         
         if (testssl_result && testssl_result.scanResult && testssl_result.scanResult[0]){
-            for (let protocol of testssl_result.scanResult[0].protocols){
-                this.protocols.push(new ProtocolLine(protocol.id, protocol.finding, protocol.severity));
-            }
+            testssl_result.scanResult[0].protocols.forEach((protocol:any, idx:number) => {
+                this.protocols.push(new ProtocolLine(protocol.id, protocol.finding, protocol.severity, idx));
+            });
 
-            for (let vulnerability of testssl_result.scanResult[0].vulnerabilities){
-                this.vulnerabilities.push(new VulnerabilityLine(vulnerability.id, vulnerability.finding, vulnerability.severity, vulnerability.cve));
-            }
+            testssl_result.scanResult[0].vulnerabilities.forEach((vulnerability:any, idx:number) => {
+                this.vulnerabilities.push(new VulnerabilityLine(vulnerability.id, vulnerability.finding, vulnerability.severity, vulnerability.cve, idx));
+            });
         }
         this.testSSLError = testSSLError;
         this.testSSLErrorOutput = testSSLErrorOutput;

@@ -16,9 +16,11 @@ export type kindDetail = ''|
 export class Details {
     public kind: kindDetail;
     public status:Status;
+    public idx:number;
 
-    constructor(kind: kindDetail) {
+    constructor(kind: kindDetail, idx:number) {
         this.kind = kind;
         this.status = 'pending';
+        this.idx = idx;
     }
 }

@@ -11,8 +11,8 @@ export class UnsafeForm extends Details{
     action:string="";
     method:string="";
 
-    constructor(id:string, action:string, method:string){
-        super('unsafeForm');
+    constructor(id:string, action:string, method:string, idx:number){
+        super('unsafeForm', idx);
         this.id = id;
         this.action = action;
         this.method = method;
@@ -26,8 +26,8 @@ export class UnsafeFormsCard extends Card {
     constructor(unsafeForms: any[]) {
         super("Web Forms with non-encrypted Transmission", "forms");
         if (!unsafeForms) return;
-        for (let line of unsafeForms){
-            this.unsafeForms.push(new UnsafeForm(line.id, line.action, line.method))
-        }
+        unsafeForms.forEach((line:any, idx:number) => {
+            this.unsafeForms.push(new UnsafeForm(line.id, line.action, line.method, idx))
+        });
     }
 }

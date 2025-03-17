@@ -45,19 +45,21 @@ export class InspectionService {
 
     const cookieCard = new CookieCard("Cookies");
     if (!value) return cookieCard;
-    for (const cookie of value) {
-      const cookieLine = new CookieLine(cookie);
+    value.forEach((cookie:any, idx:number) => {
+      const cookieLine = new CookieLine(cookie, idx);
       cookieCard.push(cookieLine)
-    }
+    });
+
     return cookieCard;
   }
 
   inspectLocalStorage(value: any):LocalStorageCard{
     const localStorageCard = new LocalStorageCard("Local Storage");
     if (!value) return localStorageCard;
+    let idx = 0;
     for (const host in value) {
       for (const key in value[host]) {
-        const localStorageLine = new LocalStorageLine(host, key, value[host][key]);
+        const localStorageLine = new LocalStorageLine(host, key, value[host][key], idx++);
         localStorageCard.push(localStorageLine)
       }
     }
@@ -76,10 +78,12 @@ export class InspectionService {
   inspectBeacons(value:any) : BeaconCard{
     const beaconCard = new BeaconCard();
     if (!value) return beaconCard;
-    for (const beacon of value) {
-      const beaconLine = new BeaconLine(beacon);
+    
+    value.forEach((beacon:any, idx:number) => {
+      const beaconLine = new BeaconLine(beacon, idx);
       beaconCard.push(beaconLine)
-    }
+    });
+
     return beaconCard;
   }
 

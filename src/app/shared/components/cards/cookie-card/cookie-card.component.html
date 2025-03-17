@@ -25,7 +25,7 @@
     | filterForCookie:searchCookie
     | filterForStatus:searchStatus
     | filterForCookieKnowledgeBase:searchKnowledge
-    | async); track line) {
+    | async); track line.idx) {
     <tr>
       <td class="truncate" (click)="selected(line)">{{line.domain}}</td>
       <td class="truncate" (click)="selected(line)">{{line.name}}</td>

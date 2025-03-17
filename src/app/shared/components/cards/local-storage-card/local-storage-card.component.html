@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody #tableContent>
-      @for (line of (this.card.localStorageLines | filterForLocalStorage:searchLocalStorage | filterForStatus:searchStatus); track line) {
+      @for (line of (this.card.localStorageLines | filterForLocalStorage:searchLocalStorage | filterForStatus:searchStatus); track line.idx) {
 
         <tr>
           <td class="truncate" (click)="selected(line)">{{line.host}}</td>

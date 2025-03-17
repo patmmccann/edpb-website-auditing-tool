@@ -27,8 +27,8 @@ export class CookieLine extends Details{
     public firstPartyStorage:boolean;
     public log: CookieLog | null = null;
 
-    constructor(cookie:any){
-        super('cookie');
+    constructor(cookie:any, idx:number){
+        super('cookie', idx);
         this.name =cookie.name;
         this.value = cookie.value;
         this.domain = cookie.domain;

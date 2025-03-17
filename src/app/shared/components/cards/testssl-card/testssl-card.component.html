@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody #tableContent>
-          @for(line of card.protocols; track line.id; let idx = $index){
+          @for(line of card.protocols; track line.idx; let idx = $index){
             <tr>
               <td class="truncate">{{line.id}}</td>
               <td class="truncate">{{line.finding}}</td>
@@ -92,7 +92,7 @@
           </tr>
         </thead>
         <tbody #tableContent>
-          @for(line of card.vulnerabilities; track line.id;let idx = $index){
+          @for(line of card.vulnerabilities; track line.idx;let idx = $index){
             <tr>
               <td class="truncate">{{line.id}}</td>
               <td class="truncate">{{line.finding}}</td>
