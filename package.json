@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.9",
-    "@angular/cli": "~19.1.7",
+    "@angular/cli": "~19.2.9",
     "@angular/compiler-cli": "^19.2.8",
     "@electron/notarize": "^2.5.0",
     "@faker-js/faker": "^8.4.1",
