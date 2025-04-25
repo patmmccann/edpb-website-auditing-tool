@@ -212,6 +212,7 @@
             "knowledge_tooltip": "Information from the knownledge base that could be linked to the selected line.",
             "log_cookie_js":"Javascript cookie set from the following javascript files",
             "log_cookie_http":"Cookie set by a SetCookie on the following request",
+            "log_cookie_req":"Cookie sent by the following request",
             "log_localstorage":"Local Storage value written from the following files",
             "log_beacon":"From the following list",
             "log_values":"With the following values",
@@ -317,7 +318,9 @@
         },
         "help": {
             "beacons": "Positive matchs to adverts and tracking signatures compiled from EasyPrivacy and Fanboy's Annoyance list. This list may include false positives and may be incomplete due to inaccurate, outdated or incomplete signature lists.",
-            "cookie": "Persistent cookies stored in the browser during the browsing session with their potential purposes from the knowledge base. Click on header to sort cookies and on a line to get more detailed on a specific cookie.",
+            "cookie": "Persistent cookies that has been stored in the browser during the browsing session with their potential purposes from the knowledge base. Click on header to sort cookies and on a line to get more detailed on a specific cookie.",
+            "cookie_cache": "Persistent cookies that are still currently stored in the browser.",
+            "cookie_cookie_requests": "Persistent cookies that are currently send through HTTP request.",
             "https": "Redirecting behaviour of the website with respect to the use of HTTPS",
             "localstorage": "Pairs of keys and values stored in the browser local storage on the current displayed pagew ith their potential purposes from the knowledge base. Click on header to sort key and values and on a line to get more detailed on a specific key.",
             "testSSL": "The software TestSSL inspects the HTTPS configuration of the web service host. It classifies detected vulnerabilities by their level of severity low, medium, high, or critical.",

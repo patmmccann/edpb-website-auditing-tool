@@ -17,20 +17,36 @@ import * as lodash from 'lodash';
 export class CookieCard extends Card {
     _callback = null;
     _cookie_logger = null;
+    _from_time = null;
 
-    constructor(collector: Collector) {
-        super("cookie", collector);
+
+    constructor(collector: Collector, 
+        private _local_only:boolean = false, 
+        private _request_only:boolean = false) {
+        super(_local_only?"cookie_cache":_request_only?"cookie_requests":"cookie", collector);
     }
 
     enable() {
-        this._callback = this.add.bind(this);
-        this.collector.onHeadersReceivedCallbacks.push(this._callback);
+        if (this.name == "cookie_requests"){
+            this._callback = this.detectCookieRequest.bind(this);
+            this.collector.onSendHeadersCallbacks.push(this._callback);
+        }else{
+            this._callback = this.detectSetCookieRequest.bind(this);
+            this.collector.onHeadersReceivedCallbacks.push(this._callback);
+        }
+
         this._cookie_logger = this.register_event_logger;
         this.collector.event_logger[this._cookie_logger.type] = this._cookie_logger.logger;
     }
     disable() {
-        const index = this.collector.onBeforeRequestCallbacks.indexOf(this._callback);
-        this.collector.onBeforeRequestCallbacks.splice(index, 1);
+        let index;
+        if (this.name == "cookie_requests"){
+            index = this.collector.onSendHeadersCallbacks.indexOf(this._callback);
+        }else{
+            index = this.collector.onHeadersReceivedCallbacks.indexOf(this._callback);
+        }
+
+        this.collector.onHeadersReceivedCallbacks.splice(index, 1);
         this._callback = null;
         this.collector.event_logger[this._cookie_logger.type] = null;
         this._cookie_logger = null;
@@ -62,6 +78,50 @@ export class CookieCard extends Card {
             });
     }
 
+    collectReqCookies() {
+        const cookies = [];
+
+        // we get all request cookies from the log
+        let cookies_from_events = lodash.flatten(
+            this.collector.event_data
+                .filter((event) => {
+                    return event.type.startsWith("REQCookie");
+                })
+                .map((event) => {
+                    event.data.forEach((cookie) => {
+                        cookie.log = {
+                            stack: event.stack,
+                            type: event.type,
+                            timestamp: event.timestamp,
+                            location: event.location,
+                        };
+                    });
+                    return event.data;
+                })
+        ).filter((cookie: any) => cookie.value);
+
+        if (this._from_time!= null){
+            // Only take after a given date
+            cookies_from_events = cookies_from_events.filter(x =>  new Date(x.creation) > this._from_time);
+        }
+
+        cookies_from_events.forEach((event_cookie: any) => {
+            const cookie = {
+                name: event_cookie.key,
+                value: event_cookie.value,
+                domain: event_cookie.domain,
+                event: event_cookie,
+                log : event_cookie.log,
+            };
+            
+            if (!cookies.find(x => x.name == cookie.name && x.domain == cookie.domain))
+                cookies.push(cookie);
+        });
+        
+        return cookies;
+    }
+
+
     inspectCookies(cookies) {
 
         // we get all cookies from the log, which can be both JS and http cookies
@@ -92,6 +152,10 @@ export class CookieCard extends Card {
                     cookie.path == event_cookie.path
                 );
             });
+
+            if (!matched_cookie && this._local_only){
+                return;
+            }
 
             let log = {};
 
@@ -141,15 +205,92 @@ export class CookieCard extends Card {
     }
 
     async inspect(output) {
-        const cookies = await this.collector.cookies();
-        const log_cookies = this.collectCookies(cookies, 0);
-        const final = this.inspectCookies(log_cookies);
-        output.cookies = final;
+        let final;
+
+        if(this._request_only){
+            final = this.collectReqCookies();
+        }else{
+            const cookies = await this.collector.cookies();
+            const log_cookies = this.collectCookies(cookies, 0);
+            final = this.inspectCookies(log_cookies);
+        }
+        
+        
+        if (this._local_only){
+            output.cookie_cache = final;
+        }else if (this._request_only){
+            output.cookie_requests = final;
+        }else{
+            output.cookies = final;
+        }
+        
     }
 
-    add(details: Electron.OnHeadersReceivedListenerDetails) {
+    detectCookieRequest(details: any) {
+        const cookieHTTP = this.collector.findInHeaders(details.requestHeaders, "cookie");
 
-        const cookieHTTPHeaders = this.collector.findInHeaders(details, "set-cookie");
+        try {
+            const request_url = this.collector.getUrlFromResponse(details);
+            const stack = [
+                {
+                    fileName: request_url,
+                    source: `sent in Cookie header for ${details.url}`,
+                },
+            ];
+            const domain = new url.URL(request_url).hostname;
+            const data = cookieHTTP
+            .split(";")
+            .map((c) => {
+                return Cookie.parse(c) || { value: c };
+            })
+            .map((cookie) => {
+                // what is the domain if not set explicitly?
+                // https://stackoverflow.com/a/5258477/1407622
+                cookie.domain = cookie.domain || domain;
+
+                // what if the path is not set explicitly?
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#attributes
+                // https://github.com/salesforce/tough-cookie#defaultpathpath
+                cookie.path = cookie.path || defaultPath(new url.URL(request_url).pathname);
+                return cookie;
+            });
+            const dataHasKey = lodash.groupBy(data, (cookie) => {
+                return !!cookie.key;
+            });
+            const valid = dataHasKey.true || [];
+            const invalid = dataHasKey.false || [];
+
+            const messages = [
+                `${valid.length} Cookie(s) (HTTP) sent for host ${domain}${valid.length ? " with key(s) " : ""
+                }${valid.map((c) => c.key).join(", ")}.`,
+            ];
+            if (invalid.length) {
+                messages.push(
+                    `${invalid.length
+                    } invalid cookie header(s) set for host ${domain}: "${invalid
+                        .map((c) => c.value)
+                        .join(", ")}".`
+                );
+            }
+
+            messages.forEach((message) => {
+                if (this.logger.writable == false) return;
+                this.logger.log("warn", message, {
+                    type: "REQCookie",
+                    stack: stack,
+                    location: this.collector.mainUrl, // or page.url(), // (can be about:blank if the request is issued by browser.goto)
+                    raw: cookieHTTP,
+                    data: valid,
+                });
+            });
+        } catch (error) {
+
+        }
+    }
+
+    // For all cookies cards
+    detectSetCookieRequest(details: Electron.OnHeadersReceivedListenerDetails) {
+        const cookieHTTPHeaders = this.collector.findInHeaders(details.responseHeaders, "set-cookie");
         for (const cookieHTTP of cookieHTTPHeaders) {
             try {
                 const request_url = this.collector.getUrlFromResponse(details);
@@ -237,4 +378,15 @@ export class CookieCard extends Card {
         return { type: "Cookie.JS", logger: this.event_logger_data };
     }
 
+    override clear() {
+        switch(this.name){
+            case 'cookie_cache':
+                this._collector.contents.session.clearStorageData({"storages":["cookies"]})
+                break;
+
+            case 'cookie_requests':
+                this._from_time = new Date()
+                break;
+        }
+    }
 }

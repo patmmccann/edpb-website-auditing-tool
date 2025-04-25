@@ -31,6 +31,7 @@ export abstract class Collector {
     _settings :any = {};
     _onBeforeRequestCallbacks : { (details: Electron.OnBeforeRequestListenerDetails): void; } [] = [];
     _onHeadersReceivedCallbacks : { (details: Electron.OnHeadersReceivedListenerDetails): void; } [] = [];
+    _onSendHeadersCallbacks  : { (details: Electron.OnSendHeadersListenerDetails): void; } [] = [];
     _domReadyCallbacks : { (): void; } [] = [];
     _event_logger = {};
 
@@ -141,6 +142,10 @@ export abstract class Collector {
         return this._onHeadersReceivedCallbacks;
     }
 
+    get onSendHeadersCallbacks(){
+        return this._onSendHeadersCallbacks;
+    }
+
     get domReadyCallbacks(){
         return this._domReadyCallbacks;
     }
@@ -165,6 +170,12 @@ export abstract class Collector {
                     case 'cookies':
                         cards.push(new CookieCard(this));
                         break;
+                    case 'cookies_cache':
+                        cards.push(new CookieCard(this, true));
+                        break;
+                    case 'cookies_requests':
+                        cards.push(new CookieCard(this, false, true));
+                        break;                        
                     case 'https':
                         cards.push(new HTTPCard(this));
                         break;

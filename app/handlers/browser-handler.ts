@@ -199,9 +199,9 @@ export class BrowsersHandler {
         }
     }
 
-    async clearSession(event, analysis_id, tag_id) {
+    async clearSession(event, analysis_id, tag_id, params) {
         const session = this.get(analysis_id, tag_id);
-        await session.clear();
+        await session.clear(params);
     }
 
 

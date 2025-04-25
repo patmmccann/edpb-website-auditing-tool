@@ -32,7 +32,7 @@ export class HarCollector extends Collector {
         for (let entry of this._har.log.entries) {
             this._traffic_card.add(entry.request as any);
             this._beacon_card.add(entry.request as any);
-            this._cookie_card.add(entry.response as any);
+            this._cookie_card.detectSetCookieRequest(entry.response as any);
         }
 
         async function waitForComplete (logger) {

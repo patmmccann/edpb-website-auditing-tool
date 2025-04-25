@@ -2,86 +2,116 @@
     <div>
         <table>
             <tbody>
-                <tr>
-                    <td>
-                        {{ "knowledge.name" | translate }}
-                    </td>
-                    <td class="truncate">
-                        {{line.name}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{ "knowledge.value" | translate }}
-                    </td>
-                    <td class="truncate">
-                        {{line.value}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {{ "knowledge.domain" | translate }}
-                    </td>
-                    <td class="truncate">
-                        {{line.domain}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        path
-                    </td>
-                    <td>
-                        {{line.path}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        httpOnly
-                    </td>
-                    <td>
-                        {{line.httpOnly}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        secure
-                    </td>
-                    <td>
-                        {{line.secure}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        session
-                    </td>
-                    <td>
-                        {{line.session}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        sameSite
-                    </td>
-                    <td>
-                        {{line.sameSite}}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="truncate">
-                        expires (days)
-                    </td>
-                    <td>
-                        {{line.expiresDays}}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="truncate">
-                        expires (UTC)
-                    </td>
-                    <td>
-                        {{line.expiresUTC}}
-                    </td>
-                </tr>
+                @if(line.name){
+                    <tr>
+                        <td>
+                            {{ "knowledge.name" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{line.name}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.value){
+                    <tr>
+                        <td>
+                            {{ "knowledge.value" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{line.value}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.domain){
+                    <tr>
+                        <td>
+                            {{ "knowledge.domain" | translate }}
+                        </td>
+                        <td class="truncate">
+                            {{line.domain}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.path){
+                    <tr>
+                        <td>
+                            path
+                        </td>
+                        <td>
+                            {{line.path}}
+                        </td>
+                    </tr>
+                }
+  
+                @if(line.httpOnly){
+                    <tr>
+                        <td>
+                            httpOnly
+                        </td>
+                        <td>
+                            {{line.httpOnly}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.secure){
+                    <tr>
+                        <td>
+                            secure
+                        </td>
+                        <td>
+                            {{line.secure}}
+                        </td>
+                    </tr>
+                }
+                
+                @if(line.session){
+                    <tr>
+                        <td>
+                            session
+                        </td>
+                        <td>
+                            {{line.session}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.sameSite){
+                    <tr>
+                        <td>
+                            sameSite
+                        </td>
+                        <td>
+                            {{line.sameSite}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.expiresDays){
+                    <tr>
+                        <td class="truncate">
+                            expires (days)
+                        </td>
+                        <td>
+                            {{line.expiresDays}}
+                        </td>
+                    </tr>
+                }
+
+                @if(line.expiresUTC){
+                    <tr>
+                        <td class="truncate">
+                            expires (UTC)
+                        </td>
+                        <td>
+                            {{line.expiresUTC}}
+                        </td>
+                    </tr>
+                }
+                
             </tbody>
         </table>
     

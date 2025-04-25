@@ -56,6 +56,10 @@ export class BrowserSession {
             this.collector.onHeadersReceivedCallbacks.forEach(fn => fn(details));
             callback({});
         });
+
+        this.view.webContents.session.webRequest.onSendHeaders(async (details) => {
+            this.collector.onSendHeadersCallbacks.forEach(fn => fn(details));
+        });
     }
 
     applySettings(settings) {
@@ -127,10 +131,16 @@ export class BrowserSession {
         (this.contents as any).destroy();
     }
 
-    async clear() {
-        await this.contents.session.clearCache();
-        await this.contents.session.clearStorageData();
-        await this.collector.clear();
+    async clear(params : any) {
+        if ("cards" in params){
+            params["cards"].forEach(card => 
+                this.collector.clearCard(card)
+            );
+        }else{
+            await this.contents.session.clearCache();
+            await this.contents.session.clearStorageData();
+            await this.collector.clear();
+        }
     }
 
     async gotoPage(url) {

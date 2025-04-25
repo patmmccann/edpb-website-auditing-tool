@@ -27,6 +27,8 @@ export class SettingsService {
     storage_type : 'local',
     test_ssl_location : "",
     cookies : false,
+    cookies_cache : false,
+    cookies_requests : false,
     localstorage : false,
     https : false,
     traffic : false,
@@ -62,7 +64,9 @@ export class SettingsService {
     this._settings.storage_type = localStorage.getItem('storage_type') == 'remote'? 'remote' : 'local' ;
     this._settings.test_ssl_location = test_ssl_location? test_ssl_location : "";
     this._settings.cookies = localStorage.getItem('cookies') == 'false'? false : true ;
-    this._settings.localstorage = localStorage.getItem('localstorage') == 'false'?false : true ;
+    this._settings.cookies_cache = localStorage.getItem('cookies_cache') == 'true'? true : false ;
+    this._settings.cookies_requests = localStorage.getItem('cookies_requests') == 'true'? true : false ;
+    this._settings.localstorage = localStorage.getItem('localstorage') == 'false'? false : true ;
     this._settings.https = localStorage.getItem('https') == 'false'? false : true ;
     this._settings.traffic = localStorage.getItem('traffic') == 'false'? false : true ;
     this._settings.webform = localStorage.getItem('webform') == 'false'? false : true ;

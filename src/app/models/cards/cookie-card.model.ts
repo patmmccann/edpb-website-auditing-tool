@@ -59,8 +59,10 @@ export class CookieCard extends Card {
     private _cookieLines;
 
 
-    constructor(name: string) {
-        super(name, "cookie");
+    constructor(name: string, 
+        private _local_only:boolean = false, 
+        private _request_only:boolean = false ) {
+        super(name, _local_only?"cookie_cache":_request_only?"cookie_requests":"cookie");
         this._cookieLines = signal<CookieLine[]>([]);
     }
 

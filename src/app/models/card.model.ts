@@ -6,6 +6,8 @@
 export type kindCard = '' |
     'beacons' |
     'cookie' |
+    'cookie_cache' |
+    'cookie_requests' |
     'global' |
     'https' |
     'links' |
@@ -19,6 +21,8 @@ export type kindCard = '' |
 
 export const allKindCard : kindCard[] = ['beacons',
 'cookie' ,
+'cookie_cache',
+'cookie_requests',
 'global' ,
 'https' ,
 'links' ,

@@ -175,7 +175,15 @@ export class CardService extends ApplicationDb {
   initCardsBasedOnSetting() : Card[]{
     const cards :Card[]= [];
     if (this.settingService.settings.cookies) {
-      cards.push(new CookieCard("Cookies"));
+      cards.push(new CookieCard("Cookie logs"));
+    }
+
+    if (this.settingService.settings.cookies_cache) {
+      cards.push(new CookieCard("Cookies in cache", true));
+    }
+    
+    if (this.settingService.settings.cookies_requests) {
+      cards.push(new CookieCard("Cookies in requests", false, true));
     }
 
     if (this.settingService.settings.localstorage) {

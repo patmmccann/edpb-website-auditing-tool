@@ -6,7 +6,7 @@
 import { Stack } from "./stack.model";
 
 
-type LogType = "Cookie.HTTP" | "Cookie.JS" | "Request.Tracking" | "Storage.LocalStorage" | "";
+type LogType = "Cookie.HTTP" | "Cookie.JS" | "Request.Tracking" | "Storage.LocalStorage" | "REQCookie" | "";
 
 export class Log {
     public stacks :Stack[] = [];

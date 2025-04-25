@@ -6,9 +6,21 @@
             <mat-panel-description>
                 <h3 class="mt-0">
                     {{card.name}}
-                    @if(context != 'evaluate' && settingService.settings.help){
+                    @if(context == 'view'){
+                        @if(card.kind == 'cookie_cache' || card.kind == 'cookie_requests'){
+                            <button mat-icon-button (click)="runCard()">
+                                <mat-icon>delete_outline</mat-icon>
+                            </button>
+                        }@else if(card.kind == 'testSSL'){
+                                <button mat-icon-button (click)="runCard()">
+                                    <mat-icon>play_arrow</mat-icon>
+                                </button>
+                        }
+                        @if(settingService.settings.help){
                         <mat-icon matTooltip="{{ 'cards.help.'+card.kind | translate }}"
                             [matTooltipPosition]="'after'">help_outline</mat-icon>
+                        }
+
                     }
                 </h3>
             </mat-panel-description>
@@ -23,20 +35,6 @@
 
 
         </mat-panel-title>
-        @if(context == 'view' && card.kind == 'testSSL'){
-        <mat-panel-description>
-            <button mat-icon-button (click)="runCard()">
-                <mat-icon>play_arrow</mat-icon>
-            </button>
-        </mat-panel-description>
-        }
-        @if(card.kind == 'image'){
-        <mat-panel-description>
-            <button mat-icon-button (click)="edit($event)">
-                <mat-icon>edit</mat-icon>
-            </button>
-        </mat-panel-description>
-        }
 
     </mat-expansion-panel-header>
 
@@ -56,11 +54,24 @@
     </ng-container>
     }
 
+    @case ('cookie_cache') {
+    <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)" [searchStatus]="searchStatus"
+        [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
+    </app-cookie-card>
+    }
+
+    @case ('cookie_requests') {
+    <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)" [searchStatus]="searchStatus"
+        [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
+    </app-cookie-card>
+    }
+
     @case ('cookie') {
     <app-cookie-card [context]="context" [card]="cardService.castToCookieCard(card)" [searchStatus]="searchStatus"
         [searchCookie]="searchCookie" [searchKnowledge]="searchKnowledge">
     </app-cookie-card>
     }
+
 
     @case ('https') {
     <app-http-card [context]="context" [card]="cardService.castToHTTPCard(card)">
@@ -98,7 +109,7 @@
     }
 
     @if(context == 'evaluate' && card.kind != 'global' && card.kind != 'info'){
-        <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
-        </app-evaluations>
+    <app-evaluations [card]="card" (evaluationEvent)="evaluationChange($event)" [evaluation]="evaluation">
+    </app-evaluations>
     }
 </mat-expansion-panel>

@@ -73,8 +73,16 @@ export class CardsComponent implements OnInit {
   }
   
   runCard():void{
-    if (this.card.kind == 'testSSL'){
-      this.browserService.launchTestSSL(window, this.card as TestSSLCard, this.analysis, this.tag);
+    switch(this.card.kind){
+      case'testSSL':
+        this.browserService.launchTestSSL(window, this.card as TestSSLCard, this.analysis, this.tag);  
+        break;
+      case'cookie_cache':
+        this.browserService.eraseSession(window, this.analysis, this.tag, {"cards" : ["cookie_cache"]});  
+        break;
+      case'cookie_requests':
+        this.browserService.eraseSession(window, this.analysis, this.tag, {"cards" : ["cookie_requests"]});  
+        break;
     }
   }
 

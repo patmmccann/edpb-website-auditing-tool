@@ -8,6 +8,10 @@
         <app-cookie-log-details [log]="asCookieLog(log)">
         </app-cookie-log-details>
       }
+      @case ('REQCookie') {
+        <app-cookie-log-details [log]="asCookieLog(log)">
+        </app-cookie-log-details>
+      }
       @case ('Request.Tracking') {
         <app-request-tracking-details [log]="asRequestTrackingLog(log)">
         </app-request-tracking-details>

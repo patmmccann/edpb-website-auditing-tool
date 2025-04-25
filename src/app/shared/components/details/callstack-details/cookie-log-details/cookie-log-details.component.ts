@@ -105,6 +105,9 @@ export class CookieLogDetailsComponent implements OnInit , OnChanges {
 
     if (this.log){
       switch(this.log.type){
+        case "REQCookie":
+          name = this.translateService.instant("browse.log_details.log_cookie_req");
+          break;
         case "Cookie.HTTP":
           name = this.translateService.instant("browse.log_details.log_cookie_http");
           break;

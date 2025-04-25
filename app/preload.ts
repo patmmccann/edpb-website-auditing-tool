@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld(
   {
     createCollector: (analysis_id : number, tag_id : number, url : string, settings : any) => ipcRenderer.invoke('createCollector', analysis_id, tag_id, url, settings),
     deleteCollector: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('deleteCollector', analysis_id, tag_id),
-    eraseSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('eraseSession', analysis_id, tag_id),
+    eraseSession: (analysis_id : number, tag_id : number, params : any) => ipcRenderer.invoke('eraseSession', analysis_id, tag_id, params),
     showSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('showSession', analysis_id, tag_id),
     getSessions: () => ipcRenderer.invoke('getSessions'),
     hideSession: (analysis_id : number, tag_id : number) => ipcRenderer.invoke('hideSession', analysis_id, tag_id),

@@ -59,6 +59,12 @@
     <mat-slide-toggle (change)="settingService.setItem('cookies', $event.checked)"
         [(ngModel)]="settingService.settings.cookies" color="primary">{{ 'settings.cookies' | translate
         }}</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('cookies_cache', $event.checked)"
+        [(ngModel)]="settingService.settings.cookies_cache" color="primary">Cookies in cache
+        (experimental)</mat-slide-toggle><br><br>
+    <mat-slide-toggle (change)="settingService.setItem('cookies_requests', $event.checked)"
+        [(ngModel)]="settingService.settings.cookies_requests" color="primary">Cookies in requests
+        (experimental)</mat-slide-toggle><br><br>
     <mat-slide-toggle (change)="settingService.setItem('localstorage', $event.checked)"
         [(ngModel)]="settingService.settings.localstorage" color="primary">{{ 'settings.localstorage' | translate
         }}</mat-slide-toggle><br><br>

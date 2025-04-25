@@ -49,6 +49,11 @@ export class BrowserCollector extends Collector {
         this._cards.forEach(card => card.clear());
     }
 
+    async clearCard(kind : string) {
+        this._cards.filter(card => card.name == kind)
+        .forEach(card => card.clear());
+    }
+
     override get view() {
         return this._view;
     }
@@ -112,11 +117,11 @@ export class BrowserCollector extends Collector {
         return true;
     }
 
-    findInHeaders(details, header) {
-        const cookieHTTPHeader = Object.keys(details.responseHeaders).find(key => key.toLowerCase() === "set-cookie");
+    findInHeaders(headers, header) {
+        const cookieHTTPHeader = Object.keys(headers).find(key => key.toLowerCase() === header);
 
         if (cookieHTTPHeader) {
-            return details.responseHeaders[cookieHTTPHeader];
+            return headers[cookieHTTPHeader];
         }
         return [];
     }

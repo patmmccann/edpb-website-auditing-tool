@@ -64,7 +64,7 @@ export class BrowserService {
   createFakeElectron(window: any): void {
     window.electron = {
       createCollector: (analysis_id: number, tag_id: number, url: string, args: any): Promise<void> => new Promise((resolve, reject) => resolve()),
-      eraseSession: (analysis_id: number, tag_id: number, url: string): Promise<void> => new Promise((resolve, reject) => resolve()),
+      eraseSession: (analysis_id: number, tag_id: number, url: string, params:any): Promise<void> => new Promise((resolve, reject) => resolve()),
       deleteCollector: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       showSession: (analysis_id: number, tag_id: number): Promise<void> => new Promise((resolve, reject) => resolve()),
       getSessions: (): Promise<void> => new Promise((resolve, reject) => resolve()),
@@ -125,8 +125,8 @@ export class BrowserService {
     });
   }
 
-  eraseSession(window: any, analysis: Analysis | null, tag: Tag | null) {
-    return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null);
+  eraseSession(window: any, analysis: Analysis | null, tag: Tag | null, params : any = {}) {
+    return window.electron.eraseSession(analysis ? analysis.id : null, tag ? tag.id : null, params);
   }
 
   toogleDevTool(window: any, analysis: Analysis | null, tag: Tag | null) {
@@ -202,12 +202,17 @@ export class BrowserService {
       window.electron.get(analysis ? analysis.id : null, tag ? tag.id : null, kindCards)
         .then((output: any) => {
           for (let card of cards) {
-            let new_card = null;
             switch (card.kind) {
+              case 'cookie_requests':
               case 'cookie':
+              case 'cookie_cache':
                 {
+                  const cookies = card.kind == 'cookie_cache'? output.cookie_cache : 
+                                                card.kind == 'cookie_requests' ? output.cookie_requests :
+                                                output.cookies;
+
                   let cookieCard = (card as CookieCard);
-                  let new_card = this.inspectionService.inspectCookie(output.cookies);
+                  let new_card = this.inspectionService.inspectCookie(cookies);
                   if (cookieCard.cookieLines.length != new_card.cookieLines.length) {
                     cookieCard.cookieLines = new_card.cookieLines;
                   }
@@ -306,6 +311,14 @@ export class BrowserService {
     card.testSSLError = "";
     card.testSSLErrorOutput = "";
     window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['testSSL']);
+  }
+
+  clearCookieCache(window: any, card: TestSSLCard, analysis: Analysis | null, tag: Tag | null) {
+    window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['clearCookieCache']);
+  }
+  
+  clearCookieRequest(window: any, card: TestSSLCard, analysis: Analysis | null, tag: Tag | null) {
+    window.electron.launch(analysis ? analysis.id : null, tag ? tag.id : null, ['clearCookieRequest']);
   }
 
   async testSSLLocation(window: any) {
