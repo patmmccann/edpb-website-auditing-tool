@@ -88,4 +88,4 @@ Run `npm run e2e` to execute the end-to-end tests via a platform of your choice.
 
 ## Build and deploy from a server  (SaaS version)
 
-Run `npm run ng:serve` to test the project on your local server. Run `npm run build:prod` to build the project and serve the build artifacts in the `dist/` directory from a webserver (Apache2 or Nginx) 
+Run `npm run ng:serve` to test the project on your local server. Run `npm run build` to build the project and serve the build artifacts in the `dist/` directory from a webserver (Apache2 or Nginx) 
