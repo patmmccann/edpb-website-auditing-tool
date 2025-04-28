@@ -130,6 +130,75 @@ html(xmlns='http://www.w3.org/1999/xhtml', xml:lang='en', lang='en')
             div.evaluation|!{cookies.evaluation.evaluation_comment}
           i Evaluation on #{new Date(cookies.evaluation.created_at).toLocaleString()}
 
+      if cookie_cache
+        h3  #{cookie_cache.values.length} cookies are in the cache of the browser :
+        table(style="width: 100%;")
+                thead
+                  tr
+                    th.trunc Domain
+                    th.trunc Path
+                    th.trunc Name
+                    th.trunc Value
+                    th.trunc httpOnly
+                    th.trunc secure
+                    th.trunc sameSite
+                    th.trunc Expiry in days
+                tbody
+                  each cookie,index in cookie_cache.values
+                    tr
+                      td.trunc: a(href=`http://${cookie.domain}`)= cookie.domain
+                      td.trunc: a(href=`http://${cookie.domain}${cookie.path}`)= cookie.path
+                      td.trunc= cookie.name
+                      td.trunc= cookie.value
+                      td.trunc= cookie.httpOnly
+                      td.trunc= cookie.secure
+                      td.trunc= cookie.sameSite
+                      td.trunc
+                        if cookie.session
+                          em session
+                        else
+                          = cookie.expiresDays
+
+        if cookie_cache.evaluation
+          if cookie_cache.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if cookie_cache.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if cookie_cache.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if cookie_cache.evaluation.evaluation_comment
+            div.evaluation|!{cookie_cache.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(cookie_cache.evaluation.created_at).toLocaleString()}
+
+
+      if cookie_requests
+        h3  #{cookie_requests.values.length} cookies have been sent throught the requests :
+        table(style="width: 100%;")
+                thead
+                  tr
+                    th.trunc Domain
+                    th.trunc Name
+                    th.trunc Value
+                tbody
+                  each cookie,index in cookie_requests.values
+                    tr
+                      td.trunc: a(href=`http://${cookie.domain}`)= cookie.domain
+                      td.trunc= cookie.name
+                      td.trunc= cookie.value
+
+        if cookie_requests.evaluation
+          if cookie_requests.evaluation.status == "not_compliant"
+            h3(style="color: red;") This analysis has been evaluated as not compliant to legal requirements
+          else if cookie_requests.evaluation.status == "compliant"
+            h3(style="color: green;") This analysis has been evaluated as compliant to legal requirements
+          else if cookie_requests.evaluation.status == "TBD"
+            h3(style="color: #004494;") Conformance of this analysis to legal requirements has to be determined 
+
+          if cookie_requests.evaluation.evaluation_comment
+            div.evaluation|!{cookie_requests.evaluation.evaluation_comment}
+          i Evaluation on #{new Date(cookie_requests.evaluation.created_at).toLocaleString()}
+
       if localstorage
         h3  #{localstorage.values.length} keys have been stored in the localstorage :
         table(style="width: 100%;")

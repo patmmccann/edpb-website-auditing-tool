@@ -259,8 +259,11 @@ export class ReportService {
 
           switch (card.kind) {
             case 'cookie':
+            case 'cookie_cache':
+            case 'cookie_requests':
               const cookieCard = (card as CookieCard);
-              resolve({ cookies: {values : filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation }});
+              const key = card.kind == 'cookie' ? "cookies": card.kind;
+              resolve({ [key]: {values : filter_details(cookieCard.cookieLines, evaluations_opt), evaluation: evaluation }});
               break;
             case 'localstorage':
               const localstorageCard = (card as LocalStorageCard);
