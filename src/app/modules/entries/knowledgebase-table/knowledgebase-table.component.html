@@ -64,8 +64,7 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <td [class.validated]="base.trustLevel == 'validated'" [class.reliable]="base.trustLevel == 'reliable'"
-        [class.informative]="base.trustLevel == 'informative'" [class.undefined]="base.trustLevel == 'undefined'">
+      <td >
         <mat-select class="base-listsBlock-item" [(value)]="base.trustLevel"
           (selectionChange)="updateTrust(base, $event.value)">
           @for(trustLevel of allTrustLevel; track trustLevel){
