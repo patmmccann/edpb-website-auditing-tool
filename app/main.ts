@@ -92,7 +92,7 @@ function createWindow() {
         // and load the index.html of the app.
         mainWindow.loadURL(
             url.format({
-                pathname: path.join(__dirname, "../dist", "website-audit", "index.html"),
+                pathname: path.join(__dirname, "../dist", "website-audit", "browser","index.html"),
                 protocol: "file:",
                 slashes: true
             })
