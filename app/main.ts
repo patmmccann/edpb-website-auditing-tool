@@ -20,30 +20,99 @@ import { TestSSLHandler } from './handlers/testssl-handler';
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: BrowserWindow | null = null;
 
+const isMac = process.platform === 'darwin';
+
+
 const menu = Menu.buildFromTemplate([
+    // { role: 'appMenu' }
+    ...(isMac
+      ? [{
+          label: app.name,
+          submenu: [
+            { role: 'about' },
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideOthers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' }
+          ]
+        }]
+      : []),
+    // { role: 'fileMenu' }
     {
-        label: "Edit",
-        submenu: [
-            { role: "undo" },
-            { role: "redo" },
-            { type: "separator" },
-            { role: "cut" },
-            { role: "copy" },
-            { role: "paste" },
-            { role: "delete" }
-        ]
+      label: 'File',
+      submenu: [
+        isMac ? { role: 'close' } : { role: 'quit' }
+      ]
     },
+    // { role: 'editMenu' }
     {
-        label: "View",
-        submenu: [
-            { role: "togglefullscreen" }
-        ]
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        ...(isMac
+          ? [
+              { role: 'pasteAndMatchStyle' },
+              { role: 'delete' },
+              { role: 'selectAll' },
+              { type: 'separator' },
+              {
+                label: 'Speech',
+                submenu: [
+                  { role: 'startSpeaking' },
+                  { role: 'stopSpeaking' }
+                ]
+              }
+            ]
+          : [
+              { role: 'delete' },
+              { type: 'separator' },
+              { role: 'selectAll' }
+            ])
+      ]
     },
+    // { role: 'viewMenu' }
     {
-        role: "window",
-        submenu: [{ role: "minimize" }, { role: "close" }]
+      label: 'View',
+      submenu: [
+        //{ role: 'reload' },
+        //{ role: 'forceReload' },
+        //{ role: 'toggleDevTools' },
+        { type: 'separator' },
+        { role: 'resetZoom' },
+        { role: 'zoomIn' },
+        { role: 'zoomOut' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' }
+      ]
+    },
+    // { role: 'windowMenu' }
+    {
+      label: 'Window',
+      submenu: [
+        { role: 'minimize' },
+        { role: 'zoom' },
+        ...(isMac
+          ? [
+              { type: 'separator' },
+              { role: 'front' },
+              { type: 'separator' },
+              { role: 'window' }
+            ]
+          : [
+              { role: 'close' }
+            ])
+      ]
     }
-]);
+  ]);
 
 function createWindow() {
     let winState = windowStateKeeper({
@@ -142,7 +211,7 @@ if (!gotTheLock) {
     app.on("window-all-closed", function () {
         // On OS X it is common for applications and their menu bar
         // to stay active until the user quits explicitly with Cmd + Q
-        if (process.platform !== "darwin") {
+        if (!isMac) {
             app.quit();
         }
     });
