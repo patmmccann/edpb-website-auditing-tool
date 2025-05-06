@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { app, BrowserWindow, globalShortcut, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain, Menu, MenuItemConstructorOptions } from 'electron';
 import * as windowStateKeeper from 'electron-window-state';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
@@ -23,13 +23,12 @@ let mainWindow: BrowserWindow | null = null;
 const isMac = process.platform === 'darwin';
 
 
-const menu = Menu.buildFromTemplate([
+const template =[
     // { role: 'appMenu' }
     ...(isMac
       ? [{
           label: app.name,
           submenu: [
-            { role: 'about' },
             { type: 'separator' },
             { role: 'services' },
             { type: 'separator' },
@@ -41,6 +40,7 @@ const menu = Menu.buildFromTemplate([
           ]
         }]
       : []),
+
     // { role: 'fileMenu' }
     {
       label: 'File',
@@ -112,14 +112,16 @@ const menu = Menu.buildFromTemplate([
             ])
       ]
     }
-  ]);
+  ];
+
+const menu = Menu.buildFromTemplate(template as MenuItemConstructorOptions[]);
 
 function createWindow() {
     let winState = windowStateKeeper({
         defaultWidth: 1400,
         defaultHeight: 800
     });
-
+    
     Menu.setApplicationMenu(menu);
 
     globalShortcut.register("CommandOrControl+R", () => {
