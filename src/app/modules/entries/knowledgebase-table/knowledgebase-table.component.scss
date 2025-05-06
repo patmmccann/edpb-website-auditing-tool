@@ -13,7 +13,7 @@
 }
 
 .undefined{
-  background-color: $base-gray-light;
+  background-color: black;
 }
 
 .validated_selection{
@@ -98,23 +98,17 @@
       tr {
         height: 27px;
         position: relative;
-  
+        td {
+          color: black;  
+        }
+        
+
         &:nth-child(even) {
           background-color: $base-gray-dark;
         }
   
         &:nth-child(odd) {
           background-color: $base-gray-light;
-        }
-  
-        &:focus,
-        &:hover,
-        &:active {
-            background-color: $base-blue-dark2;
-            td{
-              color: #fff;  
-            }
-            
         }
   
         &.noElementsDisplaying {
@@ -134,7 +128,7 @@
 .base-listsBlock-item {
   position: relative;
   padding: 0 10px;
-  color:$base-light-blue;
+  color: white;
   cursor: pointer;
   &:first-child {
     div[contenteditable] {
@@ -260,4 +254,5 @@ th {
 
 mat-icon {
   transform: scale(0.8);
+  color: black;
 }

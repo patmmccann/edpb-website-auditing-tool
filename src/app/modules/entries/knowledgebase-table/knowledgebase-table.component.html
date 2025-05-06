@@ -64,20 +64,21 @@
       <td class="base-listsBlock-item">
         <div>{{ base | nbEntriesInKnowlegeBase |async }}</div>
       </td>
-      <td >
+      <td [class.validated]="base.trustLevel == 'validated'" [class.reliable]="base.trustLevel == 'reliable'"
+        [class.informative]="base.trustLevel == 'informative'" [class.undefined]="base.trustLevel == 'undefined'">
         <mat-select class="base-listsBlock-item" [(value)]="base.trustLevel"
           (selectionChange)="updateTrust(base, $event.value)">
           @for(trustLevel of allTrustLevel; track trustLevel){
-          <mat-option [class.validated]="base.trustLevel == 'validated'"
-            [class.reliable]="base.trustLevel == 'reliable'" [class.informative]="base.trustLevel == 'informative'"
-            [class.undefined]="base.trustLevel == 'undefined'" [value]="trustLevel">{{ "knowledge."+trustLevel |
+          <mat-option [value]="trustLevel">
+            
+            {{ "knowledge."+trustLevel |
             translate }}</mat-option>
           }
         </mat-select>
 
       </td>
       <td class="base-listsBlock-item">
-        <mat-select class="base-listsBlock-item" [(value)]="base.used"
+        <mat-select  [(value)]="base.used"
           (selectionChange)="updateUsed(base, $event.value)">
           <mat-option [value]="true">Yes</mat-option>
           <mat-option [value]="false">No</mat-option>
