@@ -20,7 +20,8 @@ export interface CookieSearch {
 })
 
 export class CookieKnowledgesService extends KnowledgesService {
-  override entryCache = new Map<string, CookieSearch>();
+  entryCache = new Map<string, CookieSearch>();
+  regexCache : CookieKnowledge[] = [];
 
   private getKey(domain: string, name : string): string {
     return `${name}::${domain}`;
@@ -32,6 +33,7 @@ export class CookieKnowledgesService extends KnowledgesService {
       { indexName: 'index_name', keyPath: 'name', unique: false },
       { indexName: 'index_wildcard', keyPath: 'wildcard_match', unique: false }
     ]);
+    this.updateCache();
   }
 
   public getCookieEntries(domain: string, name: string): Promise<CookieSearch> {
@@ -119,15 +121,7 @@ export class CookieKnowledgesService extends KnowledgesService {
   private async findAllByWildcardMatch(name: string): Promise<Array<CookieKnowledge>> {
     return new Promise((resolve, reject) => {
       if (!name)resolve([]);
-      super
-        .findAll({ index: 'index_wildcard', value: 1 })
-        .then((result: any) => {
-          resolve(result.filter((x:CookieKnowledge) => new RegExp(x.name.replace(/\*/g, ".*")).test(name)));
-        })
-        .catch(error => {
-          console.error('Request failed', error);
-          reject();
-        });
+      resolve(this.regexCache.filter((x:CookieKnowledge) => new RegExp(x.name.replace(/\*/g, ".*")).test(name)));
     });
   }
   
@@ -204,6 +198,16 @@ export class CookieKnowledgesService extends KnowledgesService {
 
       });
     });
+  }
+
+  override updateCache(){
+      this.entryCache.clear();
+
+      super
+      .findAll({ index: 'index_wildcard', value: 1 })
+      .then((result: any) => {
+        this.regexCache = result;
+      });
   }
 
 }

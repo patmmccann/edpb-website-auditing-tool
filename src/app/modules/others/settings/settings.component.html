@@ -17,7 +17,7 @@
              <div title="On startup" class="sc-19uuyq5 option-item">
                 <div class="option-text">
                 </div>
-                <button mat-button (click)="option='general'">General</button>
+                <button mat-button (click)="option='general'">{{ 'menu.general' | translate }}</button>
                 @if(option == 'general'){
                     <mat-icon>chevron_right</mat-icon>
                 }

@@ -44,7 +44,8 @@
         "other": "Other",
         "settings": "Settings",
         "help": "Help",
-        "browser": "Browser"
+        "browser": "Browser",
+        "general": "General"
     },
     "help": {
         "how_tool_works": "How the tool works",
