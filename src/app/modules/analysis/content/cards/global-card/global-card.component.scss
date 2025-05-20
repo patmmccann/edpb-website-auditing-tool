@@ -45,3 +45,13 @@ table {
 .displayEvaluation {
     display: none;
 }
+
+.table-title {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between
+}
+
+.card-title {
+    color: var(--mat-expansion-header-description-color, var(--mat-sys-on-surface-variant))
+}

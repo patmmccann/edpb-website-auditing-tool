@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit, Input, OnChanges,SimpleChanges, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ElementRef, Output, EventEmitter, viewChild, Signal, QueryList } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Tag } from 'src/app/models/tag.model';
 import { AnalysisService } from 'src/app/services/analysis.service';
@@ -12,36 +12,37 @@ import { CardService } from 'src/app/services/card.service';
 import { Router, RouterLink } from '@angular/router';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { GlobalCard } from 'src/app/models/cards/global-card.model';
-import { Card,allKindCard } from 'src/app/models/card.model';
+import { Card, allKindCard } from 'src/app/models/card.model';
 import { Sort, MatSort, MatSortHeader } from '@angular/material/sort';
 import { BrowserService } from 'src/app/services/browser.service';
-import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { EvaluationsComponent } from '../../../../../shared/components/evaluations/evaluations.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-global-card',
-    templateUrl: './global-card.component.html',
-    styleUrls: ['./global-card.component.scss'],
-    imports: [MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, EvaluationsComponent, MatSort, MatSortHeader, MatIconModule, RouterLink, TranslateModule]
+  selector: 'app-global-card',
+  templateUrl: './global-card.component.html',
+  styleUrls: ['./global-card.component.scss'],
+  imports: [MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, EvaluationsComponent, MatSort, MatSortHeader, MatIconModule, RouterLink, TranslateModule]
 })
-export class GlobalCardComponent implements OnInit,OnChanges {
+export class GlobalCardComponent implements OnInit, OnChanges {
   @Input() card: GlobalCard | null = null;
   @Input() analysis: Analysis | null = null;
   @Input() tag: Tag | null = null;
-  @Input() evaluation : Evaluation = new Evaluation();
+  @Input() evaluation: Evaluation = new Evaluation();
   @Output() deleted = new EventEmitter();
-  all_cards: {card :Card, evaluation : Evaluation | null}[] = [];
-  all_tags: {tag :Tag, evaluation : Evaluation| null}[] = [];
-  
+  all_cards: { card: Card, evaluation: Evaluation | null }[] = [];
+  all_tags: { tag: Tag, evaluation: Evaluation | null }[] = [];
+  @Input() accordions: Signal<MatAccordion> | null = null;
 
   constructor(
     private analysisService: AnalysisService,
     private tagService: TagService,
     private cardService: CardService,
-    public browserService:BrowserService,
-    public router : Router
+    public browserService: BrowserService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -53,21 +54,21 @@ export class GlobalCardComponent implements OnInit,OnChanges {
    * @param evaluation - Any Evaluation.
    */
   evaluationChange(evaluation: Evaluation): void {
-    if (this.tag){
+    if (this.tag) {
       this.tagService.setEvaluation(this.tag, evaluation)
-      .then((evaluation)=>{
-        this.evaluation = evaluation;
-      });
-      
-    } else if (this.analysis){
+        .then((evaluation) => {
+          this.evaluation = evaluation;
+        });
+
+    } else if (this.analysis) {
       this.analysisService.setEvaluation(this.analysis, evaluation)
-      .then((evaluation)=>{
-        this.evaluation = evaluation;
-      });
-    } 
+        .then((evaluation) => {
+          this.evaluation = evaluation;
+        });
+    }
   }
 
-  deleteCard(card:Card): void {
+  deleteCard(card: Card): void {
     if (this.tag) {
       this.tagService.removeCard(this.tag, card)
         .then(tag => {
@@ -77,11 +78,11 @@ export class GlobalCardComponent implements OnInit,OnChanges {
     }
   }
 
-  deleteTag(tag:Tag): void {
+  deleteTag(tag: Tag): void {
     if (this.analysis) {
       this.analysisService.removeTag(this.analysis, tag)
         .then(() => {
-          if (this.analysis){
+          if (this.analysis) {
             this.browserService.deleteSession(window, this.analysis, tag);
           }
           this.refreshTagEvaluationList();
@@ -89,65 +90,65 @@ export class GlobalCardComponent implements OnInit,OnChanges {
     }
   }
 
-  scroll(card:Card): void {
+  scroll(card: Card): void {
     const panels = document.querySelectorAll('mat-expansion-panel');
-    [].forEach.call(panels, (el:any, i:number) => {
+    [].forEach.call(panels, (el: any, i: number) => {
       if (el.id === card.name) {
         el.scrollIntoView();
       }
     });
   }
 
-  refreshCardEvaluationList(){
-    if (this.tag){
+  refreshCardEvaluationList() {
+    if (this.tag) {
       this.tagService
-      .getAllCardsWithEvaluation(this.tag, allKindCard)
-      .then((cards)=>{
-        this.all_cards = cards;
-      })
+        .getAllCardsWithEvaluation(this.tag, allKindCard)
+        .then((cards) => {
+          this.all_cards = cards;
+        })
     }
   }
 
-  async refreshTagEvaluationList():Promise<void>{
-    if (this.analysis){
+  async refreshTagEvaluationList(): Promise<void> {
+    if (this.analysis) {
       this.analysisService
-      .getAllTagsWithEvaluation(this.analysis)
-      .then((tags)=>{
-        this.all_tags = tags;
-      })
+        .getAllTagsWithEvaluation(this.analysis)
+        .then((tags) => {
+          this.all_tags = tags;
+        })
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.tag){
+    if (this.tag) {
       this.all_cards = [];
-      this.tagService.getEvaluation(this.tag).then((evaluation) =>{
-        if(evaluation) {
+      this.tagService.getEvaluation(this.tag).then((evaluation) => {
+        if (evaluation) {
           this.evaluation = evaluation
-        }else{
+        } else {
           this.evaluation = new Evaluation();
         }
       });
 
       this.refreshCardEvaluationList();
 
-      this.cardService.evaluationEvent.subscribe(id=>{
+      this.cardService.evaluationEvent.subscribe(id => {
         const idx = this.all_cards.findIndex(x => x.card.id = id);
-        if(idx > -1) this.refreshCardEvaluationList();
+        if (idx > -1) this.refreshCardEvaluationList();
       });
 
 
-    } else if (this.analysis){
+    } else if (this.analysis) {
       this.all_cards = [];
       this.analysisService
-      .getEvaluation(this.analysis)
-        .then((evaluation) =>{
-          if(evaluation) this.evaluation = evaluation;
-      });
+        .getEvaluation(this.analysis)
+        .then((evaluation) => {
+          if (evaluation) this.evaluation = evaluation;
+        });
 
       this.refreshTagEvaluationList();
 
-    } 
+    }
   }
 
 
@@ -158,8 +159,8 @@ export class GlobalCardComponent implements OnInit,OnChanges {
         case 'name':
           return compare(a.card.name, b.card.name, isAsc);
         case 'evaluation':
-          const evaluation_a = a.evaluation? a.evaluation.status :"";
-          const evaluation_b = b.evaluation? b.evaluation.status :"";
+          const evaluation_a = a.evaluation ? a.evaluation.status : "";
+          const evaluation_b = b.evaluation ? b.evaluation.status : "";
           return compare(evaluation_a, evaluation_b, isAsc);
         default:
           return 0;
@@ -174,8 +175,8 @@ export class GlobalCardComponent implements OnInit,OnChanges {
         case 'scenario':
           return compare(a.tag.name, b.tag.name, isAsc);
         case 'evaluation':
-          const evaluation_a = a.evaluation? a.evaluation.status :"";
-          const evaluation_b = b.evaluation? b.evaluation.status :"";
+          const evaluation_a = a.evaluation ? a.evaluation.status : "";
+          const evaluation_b = b.evaluation ? b.evaluation.status : "";
           return compare(evaluation_a, evaluation_b, isAsc);
         default:
           return 0;

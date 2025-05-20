@@ -3,14 +3,14 @@
  *
  * SPDX-License-Identifier: EUPL-1.2
  */
-import { Component, OnInit,Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter, OnChanges, SimpleChanges, viewChild } from '@angular/core';
 import { Analysis } from 'src/app/models/analysis.model';
 import { Card } from 'src/app/models/card.model';
 import { Evaluation } from 'src/app/models/evaluation.model';
 import { GlobalCard } from 'src/app/models/cards/global-card.model';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
-import { MatAccordion } from '@angular/material/expansion';
+import { MatAccordion} from '@angular/material/expansion';
 import { GlobalCardComponent } from './cards/global-card/global-card.component';
 import { CardsComponent } from '../../../shared/components/cards/cards.component';
 
@@ -28,7 +28,8 @@ export class ContentComponent implements OnInit, OnChanges {
   loading: boolean = false;
   global_card:GlobalCard = new GlobalCard("Global Evaluation");
   cards: Card[] = [];
-
+  accordions = viewChild.required(MatAccordion);
+  
   constructor(
     private tagService: TagService
   ) { 
