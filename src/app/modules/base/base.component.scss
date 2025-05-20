@@ -72,24 +72,9 @@
 
     .base-elementCategory-wrapper {
       position: relative;
-
-      &:hover {
-        &:after {
-          content: "";
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 5px 5px 0 5px;
-          border-color: $base-blue-dark transparent transparent transparent;
-        }
-      }
     }
 
     select {
-      appearance: none;
       color: $base-blue-dark;
 
       option {
@@ -765,4 +750,20 @@
 
 mat-icon {
   transform: scale(0.8);
+}
+
+
+.flex-container {
+  display: flex; /* Makes the span a flex container */
+  align-items: center; /* Vertically aligns items in the middle */
+}
+
+/* Optional: Adjust input width if needed */
+.flex-container input {
+  flex-grow: 1; /* Allows the input to take up available space */
+}
+
+.add-category-link {
+  display: flex;
+  align-items: center;
 }

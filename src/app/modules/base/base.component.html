@@ -342,9 +342,27 @@
                                 <option value="{{ category }}">{{category}}
                                 </option>
                             }
+                            <option value="new_category">{{ "knowledge.new_category" | translate }}</option>
                         </select>
                     </div>
                 </div>
+
+                @if(entryForm.get('category')?.value == "new_category"){
+                <span class="flex-container">
+                    <a class="add-category-link" href="javascript:void(0)" (click)="addCategory(newCategoryValue)">
+                        <mat-icon class="add-category-icon">add_box</mat-icon>
+                    </a>
+                    <input class="new-category-input" 
+                    [(ngModel)]="newCategoryValue"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text" 
+                    [placeholder]="'knowledge.enter_a_category' | translate" name="new_category" 
+                    (keyup.enter)="addCategory(newCategoryValue)"
+                    />     
+                </span>
+                }
+               
+                
                 @switch (base.category) {
                 @case('cookie'){
                 <label for="domain">{{ "knowledge.domain" | translate }}:</label>
@@ -393,7 +411,7 @@
                 </div>
                 <!-- Submit button (new element) -->
                 @if(editMode === 'new'){
-                <button type="submit" [disabled]="entryForm.invalid" class="btn btn-red" id="structure-save-card-btn"
+                <button type="submit" [disabled]="entryForm.invalid || entryForm.get('category')?.value == 'new_category'" class="btn btn-red" id="structure-save-card-btn"
                     title="{{ 'knowledge.new_entry' | translate }}">
                     {{ "knowledge.new_entry" | translate }}
                 </button>

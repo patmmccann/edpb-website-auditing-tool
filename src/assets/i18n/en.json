@@ -154,6 +154,7 @@
             "could_match_tooltip": "The key or the script used by this local storage entries matches entries in the knowledge base."
         },
         "new_entry": "Create a new entry",
+        "new_category": "Create a category",
         "new_knowledge": "New knowledge base",
         "update_knowledge": "Update this database",
         "domain": "Domain",
@@ -177,6 +178,7 @@
         "add_this_item": "Add this item to a knowledge base",
         "select_a_knowledge_base": "Select a knowledge base",
         "select_a_category": "Select a category",
+        "enter_a_category": "Enter a category name",
         "reference_type": "Reference type",
         "trust_level": "Level of trust",
         "used_knowledge": "In use ?",

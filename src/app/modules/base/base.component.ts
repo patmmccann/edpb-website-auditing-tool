@@ -42,6 +42,7 @@ export class BaseComponent implements OnInit {
   searchLocalStorageForm: FormGroup = new FormGroup({});
   updateKnowledges: CookieKnowledge[] = [];
   showModal = false;
+  newCategoryValue : string = "";
 
   updateForm: FormGroup = new FormGroup({
     import_file: new FormControl('', [])
@@ -173,7 +174,9 @@ export class BaseComponent implements OnInit {
             cookieKnowledge.source = this.entryForm.value.source;
             cookieKnowledge.controller = this.entryForm.value.controller;
             cookieKnowledge.policy = this.entryForm.value.policy;
-            cookieKnowledge.category = this.entryForm.value.category;
+            if (this.entryForm.value.category != 'new_category'){
+              cookieKnowledge.category = this.entryForm.value.category;
+            }
             cookieKnowledge.reference = this.entryForm.value.reference;
             cookieKnowledge.comment = this.entryForm.value.comment;
             cookieKnowledge.knowledge_base_id = this.base.id;
@@ -185,7 +188,10 @@ export class BaseComponent implements OnInit {
             localStorageKnowledge.source = this.entryForm.value.source;
             localStorageKnowledge.controller = this.entryForm.value.controller;
             localStorageKnowledge.policy = this.entryForm.value.policy;
-            localStorageKnowledge.category = this.entryForm.value.category;
+            if (this.entryForm.value.category != 'new_category'){
+              localStorageKnowledge.category = this.entryForm.value.category;
+            }
+
             localStorageKnowledge.reference = this.entryForm.value.reference;
             localStorageKnowledge.comment = this.entryForm.value.comment;
             localStorageKnowledge.knowledge_base_id = this.base.id;
@@ -359,4 +365,20 @@ export class BaseComponent implements OnInit {
     }
   }
 
+  addCategory(name : string){
+    if (name.trim().length == 0){
+      return;
+    }
+
+    if (!this.categories.some(category => category.toLowerCase() === name.toLowerCase())) {
+      this.categories.push(name);
+      this.entryForm.get('category')?.setValue(name);
+    }else{
+        const foundCategory = this.categories.find(
+          category => category.toLowerCase() === name.toLowerCase()
+        );
+        this.entryForm.get('category')?.setValue(foundCategory);
+    }
+      this.newCategoryValue = "";
+  }
 }
