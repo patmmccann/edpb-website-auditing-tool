@@ -19,9 +19,18 @@
 }
 
 .undefined{
-  color: $base-gray-light;
+  color: black;
 }
 
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.panel-title-text {
+  display: inline-block;
+  font-size: 1rem; /* h3-ish */
+  font-weight: 600;
+}
 
 .base-knowledges_base {
   &-form,
