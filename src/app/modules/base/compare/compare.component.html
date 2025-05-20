@@ -214,9 +214,22 @@
     @if(!showModal){
     <mat-card-actions>
         <span class="spacer"></span>
-        @if(to_remove.length != 0 && to_add.length != 0){
+        @if(to_remove.length != 0 || to_add.length != 0){
         <button mat-button (click)="applyAll()"> {{ "compare.apply_all" | translate }}
         </button>
+        @if(to_remove.length != 0 && to_add.length != 0){
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Selected apply">
+            <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="applyAddAll()">
+                {{ "compare.apply_only" | translate }} {{ "compare.new_elements" | translate }} ({{to_add.length}}) 
+            </button>
+            <button mat-menu-item (click)="applyDeleteAll()">
+               {{ "compare.apply_only" | translate }}  {{ "compare.deleted_elements" | translate }} ({{to_remove.length}}) 
+            </button>
+        </mat-menu>
+        }
         }
 
         <button mat-button (click)="closeEvent.emit()">{{ "compare.dismiss" | translate }}</button>

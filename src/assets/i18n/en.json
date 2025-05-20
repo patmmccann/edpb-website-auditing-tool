@@ -367,6 +367,7 @@
         "remove": "Remove?",
         "delete_from_database": "Delete from current database",
         "apply_all": "Apply all",
+        "apply_only": "Only ",
         "dismiss": "Dismiss"
     }
 }

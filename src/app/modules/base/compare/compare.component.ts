@@ -11,12 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-    selector: 'app-compare',
-    templateUrl: './compare.component.html',
-    styleUrls: ['./compare.component.scss'],
-    imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatCardActions, MatButtonModule, MatCardFooter, MatProgressBar, TranslateModule, MatIconModule]
+  selector: 'app-compare',
+  templateUrl: './compare.component.html',
+  styleUrls: ['./compare.component.scss'],
+  imports: [MatMenuModule, MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatAccordion, ModalComponent, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatCardActions, MatButtonModule, MatCardFooter, MatProgressBar, TranslateModule, MatIconModule]
 })
 export class CompareComponent implements OnInit {
   @Input() knowledgesService: KnowledgesService | null = null;
@@ -96,6 +97,18 @@ export class CompareComponent implements OnInit {
   }
 
   async applyAll() {
+    this.applyDeleteAll();
+    await this.applyAddAll();
+  }
+
+  async applyDeleteAll() {
+    this.to_remove.forEach(x => this.deleteEvent.emit(x.id));
+    this.to_remove = [];
+    this.refreshEvent.emit();    
+  }
+
+  async applyAddAll() {
+    this.showProgress = true;
     const promises = this.to_add.map((x, i) => {
       const elt = this.to_add[i];
       if (this.knowledgesService && this.base) {
@@ -103,12 +116,10 @@ export class CompareComponent implements OnInit {
       }
       return;
     });
-
-    this.to_remove.forEach(x => this.deleteEvent.emit(x.id));
+    
     await Promise.all(promises)
-    this.to_remove = [];
+    this.showProgress = false;
     this.to_add = [];
-
     this.refreshEvent.emit();
   }
 }
