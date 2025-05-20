@@ -150,13 +150,11 @@ export class KnowledgeBaseService extends ApplicationDb {
     return new Promise((resolve, reject) => {
       this.find(id).then((data: KnowledgeBase) => {
         const knowledgeService = data.category == 'cookie' ? this.cookieKnowledgesService : this.localstorageKnowledgeService;
-        knowledgeService.getEntries(id).then(knowledges => {
-          const delete_promises = knowledges.map((knowledge: any) => knowledgeService.delete(knowledge.id));
-          delete_promises.push(super.delete(id));
-          Promise.all(delete_promises)
-            .then(() => {
-              resolve(id);
-            })
+        knowledgeService.getEntries(id).then(async knowledges => {
+          const ids = knowledges.map((knowledge:any) => knowledge.id);
+          await knowledgeService.deleteAll(ids);
+          super.delete(id);
+          resolve(id);
         });
       });
     });
@@ -187,13 +185,13 @@ export class KnowledgeBaseService extends ApplicationDb {
           }
 
           newKnowledgeBase.id = resp.id;
-          for (const knowledge of data.knowledges) {
+          data.knowledges.forEach( (knowledge :any)=> {
             if (knowledge.id) delete knowledge.id;
-            await knowledgeService
-              .add(newKnowledgeBase.id, knowledge)
-              .then()
-              .catch();
-          }
+          });
+
+          await knowledgeService
+              .addAll(newKnowledgeBase.id, data.knowledges);
+
           resolve(newKnowledgeBase);
         })
         .catch(error => {

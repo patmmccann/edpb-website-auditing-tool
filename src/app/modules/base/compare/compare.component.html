@@ -238,7 +238,11 @@
 
     @if(showProgress){
     <mat-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar 
+        [mode]="mode"
+        [value]="progressValue"
+        [bufferValue]="progresComplete"    
+    ></mat-progress-bar>
     </mat-card-footer>
     }
 

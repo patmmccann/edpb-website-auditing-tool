@@ -51,11 +51,13 @@
                 <span class="nav-link text-uppercase is-active" matListItemTitle>{{ "menu.knowledge" | translate
                     }}</span>
             </mat-list-item>
-            <mat-list-item [routerLink]="['/entries', 'template']">
-                <mat-icon matListItemIcon>description</mat-icon>
-                <span [routerLink]="['/entries', 'template']" class="nav-link text-uppercase is-active">{{
-                    "menu.template" | translate }}</span>
-            </mat-list-item>
+            @if(browserService.use_electron){
+                <mat-list-item [routerLink]="['/entries', 'template']">
+                    <mat-icon matListItemIcon>description</mat-icon>
+                    <span [routerLink]="['/entries', 'template']" class="nav-link text-uppercase is-active">{{
+                        "menu.template" | translate }}</span>
+                </mat-list-item>
+            }
             <mat-list-item disabled>
                 <h3 matSubheader>{{ "menu.other" | translate }}</h3>
             </mat-list-item>

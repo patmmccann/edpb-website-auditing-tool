@@ -58,7 +58,7 @@
         <div class="small-9 medium-9 columns">
             <app-compare [knowledgesService]="KnowledgesService" [base]="base" [updateKnowledges]="updateKnowledges"
                 (closeEvent)="updateKnowledges = []" (refreshEvent)="refresh()"
-                (deleteEvent)="delete(cookieKnowledges[$event].id)">
+                (deleteEvent)="delete($event)">
             </app-compare>
         </div>
     </div>
@@ -173,7 +173,7 @@
                                                 {{ "entries.dupplicate" | translate }}
                                             </span>
                                         </a>
-                                        <a (click)="delete(item.id)" class="btn base-tooltip">
+                                        <a (click)="delete($index)" class="btn base-tooltip">
                                             <mat-icon>delete</mat-icon>
                                             <span title="Remove" class="base-tooltip-text">{{ "entries.remove" | translate
                                                 }}

@@ -46,6 +46,16 @@ export class KnowledgesService extends ApplicationDb {
     });
   }
 
+  async addAll(baseId: number, knowledges: Knowledge[]): Promise<Knowledge[]> {
+    this.knowledge_base_id = baseId;
+    const promises = knowledges.map(knowledge => this.add(baseId, knowledge));
+    return await Promise.all(promises);
+  }
+
+  async deleteAll(baseIds: number[]) {
+    baseIds.forEach(async baseId => await this.delete(baseId));
+  }
+
   /**
    * List all Knowledge by base id
    * @param baseId Id of base

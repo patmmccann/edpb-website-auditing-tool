@@ -27,11 +27,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-base',
-    templateUrl: './base.component.html',
-    styleUrls: ['./base.component.scss'],
-    providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
-    imports: [MatToolbar, MatToolbarRow, RouterLink, MatButtonModule, ModalComponent, CompareComponent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIconModule, MatSuffix, MatSelect, MatOption, MatSort, MatSortHeader, TranslateModule]
+  selector: 'app-base',
+  templateUrl: './base.component.html',
+  styleUrls: ['./base.component.scss'],
+  providers: [FilterCookieKnowledge, FilterLocalStorageKnowledge],
+  imports: [MatToolbar, MatToolbarRow, RouterLink, MatButtonModule, ModalComponent, CompareComponent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIconModule, MatSuffix, MatSelect, MatOption, MatSort, MatSortHeader, TranslateModule]
 })
 export class BaseComponent implements OnInit {
   base: KnowledgeBase = new KnowledgeBase(0, "", "", "", new Date(), 'undefined', true);
@@ -42,7 +42,7 @@ export class BaseComponent implements OnInit {
   searchLocalStorageForm: FormGroup = new FormGroup({});
   updateKnowledges: CookieKnowledge[] = [];
   showModal = false;
-  newCategoryValue : string = "";
+  newCategoryValue: string = "";
 
   updateForm: FormGroup = new FormGroup({
     import_file: new FormControl('', [])
@@ -142,19 +142,38 @@ export class BaseComponent implements OnInit {
       });
   }
 
-  delete(id: number): void {
-    this.KnowledgesService
-      .delete(id)
-      .then(() => {
-        const index = this.knowledges.findIndex(e => e.id === id);
-        if (index !== -1) {
-          this.knowledges.splice(index, 1);
-        }
-      })
-      .catch(() => {
-        console.log("Error! Can remove item from knowledge database.");
-        return;
-      });
+  delete(event: number | number[]): void {
+    if (Array.isArray(event)) {
+      const ids = event.map(id => this.cookieKnowledges[id].id);
+      this.KnowledgesService
+        .deleteAll(ids)
+        .then(() => {
+          ids.forEach(id => {
+            const index = this.knowledges.findIndex(e => e.id === id);
+            if (index !== -1) {
+              this.knowledges.splice(index, 1);
+            }
+          })
+        })
+        .catch(() => {
+          console.log("Error! Can remove item from knowledge database.");
+          return;
+        });
+    } else {
+      const id = this.cookieKnowledges[event].id
+      this.KnowledgesService
+        .delete(id)
+        .then(() => {
+          const index = this.knowledges.findIndex(e => e.id === id);
+          if (index !== -1) {
+            this.knowledges.splice(index, 1);
+          }
+        })
+        .catch(() => {
+          console.log("Error! Can remove item from knowledge database.");
+          return;
+        });
+    }
   }
 
   /**
@@ -174,7 +193,7 @@ export class BaseComponent implements OnInit {
             cookieKnowledge.source = this.entryForm.value.source;
             cookieKnowledge.controller = this.entryForm.value.controller;
             cookieKnowledge.policy = this.entryForm.value.policy;
-            if (this.entryForm.value.category != 'new_category'){
+            if (this.entryForm.value.category != 'new_category') {
               cookieKnowledge.category = this.entryForm.value.category;
             }
             cookieKnowledge.reference = this.entryForm.value.reference;
@@ -188,7 +207,7 @@ export class BaseComponent implements OnInit {
             localStorageKnowledge.source = this.entryForm.value.source;
             localStorageKnowledge.controller = this.entryForm.value.controller;
             localStorageKnowledge.policy = this.entryForm.value.policy;
-            if (this.entryForm.value.category != 'new_category'){
+            if (this.entryForm.value.category != 'new_category') {
               localStorageKnowledge.category = this.entryForm.value.category;
             }
 
@@ -365,20 +384,20 @@ export class BaseComponent implements OnInit {
     }
   }
 
-  addCategory(name : string){
-    if (name.trim().length == 0){
+  addCategory(name: string) {
+    if (name.trim().length == 0) {
       return;
     }
 
     if (!this.categories.some(category => category.toLowerCase() === name.toLowerCase())) {
       this.categories.push(name);
       this.entryForm.get('category')?.setValue(name);
-    }else{
-        const foundCategory = this.categories.find(
-          category => category.toLowerCase() === name.toLowerCase()
-        );
-        this.entryForm.get('category')?.setValue(foundCategory);
+    } else {
+      const foundCategory = this.categories.find(
+        category => category.toLowerCase() === name.toLowerCase()
+      );
+      this.entryForm.get('category')?.setValue(foundCategory);
     }
-      this.newCategoryValue = "";
+    this.newCategoryValue = "";
   }
 }

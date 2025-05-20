@@ -153,6 +153,7 @@ export class CookieKnowledgesService extends KnowledgesService {
         super
           .update(entry.id, entry)
           .then((result) => {
+            this.updateCache();
             resolve(result);
           })
           .catch(error => {
@@ -200,14 +201,46 @@ export class CookieKnowledgesService extends KnowledgesService {
     });
   }
 
-  override updateCache(){
+  override async delete(id: number) {
+      const res = super.delete(id);
+      this.updateCache();
+      return res;
+  }
+
+  override async add(baseId: number, knowledge: Knowledge): Promise<Knowledge> {
+      const res = await super.add(baseId, knowledge);
+      this.updateCache();
+      return res;
+  }
+
+  override async addAll(baseId: number, knowledges: Knowledge[], progress : number | null = null): Promise<Knowledge[]>  {
+    this.knowledge_base_id = baseId;
+    const res :Knowledge[] = [];
+    knowledges.forEach(async (knowledge, i)=>{
+      res.push(await super.add(baseId, knowledge));
+      if (progress)
+        progress++;
+    });
+    this.updateCache();
+    return res;
+  }
+
+  override async deleteAll(baseIds: number[], progress : number | null = null) {
+    const promises = baseIds.map(async baseId => super.delete(baseId));
+    await Promise.all(promises);
+    this.updateCache();
+  }
+
+  async updateCache(){
+    return new Promise((resolve, reject) => {
       this.entryCache.clear();
 
       super
       .findAll({ index: 'index_wildcard', value: 1 })
       .then((result: any) => {
         this.regexCache = result;
+        resolve(null);
       });
+    });
   }
-
 }

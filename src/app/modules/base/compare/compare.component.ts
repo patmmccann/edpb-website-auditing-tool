@@ -8,7 +8,7 @@ import { MatCard, MatCardHeader, MatCardSubtitle, MatCardContent, MatCardActions
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatProgressBar, ProgressBarMode } from '@angular/material/progress-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,7 +25,7 @@ export class CompareComponent implements OnInit {
   @Input() updateKnowledges: CookieKnowledge[] = [];
   @Output() closeEvent = new EventEmitter();
   @Output() refreshEvent = new EventEmitter();
-  @Output() deleteEvent = new EventEmitter<number>();
+  @Output() deleteEvent = new EventEmitter<number | number[] >();
 
 
 
@@ -35,6 +35,9 @@ export class CompareComponent implements OnInit {
   showProgress = true;
   showModal = false;
 
+  mode: ProgressBarMode = 'indeterminate';
+  progressValue = 0;
+  progresComplete = 0;
 
   constructor(
     private knowledgeBaseService: KnowledgeBaseService
@@ -102,22 +105,21 @@ export class CompareComponent implements OnInit {
   }
 
   async applyDeleteAll() {
-    this.to_remove.forEach(x => this.deleteEvent.emit(x.id));
+    const ids = this.to_remove.map(x => x.id);
+    this.deleteEvent.emit(ids);
     this.to_remove = [];
     this.refreshEvent.emit();    
   }
 
   async applyAddAll() {
     this.showProgress = true;
-    const promises = this.to_add.map((x, i) => {
-      const elt = this.to_add[i];
-      if (this.knowledgesService && this.base) {
-        return this.knowledgesService.add(this.base.id, elt);
-      }
-      return;
-    });
+    //this.mode = 'determinate';
+    //this.progresComplete = this.to_add.length;
     
-    await Promise.all(promises)
+    if (this.knowledgesService && this.base) {
+        await this.knowledgesService.addAll(this.base.id, this.to_add);
+    }
+
     this.showProgress = false;
     this.to_add = [];
     this.refreshEvent.emit();

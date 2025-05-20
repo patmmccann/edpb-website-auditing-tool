@@ -91,7 +91,6 @@ export class ApplicationDb {
 
     async create(data: any | FormData, prefix?: string, preformated?: FormData): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.updateCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     if ('id' in data) delete data.id;
@@ -182,7 +181,6 @@ export class ApplicationDb {
 
     async update(id: any, entry: any, prefix?: string | null, preformated?: FormData) {
         return new Promise((resolve, reject) => {
-            this.updateCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     const evt = this.objectStore.put(entry);
@@ -205,7 +203,6 @@ export class ApplicationDb {
  */
     async delete(id: number) {
         return new Promise((resolve, reject) => {
-            this.updateCache();
             this.getObjectStore().then(() => {
                 if (this.objectStore) {
                     const evt = this.objectStore.delete(id);
@@ -220,9 +217,5 @@ export class ApplicationDb {
             });
 
         });
-    }
-    
-    protected updateCache(){
-
     }
 }
