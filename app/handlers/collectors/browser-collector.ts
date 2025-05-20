@@ -91,9 +91,7 @@ export class BrowserCollector extends Collector {
 
         for (let kind of kinds) {
             const card = this._cards.find(x => x.name == kind);
-            if (!card) {
-                this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
-            } else {
+            if (card) {
                 await card.inspect(output);
             }
         }
@@ -105,9 +103,7 @@ export class BrowserCollector extends Collector {
     async launch(kinds) {
         for (let kind of kinds) {
             const card = this._cards.find(x => x.name == kind);
-            if (!card) {
-                this.logger.log("error", "A card has been called which has not been initialized", { type: "Browser.Error" })
-            } else {
+            if (card) {
                 return await card.launch();
             }
         }
