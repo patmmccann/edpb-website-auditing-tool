@@ -12,9 +12,8 @@ import { MaterialAllModule } from './material.module';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [AppComponent],
-    imports: [MaterialAllModule, RouterTestingModule, SharedModule]
-}).compileComponents();
+      imports: [MaterialAllModule, RouterTestingModule, SharedModule, AppComponent]
+    }).compileComponents();
   });
 
   it('should create the app', () => {
