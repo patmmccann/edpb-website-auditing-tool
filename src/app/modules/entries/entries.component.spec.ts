@@ -8,7 +8,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EntriesComponent } from './entries.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialAllModule } from 'src/app/material.module';
-import { EntriesModule } from './entries.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
@@ -16,7 +16,7 @@ describe('EntriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [MaterialAllModule, SharedModule, EntriesModule, EntriesComponent]
+    imports: [MaterialAllModule, RouterTestingModule, SharedModule, EntriesComponent]
 })
     .compileComponents();
 

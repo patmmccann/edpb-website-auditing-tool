@@ -6,7 +6,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolbarComponent } from './toolbar.component';
-import { ReportModule } from '../report.module';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -14,7 +13,7 @@ describe('ToolbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [ReportModule, ToolbarComponent]
+    imports: [ToolbarComponent]
 });
     fixture = TestBed.createComponent(ToolbarComponent);
     component = fixture.componentInstance;
