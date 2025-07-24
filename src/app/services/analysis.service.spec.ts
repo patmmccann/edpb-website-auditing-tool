@@ -17,6 +17,7 @@ describe('AnalysisService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AnalysisService);
+    spyOn(window, 'fetch').and.returnValue(Promise.resolve(new Response(new Blob(['data']))));
   });
 
   it('should be created', () => {

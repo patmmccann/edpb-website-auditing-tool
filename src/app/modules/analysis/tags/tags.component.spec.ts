@@ -7,6 +7,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagsComponent } from './tags.component';
 import { MaterialAllModule } from 'src/app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TagsComponent', () => {
   let component: TagsComponent;
@@ -14,8 +15,8 @@ describe('TagsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [MaterialAllModule, TagsComponent]
-})
+      imports: [MaterialAllModule, RouterTestingModule, TagsComponent]
+    })
     .compileComponents();
 
     fixture = TestBed.createComponent(TagsComponent);
