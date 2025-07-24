@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const got = require('got');
+const cheerio = require('cheerio');
 
 const inputFile = path.join(__dirname, '..', 'input_sites', 'sites.txt');
 const outputDir = path.join(__dirname, '..', 'output');
@@ -15,8 +16,15 @@ async function run() {
     try {
       const url = site.startsWith('http') ? site : `https://${site}`;
       const response = await got(url);
-      const fileName = url.replace(/[^a-zA-Z0-9.-]/g, '_') + '.html';
-      fs.writeFileSync(path.join(outputDir, fileName), response.body);
+      const $ = cheerio.load(response.body);
+      const report = {
+        url,
+        statusCode: response.statusCode,
+        title: $('title').text() || null,
+        scriptCount: $('script').length,
+      };
+      const fileName = url.replace(/[^a-zA-Z0-9.-]/g, '_') + '.json';
+      fs.writeFileSync(path.join(outputDir, fileName), JSON.stringify(report, null, 2));
     } catch (err) {
       console.error(`Failed to audit ${site}: ${err.message}`);
     }
