@@ -3,7 +3,6 @@ node_modules/
 .angular/
 dist/
 releases/
-package-lock.json
 .vscode/
 /test-results/
 /playwright-report/
