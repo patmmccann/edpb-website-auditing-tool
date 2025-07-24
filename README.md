@@ -89,3 +89,26 @@ Run `npm run e2e` to execute the end-to-end tests via a platform of your choice.
 ## Build and deploy from a server  (SaaS version)
 
 Run `npm run ng:serve` to test the project on your local server. Run `npm run build` to build the project and serve the build artifacts in the `dist/` directory from a webserver (Apache2 or Nginx) 
+
+## Cleaning old release binaries from Git history
+
+Historically the repository contained large installer files (`*.dmg`, `*.exe`,
+`*.asar`, …). They were removed from the current working tree but still remain in
+Git history. To reduce the repository size you can rewrite history with
+[git-filter-repo](https://github.com/newren/git-filter-repo) (requires Python):
+
+```bash
+pip install git-filter-repo
+git filter-repo --path releases --path release --path electron/releases --invert-paths --force
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+```
+
+After rewriting history you will need to force push the rewritten branches:
+
+```bash
+git push --force --all
+```
+
+Coordinate with collaborators before running this operation because it rewrites
+commit hashes.
