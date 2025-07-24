@@ -3,6 +3,10 @@ node_modules/
 .angular/
 dist/
 releases/
+release/
+.dmg
+.exe
+electron/releases/
 .vscode/
 /test-results/
 /playwright-report/
