@@ -46,6 +46,7 @@
     "@types/got": "^9.6.12",
     "@types/har-format": "^1.2.16",
     "angular-split": "^16.2.1",
+    "cheerio": "^1.1.2",
     "dotenv": "^16.5.0",
     "electron-is-dev": "^2.0.0",
     "electron-window-state": "^5.0.3",

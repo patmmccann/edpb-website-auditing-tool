@@ -112,3 +112,11 @@ git push --force --all
 
 Coordinate with collaborators before running this operation because it rewrites
 commit hashes.
+
+## Automated audits on GitHub
+
+The repository includes a workflow that audits websites listed in
+`input_sites/sites.txt`. When the workflow runs, it downloads each site and
+generates a JSON report containing basic metadata such as HTTP status code,
+page title and number of script tags. The reports are uploaded as a workflow
+artifact named `audit-results`.
