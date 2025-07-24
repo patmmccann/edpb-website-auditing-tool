@@ -22,7 +22,7 @@ jobs:
       - name: Run audit script
         run: node scripts/audit-sites.js
       - name: Upload results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: audit-results
           path: output
