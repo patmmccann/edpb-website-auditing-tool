@@ -123,6 +123,15 @@ export class BrowserSession {
 
     async create() {
         await this.collector.createCollector(this._view);
+        try {
+            this.contents.debugger.attach('1.3');
+            this.contents.debugger.sendCommand('Emulation.setTimezoneOverride', {
+                timezoneId: 'Europe/Paris'
+            });
+            this.contents.debugger.detach();
+        } catch (e) {
+            console.error('Failed to set timezone:', e);
+        }
     }
 
     delete() {
