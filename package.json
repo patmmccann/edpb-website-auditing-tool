@@ -86,7 +86,7 @@
     "@types/node": "^20.17.30",
     "electron": "^34.5.3",
     "electron-builder": "^24.13.3",
-    "electron-debug": "^3.2.0",
+    "electron-debug": "^4.1.0",
     "electron-notarize": "^1.2.2",
     "electron-playwright-helpers": "^1.7.1",
     "electron-reloader": "^1.2.3",
